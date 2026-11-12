@@ -370,7 +370,7 @@ def home():
 </section>
 """
     return page("/", "Badr Edge",
-                "Badr Edge: a working futures trader's desk, opened up. Free risk tools, plain-English guides and research on how trading ideas get tested.",
+                "Badr Edge: a working futures trader's desk, opened up. Free risk tools, guides and research on how trading ideas get tested.",
                 "/", body)
 
 
