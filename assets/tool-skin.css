@@ -1,0 +1,37 @@
+/* Badr Edge chrome for the standalone simulators. Loaded only on /tools/<name>/ pages. */
+/* ==========================================================================
+   Simulators: re-skin in the house palette. Their own logic and layout stay
+   untouched; only colour and type tokens are overridden in dark mode.
+   ========================================================================== */
+.be-bar {
+  position: sticky; top: 0; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  height: 56px; padding: 0 max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(7, 8, 10, .78); backdrop-filter: saturate(160%) blur(16px); -webkit-backdrop-filter: saturate(160%) blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, .075); font: 500 13px/1.2 "Inter Tight", system-ui, sans-serif;
+}
+.be-bar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent 5%, rgba(217, 180, 108, .5), transparent 95%); opacity: .5; }
+.be-bar a { color: #ece8df; text-decoration: none; }
+.be-bar .be-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.be-bar .be-brand span { color: #d9b46c; font-weight: 500; }
+.be-moon { width: 20px; height: 20px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 63% 60%, rgba(110,80,32,.34) 0 9%, transparent 10%), radial-gradient(circle at 40% 70%, rgba(110,80,32,.24) 0 6%, transparent 7%), radial-gradient(circle at 34% 30%, #fff3d6 0%, #ecd09a 22%, #d9b46c 52%, #9c7a3c 100%);
+  box-shadow: 0 0 0 1px rgba(255,236,196,.16) inset, 0 0 16px rgba(217,180,108,.45); }
+.be-bar .crumb { color: #5e636c; display: inline-flex; align-items: center; gap: 8px; }
+.be-bar .crumb a { color: #8f939b; } .be-bar .crumb a:hover { color: #f3deb0; }
+.be-bar .crumb b { color: #ece8df; font-weight: 500; }
+@media (max-width: 560px) { .be-bar .crumb { display: none; } }
+.be-mini-foot { max-width: 1320px; margin: 0 auto; padding: 22px max(16px, env(safe-area-inset-left, 0px)) 36px; border-top: 1px solid rgba(255, 255, 255, .075);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font: 400 12px/1.6 "Inter Tight", system-ui, sans-serif; color: #5e636c; }
+.be-mini-foot a { color: #8f939b; text-decoration: none; } .be-mini-foot a:hover { color: #f3deb0; }
+html.be-tool[data-theme="dark"]:root {
+  --bg: #07080a; --surface: #0f1013; --sunken: #0b0c0f; --sunk: #0b0c0f;
+  --ink: #ece8df; --muted: #8f939b; --line: #1f2228;
+  --accent: #d9b46c; --accent-soft: rgba(217, 180, 108, .13);
+  --gold: #d9b46c; --gold-line: #c9a35c; --gold-soft: rgba(217, 180, 108, .14);
+  --font-display: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --font-body: "Inter Tight", "IBM Plex Sans", system-ui, sans-serif;
+  --f-display: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --f-body: "Inter Tight", "Archivo", system-ui, sans-serif;
+}
+html.be-tool[data-theme="dark"] body { background: #07080a; }
+@media print { .be-bar, .be-mini-foot { display: none !important; } }

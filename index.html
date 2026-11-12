@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Badr Edge</title>
 <meta name="description" content="Free prop-firm simulators and plain-English guides for futures traders: pass odds, payouts and contract sizing under trailing drawdown rules.">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -15,12 +15,15 @@
 <meta property="og:url" content="https://badredge.com/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/">Guides</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
   </div>
@@ -30,29 +33,35 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="eyebrow">Tools &amp; research for futures traders</span>
+      <a class="hero-pill" href="/tools/"><b>Free</b>Three simulators &middot; no sign-up &middot; runs in your browser</a>
       <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
       <p class="lede">Free simulators built by a working futures trader. Model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/tools/">Open the free tools</a>
         <a class="btn" href="/guides/">Read the guides</a>
       </div>
-      <p class="muted small">No sign-up. Runs in your browser. Your trade files never leave your device.</p>
+      <div class="hero-meta"><span>Monte Carlo engine</span><span>TradingView CSV import</span><span>Files never leave your device</span></div>
     </div>
-    <div class="viz reveal" aria-hidden="false">
-      <div class="viz-top"><span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
+    <div class="stage">
+    <div class="orbits" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div></div>
+    <div class="big-moon" aria-hidden="true"></div>
+    <div class="viz reveal">
+      <div class="viz-top"><span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
       <svg viewBox="0 0 520 280" role="img" aria-label="Illustration: an account balance rising while its trailing loss floor follows it up and then locks at the starting balance">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af6a" stop-opacity=".28"/><stop offset="1" stop-color="#d4af6a" stop-opacity="0"/></linearGradient></defs>
-  <line x1="46" x2="508" y1="142.7" y2="142.7" stroke="#232831" stroke-dasharray="0"/><text x="40" y="146.7" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">start</text><line x1="46" x2="508" y1="239.5" y2="239.5" stroke="#232831" stroke-dasharray="3 4"/><text x="40" y="243.5" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">−$2,000</text><line x1="46" x2="508" y1="45.9" y2="45.9" stroke="#232831" stroke-dasharray="3 4"/><text x="40" y="49.9" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">+$2,000</text>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9b46c" stop-opacity=".28"/><stop offset="1" stop-color="#d9b46c" stop-opacity="0"/></linearGradient></defs>
+  <line x1="46" x2="508" y1="142.7" y2="142.7" stroke="rgba(255,255,255,.08)" stroke-dasharray="0"/><text x="40" y="146.7" text-anchor="end" fill="#5e636c" font-size="10" font-family="JetBrains Mono,ui-monospace,Menlo,monospace">start</text><line x1="46" x2="508" y1="239.5" y2="239.5" stroke="rgba(255,255,255,.08)" stroke-dasharray="3 4"/><text x="40" y="243.5" text-anchor="end" fill="#5e636c" font-size="10" font-family="JetBrains Mono,ui-monospace,Menlo,monospace">−$2,000</text><line x1="46" x2="508" y1="45.9" y2="45.9" stroke="rgba(255,255,255,.08)" stroke-dasharray="3 4"/><text x="40" y="49.9" text-anchor="end" fill="#5e636c" font-size="10" font-family="JetBrains Mono,ui-monospace,Menlo,monospace">+$2,000</text>
   <path d="M46.0,142.7 L59.6,134.0 L73.2,139.8 L86.8,127.2 L100.4,122.9 L113.9,133.0 L127.5,118.0 L141.1,122.4 L154.7,115.1 L168.3,103.5 L181.9,119.5 L195.5,113.7 L209.1,104.0 L222.6,106.9 L236.2,93.4 L249.8,100.6 L263.4,96.3 L277.0,80.3 L290.6,91.9 L304.2,84.2 L317.8,74.0 L331.4,79.3 L344.9,75.9 L358.5,63.4 L372.1,72.5 L385.7,65.8 L399.3,55.1 L412.9,59.0 L426.5,44.5 L440.1,57.5 L453.6,51.7 L467.2,42.5 L480.8,38.7 L494.4,45.0 L508.0,33.4 L508.0,254.0 L46.0,254.0 Z" fill="url(#g)"/>
   <path d="M46.0,239.5 L59.6,230.8 L73.2,230.8 L86.8,224.0 L100.4,219.6 L113.9,219.6 L127.5,214.8 L141.1,214.8 L154.7,211.9 L168.3,200.3 L181.9,200.3 L195.5,200.3 L209.1,200.3 L222.6,200.3 L236.2,190.1 L249.8,190.1 L263.4,190.1 L277.0,177.1 L290.6,177.1 L304.2,177.1 L317.8,170.8 L331.4,170.8 L344.9,170.8 L358.5,160.1 L372.1,160.1 L385.7,160.1 L399.3,151.9 L412.9,151.9 L426.5,142.7 L440.1,142.7 L453.6,142.7 L467.2,142.7 L480.8,142.7 L494.4,142.7 L508.0,142.7" fill="none" stroke="#e07a6c" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M46.0,142.7 L59.6,134.0 L73.2,139.8 L86.8,127.2 L100.4,122.9 L113.9,133.0 L127.5,118.0 L141.1,122.4 L154.7,115.1 L168.3,103.5 L181.9,119.5 L195.5,113.7 L209.1,104.0 L222.6,106.9 L236.2,93.4 L249.8,100.6 L263.4,96.3 L277.0,80.3 L290.6,91.9 L304.2,84.2 L317.8,74.0 L331.4,79.3 L344.9,75.9 L358.5,63.4 L372.1,72.5 L385.7,65.8 L399.3,55.1 L412.9,59.0 L426.5,44.5 L440.1,57.5 L453.6,51.7 L467.2,42.5 L480.8,38.7 L494.4,45.0 L508.0,33.4" fill="none" stroke="#d4af6a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle cx="508.0" cy="33.4" r="4" fill="#f3dcaa"/>
+  <path d="M46.0,142.7 L59.6,134.0 L73.2,139.8 L86.8,127.2 L100.4,122.9 L113.9,133.0 L127.5,118.0 L141.1,122.4 L154.7,115.1 L168.3,103.5 L181.9,119.5 L195.5,113.7 L209.1,104.0 L222.6,106.9 L236.2,93.4 L249.8,100.6 L263.4,96.3 L277.0,80.3 L290.6,91.9 L304.2,84.2 L317.8,74.0 L331.4,79.3 L344.9,75.9 L358.5,63.4 L372.1,72.5 L385.7,65.8 L399.3,55.1 L412.9,59.0 L426.5,44.5 L440.1,57.5 L453.6,51.7 L467.2,42.5 L480.8,38.7 L494.4,45.0 L508.0,33.4" fill="none" stroke="#d9b46c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="508.0" cy="33.4" r="4" fill="#f3deb0"/>
 </svg>
-      <div class="viz-legend"><span style="--c:#d4af6a">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+      <div class="viz-legend"><span style="--c:#d9b46c">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+    </div>
     </div>
   </div>
 </section>
+
+<div class="strip" aria-hidden="true"><div class="strip-track"><span>Evaluation odds</span><span>Trailing drawdown</span><span>Daily loss limits</span><span>Payout buffers</span><span>Profit splits</span><span>Micro vs mini sizing</span><span>Consistency rules</span><span>Risk of ruin</span><span>Evaluation odds</span><span>Trailing drawdown</span><span>Daily loss limits</span><span>Payout buffers</span><span>Profit splits</span><span>Micro vs mini sizing</span><span>Consistency rules</span><span>Risk of ruin</span></div></div>
 
 <section class="band" id="tools">
   <div class="wrap">
@@ -203,14 +212,15 @@ inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.pe
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
-        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
-        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+        <p class="foot-about">Free risk tools and plain-English guides for futures traders working through prop-firm accounts. Process first, always.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
       </div>
       <div><h4>Tools</h4><ul>
         <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
         <li><a href="/tools/payout/">Payout Simulator</a></li>
         <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
       </ul></div>
       <div><h4>Learn</h4><ul>
         <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
@@ -226,8 +236,12 @@ inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.pe
       </ul></div>
     </div>
     <div class="foot-legal">
-      <p>Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
-      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; 2026 Badr Edge.</p>
+      <p><strong>Educational only.</strong> Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; 2026 Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
+      <div class="powered"><span class="live" aria-hidden="true"></span><span>Powered by <b>Cloudflare</b></span><span class="sep"></span><span>v1.0 · November 2026</span></div>
     </div>
   </div>
 </footer>
@@ -235,6 +249,10 @@ inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.pe
 (() => {
   const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
   if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  document.querySelectorAll('a.card').forEach(c => c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
   const els = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
