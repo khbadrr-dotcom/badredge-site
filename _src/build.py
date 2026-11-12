@@ -106,7 +106,7 @@ def footer():
     </div>
     <div class="foot-bar">
       <div>&copy; {YEAR} Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
-      <div class="powered"><span class="live" aria-hidden="true"></span><span>Powered by <b>Cloudflare</b></span><span class="sep"></span><span>v1.0 · {UPDATED}</span></div>
+      <div class="powered"><span class="live" aria-hidden="true"></span><span>v1.0 · {UPDATED}</span></div>
     </div>
   </div>
 </footer>
