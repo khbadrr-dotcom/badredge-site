@@ -1,0 +1,1902 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<a href="/" style="display:block;padding:10px 16px;font:600 13px/1.4 system-ui,-apple-system,sans-serif;background:#0b0d10;color:#d4af6a;text-decoration:none;border-bottom:1px solid #232831;letter-spacing:.02em">&#9679; Badr Edge <span style="color:#8c929c;font-weight:400">&nbsp;&larr; all free tools</span></a>
+<title>Contract Sizing Simulator · Badr Edge</title>
+<meta name="description" content="Free Contract Sizing Simulator for prop futures traders by Badr Edge. Educational planning tool, not financial advice.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* Layout: a control rail (strategy files, account rules, test settings) beside a results column that leads with "size today", then the short-term forecast, then sizing and per-strategy test cards; one column on phones. */
+:root{
+  --bg:#eceee9; --surface:#f8f9f6; --sunk:#e3e6e0; --ink:#1a1f1b; --muted:#59625b; --line:#d2d7cf;
+  --gold:#8d600c; --gold-line:#b07c1a; --gold-soft:rgba(176,124,26,.17);
+  --good:#2b7448; --bad:#ad3528; --warn:#8f5d00;
+  --good-bg:rgba(43,116,72,.12); --bad-bg:rgba(173,53,40,.11); --warn-bg:rgba(143,93,0,.13);
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111412; --surface:#191d1a; --sunk:#0d0f0e; --ink:#e6eae5; --muted:#949e96; --line:#2b312c;
+  --gold:#dcab4a; --gold-line:#d29d36; --gold-soft:rgba(214,160,58,.16);
+  --good:#62c38a; --bad:#ee7b6c; --warn:#e2a74a;
+  --good-bg:rgba(98,195,138,.13); --bad-bg:rgba(238,123,108,.13); --warn-bg:rgba(226,167,74,.14);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111412; --surface:#191d1a; --sunk:#0d0f0e; --ink:#e6eae5; --muted:#949e96; --line:#2b312c;
+  --gold:#dcab4a; --gold-line:#d29d36; --gold-soft:rgba(214,160,58,.16);
+  --good:#62c38a; --bad:#ee7b6c; --warn:#e2a74a;
+  --good-bg:rgba(98,195,138,.13); --bad-bg:rgba(238,123,108,.13); --warn-bg:rgba(226,167,74,.14);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+h1{font-family:var(--f-display);font-stretch:72%;font-weight:780;font-size:clamp(28px,4.4vw,42px);line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.lede{margin:8px 0 0;color:var(--muted);max-width:62ch}
+h2{font-family:var(--f-display);font-stretch:80%;font-weight:700;font-size:19px;margin:0;letter-spacing:.005em}
+h3{font-family:var(--f-display);font-stretch:85%;font-weight:700;font-size:17px;margin:0}
+h4{font-size:12px;font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.num,.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:920px){.grid{grid-template-columns:minmax(0,1fr)}}
+.rail,.main{display:flex;flex-direction:column;gap:16px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.full{grid-column:1/-1}
+label,.lbl{font-size:12.5px;font-weight:600;color:var(--muted)}
+.hint{font-size:12px;color:var(--muted);line-height:1.45}
+input[type=number],input[type=text],select{font:inherit;font-family:var(--f-mono);font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%;min-width:0}
+input[type=text]{font-family:var(--f-body);font-weight:600}
+select{font-family:var(--f-body)}
+input:focus-visible,select:focus-visible,button:focus-visible,tr:focus-visible,.drop:focus-within{outline:2px solid var(--gold-line);outline-offset:1px}
+.check{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--ink);font-weight:500}
+.check input{margin-top:3px;accent-color:var(--gold-line);width:16px;height:16px;flex:none}
+button{font:inherit;font-weight:650;font-size:14px;border-radius:6px;padding:8px 13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--gold-line)}
+button.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+button.primary:hover{opacity:.88}
+button.ghost{background:transparent;border-color:transparent;color:var(--muted);padding:4px 8px;font-size:13px}
+button.ghost:hover{color:var(--bad);border-color:transparent}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border:none;border-radius:0;padding:6px 11px;font-size:13px;background:var(--bg);color:var(--muted)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--ink);color:var(--surface)}
+.actions select{width:auto;font-size:13px;padding:6px 8px}
+.drop{border:1.5px dashed var(--line);border-radius:8px;padding:18px 14px;text-align:center;background:var(--bg);cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center;position:relative}
+.drop.over{border-color:var(--gold-line);background:var(--gold-soft)}
+.drop strong{font-size:14.5px}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.strats{display:flex;flex-direction:column;gap:10px}
+.strat{border:1px solid var(--line);border-radius:7px;padding:10px 10px 10px 12px;display:flex;flex-direction:column;gap:7px;background:var(--bg)}
+.strat-top{display:flex;gap:6px;align-items:center}
+.strat-top input{flex:1;background:transparent;border-color:transparent;padding:4px 6px;margin-left:-6px}
+.strat-top input:hover{border-color:var(--line)}
+.strat .meta{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
+.strat-row{display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:6px}
+.strat select,.strat-row input{font-size:13px;padding:5px 8px}
+.strat-row input{font-family:var(--f-mono);text-transform:uppercase}
+.banner{font-size:13px;padding:9px 11px;border-radius:6px;background:var(--warn-bg);color:var(--ink)}
+.banner b{color:var(--warn)}
+.err{font-size:13px;color:var(--bad);background:var(--bad-bg);padding:8px 10px;border-radius:6px}
+.status{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-height:18px}
+.status.busy::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold-line);margin-right:8px;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.status.busy::before{animation:none}}
+
+/* Size today */
+.today{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.today .lbl,.today label,.today .hint,.today .eyebrow{color:color-mix(in srgb,var(--surface) 68%,transparent)}
+.today input[type=number]{background:color-mix(in srgb,var(--surface) 10%,var(--ink));color:var(--surface);border-color:color-mix(in srgb,var(--surface) 22%,transparent)}
+.today button{background:transparent;color:var(--surface);border-color:color-mix(in srgb,var(--surface) 30%,transparent)}
+.today button:hover{border-color:var(--gold-line)}
+.today-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end}
+@media (max-width:560px){.today-row{grid-template-columns:1fr 1fr}.today-row .bufbox{grid-column:1/-1}}
+.bufbox{display:flex;flex-direction:column;gap:2px}
+.bufbig{font-family:var(--f-mono);font-size:26px;font-weight:600;line-height:1.1;color:var(--gold-line)}
+.meter{height:8px;border-radius:4px;background:color-mix(in srgb,var(--surface) 14%,transparent);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--gold-line)}
+.sizes-now{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.sz{border:1px solid color-mix(in srgb,var(--surface) 18%,transparent);border-radius:6px;padding:9px 11px;display:flex;justify-content:space-between;gap:10px;align-items:center;min-width:0}
+.sz .nm{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.sz .ct{font-family:var(--f-mono);font-size:20px;font-weight:600;white-space:nowrap}
+.sz .ct small{font-size:11px;font-weight:400;opacity:.7;margin-left:3px}
+
+/* Tables */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-size:11px;font-family:var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.r,th.r{text-align:right}
+td .sub{display:block;font-size:11.5px;color:var(--muted);font-family:var(--f-mono);font-weight:400}
+td.wrap{white-space:normal;min-width:180px}
+tr.grp td{font-size:11px;font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:12px 10px 4px;border-bottom:1px solid var(--line)}
+tr.pick{cursor:pointer}
+tr.pick:hover td{background:var(--gold-soft)}
+tr.pick.sel td{background:var(--gold-soft)}
+tr.pick.sel td:first-child{box-shadow:inset 3px 0 0 var(--gold-line)}
+.big{font-family:var(--f-mono);font-size:18px;font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:650;padding:3px 8px;border-radius:999px;white-space:nowrap;font-family:var(--f-body)}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.good{color:var(--good);background:var(--good-bg)}
+.pill.bad{color:var(--bad);background:var(--bad-bg)}
+.pill.warn{color:var(--warn);background:var(--warn-bg)}
+.tone-good{color:var(--good)}.tone-bad{color:var(--bad)}.tone-warn{color:var(--warn)}
+.range{display:inline-block;position:relative;width:110px;height:8px;border-radius:4px;background:var(--sunk);vertical-align:middle;margin-left:8px}
+.range i{position:absolute;top:0;bottom:0;border-radius:4px;background:var(--gold-line);opacity:.55}
+.range b{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink)}
+.range u{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--muted);text-decoration:none}
+
+.cards{display:flex;flex-direction:column;gap:16px}
+.card-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px}
+@media (max-width:760px){.card-grid{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.chart{width:100%;height:200px;display:block}
+.chart.tall{height:230px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px 16px}
+.stat .v{font-family:var(--f-mono);font-size:15px;font-weight:600}
+.stat .k{font-size:11.5px;color:var(--muted)}
+.ladder td{padding:6px 8px}.ladder th{padding:5px 8px}
+.ladder tr.now td{background:var(--gold-soft)}
+.tests td{padding:8px 8px}.tests th{padding:5px 8px}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:640px){.duo{grid-template-columns:minmax(0,1fr)}}
+.box{border:1px solid var(--line);border-radius:7px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;background:var(--bg);min-width:0}
+.box-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.bignum{font-family:var(--f-mono);font-size:30px;font-weight:600;line-height:1}
+.reasons{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.reasons .row{display:grid;grid-template-columns:minmax(0,1fr) 46px 120px;gap:10px;align-items:center}
+.reasons .bar{height:6px;border-radius:3px;background:var(--sunk);overflow:hidden}
+.reasons .bar i{display:block;height:100%;background:var(--bad);opacity:.7}
+.fix{font-size:13px;padding:8px 11px;border-radius:6px;background:var(--bad-bg)}
+.pf{border:1.5px solid var(--gold-line)}
+.pf-body{display:flex;flex-direction:column;gap:14px;min-width:0}
+.verdict{display:flex;gap:8px 16px;align-items:center;flex-wrap:wrap;padding:12px 14px;border-radius:7px}
+.verdict .vk{font-family:var(--f-display);font-stretch:72%;font-weight:800;font-size:30px;line-height:1;letter-spacing:.01em}
+.verdict .vw{font-size:14px;max-width:70ch}
+.verdict.good{background:var(--good-bg)}.verdict.good .vk{color:var(--good)}
+.verdict.warn{background:var(--warn-bg)}.verdict.warn .vk{color:var(--warn)}
+.verdict.bad{background:var(--bad-bg)}.verdict.bad .vk{color:var(--bad)}
+.ins{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.ins li{font-size:13.5px;padding:8px 11px;border-radius:6px;background:var(--bg);border:1px solid var(--line);max-width:90ch}
+.ins li.bad{border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.ins li.warn{border-color:color-mix(in srgb,var(--warn) 45%,var(--line))}
+.ins li.good{border-color:color-mix(in srgb,var(--good) 45%,var(--line))}
+.corr th,.corr td{text-align:center;padding:6px 8px;font-family:var(--f-mono);font-size:12px}
+.corr th:first-child,.corr td:first-child{text-align:left;font-family:var(--f-body);font-size:12.5px}
+.note{font-size:13px;color:var(--muted)}
+.note p{margin:0 0 8px;max-width:78ch}
+.empty{padding:28px 16px;text-align:center;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Prop account · trailing max loss</div>
+      <h1>Contract Sizing Simulator</h1>
+      <p class="lede" id="lede">Finds the contract size for each strategy that keeps the trailing $2,000 max loss safe, scales it up as your profit buffer grows, and forecasts the next few weeks.</p>
+    </div>
+    <div class="actions">
+      <button class="primary" id="btn-run" type="button">Run simulation</button>
+      <button id="btn-reset" type="button">Reset simulation</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <aside class="rail">
+      <section class="panel" aria-labelledby="h-strats">
+        <div class="panel-head"><h2 id="h-strats">Strategies</h2><button class="ghost" id="btn-clear" type="button">Clear all</button></div>
+        <label class="drop" id="drop" for="file">
+          <input type="file" id="file" multiple accept=".csv,.xlsx,.xls,.txt">
+          <strong>Choose or drop trade lists</strong>
+          <span class="hint">Select several files at once · .csv or .xlsx · Strategy Tester → List of trades → Export</span>
+        </label>
+        <div id="file-errors"></div>
+        <div id="example-banner" class="banner" hidden><b>Example data.</b> These strategies are made up so you can see how it works. Upload your trade lists and they replace the examples, or press Clear all.</div>
+        <div class="strats" id="strats"></div>
+        <datalist id="mk-list"><option value="MGC"><option value="GC"><option value="MES"><option value="ES"><option value="MNQ"><option value="NQ"><option value="MYM"><option value="YM"><option value="M2K"><option value="MCL"><option value="SIL"></datalist>
+      </section>
+
+      <section class="panel" aria-labelledby="h-rules">
+        <h2 id="h-rules">Account rules</h2>
+        <div class="fields">
+          <div class="field"><label for="s-start">Starting balance</label><input type="number" id="s-start" step="1000" min="1000"></div>
+          <div class="field"><label for="s-loss">Max loss</label><input type="number" id="s-loss" step="100" min="100"></div>
+          <div class="field full"><label for="s-lock">Floor stops trailing at start balance +</label><input type="number" id="s-lock" step="50"><span class="hint">0 means the floor locks at your starting balance once you are up the full max loss.</span></div>
+          <div class="field full"><label for="s-trail">Floor moves up on</label>
+            <select id="s-trail"><option value="trade">Every closed trade (stricter)</option><option value="eod">End-of-day balance</option></select></div>
+          <div class="field full"><label class="check"><input type="checkbox" id="s-mae"> Count open drawdown inside each trade against the floor</label></div>
+          <div class="field"><label for="s-dll">Daily loss limit</label><input type="number" id="s-dll" step="100" min="0"><span class="hint">0 = off</span></div>
+          <div class="field"><label for="s-dlla">If daily limit hit</label><select id="s-dlla"><option value="stop">Stop for the day</option><option value="fail">Fail the account</option></select></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-test">
+        <h2 id="h-test">Test settings</h2>
+        <div class="fields">
+          <div class="field"><label for="s-alpha">Max breach chance %</label><input type="number" id="s-alpha" step="0.5" min="0.5" max="50"></div>
+          <div class="field"><label for="s-maxc">Max contracts</label><input type="number" id="s-maxc" step="1" min="1" max="60"></div>
+          <div class="field full"><label for="s-basis">Size from</label>
+            <select id="s-basis"><option value="base">Reshuffled-days test</option><option value="strict">Strictest of the four tests</option></select>
+            <span class="hint">Strictest picks the ladder that passes all eight Monte Carlo tests at once.</span></div>
+          <div class="field"><label for="s-days">Trading days simulated</label><input type="number" id="s-days" step="10" min="10" max="1000"></div>
+          <div class="field"><label for="s-paths">Monte Carlo runs</label><input type="number" id="s-paths" step="500" min="200" max="10000"></div>
+          <div class="field full"><label for="s-recent">Recent regime window (trading days)</label><input type="number" id="s-recent" step="10" min="20" max="500"><span class="hint">Used by the recent-regime test, the regime check and the forecast.</span></div>
+          <div class="field full"><label for="s-slip">Slippage test (ticks per trade)</label><input type="number" id="s-slip" step="1" min="0" max="10"><span class="hint">Tick value comes from each strategy's market tag.</span></div>
+          <div class="field full"><label for="s-tmode">When profit reaches the target</label>
+            <select id="s-tmode">
+              <option value="keep">Keep trading, buffer keeps growing</option>
+              <option value="payout">Withdraw profit, buffer resets to max loss</option>
+              <option value="stop">Stop (evaluation passed)</option>
+            </select><span class="hint">The target is set under Prop checks.</span></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-prop">
+        <h2 id="h-prop">Prop checks</h2>
+        <h4>Evaluation</h4>
+        <div class="fields">
+          <div class="field"><label for="s-target">Profit target</label><input type="number" id="s-target" step="500" min="0"></div>
+          <div class="field"><label for="s-evcons">Best day max % of profit</label><input type="number" id="s-evcons" step="5" min="0" max="100"></div>
+          <div class="field"><label for="s-evmin">Min trading days</label><input type="number" id="s-evmin" step="1" min="0"></div>
+          <div class="field"><label for="s-evdays">Give up after (sessions)</label><input type="number" id="s-evdays" step="5" min="5" max="250"></div>
+        </div>
+        <h4>Payout (funded account)</h4>
+        <div class="fields">
+          <div class="field"><label for="s-pomin">Min trading days</label><input type="number" id="s-pomin" step="1" min="0"></div>
+          <div class="field"><label for="s-powins">Winning days needed</label><input type="number" id="s-powins" step="1" min="0"></div>
+          <div class="field"><label for="s-powinmin">Winning day at least</label><input type="number" id="s-powinmin" step="10" min="0"></div>
+          <div class="field"><label for="s-pobuf">Buffer above start</label><input type="number" id="s-pobuf" step="100" min="0"></div>
+          <div class="field"><label for="s-pocons">Best day max % of profit</label><input type="number" id="s-pocons" step="5" min="0" max="100"></div>
+          <div class="field"><label for="s-popct">Withdraw up to % of profit</label><input type="number" id="s-popct" step="5" min="1" max="100"></div>
+          <div class="field"><label for="s-pocap">Payout cap</label><input type="number" id="s-pocap" step="100" min="0"></div>
+          <div class="field"><label for="s-pominpay">Minimum payout</label><input type="number" id="s-pominpay" step="25" min="0"></div>
+          <div class="field full"><label for="s-podays">Give up after (sessions)</label><input type="number" id="s-podays" step="5" min="5" max="250"></div>
+        </div>
+        <p class="hint">0 turns a rule off; cap 0 means no cap. Both checks start a fresh account and trade the scaling ladder. Check your firm's current rules.</p>
+      </section>
+    </aside>
+
+    <main class="main">
+      <section class="panel today" aria-labelledby="h-today">
+        <div class="panel-head"><h2 id="h-today">Size today</h2><button id="btn-fresh" type="button">Reset to fresh account</button></div>
+        <div class="today-row">
+          <div class="field"><label for="a-bal">Current balance</label><input type="number" id="a-bal" step="50"></div>
+          <div class="field"><label for="a-peak" id="a-peak-lbl">Highest balance</label><input type="number" id="a-peak" step="50"></div>
+          <div class="bufbox"><span class="lbl">Buffer above the floor</span><span class="bufbig" id="a-buf">$2,000</span><span class="hint" id="a-floor"></span></div>
+        </div>
+        <div class="meter" aria-hidden="true"><i id="a-meter" style="width:20%"></i></div>
+        <div class="sizes-now" id="a-sizes"></div>
+      </section>
+
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+
+      <section class="panel pf" aria-labelledby="h-pf">
+        <div class="panel-head"><div><div class="eyebrow" id="pf-eyebrow">Final assessment · all trade files on one account</div><h2 id="h-pf">Portfolio assessment</h2></div><span id="pf-pill"></span></div>
+        <div id="pf-body" class="pf-body"><p class="hint">Run the simulation to assess all strategies together.</p></div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-fc">
+        <div class="panel-head">
+          <h2 id="h-fc">Short-term forecast</h2>
+          <div class="actions">
+            <div class="seg" role="group" aria-label="Forecast horizon" id="fc-h">
+              <button type="button" data-h="5">1 week</button><button type="button" data-h="10">2 weeks</button><button type="button" data-h="20">1 month</button>
+            </div>
+            <select id="fc-basis" aria-label="Forecast based on"><option value="recent">From recent regime</option><option value="all">From all history</option></select>
+          </div>
+        </div>
+        <p class="hint" id="fc-hint">Starts from the balance in Size today and trades the recommended ladder. Tap a row to chart it.</p>
+        <div class="tbl-wrap"><table id="fc-table"></table></div>
+        <div class="legend"><span><i style="background:var(--ink)"></i>Median</span><span><i style="background:var(--gold-line);opacity:.6;height:8px"></i>Middle half</span><span><i style="background:var(--gold-line);opacity:.25;height:8px"></i>8 in 10 runs</span><span><i style="background:var(--bad)"></i>Floor</span><span><i style="background:var(--good)"></i>Target</span></div>
+        <canvas class="chart tall" id="cv-fc" role="img" aria-label="Forecast fan chart"></canvas>
+        <div class="hint" id="fc-sel"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-sum">
+        <div class="panel-head"><h2 id="h-sum">Recommended sizing</h2><span class="hint" id="sum-hint"></span></div>
+        <div class="tbl-wrap"><table id="sum-table"></table></div>
+      </section>
+
+      <div class="cards" id="cards"></div>
+
+      <section class="panel note" aria-labelledby="h-how">
+        <h2 id="h-how">How it works</h2>
+        <div>
+          <p>Each trade's net P&amp;L and worst open drawdown are divided by the contracts it was tested with, so everything is per contract. Commissions in your export scale with size.</p>
+          <p>Every morning the simulator checks the buffer (balance minus the trailing floor) and trades one contract for each block of buffer, never less than one and never above the max. It searches for the smallest block, in $50 steps, that keeps the breach chance at or under your limit.</p>
+          <p>Eight Monte Carlo tests run that ladder: reshuffled days, whole real weeks (keeps losing streaks), only the recent regime window, the last 6 months weighted twice, losses 50% bigger, extra slippage, winners 10% smaller, and slippage plus smaller winners together. An out-of-sample test sizes the ladder on earlier months only and runs it on the last 4 months it never saw.</p>
+          <p>Five fixed checks use your real trades at the starting size: the historical order, your worst 10 days landing on day one, how many losing trades in a row breach the floor against your longest losing streak, the real max drawdown, and the worst day against half the max loss.</p>
+          <p>Prop checks start a fresh account on the same ladder. The evaluation needs the profit target with the best-day and minimum-day rules met. The payout check needs the minimum days, winning days, buffer and minimum payout, then keeps going until the cap. The daily loss limit applies to every simulation.</p>
+          <p>The portfolio assessment puts every ticked file on one account. It stretches all the ladders by one factor until the shared account meets the breach limit, then runs all 14 tests and both prop checks on that account. It also shows each strategy's real profit, drawdown and correlation with the others. The verdict is DEPLOY when every test passes. It is FORWARD TEST when the core tests (reshuffled days, historical order, unseen months) pass and at most 3 others fail, PAPER for anything weaker, and REJECT when even 1 contract each breaches or the account loses money.</p>
+          <p>The forecast samples days from the recent window (or all history) and starts from your current balance and peak. Markets group the strategies you tagged with the same symbol and trade them on one account. Regime compares the recent average day with the full history.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script id="app">
+/*ENGINE-START*/
+const DAY = 86400000;
+
+function parseNum(v){
+  if (v == null || v === '') return NaN;
+  if (typeof v === 'number') return v;
+  let s = String(v).trim().replace(/−/g, '-');
+  let neg = false;
+  if (/^\(.*\)$/.test(s)) { neg = true; s = s.slice(1, -1); }
+  s = s.replace(/[^0-9.\-eE]/g, '');
+  const n = parseFloat(s);
+  return neg ? -n : n;
+}
+
+// All times become "wall clock as UTC" milliseconds so day keys ignore time zones.
+function parseWhen(v){
+  if (v instanceof Date && !isNaN(v)) return Date.UTC(v.getFullYear(), v.getMonth(), v.getDate(), v.getHours(), v.getMinutes(), v.getSeconds());
+  if (typeof v === 'number' && isFinite(v)) {
+    if (v > 1e11) return v;
+    return Math.round((v - 25569) * DAY);
+  }
+  const s = String(v || '').trim();
+  let m = s.match(/(\d{4})-(\d{1,2})-(\d{1,2})(?:[ T](\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  if (m) return Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0));
+  m = s.match(/(\d{1,2})[\/.](\d{1,2})[\/.](\d{4})(?:[ ,T]+(\d{1,2}):(\d{2}))?/);
+  if (m) return Date.UTC(+m[3], +m[1] - 1, +m[2], +(m[4] || 0), +(m[5] || 0));
+  const d = new Date(s);
+  if (!isNaN(d)) return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes());
+  return NaN;
+}
+
+function parseCSV(text){
+  text = text.replace(/^﻿/, '');
+  const first = text.split(/\r?\n/, 1)[0] || '';
+  const cnt = ch => first.split(ch).length - 1;
+  const delim = cnt('\t') > cnt(',') && cnt('\t') > cnt(';') ? '\t' : (cnt(';') > cnt(',') ? ';' : ',');
+  const rows = []; let row = [], f = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === delim) { row.push(f); f = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(f); rows.push(row); row = []; f = '';
+    } else f += c;
+  }
+  if (f !== '' || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+
+function rowsToTrades(rows){
+  const str = c => String(c == null ? '' : c).replace(/^﻿/, '').trim();
+  // TradingView has used "P&L", "PnL" and "Profit" in its exports; match all of them.
+  const PNL = /p\s*&\s*l|\bpnl\b|^profit/i, TRADE = /trade\s*#|^trade\s*(no\.?|num|number|id)$/i;
+  let hi = rows.findIndex(r => r && r.some(c => TRADE.test(str(c))));
+  if (hi < 0) hi = rows.findIndex(r => r && r.some(c => /date/i.test(str(c))) && r.some(c => PNL.test(str(c))));
+  if (hi < 0) throw new Error('No trade list header found. Export from Strategy Tester → List of trades.');
+  const H = rows[hi].map(str);
+  const find = (re, not) => H.findIndex(h => re.test(h) && !(not && not.test(h)));
+  const cTrade = find(TRADE);
+  const cType = find(/^type$/i);
+  const cSignal = find(/^signal$/i);
+  // Date column: a header naming date/time whose values parse, else any column whose values parse as dates.
+  const sample = rows.slice(hi + 1, hi + 12).filter(r => r && r.length > 1);
+  const parses = i => i >= 0 && sample.length > 0 && sample.filter(r => isFinite(parseWhen(r[i])) && /\d{4}|\d{1,2}[\/.]\d{1,2}/.test(String(r[i] instanceof Date ? '2000' : r[i]))).length >= Math.ceil(sample.length / 2);
+  let cDate = H.findIndex((h, i) => /date|time/i.test(h) && parses(i));
+  if (cDate < 0) cDate = H.findIndex((h, i) => !/p\s*&\s*l|pnl|profit|price|size|qty|run-up|drawdown|excursion|commission|return|duration|trade/i.test(h) && parses(i));
+  const cQty = find(/contracts|qty|quantity|position size|^size/i, /%|value/i);
+  const notPnl = /%|cum|return|percent/i;
+  let cPnl = find(/^net\s*(p\s*&\s*l|pnl|profit)/i, notPnl);
+  if (cPnl < 0) cPnl = find(PNL, notPnl);
+  const cDD = find(/drawdown|adverse|mae/i, /%/);
+  if (cDate < 0 || cPnl < 0) throw new Error(`Couldn't find the ${cDate < 0 ? 'date' : 'net profit'} column. Columns found: ${H.filter(Boolean).slice(0, 12).join(', ')}`);
+  const byId = new Map(); const order = [];
+  for (let i = hi + 1; i < rows.length; i++) {
+    const r = rows[i]; if (!r || r.length < 2) continue;
+    const id = cTrade >= 0 ? str(r[cTrade]) : 'row' + i;
+    if (!id) continue;
+    const type = cType >= 0 ? str(r[cType]) : 'exit';
+    let t = byId.get(id);
+    if (!t) { t = { id }; byId.set(id, t); order.push(t); }
+    const isEntry = /entry/i.test(type);
+    const qty = cQty >= 0 ? Math.abs(parseNum(r[cQty])) : NaN;
+    const dd = cDD >= 0 ? Math.abs(parseNum(r[cDD])) : NaN;
+    const pnl = parseNum(r[cPnl]);
+    if (isEntry) {
+      if (!isFinite(t.qty) && isFinite(qty)) t.qty = qty;
+      if (!isFinite(t.dd) && isFinite(dd)) t.dd = dd;
+      if (isFinite(pnl)) t.pnlEntry = pnl;
+    } else {
+      t.exit = true;
+      t.when = parseWhen(r[cDate]);
+      if (isFinite(pnl)) t.pnl = pnl;
+      if (isFinite(qty)) t.qty = qty;
+      if (isFinite(dd)) t.dd = dd;
+      if (cSignal >= 0 && /^open$/i.test(str(r[cSignal]))) t.open = true;
+    }
+  }
+  const trades = []; const qtys = new Map();
+  for (const t of order) {
+    if (!t.exit || t.open) continue;
+    const pnl = isFinite(t.pnl) ? t.pnl : t.pnlEntry;
+    if (!isFinite(pnl) || !isFinite(t.when)) continue;
+    const q = isFinite(t.qty) && t.qty > 0 ? t.qty : 1;
+    qtys.set(q, (qtys.get(q) || 0) + 1);
+    const mae = isFinite(t.dd) ? t.dd / q : Math.max(0, -pnl / q);
+    trades.push([t.when, pnl / q, Math.max(mae, -pnl / q, 0)]);
+  }
+  if (!trades.length) throw new Error('No closed trades found in this file.');
+  trades.sort((a, b) => a[0] - b[0]);
+  let qty = 1, best = 0; for (const [q, n] of qtys) if (n > best) { best = n; qty = q; }
+  return { trades, qty };
+}
+
+function detectMarket(fn){
+  const s = String(fn).toUpperCase();
+  const m = s.match(/(?:^|[^A-Z0-9])(MGC|GC|SIL|SI|MES|ES|MNQ|NQ|MYM|YM|M2K|RTY|MCL|CL|NG|MHG|HG|ZB|ZN|M6E|6E|MBT|BTC|MET|ETH|XAUUSD|US30|NAS100|SPX500|EURUSD|GBPUSD)(?:\d+!|[FGHJKMNQUVXZ]\d{1,4})?(?=$|[^A-Z0-9])/);
+  return m ? m[1] : '';
+}
+
+// Flatten strategies into day-indexed typed arrays. Mon–Fri plus any day with trades.
+function buildData(strats){
+  const byDay = new Map(); let k0 = Infinity, k1 = -Infinity, total = 0;
+  strats.forEach((st, si) => {
+    const f = st.factor || 1;
+    for (const [t, p, m] of st.trades) {
+      const k = Math.floor(t / DAY);
+      let a = byDay.get(k); if (!a) byDay.set(k, a = []);
+      a.push([t, p * f, m * f, si]); total++;
+      if (k < k0) k0 = k; if (k > k1) k1 = k;
+    }
+  });
+  const keys = [];
+  for (let k = k0; k <= k1; k++) {
+    const wd = new Date(k * DAY).getUTCDay();
+    if (byDay.has(k) || (wd !== 0 && wd !== 6)) keys.push(k);
+  }
+  const ds = new Int32Array(keys.length + 1), tp = new Float64Array(total), tm = new Float64Array(total), ts = new Int16Array(total);
+  let j = 0;
+  keys.forEach((k, i) => {
+    ds[i] = j;
+    const a = byDay.get(k);
+    if (a) { a.sort((x, y) => x[0] - y[0]); for (const x of a) { tp[j] = x[1]; tm[j] = x[2]; ts[j] = x[3]; j++; } }
+  });
+  ds[keys.length] = j;
+  return { keys, ds, tp, tm, ts, nd: keys.length, ns: strats.length };
+}
+
+// Stress a day set: lossMul scales losses and open drawdown, winMul scales winners, slip[s] = $ per contract per trade.
+function transformData(D, o){
+  const lm = o.lossMul || 1, wm = o.winMul || 1, sl = o.slip;
+  const tp = new Float64Array(D.tp.length), tm = new Float64Array(D.tm.length);
+  for (let k = 0; k < tp.length; k++) {
+    const s = sl ? sl[D.ts[k]] || 0 : 0;
+    let p = D.tp[k];
+    p = p < 0 ? p * lm : p * wm;
+    p -= s;
+    tp[k] = p; tm[k] = Math.max(D.tm[k] * lm + s, -p, 0);
+  }
+  return { ...D, tp, tm };
+}
+
+// Real-trade stats. w[s] = contracts per strategy (default 1 each).
+function tradeStats(D, w){
+  let eq = 0, pk = 0, mdd = 0, run = 0, streak = 0, lossSum = 0, lossN = 0, worstDay = 0;
+  const daily = new Float64Array(D.nd);
+  for (let i = 0; i < D.nd; i++) {
+    let s = 0;
+    for (let k = D.ds[i]; k < D.ds[i + 1]; k++) {
+      const v = D.tp[k] * (w ? w[D.ts[k]] : 1); s += v; eq += v;
+      if (eq > pk) pk = eq; if (pk - eq > mdd) mdd = pk - eq;
+      if (v <= 0) { run++; if (run > streak) streak = run; if (v < 0) { lossSum -= v; lossN++; } } else run = 0;
+    }
+    daily[i] = s; if (s < worstDay) worstDay = s;
+  }
+  return { mdd, streak, avgLoss: lossN ? lossSum / lossN : 0, worstDay, daily, net: eq };
+}
+
+// Five fixed checks on the real trades at the starting sizes w.
+function fixedChecks(D, c, w, replayBreached){
+  const ts = tradeStats(D, w), w10 = worstWindow(ts.daily, 10);
+  const killN = ts.avgLoss > 0 ? Math.ceil(c.L / ts.avgLoss) : Infinity;
+  return { ts, list: [
+    { key: 'replay', pass: !replayBreached },
+    { key: 'worst10', v: w10, pass: -w10 < c.L },
+    { key: 'streak', killN, streak: ts.streak, avgLoss: ts.avgLoss, pass: killN > ts.streak },
+    { key: 'dd', v: ts.mdd, pass: ts.mdd < c.L },
+    { key: 'day', v: ts.worstDay, pass: ts.worstDay > -0.5 * c.L }
+  ] };
+}
+
+// The eight Monte Carlo test setups for a day set (one or many strategies).
+function testSet(D, strats, c, seed){
+  const P = c.P, H = c.H;
+  const recN = Math.max(5, Math.min(c.recent, D.nd));
+  const idxBase = makeIdx(D.nd, P, H, seed);
+  const slip = Float64Array.from(strats, s => s.slipVal || 0);
+  const cut = D.keys[D.nd - 1] - 182;
+  const slipDesc = strats.length === 1 ? `$${slip[0].toFixed(2)} more per contract on every trade` : `${c.slipTicks} tick more per contract on every trade, priced by each strategy's market`;
+  return { idxBase, tests: [
+    { key: 'base', name: 'Reshuffled days', desc: 'Your real trading days in random order', D, idx: idxBase },
+    { key: 'weeks', name: 'Whole weeks', desc: 'Real Monday–Friday weeks in order, so losing streaks stay intact', D, idx: makeWeekIdx(D, P, H, seed + 1) },
+    { key: 'recent', name: `Recent ${recN} days only`, desc: 'Samples only the latest regime', D, idx: makeIdx(D.nd, P, H, seed + 2, D.nd - recN) },
+    { key: 'weighted', name: 'Last 6 months weighted ×2', desc: 'Recent days drawn twice as often as older ones', D, idx: makeWeightedIdx(D, P, H, seed + 3, cut) },
+    { key: 'stress', name: 'Losses 50% bigger', desc: 'Every loss and open drawdown ×1.5', D: transformData(D, { lossMul: 1.5 }), idx: idxBase },
+    { key: 'slip', name: `+${c.slipTicks} tick slippage`, desc: slipDesc, D: transformData(D, { slip }), idx: idxBase },
+    { key: 'winners', name: 'Winners 10% smaller', desc: 'Every winning trade cut by 10%', D: transformData(D, { winMul: 0.9 }), idx: idxBase },
+    { key: 'both', name: 'Slippage + smaller winners', desc: 'The two tests above together', D: transformData(D, { winMul: 0.9, slip }), idx: idxBase }
+  ] };
+}
+
+function dailySums(D){ // per-contract (1 ct each strategy) P&L per day
+  const out = new Float64Array(D.nd);
+  for (let i = 0; i < D.nd; i++) { let s = 0; for (let k = D.ds[i]; k < D.ds[i + 1]; k++) s += D.tp[k]; out[i] = s; }
+  return out;
+}
+
+function rng(seed){
+  let a = seed >>> 0;
+  return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+function makeIdx(nd, P, H, seed, lo){
+  lo = lo || 0;
+  const r = rng(seed), n = nd - lo, idx = new Int32Array(P * H);
+  for (let i = 0; i < idx.length; i++) idx[i] = lo + Math.floor(r() * n);
+  return idx;
+}
+// Real calendar weeks (Monday-based), played in order, then the next random week.
+function makeWeekIdx(D, P, H, seed){
+  const weeks = []; let cur = null, wk = null;
+  D.keys.forEach((k, i) => { const w = Math.floor((k + 3) / 7); if (w !== wk) { cur = []; weeks.push(cur); wk = w; } cur.push(i); });
+  const r = rng(seed), idx = new Int32Array(P * H);
+  for (let p = 0; p < P; p++) {
+    let d = 0;
+    while (d < H) { const W = weeks[Math.floor(r() * weeks.length)]; for (let j = 0; j < W.length && d < H; j++, d++) idx[p * H + d] = W[j]; }
+  }
+  return idx;
+}
+// Days after cutKey are drawn twice as often.
+function makeWeightedIdx(D, P, H, seed, cutKey){
+  const cum = new Float64Array(D.nd); let t = 0;
+  for (let i = 0; i < D.nd; i++) { t += D.keys[i] > cutKey ? 2 : 1; cum[i] = t; }
+  const r = rng(seed), idx = new Int32Array(P * H);
+  for (let i = 0; i < idx.length; i++) {
+    const x = r() * t; let lo = 0, hi = D.nd - 1;
+    while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] > x) hi = m; else lo = m + 1; }
+    idx[i] = lo;
+  }
+  return idx;
+}
+
+const RES = { breach: false, passed: false, day: 0, profit: 0, payouts: 0, reason: '' };
+const NSCR = new Int32Array(64);
+const REASON_KEYS = ['bigday', 'giveback', 'streak', 'dll'];
+
+// One account path. B: per-strategy buffer per contract (Infinity = always 1). fixed: per-strategy fixed size.
+function runPath(D, idx, off, H, c, B, fixed, rec){
+  const S = c.S, L = c.L, lockLvl = S + c.lock, maxC = c.maxC, useMae = c.mae, perTrade = c.trail === 'trade';
+  const tgt = c.target > 0 ? c.target : 0, tmode = c.tmode, dll = c.dll > 0 ? c.dll : 0, dllFail = c.dllAction === 'fail';
+  let bal = S, peak = S, hiBal = S, floor = Math.min(S - L, lockLvl), payouts = 0, withdrawn = 0;
+  const n = NSCR, ns = D.ns;
+  RES.breach = false; RES.passed = false; RES.reason = '';
+  const end = (d, di, b, dayLoss, isDll, tot) => {
+    if (rec) rec.push({ k: D.keys[di], b: b - S, f: floor - S, n: tot, x: 1 });
+    RES.breach = true; RES.day = d + 1; RES.profit = b - S + withdrawn; RES.payouts = payouts;
+    RES.reason = isDll ? 'dll' : dayLoss <= -0.5 * L ? 'bigday' : hiBal > S ? 'giveback' : 'streak';
+    return RES;
+  };
+  for (let d = 0; d < H; d++) {
+    const di = idx ? idx[off + d] : d;
+    const buf = bal - floor; let tot = 0;
+    for (let s = 0; s < ns; s++) {
+      let v = fixed ? fixed[s] : Math.floor(buf / B[s] + 1e-9);
+      if (!(v >= 1)) v = 1; if (v > maxC) v = maxC;
+      n[s] = v; tot += v;
+    }
+    let dayPnl = 0;
+    for (let k = D.ds[di], e = D.ds[di + 1]; k < e; k++) {
+      const q = n[D.ts[k]];
+      if (useMae && bal - D.tm[k] * q <= floor) return end(d, di, floor, dayPnl - (bal - floor), false, tot);
+      const pp = D.tp[k] * q; bal += pp; dayPnl += pp;
+      if (bal <= floor) return end(d, di, bal, dayPnl, false, tot);
+      if (perTrade && bal > peak) { peak = bal; floor = Math.min(peak - L, lockLvl); }
+      if (dll && dayPnl <= -dll) { if (dllFail) return end(d, di, bal, dayPnl, true, tot); break; }
+    }
+    if (bal > hiBal) hiBal = bal;
+    if (!perTrade && bal > peak) { peak = bal; floor = Math.min(peak - L, lockLvl); }
+    if (rec) rec.push({ k: D.keys[di], b: bal - S, f: floor - S, n: tot, x: 0 });
+    if (tgt && bal - S >= tgt) {
+      if (tmode === 'stop') { RES.passed = true; RES.day = d + 1; RES.profit = bal - S; RES.payouts = 0; return RES; }
+      if (tmode === 'payout') {
+        payouts++; withdrawn += bal - S; bal = S; peak = S; hiBal = S; floor = Math.min(S - L, lockLvl);
+        if (rec) rec.push({ k: D.keys[di], b: 0, f: floor - S, n: tot, x: 2 });
+      }
+    }
+  }
+  RES.day = H; RES.profit = bal - S + withdrawn; RES.payouts = payouts;
+  return RES;
+}
+
+function mc(D, idx, P, H, c, B, fixed, limit){
+  let br = 0, pass = 0, pay = 0; const prof = limit == null ? new Float64Array(P) : null; const passDays = [];
+  const reasons = { bigday: 0, giveback: 0, streak: 0, dll: 0 };
+  for (let p = 0; p < P; p++) {
+    const r = runPath(D, idx, p * H, H, c, B, fixed, null);
+    if (r.breach) { br++; reasons[r.reason]++; if (limit != null && br > limit) return { rate: br / P, early: true }; }
+    if (r.passed) { pass++; passDays.push(r.day); }
+    pay += r.payouts;
+    if (prof) prof[p] = r.profit;
+  }
+  const out = { rate: br / P, br, reasons };
+  if (prof) {
+    prof.sort();
+    out.p10 = prof[Math.floor(P * 0.10)]; out.p50 = prof[Math.floor(P * 0.5)]; out.p90 = prof[Math.floor(P * 0.9)];
+    out.passRate = pass / P; out.payouts = pay / P;
+    passDays.sort((a, b) => a - b); out.passMedian = passDays.length ? passDays[Math.floor(passDays.length / 2)] : null;
+  }
+  return out;
+}
+
+// Smallest $50 block of buffer per contract that meets the breach limit for one test.
+// Progress hook: the background worker sets PROG to post status text.
+let PROG = null;
+function prog(t){ if (PROG) PROG(t); }
+
+// Smallest k in [lo, hi] that passes. Screens with a quick test (okS), then confirms with the full one (okF).
+function searchMin(okS, okF, lo, hi){
+  let a = lo, b = hi;
+  while (a < b) { const m = (a + b) >> 1; if (okS(m)) b = m; else a = m + 1; }
+  if (okF(a)) return a;
+  if (a >= hi) return Infinity;
+  let prev = a, step = 1, k;
+  for (;;) { k = Math.min(hi, prev + step); if (okF(k)) break; if (k >= hi) return Infinity; prev = k; step *= 2; }
+  let x = prev + 1, y = k;
+  while (x < y) { const m = (x + y) >> 1; if (okF(m)) y = m; else x = m + 1; }
+  return x;
+}
+
+function searchB(D, idx, P, H, c){
+  const a = c.alpha / 100, lim = Math.floor(a * P + 1e-9), Ps = Math.min(P, 500), limS = Math.floor(a * Ps + 1e-9);
+  const at1 = mc(D, idx, P, H, c, null, Int32Array.of(1), null).rate;
+  if (at1 > a) return { ok: false, B: Infinity, at1 };
+  const Bk = k => Float64Array.of(k * 50);
+  const k = searchMin(k => mc(D, idx, Ps, H, c, Bk(k), null, limS).rate <= a, k => mc(D, idx, P, H, c, Bk(k), null, lim).rate <= a, 1, 1000);
+  return { ok: true, B: k === Infinity ? Infinity : k * 50, at1 };
+}
+
+function contractsFor(buf, B, maxC){
+  if (buf <= 0) return 0;
+  const v = B === Infinity ? 1 : Math.floor(buf / B + 1e-9);
+  return Math.max(1, Math.min(maxC, v));
+}
+
+function worstWindow(daily, w){
+  let s = 0, worst = 0;
+  for (let i = 0; i < daily.length; i++) { s += daily[i]; if (i >= w) s -= daily[i - w]; if (i >= Math.min(w, daily.length) - 1 && s < worst) worst = s; }
+  return worst;
+}
+
+// Size on everything before the last ~4 months, then run that ladder on the months it never saw.
+function oosTest(st, c, seed){
+  const lastK = Math.floor(st.trades[st.trades.length - 1][0] / DAY), split = lastK - 122;
+  const isT = st.trades.filter(t => Math.floor(t[0] / DAY) <= split), osT = st.trades.filter(t => Math.floor(t[0] / DAY) > split);
+  const Dis = isT.length ? buildData([{ trades: isT, factor: st.factor }]) : null;
+  const Dos = osT.length ? buildData([{ trades: osT, factor: st.factor }]) : null;
+  const isDays = Dis ? Dis.nd : 0, osDays = Dos ? Dos.nd : 0;
+  if (isDays < 60 || osDays < 40) return { na: true, split, isDays, osDays };
+  const P = c.P, H = c.H, a = c.alpha / 100;
+  const s = searchB(Dis, makeIdx(Dis.nd, P, H, seed), P, H, c);
+  const out = { split, from: Dis.keys[0], isDays, osDays, ok: s.ok, B: s.B };
+  const Barr = Float64Array.of(s.ok ? s.B : Infinity);
+  out.rate = mc(Dos, makeIdx(Dos.nd, P, H, seed + 5), P, H, c, Barr, null, null).rate;
+  const ctx = { ...c, tmode: 'keep' };
+  runPath(Dos, null, 0, Dos.nd, ctx, Barr, null, null);
+  out.repBreach = RES.breach; out.repEnd = RES.profit;
+  out.pass = s.ok && out.rate <= a && !out.repBreach;
+  return out;
+}
+
+// Prop rules on a fresh account trading the ladder. mode 'eval' (target, best-day %, min days) or 'payout' (funded payout rules).
+function propSim(D, idx, P, H, c, B, mode){
+  const S = c.S, L = c.L, lockLvl = S + c.lock, maxC = c.maxC, perTrade = c.trail === 'trade', ns = D.ns;
+  const dll = c.dll > 0 ? c.dll : 0, dllFail = c.dllAction === 'fail', cap = c.poCap > 0 ? c.poCap : 0, wp = c.poPct / 100;
+  const n = new Int32Array(ns);
+  let ok = 0, fails = 0, capN = 0, held = 0;
+  const days = [], capDays = [], amts = [], reasons = { bigday: 0, giveback: 0, streak: 0, dll: 0 };
+  for (let p = 0; p < P; p++) {
+    let bal = S, peak = S, hiBal = S, floor = Math.min(S - L, lockLvl), tdays = 0, wins = 0, best = -Infinity;
+    let touch = 0, payDay = 0, heldB = false, out = null, reason = '', passDay = 0;
+    const cls = x => x <= -0.5 * L ? 'bigday' : hiBal > S ? 'giveback' : 'streak';
+    for (let d = 0; d < H; d++) {
+      const di = idx[p * H + d], buf = bal - floor;
+      for (let s = 0; s < ns; s++) { let v = B[s] === Infinity ? 1 : Math.floor(buf / B[s] + 1e-9); if (v < 1) v = 1; if (v > maxC) v = maxC; n[s] = v; }
+      let dayPnl = 0, traded = false;
+      for (let k = D.ds[di], e = D.ds[di + 1]; k < e; k++) {
+        const q = n[D.ts[k]]; traded = true;
+        if (c.mae && bal - D.tm[k] * q <= floor) { out = 'fail'; reason = cls(dayPnl - (bal - floor)); bal = floor; break; }
+        const pp = D.tp[k] * q; bal += pp; dayPnl += pp;
+        if (bal <= floor) { out = 'fail'; reason = cls(dayPnl); break; }
+        if (perTrade && bal > peak) { peak = bal; floor = Math.min(peak - L, lockLvl); }
+        if (dll && dayPnl <= -dll) { if (dllFail) { out = 'fail'; reason = 'dll'; } break; }
+      }
+      if (traded) { tdays++; if (dayPnl > best) best = dayPnl; if (dayPnl > 0 && dayPnl >= c.poWinMin) wins++; }
+      if (out) break;
+      if (bal > hiBal) hiBal = bal;
+      if (!perTrade && bal > peak) { peak = bal; floor = Math.min(peak - L, lockLvl); }
+      const profit = bal - S;
+      if (mode === 'eval') {
+        if (c.target > 0 && profit >= c.target) {
+          if (!touch) touch = d + 1;
+          if (tdays >= c.evMin && (c.evCons <= 0 || best <= c.evCons / 100 * profit)) { out = 'pass'; passDay = d + 1; break; }
+        }
+      } else {
+        const w = Math.max(0, profit - c.poBuffer) * wp;
+        if (tdays >= c.poMin && wins >= c.poWins && w > 0 && w >= c.poMinPay) {
+          const consOk = c.poCons <= 0 || (profit > 0 && best <= c.poCons / 100 * profit);
+          if (!consOk) { if (!payDay) heldB = true; }
+          else {
+            if (!payDay) { payDay = d + 1; amts.push(cap ? Math.min(w, cap) : w); }
+            if (!cap) { out = 'paid'; break; }
+            if (w >= cap) { out = 'cap'; capDays.push(d + 1); break; }
+          }
+        }
+      }
+    }
+    if (mode === 'eval') {
+      if (out === 'pass') { ok++; days.push(passDay); if (touch && touch < passDay) held++; }
+      else if (out === 'fail') { fails++; reasons[reason]++; }
+    } else {
+      if (payDay) { ok++; days.push(payDay); if (heldB) held++; }
+      if (out === 'cap') capN++;
+      if (out === 'fail' && !payDay) { fails++; reasons[reason]++; }
+    }
+  }
+  const q = (a, x) => { if (!a.length) return null; a.sort((u, v) => u - v); return a[Math.min(a.length - 1, Math.floor(x * a.length))]; };
+  return { p: ok / P, fail: fails / P, open: Math.max(0, 1 - ok / P - fails / P), med: q(days, 0.5), p90: q(days, 0.9), held: ok ? held / ok : 0,
+    cap: capN / P, capMed: q(capDays, 0.5), capOn: !!cap, avgAmt: amts.length ? amts.reduce((x, y) => x + y, 0) / amts.length : null, reasons, fails, H };
+}
+
+function sizeStrategy(st, c, seed){
+  const D = buildData([st]);
+  const P = c.P, H = c.H, a = c.alpha / 100;
+  const { idxBase, tests } = testSet(D, [st], c, seed);
+  for (const t of tests) { prog(`${st.name || 'Strategy'} · ${t.name}`); Object.assign(t, searchB(t.D, t.idx, P, H, c)); }
+  prog(`${st.name || 'Strategy'} · out-of-sample and prop checks`);
+  const res = { D, tests };
+  if (c.basis === 'strict') { res.ok = tests.every(t => t.ok); res.B = res.ok ? Math.max(...tests.map(t => t.B)) : Infinity; }
+  else { res.ok = tests[0].ok; res.B = tests[0].B; }
+  const Barr = Float64Array.of(res.B);
+  for (const t of tests) {
+    const s = mc(t.D, t.idx, P, H, c, Barr, null, null);
+    t.rate = s.rate; t.pass = s.rate <= a; t.stats = s;
+  }
+  res.stats = tests[0].stats; res.at1Rate = tests[0].at1;
+  if (res.ok) {
+    let flo = 1, fhi = c.maxC; const lim = Math.floor(a * P + 1e-9);
+    while (flo < fhi) { const mid = (flo + fhi + 1) >> 1; if (mc(D, idxBase, P, H, c, null, Int32Array.of(mid), lim).rate <= a) flo = mid; else fhi = mid - 1; }
+    res.fixedN = flo; res.fixedRate = mc(D, idxBase, P, H, c, null, Int32Array.of(flo), null).rate;
+  } else { res.fixedN = 0; }
+  const rec = []; runPath(D, null, 0, D.nd, c, Barr, null, rec);
+  res.replay = rec; res.repBreach = RES.breach; res.repPassed = RES.passed;
+  // Fixed checks on the real trades at the starting size
+  const n0 = contractsFor(c.L, res.B, c.maxC);
+  res.n0 = n0; res.sizeLbl = n0 + ' ct';
+  const fc = fixedChecks(D, c, Float64Array.of(n0), res.repBreach);
+  res.fixed = fc.list; res.net = fc.ts.net;
+  res.oos = oosTest(st, c, seed + 11);
+  res.evalR = propSim(D, makeIdx(D.nd, P, c.evDays, seed + 21), P, c.evDays, c, Barr, 'eval');
+  res.payR = propSim(D, makeIdx(D.nd, P, c.poDays, seed + 31), P, c.poDays, c, Barr, 'payout');
+  res.total = tests.length + res.fixed.length + (res.oos.na ? 0 : 1);
+  res.passCount = tests.filter(t => t.pass).length + res.fixed.filter(f => f.pass).length + (!res.oos.na && res.oos.pass ? 1 : 0);
+  return res;
+}
+
+// Stretch every strategy's ladder by one factor m. A base of Infinity stays at 1 contract.
+function stretchB(base, m){
+  return Float64Array.from(base, b => (b === Infinity || m === Infinity) ? Infinity : Math.max(50, Math.ceil(b * m / 50 - 1e-9) * 50));
+}
+// Smallest stretch (in 0.05 steps) where the shared account meets the breach limit.
+function searchStretch(D, idx, P, H, c, base){
+  const a = c.alpha / 100, lim = Math.floor(a * P + 1e-9), Ps = Math.min(P, 500), limS = Math.floor(a * Ps + 1e-9);
+  const at1 = mc(D, idx, P, H, c, null, new Int32Array(base.length).fill(1), null).rate;
+  if (at1 > a) return { ok: false, m: Infinity, B: stretchB(base, Infinity), at1 };
+  const j = searchMin(j => mc(D, idx, Ps, H, c, stretchB(base, j / 20), null, limS).rate <= a, j => mc(D, idx, P, H, c, stretchB(base, j / 20), null, lim).rate <= a, 1, 2000);
+  if (j === Infinity) return { ok: true, m: Infinity, B: stretchB(base, Infinity), at1 };
+  return { ok: true, m: j / 20, B: stretchB(base, j / 20), at1 };
+}
+
+function pearson(x, y){
+  const n = x.length; let sx = 0, sy = 0; for (let i = 0; i < n; i++) { sx += x[i]; sy += y[i]; }
+  const mx = sx / n, my = sy / n; let sxy = 0, sxx = 0, syy = 0;
+  for (let i = 0; i < n; i++) { const a = x[i] - mx, b = y[i] - my; sxy += a * b; sxx += a * a; syy += b * b; }
+  return sxx > 0 && syy > 0 ? sxy / Math.sqrt(sxx * syy) : 0;
+}
+
+// Full assessment of all strategies on one account: the same tests as one strategy, plus contribution and correlation.
+// base[s] = the strategy's ladder alone (Infinity = 1 contract always).
+function assessPortfolio(strats, base, c, seed){
+  const D = buildData(strats), ns = strats.length;
+  const P = c.P, H = c.H, a = c.alpha / 100;
+  const { tests } = testSet(D, strats, c, seed);
+  for (const t of tests) { prog(`Portfolio · ${t.name}`); Object.assign(t, searchStretch(t.D, t.idx, P, H, c, base)); }
+  prog('Portfolio · out-of-sample, prop checks and correlation');
+  const res = { D, tests, base, strats };
+  res.ok = tests[0].ok;
+  res.strictOk = tests.every(t => t.ok);
+  res.strictM = res.strictOk ? Math.max(...tests.map(t => t.m)) : Infinity;
+  res.m = c.basis === 'strict' ? (res.strictOk ? res.strictM : Infinity) : tests[0].m;
+  if (c.basis === 'strict') res.ok = res.strictOk;
+  const B = stretchB(base, res.m); res.B = Array.from(B);
+  for (const t of tests) { const s = mc(t.D, t.idx, P, H, c, B, null, null); t.rate = s.rate; t.pass = s.rate <= a; t.stats = s; }
+  res.stats = tests[0].stats; res.at1Rate = tests[0].at1;
+  const rec = []; runPath(D, null, 0, D.nd, c, B, null, rec);
+  res.replay = rec; res.repBreach = RES.breach; res.repPassed = RES.passed;
+  // Fixed checks at the starting sizes
+  const n0 = Float64Array.from(B, b => contractsFor(c.L, b, c.maxC));
+  res.n0 = Array.from(n0); res.sizeLbl = res.n0.reduce((x, y) => x + y, 0) + ' ct in total';
+  const fc = fixedChecks(D, c, n0, res.repBreach);
+  res.fixed = fc.list; res.net = fc.ts.net; res.mdd = fc.ts.mdd;
+  // Out of sample: stretch on earlier months, run on the last ~4 months
+  const lastK = D.keys[D.nd - 1], split = lastK - 122;
+  const part = keep => strats.map(s => ({ trades: s.trades.filter(t => keep(Math.floor(t[0] / DAY))), factor: s.factor }));
+  const Dis = buildData(part(k => k <= split)), Dos = buildData(part(k => k > split));
+  if (Dis.nd < 60 || Dos.nd < 40) res.oos = { na: true, split, isDays: Dis.nd, osDays: Dos.nd };
+  else {
+    const s = searchStretch(Dis, makeIdx(Dis.nd, P, H, seed + 11), P, H, c, base);
+    const o = { split, from: Dis.keys[0], isDays: Dis.nd, osDays: Dos.nd, ok: s.ok, m: s.m, B: s.B };
+    o.rate = mc(Dos, makeIdx(Dos.nd, P, H, seed + 16), P, H, c, s.B, null, null).rate;
+    runPath(Dos, null, 0, Dos.nd, { ...c, tmode: 'keep' }, s.B, null, null);
+    o.repBreach = RES.breach; o.repEnd = RES.profit;
+    o.pass = s.ok && o.rate <= a && !o.repBreach;
+    res.oos = o;
+  }
+  res.evalR = propSim(D, makeIdx(D.nd, P, c.evDays, seed + 21), P, c.evDays, c, B, 'eval');
+  res.payR = propSim(D, makeIdx(D.nd, P, c.poDays, seed + 31), P, c.poDays, c, B, 'payout');
+  res.total = tests.length + res.fixed.length + (res.oos.na ? 0 : 1);
+  res.passCount = tests.filter(t => t.pass).length + res.fixed.filter(f => f.pass).length + (!res.oos.na && res.oos.pass ? 1 : 0);
+  // Contribution of each strategy at its starting size, on the shared calendar
+  const daily = Array.from({ length: ns }, () => new Float64Array(D.nd));
+  for (let i = 0; i < D.nd; i++) for (let k = D.ds[i]; k < D.ds[i + 1]; k++) daily[D.ts[k]][i] += D.tp[k] * n0[D.ts[k]];
+  const tot = new Float64Array(D.nd); daily.forEach(d => d.forEach((v, i) => tot[i] += v));
+  res.contrib = daily.map((d, s) => {
+    let eq = 0, pk = 0, mdd = 0, worst = 0, net = 0, active = 0, green = 0;
+    for (let i = 0; i < D.nd; i++) { const v = d[i]; net += v; eq += v; if (eq > pk) pk = eq; if (pk - eq > mdd) mdd = pk - eq; if (v < worst) worst = v; if (v !== 0) { active++; if (v > 0) green++; } }
+    const rest = Float64Array.from(tot, (v, i) => v - d[i]);
+    return { net, mdd, worst, active, green: active ? green / active : 0, corrRest: ns > 1 ? pearson(d, rest) : 0 };
+  });
+  res.corr = daily.map(x => daily.map(y => pearson(x, y)));
+  res.sumDD = res.contrib.reduce((x, r) => x + r.mdd, 0);
+  return res;
+}
+
+// Everything for one run. Results are slimmed (no day arrays) so they can be posted back from the worker.
+function slimTests(ts){ return ts.map(t => ({ key: t.key, name: t.name, desc: t.desc, ok: t.ok, B: t.B, m: t.m, at1: t.at1, rate: t.rate, pass: t.pass, stats: t.stats })); }
+function runEngine(strats, c, seed){
+  const results = strats.map((s, i) => {
+    prog(`Testing ${s.name} (${i + 1} of ${strats.length})`);
+    const r = sizeStrategy(s, c, seed + i * 7919);
+    r.pc = perContractStats(s); r.verdict = finalVerdict(r);
+    delete r.D; r.tests = slimTests(r.tests);
+    return r;
+  });
+  const pfIdx = strats.map((s, i) => i).filter(i => strats[i].inPf !== false);
+  let pf = null;
+  if (pfIdx.length >= 2) {
+    prog(`Assessing all ${pfIdx.length} strategies on one account`);
+    pf = assessPortfolio(pfIdx.map(i => strats[i]), pfIdx.map(i => results[i].ok ? results[i].B : Infinity), c, seed + 104729);
+    pf.verdict = finalVerdict(pf);
+    delete pf.D; delete pf.strats; pf.tests = slimTests(pf.tests);
+  }
+  return { results, pf, pfIdx };
+}
+
+// DEPLOY / FORWARD TEST / PAPER / REJECT from the test results.
+function finalVerdict(r){
+  const failed = r.tests.filter(t => !t.pass).map(t => t.name);
+  const core = r.tests[0].pass && r.fixed[0].pass && (r.oos.na || r.oos.pass);
+  if (!r.ok) return { k: 'REJECT', tone: 'bad', why: `Even 1 contract each breaches the floor in ${Math.round(r.at1Rate * 100)}% of reshuffled runs.` };
+  if (r.net <= 0) return { k: 'REJECT', tone: 'bad', why: 'Loses money after costs at the starting sizes.' };
+  if (r.passCount === r.total) return { k: 'DEPLOY', tone: 'good', why: 'Passed every test at the recommended sizes.' };
+  if (core && r.total - r.passCount <= 3) return { k: 'FORWARD TEST', tone: 'warn', why: `Core tests pass; ${r.total - r.passCount} stress or fixed check${r.total - r.passCount > 1 ? 's' : ''} failed.` };
+  return { k: 'PAPER', tone: 'bad', why: `${r.total - r.passCount} of ${r.total} tests failed${core ? '' : ', including a core test'}.` };
+}
+
+// Short-term forecast from the current account state. Returns per-day percentile bands of P&L from today.
+function forecast(D, B, c, bal0, peak0, H, P, lo, seed){
+  const S = c.S, L = c.L, lockLvl = S + c.lock, perTrade = c.trail === 'trade', maxC = c.maxC, ns = D.ns;
+  const idx = makeIdx(D.nd, P, H, seed, lo);
+  const prof = new Float64Array(P * H), finals = new Float64Array(P);
+  let br = 0, green = 0, hit = 0, ctSum = 0;
+  const n = new Int32Array(ns);
+  for (let p = 0; p < P; p++) {
+    let bal = bal0, peak = Math.max(peak0, bal0), floor = Math.min(peak - L, lockLvl), dead = bal <= floor;
+    let hitT = c.target > 0 && bal0 - S >= c.target;
+    for (let d = 0; d < H; d++) {
+      if (!dead) {
+        const di = idx[p * H + d], buf = bal - floor;
+        for (let s = 0; s < ns; s++) { let v = B[s] === Infinity ? 1 : Math.floor(buf / B[s] + 1e-9); if (v < 1) v = 1; if (v > maxC) v = maxC; n[s] = v; if (d === 0) ctSum += v; }
+        let dayPnl = 0;
+        for (let k = D.ds[di], e = D.ds[di + 1]; k < e; k++) {
+          const q = n[D.ts[k]];
+          if (c.mae && bal - D.tm[k] * q <= floor) { bal = floor; dead = true; break; }
+          const pp = D.tp[k] * q; bal += pp; dayPnl += pp;
+          if (bal <= floor) { dead = true; break; }
+          if (perTrade && bal > peak) { peak = bal; floor = Math.min(peak - L, lockLvl); }
+          if (c.dll > 0 && dayPnl <= -c.dll) { if (c.dllAction === 'fail') dead = true; break; }
+        }
+        if (!dead && !perTrade && bal > peak) { peak = bal; floor = Math.min(peak - L, lockLvl); }
+        if (c.target > 0 && bal - S >= c.target) hitT = true;
+      }
+      prof[p * H + d] = bal - bal0;
+    }
+    if (dead) br++; if (bal > bal0) green++; if (hitT) hit++;
+    finals[p] = bal - bal0;
+  }
+  const qs = [0.1, 0.25, 0.5, 0.75, 0.9], bands = qs.map(() => new Float64Array(H + 1));
+  const col = new Float64Array(P);
+  for (let d = 0; d < H; d++) {
+    for (let p = 0; p < P; p++) col[p] = prof[p * H + d];
+    col.sort();
+    qs.forEach((q, i) => bands[i][d + 1] = col[Math.min(P - 1, Math.floor(q * P))]);
+  }
+  finals.sort();
+  return { bands, H, breach: br / P, green: green / P, hit: hit / P, p10: finals[Math.floor(P * .1)], p50: finals[Math.floor(P * .5)], p90: finals[Math.floor(P * .9)], ct: ctSum / P, buf: bal0 - Math.min(Math.max(peak0, bal0) - L, lockLvl) };
+}
+
+function regimeOf(D, recent){
+  const daily = dailySums(D), n = daily.length, r = Math.max(5, Math.min(recent, n));
+  const stat = (a, b) => { let s = 0, s2 = 0; for (let i = a; i < b; i++) { s += daily[i]; s2 += daily[i] * daily[i]; } const m = s / (b - a); return { m, sd: Math.sqrt(Math.max(0, s2 / (b - a) - m * m)) }; };
+  const all = stat(0, n), rec = stat(n - r, n);
+  let state = 'on';
+  if (rec.m <= 0) state = 'off'; else if (all.m > 0 && rec.m < all.m * 0.5) state = 'weak';
+  return { allAvg: all.m, recAvg: rec.m, vol: all.sd > 0 ? rec.sd / all.sd : 1, state, r };
+}
+
+function perContractStats(st){
+  const f = st.factor || 1; const t = st.trades;
+  let net = 0, wins = 0, eq = 0, pk = 0, mdd = 0; const day = new Map();
+  for (const [w, p] of t) {
+    const pp = p * f; net += pp; if (pp > 0) wins++;
+    eq += pp; if (eq > pk) pk = eq; if (pk - eq > mdd) mdd = pk - eq;
+    const k = Math.floor(w / DAY); day.set(k, (day.get(k) || 0) + pp);
+  }
+  let worstDay = 0, green = 0; for (const v of day.values()) { if (v < worstDay) worstDay = v; if (v > 0) green++; }
+  return { n: t.length, net, win: wins / t.length, mdd, worstDay, days: day.size, green: green / day.size };
+}
+/*ENGINE-END*/
+
+/* ---------- UI ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = v => (v < 0 ? '−' : '') + '$' + Math.abs(Math.round(v)).toLocaleString('en-US');
+const smoney = v => (Math.round(v) > 0 ? '+' : '') + money(v);
+const pct = v => v > 0 && v < 0.1 ? (v * 100).toFixed(1) + '%' : Math.round(v * 100) + '%';
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const dlabel = k => { const d = new Date(k * DAY); return MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear(); };
+const mlabel = k => { const d = new Date(k * DAY); return MON[d.getUTCMonth()] + ' ' + String(d.getUTCFullYear()).slice(2); };
+const hash = s => { let h = 2166136261; for (const ch of s) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
+
+const DEFAULTS = { S: 50000, L: 2000, lock: 0, trail: 'trade', mae: true, dll: 0, dllAction: 'stop', alpha: 5, maxC: 10, basis: 'base', H: 120, P: 2000, recent: 90, slipTicks: 1, tmode: 'keep', target: 6000,
+  evCons: 50, evMin: 2, evDays: 60, poMin: 5, poWins: 5, poWinMin: 150, poBuffer: 0, poCons: 0, poPct: 50, poCap: 3000, poMinPay: 250, poDays: 90 };
+const TICK = { MGC: 1, GC: 10, SIL: 5, SI: 25, MES: 1.25, ES: 12.5, MNQ: 0.5, NQ: 5, MYM: 0.5, YM: 5, M2K: 0.5, RTY: 5, MCL: 1, CL: 10, NG: 10, MHG: 1.25, HG: 12.5, ZB: 31.25, ZN: 15.625, M6E: 1.25, '6E': 6.25, MBT: 0.5, BTC: 25, MET: 0.25, ETH: 25 };
+const tickFor = m => TICK[(m || '').toUpperCase()] || 1;
+const REASON_LABEL = { bigday: 'One large losing day', giveback: 'Gave back profits to the trailing floor', streak: 'Losing streak from the start', dll: 'Daily loss limit' };
+const REASON_FIX = {
+  bigday: 'A personal daily stop well below the max loss would cut most of these.',
+  giveback: 'Protect progress: step down a contract once the buffer starts shrinking.',
+  streak: 'The starting size is too big for a normal losing run. Use a bigger buffer per contract.',
+  dll: 'A personal daily stop tighter than the firm limit would cut most of these.'
+};
+function verdict(p){ return p >= 0.7 ? ['good', 'Likely to pass'] : p >= 0.45 ? ['warn', 'Coin flip'] : p >= 0.2 ? ['bad', 'Unlikely'] : ['bad', 'Very unlikely']; }
+const state = { cfg: { ...DEFAULTS }, acct: { bal: 50000, peak: 50000 }, strats: [], seed: 20261103, results: null, pf: null, run: 0, fc: { H: 10, basis: 'recent', sel: 'all' }, fcRows: [] };
+const KEY = 'contract-sizing-sim.v2';
+
+function save(){
+  try {
+    const strats = state.strats.filter(s => !s.example).map(s => ({ id: s.id, name: s.name, market: s.market, factor: s.factor, qty: s.qty, inPf: s.inPf, trades: s.trades.map(t => [t[0], +t[1].toFixed(4), +t[2].toFixed(4)]) }));
+    localStorage.setItem(KEY, JSON.stringify({ cfg: state.cfg, acct: state.acct, seed: state.seed, fc: { H: state.fc.H, basis: state.fc.basis }, cleared: !!state.cleared, strats }));
+  } catch (e) { /* storage unavailable or full; page keeps working */ }
+}
+// Returns true when saved strategies were restored or the viewer had cleared the examples.
+function load(){
+  try {
+    const raw = localStorage.getItem(KEY); if (!raw) return false;
+    const o = JSON.parse(raw);
+    if (o.cfg) state.cfg = { ...DEFAULTS, ...o.cfg };
+    if (o.acct) state.acct = o.acct;
+    if (o.seed) state.seed = o.seed;
+    if (o.fc) Object.assign(state.fc, o.fc);
+    if (o.cleared) state.cleared = true;
+    if (Array.isArray(o.strats) && o.strats.length) { state.strats = o.strats.filter(s => s && Array.isArray(s.trades) && s.trades.length); return true; }
+    return !!o.cleared;
+  } catch (e) {}
+  return false;
+}
+
+function makeExamples(){
+  const r = rng(7);
+  const gen = (name, market, pWin, win, loss, freq) => {
+    const trades = [];
+    for (let k = Math.floor(Date.UTC(2025, 10, 3) / DAY); k <= Math.floor(Date.UTC(2026, 9, 30) / DAY); k++) {
+      const wd = new Date(k * DAY).getUTCDay(); if (wd === 0 || wd === 6) continue;
+      if (r() > freq) continue;
+      const t = k * DAY + (10 * 60 + Math.floor(r() * 300)) * 60000;
+      const w = r() < pWin;
+      const p = w ? win * (0.5 + r()) : -loss * (0.6 + r() * 0.8);
+      const mae = w ? r() * loss * 0.6 : -p + r() * 15;
+      trades.push([t, Math.round(p * 100) / 100, Math.round(mae * 100) / 100]);
+    }
+    return { id: 'ex-' + hash(name), name, market, factor: 1, qty: 1, example: true, trades };
+  };
+  return [
+    gen('Example A · breakout', 'MGC', 0.5, 120, 75, 0.7),
+    gen('Example B · retest', 'MGC', 0.62, 70, 85, 0.45),
+    gen('Example C · mean reversion', 'MES', 0.68, 55, 105, 0.6)
+  ];
+}
+
+/* ---- Settings ---- */
+const F = { S: 's-start', L: 's-loss', lock: 's-lock', trail: 's-trail', mae: 's-mae', dll: 's-dll', dllAction: 's-dlla', alpha: 's-alpha', maxC: 's-maxc', basis: 's-basis', H: 's-days', P: 's-paths', recent: 's-recent', slipTicks: 's-slip', tmode: 's-tmode', target: 's-target',
+  evCons: 's-evcons', evMin: 's-evmin', evDays: 's-evdays', poMin: 's-pomin', poWins: 's-powins', poWinMin: 's-powinmin', poBuffer: 's-pobuf', poCons: 's-pocons', poPct: 's-popct', poCap: 's-pocap', poMinPay: 's-pominpay', poDays: 's-podays' };
+function fillSettings(){
+  for (const [k, id] of Object.entries(F)) { const el = document.getElementById(id); if (el.type === 'checkbox') el.checked = !!state.cfg[k]; else el.value = state.cfg[k]; }
+  $('#a-bal').value = state.acct.bal; $('#a-peak').value = state.acct.peak;
+  $('#fc-basis').value = state.fc.basis; syncSeg();
+  syncLede();
+}
+function readSettings(){
+  const c = state.cfg, num = (id, d, lo, hi) => { let v = parseFloat(document.getElementById(id).value); if (!isFinite(v)) v = d; return Math.min(hi, Math.max(lo, v)); };
+  c.S = num('s-start', 50000, 1000, 1e8); c.L = num('s-loss', 2000, 50, 1e7); c.lock = num('s-lock', 0, -1e6, 1e6);
+  c.trail = $('#s-trail').value; c.mae = $('#s-mae').checked;
+  c.alpha = num('s-alpha', 5, 0.1, 50); c.maxC = Math.round(num('s-maxc', 10, 1, 60)); c.basis = $('#s-basis').value;
+  c.H = Math.round(num('s-days', 120, 10, 1000)); c.P = Math.round(num('s-paths', 2000, 200, 10000));
+  c.recent = Math.round(num('s-recent', 90, 20, 500));
+  c.tmode = $('#s-tmode').value; c.target = num('s-target', 6000, 0, 1e8);
+  c.dll = num('s-dll', 0, 0, 1e7); c.dllAction = $('#s-dlla').value; c.slipTicks = Math.round(num('s-slip', 1, 0, 10));
+  c.evCons = num('s-evcons', 50, 0, 100); c.evMin = Math.round(num('s-evmin', 2, 0, 100)); c.evDays = Math.round(num('s-evdays', 60, 5, 250));
+  c.poMin = Math.round(num('s-pomin', 5, 0, 100)); c.poWins = Math.round(num('s-powins', 5, 0, 100)); c.poWinMin = num('s-powinmin', 150, 0, 1e6);
+  c.poBuffer = num('s-pobuf', 0, 0, 1e7); c.poCons = num('s-pocons', 0, 0, 100); c.poPct = num('s-popct', 50, 1, 100);
+  c.poCap = num('s-pocap', 3000, 0, 1e7); c.poMinPay = num('s-pominpay', 250, 0, 1e7); c.poDays = Math.round(num('s-podays', 90, 5, 250));
+  syncLede();
+}
+function syncLede(){ $('#lede').textContent = `Finds the contract size for each strategy that keeps the trailing ${money(state.cfg.L)} max loss safe, scales it up as your profit buffer grows, and forecasts the next few weeks.`; }
+function syncSeg(){ document.querySelectorAll('#fc-h button').forEach(b => { const on = +b.dataset.h === state.fc.H; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
+
+/* ---- Files ---- */
+function cleanName(fn){
+  let n = fn.replace(/\.[a-z0-9]+$/i, '');
+  n = n.replace(/[_\s-]*\d{4}-\d{2}-\d{2}.*$/, '');
+  n = n.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+  const drop = /^(comex|nymex|cme|cbot|mini|cme mini|list|of|trades|export|strategy|strat|[a-z0-9]{1,4}\d!|[a-z0-9]{1,4}\d{0,2}!)$/i;
+  const words = n.split(' ').filter(w => !drop.test(w));
+  n = words.join(' ').trim();
+  return (n || fn.replace(/\.[a-z0-9]+$/i, '')).slice(0, 48);
+}
+async function readFile(file){
+  let rows;
+  if (/\.xlsx?$/i.test(file.name)) {
+    if (typeof XLSX === 'undefined') throw new Error('The spreadsheet reader did not load. Export as CSV instead.');
+    const wb = XLSX.read(await file.arrayBuffer(), { type: 'array', cellDates: true });
+    let name = wb.SheetNames.find(n => /list of trades/i.test(n)) || wb.SheetNames.find(n => /trade/i.test(n));
+    if (!name) name = wb.SheetNames.find(n => XLSX.utils.sheet_to_json(wb.Sheets[n], { header: 1, raw: true, defval: '' }).some(r => r.some(c => /trade\s*#/i.test(String(c))))) || wb.SheetNames[0];
+    rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, raw: true, defval: '' });
+  } else rows = parseCSV(await file.text());
+  const { trades, qty } = rowsToTrades(rows);
+  return { id: 'f' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: cleanName(file.name), market: detectMarket(file.name), factor: 1, qty, trades };
+}
+async function addFiles(files){
+  files = files.filter(f => f && f.name);
+  if (!files.length) return;
+  const box = $('#file-errors');
+  box.innerHTML = `<div class="hint">Reading ${files.length} file${files.length > 1 ? 's' : ''}…</div>`;
+  const errs = [], added = [];
+  for (const f of files) { try { added.push(await readFile(f)); } catch (e) { errs.push(`${f.name}: ${e.message}`); } }
+  box.innerHTML = (added.length ? `<div class="hint">Added ${added.map(s => esc(s.name)).join(', ')}.</div>` : '') + errs.map(e => `<div class="err">${esc(e)}</div>`).join('');
+  if (added.length) { state.strats = state.strats.filter(s => !s.example).concat(added); state.cleared = false; renderStrats(); save(); schedule(50); }
+}
+
+function renderStrats(){
+  const box = $('#strats');
+  $('#example-banner').hidden = !state.strats.some(s => s.example);
+  if (!state.strats.length) { box.innerHTML = '<div class="hint">No strategies yet. Choose or drop your trade lists above.</div><div class="actions"><button type="button" id="btn-ex">Load example data</button></div>'; return; }
+  box.innerHTML = state.strats.map(s => {
+    const t0 = s.trades[0][0], t1 = s.trades[s.trades.length - 1][0];
+    return `<div class="strat">
+      <div class="strat-top"><input type="text" id="nm-${s.id}" data-nm="${s.id}" value="${esc(s.name)}" aria-label="Strategy name"><button class="ghost" data-del="${s.id}" type="button" aria-label="Remove ${esc(s.name)}">Remove</button></div>
+      <div class="meta">${s.trades.length} trades · ${mlabel(Math.floor(t0 / DAY))} – ${mlabel(Math.floor(t1 / DAY))} · tested at ${s.qty || 1} ct</div>
+      <div class="strat-row">
+        <select id="fx-${s.id}" data-fx="${s.id}" aria-label="Contract you will trade">
+          <option value="1"${s.factor == 1 ? ' selected' : ''}>Same contract as tested</option>
+          <option value="0.1"${s.factor == 0.1 ? ' selected' : ''}>Tested full, trade micro (÷10)</option>
+          <option value="10"${s.factor == 10 ? ' selected' : ''}>Tested micro, trade full (×10)</option>
+        </select>
+        <input type="text" id="mk-${s.id}" data-mk="${s.id}" list="mk-list" value="${esc(s.market || '')}" placeholder="Market" aria-label="Market symbol">
+      </div>
+      <label class="check"><input type="checkbox" id="pf-${s.id}" data-pf="${s.id}"${s.inPf !== false ? ' checked' : ''}> Include in portfolio assessment</label>
+    </div>`;
+  }).join('');
+}
+
+/* ---- Run ---- */
+let timer = null, fcTimer = null;
+function schedule(ms){ clearTimeout(timer); timer = setTimeout(runAll, ms == null ? 500 : ms); }
+const tick = () => new Promise(r => setTimeout(r, 0));
+function setStatus(t, busy){ const el = $('#status'); el.textContent = t; el.classList.toggle('busy', !!busy); }
+
+/* The simulation runs in a background worker built from this script's engine section, so the page stays usable. */
+let worker = null, workerURL = null, running = false;
+function workerMain(){
+  let last = 0;
+  PROG = t => { const n = Date.now(); if (n - last > 150) { last = n; postMessage({ type: 'progress', text: t }); } };
+  self.onmessage = e => {
+    try { const d = e.data; postMessage({ type: 'done', out: runEngine(d.strats, d.c, d.seed) }); }
+    catch (err) { postMessage({ type: 'error', message: String((err && err.message) || err) }); }
+  };
+}
+function makeWorker(){
+  if (!workerURL) {
+    const all = document.getElementById('app').textContent;
+    const a = all.indexOf('/*ENGINE-' + 'START*/'), b = all.indexOf('/*ENGINE-' + 'END*/');
+    if (a < 0 || b < 0) throw new Error('engine not found');
+    workerURL = URL.createObjectURL(new Blob([all.slice(a, b) + '\n;(' + workerMain.toString() + ')();'], { type: 'text/javascript' }));
+  }
+  return new Worker(workerURL);
+}
+function stopWorker(){ if (worker) { try { worker.terminate(); } catch (e) {} worker = null; } }
+function setRunning(on){ running = on; const b = $('#btn-run'); b.textContent = on ? 'Stop' : 'Run simulation'; b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+
+function runAll(){
+  const token = ++state.run;
+  stopWorker();
+  readSettings();
+  const c = { ...state.cfg };
+  const strats = state.strats.filter(s => s.trades && s.trades.length);
+  if (!strats.length) { state.results = []; state.pf = null; state.pfCount = 0; render(); setRunning(false); setStatus(''); return; }
+  strats.forEach(s => { s.slipVal = tickFor(s.market) * c.slipTicks; });
+  const payload = { c, seed: state.seed, strats: strats.map(s => ({ id: s.id, name: s.name, market: s.market, factor: s.factor, inPf: s.inPf, slipVal: s.slipVal, trades: s.trades })) };
+  const t0 = performance.now();
+  setRunning(true);
+  setStatus(`Testing ${strats.length} ${strats.length > 1 ? 'strategies' : 'strategy'}…`, true);
+  const fail = msg => { if (token !== state.run) return; stopWorker(); setRunning(false); setStatus('The simulation stopped: ' + msg); };
+  const finish = out => {
+    if (token !== state.run) return;
+    out.results.forEach((r, i) => { r.strat = strats[i]; r.D = buildData([strats[i]]); });
+    const pf = out.pf;
+    if (pf) { pf.members = out.pfIdx.map(i => out.results[i]); pf.strats = pf.members.map(r => r.strat); pf.D = buildData(pf.strats); }
+    state.results = out.results; state.pf = pf; state.pfCount = out.pfIdx.length; state.ranCfg = c;
+    setRunning(false);
+    render();
+    setStatus(`${strats.length} file${strats.length > 1 ? 's' : ''} · ${c.P.toLocaleString()} runs × ${c.H} trading days × 8 Monte Carlo tests each${pf ? ', plus the portfolio' : ''} · ${((performance.now() - t0) / 1000).toFixed(1)}s`);
+  };
+  const inPage = () => {
+    setTimeout(() => {
+      if (token !== state.run) return;
+      PROG = null;
+      try { finish(runEngine(payload.strats, c, state.seed)); } catch (err) { fail(err.message); }
+    }, 30);
+  };
+  let w = null;
+  try { w = makeWorker(); } catch (e) { w = null; }
+  if (!w) { setStatus('Running in the page. It may pause for a moment…', true); inPage(); return; }
+  worker = w;
+  w.onmessage = e => {
+    if (token !== state.run) return;
+    const m = e.data;
+    if (m.type === 'progress') setStatus(m.text + '…', true);
+    else if (m.type === 'done') { stopWorker(); try { finish(m.out); } catch (err) { fail(err.message); } }
+    else if (m.type === 'error') fail(m.message);
+  };
+  w.onerror = e => { if (e && e.preventDefault) e.preventDefault(); if (token !== state.run) return; stopWorker(); setStatus('Running in the page. It may pause for a moment…', true); inPage(); };
+  w.postMessage(payload);
+}
+
+/* ---- Render: sizing ---- */
+const startSize = (B, c) => contractsFor(c.L, B, c.maxC);
+function statusPill(r){
+  if (!r.ok) return '<span class="pill bad">Over limit at 1 ct</span>';
+  return `<span class="pill ${r.passCount === r.total ? 'good' : 'warn'}">${r.passCount}/${r.total} tests passed</span>`;
+}
+function outcomeText(st, c){
+  if (c.tmode === 'stop' && c.target > 0) return { k: 'Pass rate', v: pct(st.passRate) + (st.passMedian ? ` · ${st.passMedian}d` : '') };
+  if (c.tmode === 'payout' && c.target > 0) return { k: 'Payouts per run', v: st.payouts.toFixed(2) };
+  return { k: `Median after ${c.H}d`, v: smoney(st.p50) };
+}
+
+function render(){
+  const c = state.ranCfg || state.cfg, R = state.results || [], C = state.pf;
+  const tbl = $('#sum-table');
+  renderPortfolio(c);
+  if (!R.length) { tbl.innerHTML = '<tr><td class="empty">Upload trade lists to size them.</td></tr>'; $('#cards').innerHTML = ''; renderToday(); return; }
+  $('#sum-hint').textContent = `Breach limit ${c.alpha}% over ${c.H} trading days · sized from ${c.basis === 'strict' ? 'strictest test' : 'reshuffled days'}`;
+  const vPill = v => `<span class="pill ${v.tone}">${v.k}</span>`;
+  let rows = R.map(r => `<tr>
+      <td><b>${esc(r.strat.name)}</b><span class="sub">${vPill(r.verdict)}</span></td>
+      <td class="r"><span class="big">${r.ok ? startSize(r.B, c) : '—'}</span><span class="sub">at ${money(c.L)} buffer</span></td>
+      <td class="r num">${r.ok ? (r.B === Infinity ? '1 ct, no scaling' : '+1 per ' + money(r.B)) : 'Not tradeable'}<span class="sub">max ${c.maxC}</span></td>
+      <td class="r num ${r.stats.rate > c.alpha / 100 ? 'tone-bad' : ''}">${pct(r.stats.rate)}</td>
+      <td class="r num">${r.passCount}/${r.total}</td>
+      <td class="r num">${pct(r.evalR.p)}<span class="sub">${r.evalR.med ? r.evalR.med + 'd median' : '—'}</span></td>
+      <td class="r num">${pct(r.payR.p)}<span class="sub">${r.payR.med ? r.payR.med + 'd median' : '—'}</span></td>
+    </tr>`).join('');
+  if (C) {
+    const tot = C.n0.reduce((x, y) => x + y, 0);
+    rows += `<tr>
+      <td><b>Portfolio · all ticked files</b><span class="sub">${vPill(C.verdict)}</span></td>
+      <td class="r"><span class="big">${C.ok ? tot : '—'}</span><span class="sub">ct in total</span></td>
+      <td class="r num">${C.ok ? stretchTxt(C.m) : 'Too much shared risk'}<span class="sub">${C.members.length} strategies, one account</span></td>
+      <td class="r num ${C.stats.rate > c.alpha / 100 ? 'tone-bad' : ''}">${pct(C.stats.rate)}</td>
+      <td class="r num">${C.passCount}/${C.total}</td>
+      <td class="r num">${pct(C.evalR.p)}<span class="sub">${C.evalR.med ? C.evalR.med + 'd median' : '—'}</span></td>
+      <td class="r num">${pct(C.payR.p)}<span class="sub">${C.payR.med ? C.payR.med + 'd median' : '—'}</span></td>
+    </tr>`;
+  }
+  tbl.innerHTML = `<thead><tr><th>Strategy</th><th class="r">Start size</th><th class="r">Scaling</th><th class="r">Breach</th><th class="r">Tests</th><th class="r">Eval pass</th><th class="r">First payout</th></tr></thead><tbody>${rows}</tbody>`;
+
+  $('#cards').innerHTML = R.map((r, i) => card(r, i, c)).join('');
+  R.forEach((r, i) => drawReplay($('#cv-' + i), r.replay, r.repBreach));
+  renderToday(true);
+}
+
+function ladderRows(B, c){
+  if (B === Infinity) return `<tr data-n="1"><td class="num"><b>1</b></td><td class="num">any</td><td class="num">from day 1</td></tr>`;
+  const ns = []; for (let n = 1; n <= c.maxC; n++) ns.push(n);
+  const show = ns.length > 12 ? ns.slice(0, 10).concat(['…', c.maxC]) : ns;
+  return show.map(n => {
+    if (n === '…') return '<tr><td class="num" colspan="3">…</td></tr>';
+    const need = n === 1 ? 0 : n * B;
+    return `<tr data-n="${n}"><td class="num"><b>${n}</b></td><td class="num">${n === 1 ? 'any' : money(need)}</td><td class="num">${need <= c.L ? 'from day 1' : smoney(need + c.lock)}</td></tr>`;
+  }).join('');
+}
+
+function replayLine(r, c){
+  const rep = r.replay; if (!rep || !rep.length) return '';
+  const last = rep[rep.length - 1];
+  if (r.repBreach) return `<span class="tone-bad">breached on ${dlabel(last.k)}</span>`;
+  if (r.repPassed) return `<span class="tone-good">hit the ${money(c.target)} target on ${dlabel(last.k)}</span>`;
+  return `<span class="tone-good">survived</span>, ended ${smoney(last.b)}`;
+}
+
+const pillPF = p => p == null ? '<span class="pill warn">n/a</span>' : p ? '<span class="pill good">Pass</span>' : '<span class="pill bad">Fail</span>';
+const ladderTxt = B => B === Infinity ? '1 ct' : '+1 per ' + money(B);
+const stretchTxt = m => m === Infinity ? '1 ct each' : 'ladders × ' + m.toFixed(2);
+function testsTable(r, c){
+  const lim = c.alpha / 100, n0 = r.sizeLbl, cols = 4, pf = !!r.base;
+  const lad = t => pf ? stretchTxt(t.m) : ladderTxt(t.B);
+  const grp = t => `<tr class="grp"><td colspan="${cols}">${t}</td></tr>`;
+  const row = (name, desc, mid, right, pass, midCls) => `<tr><td class="wrap"><b>${name}</b><span class="sub">${desc}</span></td>${right == null
+    ? `<td class="r num ${midCls || ''}" colspan="2">${mid}</td>` : `<td class="r num ${midCls || ''}">${mid}</td><td class="r num">${right}</td>`}<td class="r">${pillPF(pass)}</td></tr>`;
+  const mcRows = r.tests.map(t => row(esc(t.name), esc(t.desc), pct(t.rate), t.ok ? lad(t) : `<span class="tone-bad">fails at 1 ct${pf ? ' each' : ''}</span>`, t.pass, t.pass ? '' : 'tone-bad')).join('');
+  const o = r.oos;
+  const oosRow = o.na
+    ? row('Last 4 months, unseen', `Needs about 3 months before ${dlabel(o.split)} and 2 months after. You have ${o.isDays} and ${o.osDays} trading days.`, 'Not enough history', null, null)
+    : row('Last 4 months, unseen', `Ladder sized on ${dlabel(o.from)} – ${dlabel(o.split)} only, then run on the ${o.osDays} trading days after it`,
+        `${o.ok ? pct(o.rate) : '—'}<span class="sub">${o.ok ? (o.repBreach ? 'real order breached' : 'real order ' + smoney(o.repEnd)) : 'fails at 1 ct on earlier months'}</span>`,
+        o.ok ? lad(o) : '—', o.pass, o.pass ? '' : 'tone-bad');
+  const f = Object.fromEntries(r.fixed.map(x => [x.key, x]));
+  const last = r.replay[r.replay.length - 1];
+  const fixedRows = [
+    row('Historical order', 'The real sequence with this ladder', r.repBreach ? 'Breached ' + dlabel(last.k) : 'Ended ' + smoney(last.b), null, f.replay.pass),
+    row('Worst 10 days on day one', `Your worst 10-day stretch at the starting ${n0}`, `${money(f.worst10.v)} of ${money(-c.L)} allowed`, null, f.worst10.pass),
+    row('Losing streak to breach', `Average losing trade at ${n0} is ${money(f.streak.avgLoss)}`, `${isFinite(f.streak.killN) ? f.streak.killN : '∞'} losses in a row breach · longest streak ${f.streak.streak}`, null, f.streak.pass),
+    row('Real max drawdown', `Closed-trade drawdown at ${n0}`, `${money(-f.dd.v)} · ${pct(f.dd.v / c.L)} of max loss`, null, f.dd.pass, f.dd.v >= 0.75 * c.L ? 'tone-warn' : ''),
+    row('Worst day vs half the max loss', `Single worst day at ${n0}`, `${money(f.day.v)} vs ${money(-0.5 * c.L)} line`, null, f.day.pass)
+  ].join('');
+  return `<div class="tbl-wrap"><table class="tests"><thead><tr><th>Test</th><th class="r">Breach at this ${pf ? 'sizing' : 'ladder'}</th><th class="r">${pf ? 'Safe stretch in this test' : 'Safe ladder in this test'}</th><th class="r">Result</th></tr></thead><tbody>
+    ${grp(pf ? 'Monte Carlo, all strategies on one account' : 'Monte Carlo at this ladder')}${mcRows}${grp('Out of sample')}${oosRow}${grp('Fixed checks on your real trades')}${fixedRows}
+  </tbody></table></div>`;
+}
+
+function reasonsHTML(r){
+  const s = r.tests[0].stats;
+  if (!s.br) return '<p class="hint">No reshuffled run breached the floor at this ladder.</p>';
+  const list = REASON_KEYS.map(k => [k, s.reasons[k] / s.br]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
+  return `<div class="reasons">${list.map(([k, v]) => `<div class="row"><span>${REASON_LABEL[k]}</span><span class="num">${pct(v)}</span><span class="bar"><i style="width:${(v * 100).toFixed(0)}%"></i></span></div>`).join('')}</div>
+    <div class="fix">${REASON_FIX[list[0][0]]}</div>`;
+}
+
+function propHTML(e, p, c){
+  const [vk, vl] = verdict(e.p), [pk, pl] = verdict(p.p);
+  const days = v => v == null ? '—' : v + ' d';
+  return `<div class="duo">
+    <div class="box">
+      <h4>Evaluation · ${money(c.target)} target</h4>
+      <div class="box-top"><span class="bignum tone-${vk}">${pct(e.p)}</span><span class="pill ${vk}">${vl}</span></div>
+      <div class="stats">
+        <div class="stat"><div class="v">${pct(e.fail)}</div><div class="k">Fail</div></div>
+        <div class="stat"><div class="v">${pct(e.open)}</div><div class="k">Still open at ${e.H} sessions</div></div>
+        <div class="stat"><div class="v">${days(e.med)}</div><div class="k">Median days to pass</div></div>
+        <div class="stat"><div class="v">${days(e.p90)}</div><div class="k">90% pass within</div></div>
+        <div class="stat"><div class="v">${e.p > 0 ? (1 / e.p).toFixed(1) : '—'}</div><div class="k">Attempts to pass</div></div>
+        <div class="stat"><div class="v">${pct(e.held)}</div><div class="k">Passes held by best-day / min days</div></div>
+      </div>
+    </div>
+    <div class="box">
+      <h4>Payout · funded account</h4>
+      <div class="box-top"><span class="bignum tone-${pk}">${pct(p.p)}</span><span class="pill ${pk}">reach first payout</span></div>
+      <div class="stats">
+        <div class="stat"><div class="v">${days(p.med)}</div><div class="k">Median days to first payout</div></div>
+        <div class="stat"><div class="v">${p.capOn ? pct(p.cap) : 'no cap'}</div><div class="k">Reach the ${p.capOn ? money(c.poCap) + ' ' : ''}cap</div></div>
+        <div class="stat"><div class="v">${p.capOn ? days(p.capMed) : '—'}</div><div class="k">Median days to cap</div></div>
+        <div class="stat"><div class="v">${pct(p.fail)}</div><div class="k">Lost before a payout</div></div>
+        <div class="stat"><div class="v">${p.avgAmt != null ? money(p.avgAmt) : '—'}</div><div class="k">Average first payout</div></div>
+        <div class="stat"><div class="v">${pct(p.held)}</div><div class="k">Delayed by best-day rule</div></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function card(r, i, c){
+  const pc = r.pc, st = r.stats, oc = outcomeText(st, c);
+  const maxN = r.replay.reduce((m, x) => Math.max(m, x.n), 0);
+  return `<section class="panel" aria-label="${esc(r.strat.name)}">
+    <div class="panel-head"><div><div class="eyebrow">Strategy ${i + 1}${r.strat.market ? ' · ' + esc(r.strat.market.toUpperCase()) : ''}</div><h3>${esc(r.strat.name)}</h3></div><div class="actions"><span class="pill ${r.verdict.tone}">${r.verdict.k}</span>${statusPill(r)}</div></div>
+    <div class="card-grid">
+      <div class="col">
+        <div class="legend"><span><i style="background:var(--ink)"></i>Profit</span><span><i style="background:var(--bad)"></i>Trailing floor</span><span><i style="background:var(--gold-line);opacity:.5;height:8px"></i>Buffer</span><span><i style="background:var(--muted);height:8px;opacity:.5"></i>Contracts</span></div>
+        <canvas class="chart" id="cv-${i}" role="img" aria-label="Historical replay of ${esc(r.strat.name)} with the scaling ladder"></canvas>
+        <div class="hint">Historical order: ${replayLine(r, c)} · peak size ${maxN} ct</div>
+      </div>
+      <div class="col">
+        <h4>Scaling ladder</h4>
+        ${r.ok ? `<div class="tbl-wrap"><table class="ladder" data-i="${i}"><thead><tr><th>Contracts</th><th>Buffer</th><th>Profit needed</th></tr></thead><tbody>${ladderRows(r.B, c)}</tbody></table></div>`
+               : `<p class="hint">Even 1 contract breaches the ${money(c.L)} floor in ${pct(r.at1Rate)} of reshuffled runs, above your ${c.alpha}% limit. Trade a smaller contract or cut the worst days first.</p>`}
+      </div>
+    </div>
+    <h4>Tests · ${r.passCount} of ${r.total} passed</h4>
+    ${testsTable(r, c)}
+    <h4>Why reshuffled runs breached</h4>
+    ${reasonsHTML(r)}
+    <h4>Prop checks at this ladder</h4>
+    ${propHTML(r.evalR, r.payR, c)}
+    <div class="stats">
+      <div class="stat"><div class="v">${oc.v}</div><div class="k">${oc.k}</div></div>
+      ${st.p10 != null ? `<div class="stat"><div class="v">${smoney(st.p10)}</div><div class="k">Worst 10% of runs</div></div>` : ''}
+      <div class="stat"><div class="v">${r.ok ? r.fixedN + ' ct · ' + pct(r.fixedRate) : '—'}</div><div class="k">Fixed size alternative · breach</div></div>
+      <div class="stat"><div class="v">${money(pc.worstDay)}</div><div class="k">Worst day / ct</div></div>
+      <div class="stat"><div class="v">${money(-pc.mdd)}</div><div class="k">Max drawdown / ct</div></div>
+      <div class="stat"><div class="v">${pct(pc.win)} · ${pct(pc.green)}</div><div class="k">Win rate · green days</div></div>
+      <div class="stat"><div class="v">${smoney(pc.net / pc.days)}</div><div class="k">Avg per trading day / ct</div></div>
+    </div>
+  </section>`;
+}
+
+function renderPortfolio(c){
+  const body = $('#pf-body'), pill = $('#pf-pill'), C = state.pf, R = state.results || [];
+  const left = R.filter(r => r.strat.inPf === false).map(r => esc(r.strat.name));
+  if (!C) {
+    pill.innerHTML = '';
+    $('#pf-eyebrow').textContent = 'Final assessment · all trade files on one account';
+    body.innerHTML = `<p class="hint">${!R.length ? 'Run the simulation to assess all strategies together.'
+      : state.pfCount === 1 ? 'Only one file is ticked for the portfolio, so its strategy card below is the full result. Tick two or more files to assess them together.'
+      : 'Tick two or more files under Strategies to assess them together.'}</p>`;
+    return;
+  }
+  const v = C.verdict, st = C.stats, oc = outcomeText(st, c), M = C.members, ns = M.length;
+  pill.innerHTML = `<span class="pill ${v.tone}">${C.passCount}/${C.total} tests passed</span>`;
+  $('#pf-eyebrow').textContent = `Final assessment · ${ns} trade files on one ${money(c.S)} account`;
+  const tot = C.n0.reduce((x, y) => x + y, 0);
+  const strictN = C.strictOk && C.strictM !== Infinity ? Array.from(stretchB(C.base, C.strictM), b => contractsFor(c.L, b, c.maxC)) : null;
+
+  // What to do next
+  const ins = [];
+  const overAlone = M.filter(r => !r.ok).map(r => esc(r.strat.name));
+  if (overAlone.length) ins.push(['bad', `${overAlone.join(', ')} ${overAlone.length > 1 ? 'breach' : 'breaches'} the limit alone even at 1 contract, so ${overAlone.length > 1 ? 'they are' : 'it is'} held at 1 contract here. Untick ${overAlone.length > 1 ? 'them' : 'it'} to see the portfolio without ${overAlone.length > 1 ? 'them' : 'it'}.`]);
+  const losers = M.map((r, j) => [r, C.contrib[j]]).filter(([, k]) => k.net <= 0).map(([r]) => esc(r.strat.name));
+  if (losers.length) ins.push(['bad', `${losers.join(', ')} ${losers.length > 1 ? 'lose' : 'loses'} money after costs over the history. ${losers.length > 1 ? 'They add' : 'It adds'} risk to the shared floor without adding profit.`]);
+  if (c.basis === 'base' && strictN && C.strictM > C.m) ins.push(['warn', `To pass all eight Monte Carlo tests together, use ${stretchTxt(C.strictM)}: start at ${M.map((r, j) => `${strictN[j]} ${esc(r.strat.name)}`).join(', ')}. You can switch "Size from" to the strictest test.`]);
+  else if (c.basis === 'base' && !C.strictOk) ins.push(['bad', 'At least one stress test breaches even at 1 contract each, so no sizing passes every Monte Carlo test.']);
+  let hi = { v: -2 };
+  for (let i = 0; i < ns; i++) for (let j = i + 1; j < ns; j++) if (C.corr[i][j] > hi.v) hi = { v: C.corr[i][j], i, j };
+  if (ns > 1 && hi.v >= 0.3) ins.push(['warn', `${esc(M[hi.i].strat.name)} and ${esc(M[hi.j].strat.name)} move together (daily correlation ${hi.v.toFixed(2)}). Their losing days tend to land on the same days, which is what shrinks the shared ladder.`]);
+  else if (ns > 1) ins.push(['good', `No two strategies are strongly correlated (highest daily correlation ${hi.v.toFixed(2)}), so losing days rarely stack.`]);
+  if (C.sumDD > 0) ins.push([C.mdd < 0.75 * C.sumDD ? 'good' : 'warn', `Real max drawdown together is ${money(C.mdd)} at the starting sizes. Added up separately it would be ${money(C.sumDD)}, so combining them cuts ${pct(Math.max(0, 1 - C.mdd / C.sumDD))} of the drawdown.`]);
+  if (st.br) { const top = REASON_KEYS.map(k => [k, st.reasons[k]]).sort((a, b) => b[1] - a[1])[0]; ins.push(['warn', `Most breaches come from: ${REASON_LABEL[top[0]].toLowerCase()} (${pct(top[1] / st.br)}). ${REASON_FIX[top[0]]}`]); }
+  const failed = C.tests.filter(t => !t.pass).map(t => t.name).concat(C.oos.na || C.oos.pass ? [] : ['Last 4 months, unseen']);
+  const fixNames = { replay: 'Historical order', worst10: 'Worst 10 days on day one', streak: 'Losing streak to breach', dd: 'Real max drawdown', day: 'Worst day vs half the max loss' };
+  C.fixed.filter(f => !f.pass).forEach(f => failed.push(fixNames[f.key]));
+  if (failed.length) ins.push(['bad', `Failed: ${failed.join(', ')}.`]);
+
+  const rows = M.map((r, j) => {
+    const k = C.contrib[j], note = !r.ok ? 'Over limit alone' : k.net <= 0 ? 'Loses money' : ns > 1 && k.corrRest >= 0.4 ? 'Moves with the rest' : '';
+    return `<tr>
+      <td><b>${esc(r.strat.name)}</b><span class="sub">${esc((r.strat.market || 'untagged').toUpperCase())} · <span class="pill ${r.verdict.tone}" style="padding:1px 6px;font-size:10.5px">${r.verdict.k} alone</span></span></td>
+      <td class="r num">${r.ok ? ladderTxt(r.B) : '1 ct (fails alone)'}</td>
+      <td class="r num">${C.ok ? ladderTxt(C.B[j]) : '—'}</td>
+      <td class="r"><span class="big">${C.ok ? C.n0[j] : '—'}</span></td>
+      ${strictN ? `<td class="r num">${strictN[j]}</td>` : ''}
+      <td class="r num ${k.net <= 0 ? 'tone-bad' : ''}">${smoney(k.net)}<span class="sub">${C.net > 0 ? pct(Math.max(0, k.net) / C.net) + ' of total' : ''}</span></td>
+      <td class="r num">${money(-k.mdd)}<span class="sub">worst day ${money(k.worst)}</span></td>
+      <td class="r num">${ns > 1 ? k.corrRest.toFixed(2) : '—'}</td>
+      <td>${note ? `<span class="pill ${note === 'Moves with the rest' ? 'warn' : 'bad'}">${note}</span>` : '<span class="pill good">Fits</span>'}</td>
+    </tr>`;
+  }).join('');
+
+  const cell = x => { const a = Math.min(1, Math.abs(x)); return `<td style="background:color-mix(in srgb,var(${x >= 0 ? '--bad' : '--good'}) ${Math.round(a * 55)}%,transparent)">${x.toFixed(2)}</td>`; };
+  const corr = ns >= 2 && ns <= 10 ? `<h4>Daily P&amp;L correlation</h4><div class="tbl-wrap"><table class="corr"><thead><tr><th></th>${M.map((r, j) => `<th title="${esc(r.strat.name)}">${j + 1}</th>`).join('')}</tr></thead><tbody>
+      ${M.map((r, i) => `<tr><td>${i + 1}. ${esc(r.strat.name)}</td>${M.map((_, j) => i === j ? '<td>—</td>' : cell(C.corr[i][j])).join('')}</tr>`).join('')}</tbody></table></div>
+      <p class="hint">Red means the two strategies tend to win and lose on the same days. Green means they offset each other.</p>` : '';
+
+  body.innerHTML = `
+    <div class="verdict ${v.tone}"><span class="vk">${v.k}</span><span class="vw">${v.why}</span></div>
+    <div class="stats">
+      <div class="stat"><div class="v">${C.ok ? tot + ' ct' : '—'}</div><div class="k">Total start size at ${money(c.L)} buffer</div></div>
+      <div class="stat"><div class="v ${st.rate > c.alpha / 100 ? 'tone-bad' : ''}">${pct(st.rate)}</div><div class="k">Breach chance, ${c.H} days</div></div>
+      <div class="stat"><div class="v">${C.passCount} / ${C.total}</div><div class="k">Tests passed</div></div>
+      <div class="stat"><div class="v">${pct(C.evalR.p)}</div><div class="k">Pass the ${money(c.target)} evaluation</div></div>
+      <div class="stat"><div class="v">${pct(C.payR.p)}</div><div class="k">Reach first payout</div></div>
+      <div class="stat"><div class="v">${oc.v}</div><div class="k">${oc.k}</div></div>
+      ${st.p10 != null ? `<div class="stat"><div class="v">${smoney(st.p10)}</div><div class="k">Worst 10% of runs</div></div>` : ''}
+      <div class="stat"><div class="v ${C.net <= 0 ? 'tone-bad' : ''}">${smoney(C.net)}</div><div class="k">Real net at start sizes</div></div>
+    </div>
+    <h4>What to do</h4>
+    <ul class="ins">${ins.map(([t, s]) => `<li class="${t}">${s}</li>`).join('')}</ul>
+    ${left.length ? `<p class="hint">Left out of the portfolio: ${left.join(', ')}.</p>` : ''}
+    <h4>Sizes together and what each strategy adds</h4>
+    <div class="tbl-wrap"><table><thead><tr><th>Strategy</th><th class="r">Ladder alone</th><th class="r">Ladder together</th><th class="r">Start</th>${strictN ? '<th class="r">Strictest start</th>' : ''}<th class="r">Real net at start</th><th class="r">Max DD at start</th><th class="r">Corr. with rest</th><th>Fit</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="col">
+      <div class="legend"><span><i style="background:var(--ink)"></i>Profit</span><span><i style="background:var(--bad)"></i>Trailing floor</span><span><i style="background:var(--gold-line);opacity:.5;height:8px"></i>Buffer</span><span><i style="background:var(--muted);height:8px;opacity:.5"></i>Total contracts</span></div>
+      <canvas class="chart" id="cv-pf" role="img" aria-label="Historical replay of all strategies on one account"></canvas>
+      <div class="hint">Historical order, all strategies together: ${replayLine(C, c)}</div>
+    </div>
+    <h4>Tests · ${C.passCount} of ${C.total} passed</h4>
+    ${testsTable(C, c)}
+    <h4>Why shared-account runs breached</h4>
+    ${reasonsHTML(C)}
+    <h4>Prop checks, all strategies on one account</h4>
+    ${propHTML(C.evalR, C.payR, c)}
+    ${corr}`;
+  drawReplay($('#cv-pf'), C.replay, C.repBreach);
+}
+
+/* ---- Size today ---- */
+function acctState(c){
+  let bal = parseFloat($('#a-bal').value), peakIn = parseFloat($('#a-peak').value);
+  if (!isFinite(bal)) bal = c.S; if (!isFinite(peakIn)) peakIn = bal;
+  const peak = Math.max(peakIn, bal, c.S);
+  const floor = Math.min(peak - c.L, c.S + c.lock);
+  return { bal, peak, peakIn, floor, buf: bal - floor, locked: peak - c.L >= c.S + c.lock };
+}
+function renderToday(withForecast){
+  const c = state.ranCfg || state.cfg, a = acctState(c);
+  state.acct = { bal: a.bal, peak: a.peakIn };
+  $('#a-buf').textContent = a.buf > 0 ? money(a.buf) : 'Breached';
+  $('#a-buf').style.color = a.buf > 0 ? '' : 'var(--bad)';
+  $('#a-floor').textContent = `Floor ${money(a.floor)} · ${a.locked ? 'locked' : 'still trailing'}`;
+  $('#a-peak-lbl').textContent = c.trail === 'eod' ? 'Highest end-of-day balance' : 'Highest closed balance';
+  $('#a-meter').style.width = Math.max(0, Math.min(100, a.buf / Math.max(c.L * 3, a.buf) * 100)) + '%';
+  const R = state.results || [], C = state.pf;
+  if (!R.length) { $('#a-sizes').innerHTML = '<div class="hint">Run the simulation to see contract sizes.</div>'; }
+  else {
+    let html = R.map(r => `<div class="sz"><span class="nm" title="${esc(r.strat.name)}">${esc(r.strat.name)}</span><span class="ct">${r.ok ? contractsFor(a.buf, r.B, c.maxC) : '—'}<small>${r.ok ? 'ct alone' : 'skip'}</small></span></div>`).join('');
+    if (C && C.ok) html += C.members.map((m, j) => `<div class="sz"><span class="nm" title="${esc(m.strat.name)}">${esc(m.strat.name)}</span><span class="ct">${contractsFor(a.buf, C.B[j], c.maxC)}<small>ct in portfolio</small></span></div>`).join('');
+    $('#a-sizes').innerHTML = html;
+    R.forEach((r, i) => {
+      const t = document.querySelector(`.ladder[data-i="${i}"]`); if (!t) return;
+      const n = contractsFor(a.buf, r.B, c.maxC);
+      t.querySelectorAll('tr[data-n]').forEach(tr => tr.classList.toggle('now', +tr.dataset.n === n));
+    });
+  }
+  save();
+  clearTimeout(fcTimer); fcTimer = setTimeout(renderForecast, withForecast ? 0 : 250);
+}
+
+/* ---- Forecast ---- */
+function buildFcRows(){
+  const R = (state.results || []).filter(r => r.ok), C = state.pf;
+  const useComb = C && C.ok;
+  const bFor = r => { if (useComb) { const j = C.members.indexOf(r); if (j >= 0) return C.B[j]; } return r.B; };
+  const rows = [];
+  const groups = new Map();
+  for (const r of R) { const m = (r.strat.market || '').trim().toUpperCase() || 'Untagged'; if (!groups.has(m)) groups.set(m, []); groups.get(m).push(r); }
+  for (const [m, list] of groups) rows.push({ key: 'mk:' + m, grp: 'By market', name: m, sub: list.length + (list.length > 1 ? ' strategies' : ' strategy'), D: buildData(list.map(r => r.strat)), B: list.map(bFor) });
+  for (const r of R) rows.push({ key: 'st:' + r.strat.id, grp: 'By strategy', name: r.strat.name, sub: 'alone on the account', D: r.D, B: [r.B] });
+  if (useComb) rows.push({ key: 'all', grp: 'Whole account', name: 'Portfolio', sub: C.members.length + ' strategies on one account', D: C.D, B: C.B });
+  return rows;
+}
+function renderForecast(){
+  const c = state.ranCfg || state.cfg, t = $('#fc-table');
+  if (!state.results || !state.results.length) { t.innerHTML = '<tr><td class="empty">Run the simulation to see the forecast.</td></tr>'; return; }
+  const a = acctState(c), H = state.fc.H, P = Math.min(c.P, 3000);
+  const rows = buildFcRows();
+  if (!rows.length) { t.innerHTML = '<tr><td class="empty">No strategy is tradeable within the rule, so there is nothing to forecast.</td></tr>'; drawFan(null); return; }
+  for (const r of rows) {
+    const lo = state.fc.basis === 'recent' ? Math.max(0, r.D.nd - c.recent) : 0;
+    r.fc = forecast(r.D, Float64Array.from(r.B), c, a.bal, a.peak, H, P, lo, hash(r.key) ^ state.seed);
+    r.reg = regimeOf(r.D, c.recent);
+  }
+  state.fcRows = rows;
+  if (!rows.some(r => r.key === state.fc.sel)) state.fc.sel = rows[rows.length - 1].key;
+  // shared scale for range bars
+  let lo = 0, hi = 0; for (const r of rows) { lo = Math.min(lo, r.fc.p10); hi = Math.max(hi, r.fc.p90); }
+  const sp = hi - lo || 1, P_ = v => ((v - lo) / sp * 100).toFixed(1);
+  const regPill = g => g.state === 'on' ? '<span class="pill good">On</span>' : g.state === 'weak' ? '<span class="pill warn">Weak</span>' : '<span class="pill bad">Off</span>';
+  const tgtLeft = c.target > 0 ? c.target - (a.bal - c.S) : 0;
+  let html = `<thead><tr><th>${H}-day outlook</th><th>Regime</th><th class="r">Median</th><th>Likely range (8 in 10)</th><th class="r">Green</th><th class="r">Breach</th>${c.target > 0 ? '<th class="r">Hits target</th>' : ''}</tr></thead><tbody>`;
+  let grp = '';
+  for (const r of rows) {
+    if (r.grp !== grp) { grp = r.grp; html += `<tr class="grp"><td colspan="${c.target > 0 ? 7 : 6}">${grp}</td></tr>`; }
+    const f = r.fc, g = r.reg;
+    html += `<tr class="pick${r.key === state.fc.sel ? ' sel' : ''}" data-key="${esc(r.key)}" tabindex="0">
+      <td><b>${esc(r.name)}</b><span class="sub">${esc(r.sub)} · ${f.ct.toFixed(f.ct % 1 ? 1 : 0)} ct now</span></td>
+      <td>${regPill(g)}<span class="sub">${smoney(g.recAvg)}/day vs ${smoney(g.allAvg)} · vol ${g.vol.toFixed(1)}×</span></td>
+      <td class="r num ${f.p50 < 0 ? 'tone-bad' : ''}"><b>${smoney(f.p50)}</b></td>
+      <td class="num">${smoney(f.p10)} to ${smoney(f.p90)}<span class="range" aria-hidden="true"><i style="left:${P_(f.p10)}%;right:${(100 - +P_(f.p90)).toFixed(1)}%"></i><u style="left:${P_(0)}%"></u><b style="left:${P_(f.p50)}%"></b></span></td>
+      <td class="r num">${pct(f.green)}</td>
+      <td class="r num ${f.breach > c.alpha / 100 ? 'tone-bad' : ''}">${pct(f.breach)}</td>
+      ${c.target > 0 ? `<td class="r num">${tgtLeft <= 0 ? 'reached' : pct(f.hit)}</td>` : ''}
+    </tr>`;
+  }
+  t.innerHTML = html + '</tbody>';
+  $('#fc-hint').textContent = `From ${money(a.bal)} with ${a.buf > 0 ? money(a.buf) + ' of buffer' : 'no buffer left'}, sampling ${state.fc.basis === 'recent' ? 'the last ' + c.recent + ' trading days' : 'all history'}. Market rows trade their strategies together on one account. Tap a row to chart it.`;
+  drawFan(rows.find(r => r.key === state.fc.sel), a, c);
+}
+
+/* ---- Charts ---- */
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function setupCanvas(cv){
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return null;
+  cv.width = w * dpr; cv.height = h * dpr;
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+  g.font = '11px "IBM Plex Mono", ui-monospace, monospace';
+  return { g, w, h };
+}
+function niceStep(range, ticks){ const t = range / ticks, mag = Math.pow(10, Math.floor(Math.log10(t))); return [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => s >= t); }
+function kfmt(v){ const s = v < 0 ? '−' : v > 0 ? '+' : ''; const a = Math.abs(v); return a >= 1000 ? s + '$' + (a / 1000).toFixed(a % 1000 ? 1 : 0) + 'k' : s + '$' + Math.round(a); }
+function yGrid(g, lo, hi, Y, x0, x1){
+  const step = niceStep(hi - lo, 4);
+  g.strokeStyle = css('--line'); g.fillStyle = css('--muted'); g.lineWidth = 1; g.textAlign = 'right'; g.textBaseline = 'middle';
+  for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) {
+    const y = Math.round(Y(v)) + 0.5;
+    g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+    g.fillText(kfmt(v), x0 - 6, y);
+  }
+}
+
+function drawReplay(cv, rec, breached){
+  if (!cv || !rec || !rec.length) return;
+  cv._draw = () => drawReplay(cv, rec, breached);
+  const s = setupCanvas(cv); if (!s) return; const { g, w, h } = s;
+  const ink = css('--ink'), muted = css('--muted'), bad = css('--bad'), gold = css('--gold-line');
+  const padL = 52, padR = 8, padT = 8, stripH = 26, padB = 20 + stripH + 6;
+  const pw = w - padL - padR, ph = h - padT - padB;
+  let lo = 0, hi = 0, nMax = 1;
+  for (const p of rec) { lo = Math.min(lo, p.b, p.f); hi = Math.max(hi, p.b, p.f); nMax = Math.max(nMax, p.n); }
+  const span = hi - lo || 1; lo -= span * 0.06; hi += span * 0.06;
+  const X = i => padL + (rec.length < 2 ? pw / 2 : i / (rec.length - 1) * pw);
+  const Y = v => padT + (hi - v) / (hi - lo) * ph;
+  yGrid(g, lo, hi, Y, padL, w - padR);
+  g.beginPath(); rec.forEach((p, i) => i ? g.lineTo(X(i), Y(p.b)) : g.moveTo(X(i), Y(p.b)));
+  for (let i = rec.length - 1; i >= 0; i--) g.lineTo(X(i), Y(rec[i].f));
+  g.closePath(); g.globalAlpha = 0.2; g.fillStyle = gold; g.fill(); g.globalAlpha = 1;
+  g.strokeStyle = bad; g.lineWidth = 1.5; g.setLineDash([4, 3]); g.beginPath();
+  rec.forEach((p, i) => i ? g.lineTo(X(i), Y(p.f)) : g.moveTo(X(i), Y(p.f))); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = ink; g.lineWidth = 1.75; g.beginPath();
+  rec.forEach((p, i) => i ? g.lineTo(X(i), Y(p.b)) : g.moveTo(X(i), Y(p.b))); g.stroke();
+  const L = rec[rec.length - 1];
+  g.fillStyle = breached ? bad : ink; g.beginPath(); g.arc(X(rec.length - 1), Y(L.b), breached ? 4.5 : 3.5, 0, Math.PI * 2); g.fill();
+  const sy = padT + ph + 8, bw = Math.max(1, pw / rec.length);
+  g.globalAlpha = 0.45; g.fillStyle = muted;
+  rec.forEach((p, i) => { const bh = p.n / nMax * stripH; g.fillRect(X(i) - bw / 2, sy + stripH - bh, Math.max(1, bw - (bw > 3 ? 1 : 0)), bh); });
+  g.globalAlpha = 1; g.fillStyle = muted; g.textAlign = 'right'; g.textBaseline = 'middle';
+  g.fillText(nMax + ' ct', padL - 6, sy + 5);
+  g.textBaseline = 'alphabetic'; const yb = h - 4;
+  g.textAlign = 'left'; g.fillText(mlabel(rec[0].k), padL, yb);
+  g.textAlign = 'right'; g.fillText(mlabel(L.k), w - padR, yb);
+  if (rec.length > 40 && pw > 260) { g.textAlign = 'center'; const m = Math.floor(rec.length / 2); g.fillText(mlabel(rec[m].k), X(m), yb); }
+}
+
+function drawFan(row, a, c){
+  const cv = $('#cv-fc'); if (!cv) return;
+  cv._draw = () => drawFan(row, a, c);
+  const s = setupCanvas(cv); if (!s) return; const { g, w, h } = s;
+  if (!row) { $('#fc-sel').textContent = ''; return; }
+  const f = row.fc, H = f.H, [p10, p25, p50, p75, p90] = f.bands;
+  const ink = css('--ink'), muted = css('--muted'), bad = css('--bad'), good = css('--good'), gold = css('--gold-line');
+  const floorRel = -f.buf, tgtRel = c.target > 0 ? c.target - (a.bal - c.S) : null;
+  let lo = Math.min(0, ...p10), hi = Math.max(0, ...p90);
+  const span0 = hi - lo || 1;
+  const showFloor = floorRel >= lo - span0 * 0.6, showTgt = tgtRel != null && tgtRel > 0 && tgtRel <= hi + span0 * 0.6;
+  if (showFloor) lo = Math.min(lo, floorRel); if (showTgt) hi = Math.max(hi, tgtRel);
+  const span = hi - lo || 1; lo -= span * 0.06; hi += span * 0.08;
+  const padL = 52, padR = 10, padT = 10, padB = 22, pw = w - padL - padR, ph = h - padT - padB;
+  const X = d => padL + d / H * pw, Y = v => padT + (hi - v) / (hi - lo) * ph;
+  yGrid(g, lo, hi, Y, padL, w - padR);
+  const band = (A, B, alpha) => { g.beginPath(); for (let d = 0; d <= H; d++) d ? g.lineTo(X(d), Y(A[d])) : g.moveTo(X(d), Y(A[d])); for (let d = H; d >= 0; d--) g.lineTo(X(d), Y(B[d])); g.closePath(); g.globalAlpha = alpha; g.fillStyle = gold; g.fill(); g.globalAlpha = 1; };
+  band(p10, p90, 0.18); band(p25, p75, 0.38);
+  const hline = (v, col, lab) => { const y = Math.round(Y(v)) + 0.5; g.strokeStyle = col; g.lineWidth = 1.5; g.setLineDash([4, 3]); g.beginPath(); g.moveTo(padL, y); g.lineTo(w - padR, y); g.stroke(); g.setLineDash([]); g.fillStyle = col; g.textAlign = 'right'; g.textBaseline = 'bottom'; g.fillText(lab, w - padR - 2, y - 3); };
+  if (showFloor) hline(floorRel, bad, 'floor ' + kfmt(floorRel));
+  if (showTgt) hline(tgtRel, good, 'target ' + kfmt(tgtRel));
+  g.strokeStyle = ink; g.lineWidth = 2; g.beginPath(); for (let d = 0; d <= H; d++) d ? g.lineTo(X(d), Y(p50[d])) : g.moveTo(X(d), Y(p50[d])); g.stroke();
+  g.fillStyle = ink; g.beginPath(); g.arc(X(H), Y(p50[H]), 3.5, 0, Math.PI * 2); g.fill();
+  g.fillStyle = muted; g.textBaseline = 'alphabetic';
+  const yb = h - 5, step = H <= 5 ? 1 : H <= 10 ? 2 : 5;
+  for (let d = 0; d <= H; d += step) { g.textAlign = d === 0 ? 'left' : d === H ? 'right' : 'center'; g.fillText(d === 0 ? 'today' : 'day ' + d, X(d), yb); }
+  if (H % step) { g.textAlign = 'right'; g.fillText('day ' + H, X(H), yb); }
+  $('#fc-sel').textContent = `${row.name}: median ${smoney(f.p50)} after ${H} trading days, 8 in 10 runs between ${smoney(f.p10)} and ${smoney(f.p90)}. ${pct(f.green)} finish green, ${pct(f.breach)} hit the floor.${!showFloor ? ' The floor is far below this range.' : ''}`;
+}
+function redrawAll(){ document.querySelectorAll('canvas.chart').forEach(cv => cv._draw && cv._draw()); }
+
+/* ---- Events ---- */
+function init(){
+  if (!load()) state.strats = makeExamples();
+  fillSettings(); renderStrats();
+  const drop = $('#drop'), file = $('#file');
+  file.addEventListener('change', () => { const list = [...file.files]; file.value = ''; addFiles(list); });
+  // Files can be dropped anywhere on the page; this also stops the browser from opening a dropped file.
+  const hasFiles = ev => ev.dataTransfer && [...(ev.dataTransfer.types || [])].includes('Files');
+  window.addEventListener('dragover', ev => { if (hasFiles(ev)) { ev.preventDefault(); drop.classList.add('over'); } });
+  window.addEventListener('dragleave', ev => { if (!ev.relatedTarget) drop.classList.remove('over'); });
+  window.addEventListener('drop', ev => { if (!hasFiles(ev)) return; ev.preventDefault(); drop.classList.remove('over'); addFiles([...ev.dataTransfer.files]); });
+  const strats = $('#strats');
+  strats.addEventListener('click', e => {
+    if (e.target.id === 'btn-ex') { state.strats = makeExamples(); state.cleared = false; renderStrats(); save(); schedule(0); return; }
+    const id = e.target.dataset.del; if (!id) return;
+    state.strats = state.strats.filter(s => s.id !== id);
+    if (!state.strats.length) state.cleared = true;
+    renderStrats(); save(); schedule(50);
+  });
+  strats.addEventListener('change', e => {
+    const fx = e.target.dataset.fx;
+    if (fx) { const s = state.strats.find(s => s.id === fx); if (s) { s.factor = parseFloat(e.target.value); save(); schedule(50); } }
+    const pfId = e.target.dataset.pf;
+    if (pfId) { const s = state.strats.find(s => s.id === pfId); if (s) { s.inPf = e.target.checked; save(); schedule(50); } }
+    const mk = e.target.dataset.mk;
+    if (mk) { const s = state.strats.find(s => s.id === mk); if (s) { s.market = e.target.value.trim().toUpperCase(); e.target.value = s.market; save(); render(); } }
+  });
+  strats.addEventListener('input', e => {
+    const id = e.target.dataset.nm; if (!id) return;
+    const s = state.strats.find(s => s.id === id);
+    if (s && e.target.value.trim()) { s.name = e.target.value.trim(); save(); clearTimeout(init._n); init._n = setTimeout(render, 400); }
+  });
+  Object.values(F).forEach(id => { const el = document.getElementById(id); el.addEventListener(el.tagName === 'SELECT' || el.type === 'checkbox' ? 'change' : 'input', () => { readSettings(); save(); schedule(900); }); });
+  ['#a-bal', '#a-peak'].forEach(s => $(s).addEventListener('input', () => renderToday(false)));
+  $('#fc-h').addEventListener('click', e => { const h = +e.target.dataset.h; if (!h) return; state.fc.H = h; syncSeg(); save(); renderForecast(); });
+  $('#fc-basis').addEventListener('change', e => { state.fc.basis = e.target.value; save(); renderForecast(); });
+  const pick = tr => { if (!tr) return; state.fc.sel = tr.dataset.key; document.querySelectorAll('#fc-table tr.pick').forEach(x => x.classList.toggle('sel', x === tr)); const c = state.ranCfg || state.cfg; drawFan(state.fcRows.find(r => r.key === state.fc.sel), acctState(c), c); };
+  $('#fc-table').addEventListener('click', e => pick(e.target.closest('tr.pick')));
+  $('#fc-table').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(e.target.closest('tr.pick')); } });
+  $('#btn-run').addEventListener('click', () => {
+    if (running) { state.run++; clearTimeout(timer); stopWorker(); setRunning(false); setStatus('Stopped. Press Run simulation to start again.'); return; }
+    schedule(0);
+  });
+  $('#btn-fresh').addEventListener('click', () => { readSettings(); $('#a-bal').value = state.cfg.S; $('#a-peak').value = state.cfg.S; renderToday(false); });
+  $('#btn-reset').addEventListener('click', () => {
+    readSettings();
+    $('#a-bal').value = state.cfg.S; $('#a-peak').value = state.cfg.S;
+    state.seed = (Math.random() * 1e9) >>> 0;
+    state.results = null; state.pf = null; render(); save(); schedule(0);
+  });
+  $('#btn-clear').addEventListener('click', () => { state.strats = []; state.cleared = true; $('#file-errors').innerHTML = ''; renderStrats(); save(); schedule(0); });
+  window.addEventListener('resize', () => { clearTimeout(init._r); init._r = setTimeout(redrawAll, 120); });
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', redrawAll); } catch (e) {}
+  new MutationObserver(redrawAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+  render();
+  schedule(0);
+}
+init();
+</script>
+
+<!-- PDF export: adds a "Download PDF" button that saves the whole page, as it is now, as an A4 PDF -->
+<style id="pdfx-style">
+.pdfx-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.pdfx-btn { display: inline-flex; align-items: center; gap: 6px; font: 600 12.5px var(--font-body, var(--f-body, system-ui, sans-serif)); padding: 6px 11px; border-radius: 7px; border: 1px solid var(--line, #D4DAE1); background: var(--surface, var(--card, #fff)); color: var(--ink, inherit); cursor: pointer; white-space: nowrap; }
+.pdfx-btn:hover { border-color: var(--accent, currentColor); }
+.pdfx-btn:disabled { opacity: .6; cursor: progress; }
+.pdfx-btn svg { width: 14px; height: 14px; flex: none; }
+.pdfx-btn:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 1px; }
+.pdfx-float { position: fixed; top: 12px; right: 12px; z-index: 50; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.pdfx-overlay { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: var(--bg, #EDF0F3); color: var(--ink, #131921); font: 600 15px var(--font-body, var(--f-body, system-ui, sans-serif)); }
+.pdfx-msg { position: fixed; right: 16px; bottom: 16px; z-index: 9999; max-width: min(360px, calc(100vw - 32px)); padding: 10px 14px; border-radius: 8px; background: var(--ink, #131921); color: var(--surface, #fff); font: 13px var(--font-body, var(--f-body, system-ui, sans-serif)); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+</style>
+<script>
+(() => {
+  const LIBS = [
+    ['html2canvas', 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'],
+    ['jspdf', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js']
+  ];
+  const RENDER_W = 920;            // page width used for the PDF (single-column layout)
+  const A4 = { w: 210, h: 297 }, M = 10, FOOT = 7;
+  const title = (document.title || 'Simulator').trim();
+  const inClaude = !!(window.claude && typeof window.claude.use === 'function');
+  let downloads;                   // undefined = not known yet, null = unavailable here
+
+  // ── Button ──
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'pdfx-btn';
+  btn.setAttribute('data-html2canvas-ignore', 'true');
+  btn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3 3-3M3 12.5v1h10v-1"/></svg><span>Download PDF</span>';
+  const label = btn.querySelector('span');
+  const header = document.querySelector('header.top') || document.querySelector('.wrap > header') || document.querySelector('header');
+  const actions = header && header.querySelector(':scope > .actions');
+  if (actions) {
+    actions.appendChild(btn);
+  } else if (header && header.children.length > 1) {
+    // Group the button with the header's right-hand item (for example the run chip)
+    const right = header.lastElementChild, bar = document.createElement('div');
+    bar.className = 'pdfx-bar';
+    header.insertBefore(bar, right);
+    bar.appendChild(right); bar.appendChild(btn);
+  } else if (header) {
+    header.appendChild(btn);
+  } else {
+    btn.classList.add('pdfx-float');
+    document.body.appendChild(btn);
+  }
+
+  if (inClaude) {
+    window.claude.use('downloads').then(d => { downloads = d; if (!d) btn.hidden = true; }, () => { downloads = null; btn.hidden = true; });
+  } else downloads = null;
+
+  function toast(text) {
+    const el = document.createElement('div');
+    el.className = 'pdfx-msg'; el.setAttribute('data-html2canvas-ignore', 'true'); el.setAttribute('role', 'status');
+    el.textContent = text;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5000);
+  }
+  const loadLib = ([global, src]) => window[global] ? Promise.resolve() : new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = src; s.async = true;
+    s.onload = res; s.onerror = () => rej(new Error('Could not load the PDF tools. Check your connection and try again.'));
+    document.head.appendChild(s);
+  });
+  const frames = n => new Promise(r => { const f = () => (--n <= 0 ? r() : requestAnimationFrame(f)); requestAnimationFrame(f); });
+  const pad = n => String(n).padStart(2, '0');
+
+  async function build() {
+    await Promise.all(LIBS.map(loadLib));
+    const root = document.documentElement;
+    const prevTheme = root.getAttribute('data-theme');
+    const isDark = prevTheme === 'dark' || (prevTheme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+    // Light theme for the PDF; canvases on the page redraw while the overlay covers the switch
+    if (isDark) { root.setAttribute('data-theme', 'light'); await frames(3); }
+    try {
+      const bg = getComputedStyle(document.body).backgroundColor || '#ffffff';
+      const estH = document.documentElement.scrollHeight * Math.max(1, window.innerWidth / RENDER_W);
+      const scale = Math.max(0.8, Math.min(2, Math.sqrt(16e6 / (RENDER_W * estH))));
+      const breaks = [];
+      const canvas = await window.html2canvas(document.body, {
+        scale, backgroundColor: bg, useCORS: true, logging: false,
+        windowWidth: RENDER_W, width: RENDER_W, windowHeight: document.documentElement.scrollHeight, scrollX: 0, scrollY: 0,
+        onclone: doc => {
+          const st = doc.createElement('style');
+          st.textContent = `html,body{width:${RENDER_W}px!important;min-width:0!important}
+            .scroll,[class*="scroll"]{overflow:visible!important;max-height:none!important}
+            table{font-size:11px!important} td,th{padding:5px 5px!important;font-size:11px!important} th{white-space:normal!important}
+            td:first-child,td.alloc{white-space:normal!important;min-width:0!important} .stack{width:56px!important}
+            details:not([open]),.drop,button.run,#runBtn,.pdfx-bar>.pdfx-btn{display:none!important}
+            [data-html2canvas-ignore]{display:none!important}`;
+          doc.head.appendChild(st);
+          // Results first, settings after them
+          const rail = doc.querySelector('.layout > .rail, .grid > .rail, main > .rail, .wrap .rail');
+          if (rail && rail.parentElement && rail.nextElementSibling) rail.parentElement.appendChild(rail);
+          const win = doc.defaultView;
+          // html2canvas cannot parse color-mix()/color()/oklch(): resolve them to rgba on the copy
+          const BAD = /\b(?:color|oklch|oklab|lch|lab|hwb)\([^()]*\)/g, HAS = /\b(?:color|oklch|oklab|lch|lab|hwb|color-mix)\(/;
+          const px = doc.createElement('canvas'); px.width = px.height = 1;
+          const cx = px.getContext('2d', { willReadFrequently: true });
+          const rgba = v => { cx.clearRect(0, 0, 1, 1); cx.fillStyle = '#000'; cx.fillStyle = v; cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; return `rgba(${d[0]},${d[1]},${d[2]},${+(d[3] / 255).toFixed(3)})`; };
+          const fix = v => v.replace(BAD, m => rgba(m));
+          const PROPS = ['color', 'background-color', 'border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color', 'outline-color', 'text-decoration-color', 'fill', 'stroke', 'box-shadow', 'text-shadow', 'background-image'];
+          let pseudo = '', n = 0;
+          doc.querySelectorAll('*').forEach(el => {
+            const cs = win.getComputedStyle(el);
+            PROPS.forEach(pr => { const v = cs.getPropertyValue(pr); if (v && HAS.test(v)) el.style.setProperty(pr, fix(v), 'important'); });
+            ['::before', '::after'].forEach(ps => {
+              const pc = win.getComputedStyle(el, ps);
+              if (!pc || pc.content === 'none' || pc.content === 'normal') return;
+              const rules = PROPS.map(pr => { const v = pc.getPropertyValue(pr); return v && HAS.test(v) ? `${pr}:${fix(v)}!important;` : ''; }).join('');
+              if (rules) { if (!el.dataset.pdfx) el.dataset.pdfx = String(++n); pseudo += `[data-pdfx="${el.dataset.pdfx}"]${ps}{${rules}}`; }
+            });
+          });
+          if (pseudo) { const ps = doc.createElement('style'); ps.textContent = pseudo; doc.head.appendChild(ps); }
+          // Inline SVG is drawn as a standalone image, so resolve CSS colors and fonts onto each shape
+          doc.querySelectorAll('svg, svg *').forEach(el => {
+            const cs = win.getComputedStyle(el);
+            ['fill', 'stroke', 'fill-opacity', 'stroke-opacity', 'stroke-width', 'opacity', 'stroke-dasharray'].forEach(p => {
+              const v = cs.getPropertyValue(p);
+              if (v) el.style.setProperty(p, v);
+            });
+            if (el.tagName.toLowerCase() === 'text' || el.tagName.toLowerCase() === 'tspan') {
+              ['font-family', 'font-size', 'font-weight'].forEach(p => el.style.setProperty(p, cs.getPropertyValue(p)));
+            }
+          });
+          // Places where a page break looks clean: edges of cards, sections, rows, tiles, charts
+          const top = doc.body.getBoundingClientRect().top;
+          doc.querySelectorAll('.card, section, header, tr, li, p, h1, h2, h3, h4, svg, canvas, table, .tile, .tiles, .kv > div, .ds, details, label, .grid2, .charts, .two, .verdict')
+            .forEach(el => { const r = el.getBoundingClientRect(); if (r.height > 0) breaks.push(r.top - top, r.bottom - top); });
+        }
+      });
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+      const cw = A4.w - 2 * M, ch = A4.h - 2 * M - FOOT;
+      const pxPerCss = canvas.width / RENDER_W, cssPerMm = RENDER_W / cw, pageCss = ch * cssPerMm;
+      const total = canvas.height / pxPerCss;
+      const cuts = [...new Set(breaks.map(b => Math.round(b)))].filter(b => b > 0 && b < total).sort((a, b) => a - b);
+      const pages = [];
+      for (let y = 0; y < total - 1;) {
+        let end = Math.min(total, y + pageCss);
+        if (end < total) {
+          let best = -1;
+          for (const b of cuts) { if (b > y + pageCss * 0.55 && b <= end) best = b; }
+          if (best > 0) end = best;
+        }
+        pages.push([y, end]); y = end;
+      }
+      // A thin strip of bottom padding is not worth a page
+      if (pages.length > 1 && pages[pages.length - 1][1] - pages[pages.length - 1][0] < 60) pages.pop();
+      const now = new Date();
+      const stamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      pages.forEach(([y0, y1], i) => {
+        if (i) pdf.addPage();
+        const sh = Math.max(1, Math.round((y1 - y0) * pxPerCss));
+        const part = document.createElement('canvas');
+        part.width = canvas.width; part.height = sh;
+        const ctx = part.getContext('2d');
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, part.width, sh);
+        ctx.drawImage(canvas, 0, Math.round(y0 * pxPerCss), canvas.width, sh, 0, 0, canvas.width, sh);
+        pdf.addImage(part.toDataURL('image/jpeg', 0.92), 'JPEG', M, M, cw, (y1 - y0) / cssPerMm, undefined, 'FAST');
+        pdf.setFontSize(8); pdf.setTextColor(110);
+        pdf.text(`${title} · ${stamp}`, M, A4.h - M);
+        pdf.text(`${i + 1} / ${pages.length}`, A4.w - M, A4.h - M, { align: 'right' });
+      });
+      pdf.setProperties({ title: `${title} · ${stamp}` });
+      return { blob: pdf.output('blob'), filename: `${title} ${stamp.slice(0, 10)}.pdf` };
+    } finally {
+      if (isDark) { if (prevTheme == null) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', prevTheme); }
+    }
+  }
+
+  btn.addEventListener('click', async () => {
+    if (btn.disabled) return;
+    btn.disabled = true; label.textContent = 'Building PDF…';
+    const overlay = document.createElement('div');
+    overlay.className = 'pdfx-overlay'; overlay.setAttribute('data-html2canvas-ignore', 'true');
+    overlay.textContent = 'Building PDF…';
+    document.body.appendChild(overlay);
+    let file = null;
+    try { file = await build(); }
+    catch (e) { toast(e && e.message ? e.message : 'The PDF could not be built.'); }
+    finally { overlay.remove(); }
+    if (file) {
+      try {
+        if (inClaude && downloads === undefined) downloads = await window.claude.use('downloads');
+        if (downloads) await downloads.save({ filename: file.filename, data: file.blob });
+        else if (!inClaude) {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(file.blob); a.download = file.filename;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+        } else { btn.hidden = true; toast('Downloads are not available in this view.'); }
+      } catch (e) {
+        const code = e && e.code;
+        if (code === 'declined') { /* viewer said no */ }
+        else if (code === 'rate_limited') toast('A save prompt is already open. Try again in a moment.');
+        else if (code === 'too_large') toast('The PDF is too large to save here.');
+        else { btn.hidden = true; toast('Downloads are not available in this view.'); }
+      }
+    }
+    btn.disabled = false; label.textContent = 'Download PDF';
+  });
+})();
+</script>
+
+</body></html>

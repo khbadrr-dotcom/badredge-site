@@ -1,0 +1,1565 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<a href="/" style="display:block;padding:10px 16px;font:600 13px/1.4 system-ui,-apple-system,sans-serif;background:#0b0d10;color:#d4af6a;text-decoration:none;border-bottom:1px solid #232831;letter-spacing:.02em">&#9679; Badr Edge <span style="color:#8c929c;font-weight:400">&nbsp;&larr; all free tools</span></a>
+<title>Prop Payout Simulator · Badr Edge</title>
+<meta name="description" content="Free Prop Payout Simulator for prop futures traders by Badr Edge. Educational planning tool, not financial advice.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: trading-desk tool — funded rules + strategy inputs in a left rail, payout odds → size table → charts on the right */
+:root {
+  --bg: #EDF0F3;
+  --surface: #FFFFFF;
+  --sunken: #F5F7F9;
+  --ink: #131921;
+  --muted: #5A6472;
+  --line: #D4DAE1;
+  --accent: #2545C4;
+  --accent-soft: #E2E7FA;
+  --pass: #167F55;
+  --pass-soft: #DDF1E7;
+  --fail: #C13B34;
+  --fail-soft: #F8E1DF;
+  --wait: #A86F10;
+  --wait-soft: #F6EBD6;
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1217; --surface: #161B22; --sunken: #11161C; --ink: #E6EAEF; --muted: #98A2AF; --line: #29303A;
+    --accent: #8299FF; --accent-soft: #1D2547; --pass: #3DC28B; --pass-soft: #12301F; --fail: #F06A62; --fail-soft: #3A1715;
+    --wait: #E1A640; --wait-soft: #33260E; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1217; --surface: #161B22; --sunken: #11161C; --ink: #E6EAEF; --muted: #98A2AF; --line: #29303A;
+  --accent: #8299FF; --accent-soft: #1D2547; --pass: #3DC28B; --pass-soft: #12301F; --fail: #F06A62; --fail-soft: #3A1715;
+  --wait: #E1A640; --wait-soft: #33260E; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; margin-bottom: 22px; }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 4vw, 36px); letter-spacing: -0.02em; margin: 0; line-height: 1.05; text-wrap: balance; }
+.lede { color: var(--muted); margin: 6px 0 0; max-width: 62ch; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.layout { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 960px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+/* Inputs rail */
+.rail { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.rail section { padding: 16px 18px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+.rail section:last-child { border-bottom: 0; }
+.rail h2 { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+label.f { display: grid; gap: 4px; font-size: 12px; color: var(--muted); min-width: 0; }
+label.f > span { display: flex; justify-content: space-between; gap: 6px; }
+input[type=number], input[type=text], select, textarea {
+  width: 100%; min-width: 0; font: 500 14px var(--font-mono); color: var(--ink); background: var(--sunken);
+  border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; font-variant-numeric: tabular-nums;
+}
+textarea { font-size: 12px; min-height: 110px; resize: vertical; line-height: 1.4; }
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, .tabs button:focus-visible, tr:focus-visible, .drop:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--ink); }
+.check input { accent-color: var(--accent); width: 16px; height: 16px; }
+.hint { font-size: 12px; color: var(--muted); margin: 0; }
+.tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--sunken); border: 1px solid var(--line); border-radius: 7px; padding: 3px; gap: 3px; }
+.tabs button { font: 600 13px var(--font-body); border: 0; border-radius: 5px; padding: 6px; background: transparent; color: var(--muted); cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.status { font: 12px var(--font-mono); padding: 8px 10px; border-radius: 6px; background: var(--sunken); color: var(--muted); }
+.status.ok { background: var(--pass-soft); color: var(--pass); }
+.status.err { background: var(--fail-soft); color: var(--fail); }
+.run { font: 700 15px var(--font-display); letter-spacing: 0.02em; padding: 12px; border-radius: 8px; border: 0; background: var(--accent); color: var(--surface); cursor: pointer; }
+.run:disabled { opacity: .6; cursor: progress; }
+.btn2 { font: 600 13px var(--font-body); padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+details { font-size: 12px; color: var(--muted); }
+details summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+details ol { margin: 6px 0 0; padding-left: 18px; }
+details > div { display: grid; gap: 8px; margin-top: 8px; }
+.drop { display: grid; place-items: center; gap: 2px; text-align: center; padding: 14px 10px; border: 1.5px dashed var(--line); border-radius: 8px; background: var(--sunken); cursor: pointer; color: var(--muted); font-size: 12px; }
+.drop strong { color: var(--accent); font-size: 13px; }
+.drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.ds-list { display: grid; gap: 8px; }
+.ds { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 8px; background: var(--surface); }
+.ds-head { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+.ds-name { font: 600 12.5px var(--font-mono); overflow-wrap: anywhere; min-width: 0; }
+.ds-meta { font: 11.5px var(--font-mono); color: var(--muted); }
+.ds-meta.err { color: var(--fail); }
+.ds-x { border: 0; background: transparent; color: var(--muted); font-size: 18px; line-height: 1; cursor: pointer; padding: 0 4px; }
+.ds-x:hover { color: var(--fail); }
+.grid5 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.grid5 label.f { font-size: 11px; }
+.grid5 label.f:last-child { grid-column: 1 / -1; }
+.grid5 input, .grid5 select { font-size: 12.5px; padding: 5px 6px; }
+
+/* Results */
+.results { display: grid; gap: 20px; min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; min-width: 0; }
+.card h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 0 0 4px; }
+.card .sub { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+.verdict { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr); gap: 20px; align-items: center; }
+@media (max-width: 640px) { .verdict { grid-template-columns: minmax(0, 1fr); } }
+.big { font-family: var(--font-display); font-weight: 800; font-size: clamp(54px, 8vw, 84px); line-height: .9; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.big small { font-size: .4em; letter-spacing: 0; font-weight: 700; }
+.pill { display: inline-block; font: 600 12px var(--font-mono); letter-spacing: .04em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; margin-top: 10px; }
+.pill.good { background: var(--pass-soft); color: var(--pass); }
+.pill.mid { background: var(--wait-soft); color: var(--wait); }
+.pill.bad { background: var(--fail-soft); color: var(--fail); }
+.vtext { margin: 8px 0 0; font-size: 14px; }
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+@media (max-width: 520px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile { background: var(--surface); padding: 10px 12px; min-width: 0; }
+.tile .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.tile .v { font: 600 19px var(--font-mono); font-variant-numeric: tabular-nums; margin-top: 2px; overflow-wrap: anywhere; }
+.tile .v.pass { color: var(--pass); } .tile .v.fail { color: var(--fail); } .tile .v.wait { color: var(--wait); }
+.scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th { text-align: right; font: 500 11px var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+td { text-align: right; font: 13px var(--font-mono); padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+tbody.pick tr { cursor: pointer; }
+tbody.pick tr:hover { background: var(--sunken); }
+tbody tr.sel { background: var(--accent-soft); }
+td .best { font: 600 10px var(--font-mono); color: var(--pass); margin-left: 6px; letter-spacing: .05em; }
+td .mine { font: 600 10px var(--font-mono); color: var(--accent); margin-left: 6px; letter-spacing: .05em; }
+td .over { font: 600 10px var(--font-mono); color: var(--fail); margin-left: 6px; }
+.stack { display: flex; height: 10px; width: 140px; border-radius: 3px; overflow: hidden; background: var(--sunken); }
+.stack i { display: block; height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 10px; }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+.charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+@media (max-width: 1100px) { .charts { grid-template-columns: minmax(0, 1fr); } }
+svg { display: block; width: 100%; height: auto; }
+svg text { fill: var(--muted); font: 11px var(--font-mono); }
+.insights { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.insights li { padding: 9px 12px; border-left: 3px solid var(--c, var(--accent)); background: var(--sunken); border-radius: 0 6px 6px 0; font-size: 13.5px; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+@media (max-width: 1100px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 0; }
+.kv div { padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.kv div:nth-child(even) { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.delta-neg { color: var(--fail); } .delta-pos { color: var(--pass); }
+.foot { color: var(--muted); font-size: 12px; margin-top: 24px; max-width: 90ch; }
+.err-box { padding: 14px; border-radius: 8px; background: var(--fail-soft); color: var(--fail); font-weight: 500; }
+@media (prefers-reduced-motion: no-preference) { .stack i { transition: width .3s ease; } }
+.duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 640px) { .duo { grid-template-columns: minmax(0, 1fr); } }
+.k2 { font: 600 12px var(--font-body); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Prop Payout Simulator</h1>
+      <p class="lede">Simulates the funded account after you pass: no profit target, the same max loss, and each firm's payout rules. It shows how likely you are to reach your first payout and the payout cap, how long each takes, and at what size.</p>
+    </div>
+    <span class="chip" id="runInfo">Monte Carlo</span>
+  </header>
+
+  <div class="layout">
+    <form class="rail" id="form" autocomplete="off" novalidate>
+      <section>
+        <h2>Funded account rules</h2>
+        <div class="tabs" role="tablist" aria-label="Run for">
+          <button type="button" role="tab" id="tabOne" aria-selected="true">One firm</button>
+          <button type="button" role="tab" id="tabAll" aria-selected="false">All firms</button>
+        </div>
+        <p class="hint" id="allHint" hidden>Comparing every firm with the same trades. Each firm uses its own saved rules below, including its drawdown type. Daily loss limit and give-up sessions apply to all firms.</p>
+        <label class="f"><span>Firm</span>
+          <select id="firm">
+            <option value="mine">Default 100K</option>
+            <option value="s50">Topstep-style 50K</option>
+            <option value="s100">Topstep-style 100K</option>
+            <option value="s150">Topstep-style 150K</option>
+            <option value="tpt">Take Profit Trader-style 50K</option>
+            <option value="tfy">Tradeify-style 50K</option>
+            <option value="mffu">My Funded Futures-style 50K</option>
+            <option value="fn">FundedNext-style 50K</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <div class="grid2">
+          <label class="f"><span>Starting balance $</span><input id="start" type="number" min="1000" step="1000"></label>
+          <label class="f"><span>Max loss limit $</span><input id="mll" type="number" min="0" step="100"></label>
+          <label class="f"><span>Drawdown type</span>
+            <select id="dd">
+              <option value="eod">Trailing, end of day</option>
+              <option value="intraday">Trailing, intraday</option>
+              <option value="static">Static</option>
+            </select>
+          </label>
+          <label class="f"><span>Max contracts allowed</span><input id="maxC" type="number" min="1" step="1"></label>
+        </div>
+        <label class="check"><input id="lock" type="checkbox" checked> Trailing stops at the starting balance</label>
+        <div class="grid2">
+          <label class="f"><span>Daily loss limit $</span><input id="dll" type="number" min="0" step="100" value="0"></label>
+          <label class="f"><span>If daily limit hit</span>
+            <select id="dllAction">
+              <option value="stop">Stop for the day</option>
+              <option value="fail">Lose the account</option>
+            </select>
+          </label>
+        </div>
+        <h2 style="margin-top:6px">Payout rules</h2>
+        <div class="grid2">
+          <label class="f"><span>Min trading days</span><input id="minDays" type="number" min="0" step="1"></label>
+          <label class="f"><span>Winning days needed</span><input id="winDays" type="number" min="0" step="1"></label>
+          <label class="f"><span>Winning day = at least $</span><input id="winMin" type="number" min="0" step="10"></label>
+          <label class="f"><span>Buffer above start $</span><input id="buffer" type="number" min="0" step="100"></label>
+          <label class="f"><span>Best day max % of profit</span><input id="cons" type="number" min="0" max="100" step="5"></label>
+          <label class="f"><span>Withdraw up to % of profit</span><input id="wPct" type="number" min="1" max="100" step="5"></label>
+          <label class="f"><span>Payout cap $</span><input id="cap" type="number" min="0" step="100"></label>
+          <label class="f"><span>Minimum payout $</span><input id="minPay" type="number" min="0" step="25"></label>
+        </div>
+        <button type="button" class="btn2" id="resetFirm">Reset this firm to its defaults</button>
+        <p class="hint">Presets follow the rules you entered for each firm. Rules change often, so check them before relying on the results. Changes are saved for each firm. Cap 0 = no cap. Best-day rule 0 = off. With trailing that stops at the starting balance, the max loss freezes once profit reaches the max loss amount.</p>
+        <div class="grid2">
+          <label class="f"><span>Give up after (sessions)</span><input id="maxDays" type="number" min="5" max="250" step="5" value="90"></label>
+          <label class="f"><span>Rank by</span>
+            <select id="rankBy">
+              <option value="pay">First payout</option>
+              <option value="cap">Reaching the cap</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Instrument &amp; costs</h2>
+        <div class="grid2">
+          <label class="f"><span>Contract</span>
+            <select id="inst">
+              <option value="MGC">MGC · Micro Gold</option>
+              <option value="GC">GC · Gold</option>
+              <option value="MES">MES · Micro S&amp;P</option>
+              <option value="ES">ES · E-mini S&amp;P</option>
+              <option value="MNQ">MNQ · Micro Nasdaq</option>
+              <option value="NQ">NQ · E-mini Nasdaq</option>
+              <option value="MYM">MYM · Micro Dow</option>
+              <option value="YM">YM · E-mini Dow</option>
+              <option value="MCL">MCL · Micro Crude</option>
+              <option value="CL">CL · Crude Oil</option>
+            </select>
+          </label>
+          <label class="f"><span>$ per point</span><input id="pv" type="number" min="0" step="any" value="10"></label>
+          <label class="f"><span>Tick size (pts)</span><input id="tick" type="number" min="0" step="any" value="0.1"></label>
+          <label class="f"><span>Fees / contract RT $</span><input id="comm" type="number" min="0" step="any" value="1.4"></label>
+          <label class="f"><span>Slippage / trade (ticks)</span><input id="slip" type="number" min="0" step="1" value="1"></label>
+        </div>
+        <p class="hint">Contract, point value and fees here are for Single strategy. In Portfolio, each file sets its own contract and fees. Slippage applies to every trade.</p>
+      </section>
+
+      <section>
+        <h2>Strategy <span class="chip" id="exampleChip">Example numbers</span></h2>
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" id="tabStats" aria-selected="true">Single strategy</button>
+          <button type="button" role="tab" id="tabList" aria-selected="false">Portfolio</button>
+        </div>
+        <div id="paneStats" class="grid2">
+          <label class="f"><span>Win rate %</span><input id="wr" type="number" min="1" max="99" step="1" value="50"></label>
+          <label class="f"><span>Trades per day</span><input id="tpd" type="number" min="1" max="20" step="1" value="1"></label>
+          <label class="f"><span>Avg win (points)</span><input id="aw" type="number" min="0" step="any" value="9"></label>
+          <label class="f"><span>Avg loss (points)</span><input id="al" type="number" min="0" step="any" value="6"></label>
+        </div>
+        <div id="paneList" hidden style="display:grid;gap:10px">
+          <label class="drop" id="drop">
+            <strong>Add strategy files</strong>
+            <span>TradingView “List of trades” CSVs, one per strategy or ticker. Select or drop several at once.</span>
+            <input id="file" type="file" multiple accept=".csv,.txt,text/csv,text/plain">
+          </label>
+          <div class="ds-list" id="dsList"></div>
+          <details>
+            <summary>Paste trades instead</summary>
+            <div>
+              <textarea id="paste" spellcheck="false" placeholder="Paste a TradingView CSV, or one P&amp;L per line:&#10;93&#10;-60&#10;88"></textarea>
+              <button type="button" class="btn2" id="addPaste">Add pasted trades</button>
+            </div>
+          </details>
+          <div class="status" id="parseStatus">No strategy files yet.</div>
+          <p class="hint">The simulator tests every contract combination from 0 up to “Test up to” for each strategy and suggests the best one.</p>
+          <label class="f"><span>Trades per day (files without dates)</span><input id="tpdList" type="number" min="1" max="20" step="1" value="1"></label>
+        </div>
+        <label class="f"><span>Days with a setup %</span><input id="setup" type="number" min="1" max="100" step="1" value="85"></label>
+      </section>
+
+      <section>
+        <h2>Simulation</h2>
+        <div class="grid2" id="sizeRange">
+          <label class="f"><span>Contracts from</span><input id="cFrom" type="number" min="1" step="1" value="1"></label>
+          <label class="f"><span>Contracts to</span><input id="cTo" type="number" min="1" step="1" value="10"></label>
+        </div>
+        <div id="byRow" hidden style="display:grid;gap:10px">
+          <label class="f"><span>Sample by</span>
+            <select id="sampleBy">
+              <option value="week">Whole weeks (keeps losing streaks)</option>
+              <option value="day">Single days</option>
+            </select>
+          </label>
+          <p class="hint">Whole weeks replays real Monday–Friday stretches in order, including days with no trade, so “Days with a setup” is not used.</p>
+        </div>
+        <label class="f"><span>Attempts per size</span>
+          <select id="runs">
+            <option value="2000">2,000 (fast)</option>
+            <option value="5000" selected>5,000</option>
+            <option value="10000">10,000 (precise)</option>
+          </select>
+        </label>
+        <label class="f"><span>Speed view: within pts</span><input id="fastTol" type="number" min="0" max="20" step="0.5" value="2"></label>
+        <p class="hint">Speed view finds the size or contract combination that pays out soonest among those whose odds are within this many points of the best.</p>
+        <button class="run" id="runBtn" type="submit">Run simulation</button>
+      </section>
+    </form>
+
+    <div class="results" id="results">
+      <div class="card"><p class="sub">Running the first simulation…</p></div>
+    </div>
+  </div>
+
+  <p class="foot">Each attempt starts a fresh funded account and replays random trading sessions drawn from your strategy's results. It counts the first day every payout rule is met, then keeps trading without withdrawing until you can take the full cap, lose the account, or run out of sessions. Drawdown is checked on closed trades only. Past results do not guarantee future results. This is a planning tool, not financial advice.</p>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const INST = {
+    MGC: { pv: 10, tick: 0.1, comm: 1.4 }, GC: { pv: 100, tick: 0.1, comm: 4.2 },
+    MES: { pv: 5, tick: 0.25, comm: 1.4 }, ES: { pv: 50, tick: 0.25, comm: 4.2 },
+    MNQ: { pv: 2, tick: 0.25, comm: 1.4 }, NQ: { pv: 20, tick: 0.25, comm: 4.2 },
+    MYM: { pv: 0.5, tick: 1, comm: 1.4 }, YM: { pv: 5, tick: 1, comm: 4.2 },
+    MCL: { pv: 100, tick: 0.01, comm: 1.5 }, CL: { pv: 1000, tick: 0.01, comm: 4.4 }
+  };
+  // Micros first so "MGC" is not read as "GC"
+  const INST_ORDER = ['MGC', 'MES', 'MNQ', 'MYM', 'MCL', 'GC', 'ES', 'NQ', 'YM', 'CL'];
+  // Funded-account presets, from the rules the user gave for each firm.
+  const FIRMS = {
+    mine:   { name: 'Default 100K',               start: 100000, mll: 2000, dd: 'eod',      maxC: 100, minDays: 5, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 3000, minPay: 250 },
+    s50:    { name: 'Topstep-style 50K',            start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 6000, minPay: 125 },
+    s100:   { name: 'Topstep-style 100K',           start: 100000, mll: 3000, dd: 'eod',      maxC: 100, minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 6000, minPay: 125 },
+    s150:   { name: 'Topstep-style 150K',           start: 150000, mll: 4500, dd: 'eod',      maxC: 150, minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 6000, minPay: 125 },
+    tpt:    { name: 'Take Profit Trader-style 50K', start: 50000,  mll: 2000, dd: 'intraday', maxC: 50,  minDays: 0, winDays: 0, winMin: 0,   buffer: 2000, cons: 0,  wPct: 100, cap: 0,    minPay: 1 },
+    tfy:    { name: 'Tradeify-style 50K',           start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 2000, minPay: 1 },
+    mffu:   { name: 'My Funded Futures-style 50K',  start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 2000, minPay: 1 },
+    fn:     { name: 'FundedNext-style 50K',         start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 2000, minPay: 1 },
+    custom: { name: 'Custom',                       start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 5, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 3000, minPay: 250 }
+  };
+  const FIRM_IDS = ['s50', 's100', 's150', 'tpt', 'tfy', 'mffu', 'fn'];
+  const RULE_FIELDS = ['start', 'mll', 'maxC', 'minDays', 'winDays', 'winMin', 'buffer', 'cons', 'wPct', 'cap', 'minPay'];
+  const FIELDS = ['firm','lock','dll','dllAction','maxDays','rankBy','inst','pv','tick','comm','slip','wr','tpd','aw','al','setup','cFrom','cTo','runs','tpdList','sampleBy','fastTol'];
+  const STORE = 'prop-payout-sim-v1';
+  const STORE_RULES = 'prop-payout-rules-v2';
+  const STORE_FILES = 'prop-payout-files-v1';
+  const BYNAME = { week: 'whole weeks', day: 'single days' };
+  const MAX_COMBOS = 16000;  // allocation search limit (6 strategies up to 4 each)
+  const TOP_K = 8;           // allocations re-run at full precision
+  const REASONS = {
+    bigday: 'One large losing day',
+    giveback: 'Gave back profits (trailing drawdown)',
+    streak: 'Losing streak from the start',
+    dll: 'Daily loss limit'
+  };
+
+  let mode = 'stats';        // 'stats' = single strategy, 'list' = portfolio
+  let scope = 'one';         // 'one' firm or 'all' firms
+  let selFirm = null;
+  let selKey = null;         // selected size / allocation
+  let datasets = [];         // [{ id, name, text, inst, unit, qty, max, fee, parsed }]
+  let nextId = 1;
+  let last = null;           // last run results
+  let rankBy = 'pay';
+  let rules = {};            // firm id -> payout rules (defaults plus the viewer's edits)
+  Object.keys(FIRMS).forEach(id => { rules[id] = { ...FIRMS[id] }; });
+
+  // ───────── Persistence (per-viewer convenience) ─────────
+  function save() {
+    try {
+      const o = { mode, scope };
+      FIELDS.forEach(f => { const el = $(f); o[f] = el.type === 'checkbox' ? el.checked : el.value; });
+      localStorage.setItem(STORE, JSON.stringify(o));
+      localStorage.setItem(STORE_RULES, JSON.stringify(rules));
+    } catch (e) {}
+  }
+  function saveFiles() {
+    try { localStorage.setItem(STORE_FILES, JSON.stringify(datasets.map(({ name, text, inst, unit, qty, max, fee }) => ({ name, text, inst, unit, qty, max, fee })))); } catch (e) {}
+  }
+  function load() {
+    try {
+      const r = JSON.parse(localStorage.getItem(STORE_RULES) || 'null');
+      if (r) Object.keys(FIRMS).forEach(id => { if (!r[id]) return; RULE_FIELDS.forEach(k => { if (isFinite(r[id][k])) rules[id][k] = +r[id][k]; }); if (['eod', 'intraday', 'static'].includes(r[id].dd)) rules[id].dd = r[id].dd; });
+    } catch (e) {}
+    try {
+      const o = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (o) {
+        FIELDS.forEach(f => { if (o[f] === undefined) return; const el = $(f); if (el.type === 'checkbox') el.checked = o[f]; else el.value = o[f]; });
+        if (o.mode) setMode(o.mode, true);
+        if (o.scope) setScope(o.scope, true);
+      }
+    } catch (e) {}
+    try {
+      const fs = JSON.parse(localStorage.getItem(STORE_FILES) || 'null');
+      if (Array.isArray(fs)) fs.forEach(d => addDataset(d.name, d.text, d, true));
+    } catch (e) {}
+  }
+  function showRules() {
+    const r = rules[$('firm').value];
+    RULE_FIELDS.forEach(k => { $(k).value = r[k]; });
+    $('dd').value = r.dd;
+  }
+
+  // ───────── Helpers ─────────
+  const fmt$ = (v, d = 0) => (v < 0 ? '−$' : '$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const pct = (v, d = 0) => (v * 100).toFixed(d) + '%';
+  const num = el => parseFloat($(el).value);
+  const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  function quantile(arr, q) {
+    if (!arr.length) return NaN;
+    const s = [...arr].sort((a, b) => a - b);
+    const i = Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))));
+    return s[i];
+  }
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      let t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  // ───────── Trade list parsing ─────────
+  function splitLine(line, d) {
+    const out = []; let cur = ''; let q = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { if (q && line[i + 1] === '"') { cur += '"'; i++; } else q = !q; }
+      else if (ch === d && !q) { out.push(cur); cur = ''; }
+      else cur += ch;
+    }
+    out.push(cur);
+    return out.map(s => s.trim());
+  }
+  function toNum(s) {
+    if (s == null) return NaN;
+    s = String(s).trim().replace(/[−–]/g, '-').replace(/[$\s]/g, '').replace(/USD/i, '');
+    if (/^\(.*\)$/.test(s)) s = '-' + s.slice(1, -1);
+    s = s.replace(/,(?=\d{3}(\D|$))/g, '').replace(',', '.');
+    return parseFloat(s);
+  }
+  function dateKey(s) {
+    if (!s) return null;
+    let m = s.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (m) return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`;
+    const t = Date.parse(s);
+    if (!isNaN(t)) { const d = new Date(t); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
+    return null;
+  }
+  function parseTrades(text) {
+    const lines = text.split(/\r?\n/).filter(l => l.trim());
+    if (!lines.length) return { error: 'The file is empty.' };
+    let hi = -1;
+    for (let i = 0; i < Math.min(5, lines.length); i++) if (/type|profit|p&l|pnl/i.test(lines[i]) && /[a-z]{3}/i.test(lines[i])) { hi = i; break; }
+    const trades = [];
+    if (hi >= 0) {
+      const h = lines[hi];
+      const d = (h.match(/\t/g) || []).length > 1 ? '\t' : ((h.match(/;/g) || []).length > (h.match(/,/g) || []).length ? ';' : ',');
+      const cols = splitLine(h, d).map(c => c.toLowerCase());
+      const iType = cols.findIndex(c => c === 'type');
+      const isPnl = c => /(profit|p&l|pnl)/.test(c) && !/%|cum|run-up|drawdown|percent/.test(c);
+      let iP = cols.findIndex(c => isPnl(c) && /usd|\$/.test(c));
+      if (iP < 0) iP = cols.findIndex(isPnl);
+      const iQ = cols.findIndex(c => /contracts|qty|quantity|position size/.test(c) && !/value/.test(c));
+      const iD = cols.findIndex(c => /date/.test(c));
+      if (iP < 0) return { error: 'No profit column found. Expected a header like "Profit USD" or "Net P&L USD".' };
+      for (let i = hi + 1; i < lines.length; i++) {
+        const r = splitLine(lines[i], d);
+        if (iType >= 0 && !/exit/i.test(r[iType] || '')) continue;
+        const p = toNum(r[iP]);
+        if (!isFinite(p)) continue;
+        const q = iQ >= 0 ? Math.abs(toNum(r[iQ])) : 1;
+        trades.push({ v: p / (isFinite(q) && q > 0 ? q : 1), date: iD >= 0 ? dateKey(r[iD]) : null });
+      }
+    } else {
+      lines.forEach(l => l.split(/[,;\t ]+/).forEach(tok => { const v = toNum(tok); if (tok && isFinite(v)) trades.push({ v, date: null }); }));
+    }
+    if (!trades.length) return { error: 'No trades found in this file.' };
+    const hasDates = trades.every(t => t.date);
+    if (hasDates) trades.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+    return { trades, hasDates, dayCount: hasDates ? new Set(trades.map(t => t.date)).size : null };
+  }
+  function guessInst(name) {
+    const up = name.toUpperCase();
+    for (const k of INST_ORDER) if (new RegExp('(^|[^A-Z])' + k + '(\\d|!|[^A-Z]|$)').test(up)) return k;
+    return null;
+  }
+
+  // ───────── Strategy files ─────────
+  function addDataset(name, text, opts, quiet) {
+    const parsed = parseTrades(text);
+    const inst = (opts && opts.inst) || guessInst(name) || $('inst').value;
+    datasets.push({
+      id: nextId++, name, text, parsed, inst,
+      unit: (opts && opts.unit) || 'usd',
+      qty: opts && opts.qty != null ? opts.qty : 1,
+      max: opts && opts.max != null ? opts.max : 3,
+      fee: opts && opts.fee != null ? opts.fee : INST[inst].comm
+    });
+    if (!quiet) afterFilesChange(true);
+  }
+  function afterFilesChange(autoSetup) {
+    renderFiles();
+    const est = poolSummary();
+    if (autoSetup && est.setupEst != null) $('setup').value = Math.max(1, Math.round(est.setupEst * 100));
+    saveFiles(); save(); schedule();
+  }
+  function comboCount() {
+    return datasets.filter(d => !d.parsed.error).reduce((a, d) => a * (d.max + 1), 1) - 1;
+  }
+  function renderFiles() {
+    $('dsList').innerHTML = datasets.map(d => {
+      const p = d.parsed;
+      const meta = p.error ? `<div class="ds-meta err">${esc(p.error)}</div>`
+        : `<div class="ds-meta">${p.trades.length} trades${p.hasDates ? ` · ${p.dayCount} days · ${p.trades[0].date} → ${p.trades[p.trades.length - 1].date}` : ' · no dates'}</div>`;
+      return `<div class="ds" data-id="${d.id}">
+        <div class="ds-head"><span class="ds-name">${esc(d.name)}</span><button type="button" class="ds-x" data-act="rm" aria-label="Remove ${esc(d.name)}">×</button></div>
+        ${meta}
+        <div class="grid5">
+          <label class="f"><span>Contract</span><select data-k="inst">${INST_ORDER.map(k => `<option value="${k}"${k === d.inst ? ' selected' : ''}>${k}</option>`).join('')}</select></label>
+          <label class="f"><span>Test up to</span><input data-k="max" type="number" min="0" max="20" step="1" value="${d.max}"></label>
+          <label class="f"><span>Fees $</span><input data-k="fee" type="number" min="0" step="any" value="${d.fee}"></label>
+          <label class="f"><span>Values</span><select data-k="unit"><option value="usd"${d.unit === 'usd' ? ' selected' : ''}>$ / trade</option><option value="pts"${d.unit === 'pts' ? ' selected' : ''}>Points</option></select></label>
+        </div>
+      </div>`;
+    }).join('');
+    const s = poolSummary();
+    const st = $('parseStatus');
+    if (!datasets.length) { st.className = 'status'; st.textContent = 'No strategy files yet.'; }
+    else if (!s.ok) { st.className = 'status err'; st.textContent = s.msg; }
+    else {
+      const n = comboCount();
+      st.className = n > MAX_COMBOS ? 'status err' : 'status ok';
+      st.textContent = s.msg + ` · ${n.toLocaleString()} allocations to test` + (n > MAX_COMBOS ? ` (limit ${MAX_COMBOS.toLocaleString()}, lower some "Test up to" values)` : '');
+      $('exampleChip').hidden = true;
+    }
+  }
+  // Combined view of every usable file: trade count, trading days and setup estimate
+  function poolSummary() {
+    const good = datasets.filter(d => !d.parsed.error);
+    const n = good.reduce((a, d) => a + d.parsed.trades.length, 0);
+    if (!good.length) return { ok: false, msg: 'None of the files have usable trades.', setupEst: null };
+    if (n < 10) return { ok: false, msg: `Found ${n} trades. Load at least 10 for a meaningful simulation.`, setupEst: null };
+    const dated = good.every(d => d.parsed.hasDates);
+    let msg = `${good.length} strateg${good.length > 1 ? 'ies' : 'y'} · ${n} trades`, setupEst = null;
+    if (dated) {
+      const dates = new Set(); let lo = null, hi = null;
+      good.forEach(d => d.parsed.trades.forEach(t => { dates.add(t.date); if (!lo || t.date < lo) lo = t.date; if (!hi || t.date > hi) hi = t.date; }));
+      let wd = 0;
+      for (let x = new Date(lo + 'T00:00:00'); x <= new Date(hi + 'T00:00:00'); x.setDate(x.getDate() + 1)) { const g = x.getDay(); if (g !== 0 && g !== 6) wd++; }
+      setupEst = wd ? Math.min(1, dates.size / wd) : null;
+      msg += ` · ${dates.size} trading days`;
+      if (setupEst != null) msg += ` · trades on ${Math.round(setupEst * 100)}% of weekdays`;
+    } else msg += ' · some files have no dates, so trades are drawn one by one';
+    return { ok: true, msg, setupEst };
+  }
+
+  // Every trade is { g: gross $ at size 1, tv: $ per tick, fee: $ per round trip, src: strategy index }
+  function buildPool(c) {
+    if (c.mode === 'stats') {
+      const tv = c.tick * c.pv;
+      return {
+        W: { g: c.aw * c.pv, tv, fee: c.comm, src: 0 }, L: { g: -c.al * c.pv, tv, fee: c.comm, src: 0 },
+        sources: [{ name: c.inst, inst: c.inst, short: c.inst }]
+      };
+    }
+    const good = datasets.filter(d => !d.parsed.error);
+    const all = [], byDate = new Map();
+    good.forEach((d, si) => {
+      const ins = INST[d.inst];
+      d.parsed.trades.forEach(t => {
+        const tr = { g: d.unit === 'usd' ? t.v : t.v * ins.pv, tv: ins.tick * ins.pv, fee: d.fee, src: si };
+        all.push(tr);
+        if (t.date) { if (!byDate.has(t.date)) byDate.set(t.date, []); byDate.get(t.date).push(tr); }
+      });
+    });
+    const dated = good.every(d => d.parsed.hasDates);
+    const seen = {};
+    const sources = good.map(d => {
+      seen[d.inst] = (seen[d.inst] || 0) + 1;
+      return { name: d.name, inst: d.inst, qty: Math.max(0, d.qty | 0), max: Math.max(0, d.max | 0) };
+    });
+    const cnt = {};
+    sources.forEach(s => { cnt[s.inst] = (cnt[s.inst] || 0) + 1; s.short = seen[s.inst] > 1 ? `${s.inst}#${cnt[s.inst]}` : s.inst; });
+    const dateKeys = dated ? [...byDate.keys()].sort() : null;
+    // Recent weighting: days in the last 6 months of the history count twice
+    let weights = null, cutoff = null, nRecent = 0;
+    if (dated && dateKeys.length) {
+      const d = new Date(dateKeys[dateKeys.length - 1] + 'T00:00:00');
+      d.setMonth(d.getMonth() - 6);
+      cutoff = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      weights = dateKeys.map(k => k > cutoff ? 2 : 1);
+      nRecent = weights.filter(w => w === 2).length;
+    }
+    return {
+      all, dated,
+      days: dated ? dateKeys.map(k => byDate.get(k)) : null,
+      sources, weights, cutoff, nRecent, dateKeys
+    };
+  }
+
+  const isoDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  // Calendar weeks over the history: every weekday in order, with no-trade days kept as empty days
+  function weeksOf(pool) {
+    if (pool.wk) return pool.wk;
+    const map = new Map(pool.dateKeys.map((k, i) => [k, pool.days[i]]));
+    const EMPTY = [], weeks = [], starts = [];
+    let cur = null, calDays = 0;
+    const end = new Date(pool.dateKeys[pool.dateKeys.length - 1] + 'T00:00:00');
+    for (let d = new Date(pool.dateKeys[0] + 'T00:00:00'); d <= end; d.setDate(d.getDate() + 1)) {
+      const g = d.getDay();
+      if (g === 0 || g === 6) continue;
+      const k = isoDate(d);
+      if (g === 1 || !cur) { cur = []; weeks.push(cur); starts.push(k); }
+      cur.push(map.get(k) || EMPTY); calDays++;
+    }
+    return (pool.wk = { weeks, starts, calDays });
+  }
+  // Part of a dated pool, by date
+  function subPool(pool, keep) {
+    const idx = pool.dateKeys.map((k, i) => i).filter(i => keep(pool.dateKeys[i]));
+    const days = idx.map(i => pool.days[i]);
+    return { all: days.flat(), dated: true, days, dateKeys: idx.map(i => pool.dateKeys[i]), sources: pool.sources, weights: null, cutoff: null, nRecent: 0 };
+  }
+
+  function makeSampler(c, pool, weighting, by) {
+    const EMPTY = [];
+    if (c.mode === 'stats') {
+      return rng => {
+        if (rng() >= c.setup) return EMPTY;
+        const a = new Array(c.tpd);
+        for (let i = 0; i < c.tpd; i++) a[i] = rng() < c.wr ? pool.W : pool.L;
+        return a;
+      };
+    }
+    if (by === 'week' && pool.days) {
+      // Play a random real week day by day, then draw the next week
+      const { weeks, starts } = weeksOf(pool);
+      const w = weighting === 'recent' && pool.cutoff ? starts.map(k => k > pool.cutoff ? 2 : 1) : null;
+      const cum = []; let tot = 0;
+      if (w) w.forEach(x => { tot += x; cum.push(tot); });
+      const pick = rng => {
+        if (!w) return weeks[Math.floor(rng() * weeks.length)];
+        const x = rng() * tot;
+        let lo = 0, hi = cum.length - 1;
+        while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] > x) hi = m; else lo = m + 1; }
+        return weeks[lo];
+      };
+      let q = null, qi = 0;
+      const f = rng => { if (!q || qi >= q.length) { q = pick(rng); qi = 0; } return q[qi++]; };
+      f.reset = () => { q = null; };
+      return f;
+    }
+    if (pool.days && weighting === 'recent' && pool.weights) {
+      // Whole days only, picked with their weight
+      const cum = []; let tot = 0;
+      pool.weights.forEach(w => { tot += w; cum.push(tot); });
+      return rng => {
+        if (rng() >= c.setup) return EMPTY;
+        const x = rng() * tot;
+        let lo = 0, hi = cum.length - 1;
+        while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] > x) hi = m; else lo = m + 1; }
+        return pool.days[lo];
+      };
+    }
+    if (pool.days) return rng => rng() >= c.setup ? EMPTY : pool.days[Math.floor(rng() * pool.days.length)];
+    return rng => {
+      if (rng() >= c.setup) return EMPTY;
+      const a = new Array(c.tpdList);
+      for (let i = 0; i < c.tpdList; i++) a[i] = pool.all[Math.floor(rng() * pool.all.length)];
+      return a;
+    };
+  }
+
+  // Every allocation from 0..max per strategy (not all zero), within the firm's contract limit
+  function allocations(pool, maxC) {
+    const maxes = pool.sources.map(s => s.max), n = maxes.length, out = [];
+    const v = new Array(n).fill(0);
+    while (true) {
+      let i = 0;
+      while (i < n && v[i] === maxes[i]) { v[i] = 0; i++; }
+      if (i === n) break;
+      v[i]++;
+      const sum = v.reduce((a, b) => a + b, 0);
+      if (sum <= maxC) out.push([...v]);
+    }
+    return out;
+  }
+
+  // ───────── Stats ─────────
+  function summarize(net) {
+    const n = net.length;
+    let sw = 0, sl = 0, nw = 0, nl = 0, run = 0, streak = 0;
+    net.forEach(v => { if (v > 0) { sw += v; nw++; run = 0; } else { sl += v; nl++; run++; streak = Math.max(streak, run); } });
+    return {
+      n, winRate: n ? nw / n : 0, avgWin: nw ? sw / nw : 0, avgLoss: nl ? sl / nl : 0,
+      exp: n ? (sw + sl) / n : 0, pf: sl < 0 ? sw / -sl : Infinity, streak, total: sw + sl
+    };
+  }
+  // Single strategy at 1 contract (analytic)
+  function unitStats(c, pool) {
+    const net = t => t.g - c.slip * t.tv - t.fee;
+    const w = net(pool.W), l = net(pool.L), q = 1 - c.wr, exp = c.wr * w + q * l, tpdEff = c.tpd * c.setup;
+    return {
+      winRate: c.wr, avgWin: w, avgLoss: l, exp, pf: l < 0 ? (c.wr * Math.max(w, 0)) / (q * -l) : Infinity,
+      streak: Math.max(1, Math.round(Math.log(100 * c.wr) / Math.log(1 / q))),
+      streakLabel: 'Typical worst losing streak per 100 trades', tpdEff, expDay: exp * tpdEff
+    };
+  }
+  // Portfolio at an allocation: trade stats and the real day-by-day history
+  function allocStats(c, pool, vec) {
+    const net = t => (t.g - c.slip * t.tv - t.fee) * vec[t.src];
+    const seq = (pool.days ? pool.days.flat() : pool.all).filter(t => vec[t.src] > 0);
+    const s = summarize(seq.map(net));
+    const byWeek = c.sampleBy === 'week' && pool.days;
+    const sessions = byWeek ? weeksOf(pool).calDays : pool.days ? pool.days.length : pool.all.length / c.tpdList;
+    const expDay = (s.total / sessions) * (byWeek ? 1 : c.setup);
+    let hist = null;
+    if (pool.days) {
+      let cum = 0, peak = 0, maxDD = 0, green = 0, red = 0, worst = 0, bestDay = 0;
+      pool.days.forEach(day => {
+        let d = 0;
+        day.forEach(t => { if (vec[t.src]) d += net(t); });
+        if (d > 0) green++; else if (d < 0) red++;
+        worst = Math.min(worst, d); bestDay = Math.max(bestDay, d);
+        cum += d; peak = Math.max(peak, cum); maxDD = Math.max(maxDD, peak - cum);
+      });
+      hist = { green, red, days: pool.days.length, worst, best: bestDay, maxDD, total: cum };
+    }
+    return { ...s, streakLabel: 'Longest losing streak in your trades', expDay, hist };
+  }
+  function perSource(c, pool) {
+    if (pool.sources.length < 2) return null;
+    return pool.sources.map((src, i) => ({ ...src, ...summarize(pool.all.filter(t => t.src === i).map(t => t.g - c.slip * t.tv - t.fee)) }));
+  }
+
+  function histSVG(s, c) {
+    const W = 560, H = 260, L = 40, Rm = 12, T = 14, B = 30;
+    const bins = Math.min(30, c.maxDays), bw = c.maxDays / bins;
+    const up = new Array(bins).fill(0), dn = new Array(bins).fill(0);
+    s.daysPass.forEach(d => up[Math.min(bins - 1, Math.floor((d - 1) / bw))]++);
+    s.daysFail.forEach(d => dn[Math.min(bins - 1, Math.floor((d - 1) / bw))]++);
+    const mx = Math.max(1, ...up, ...dn) / s.runs;
+    const mid = T + (H - T - B) / 2, half = (H - T - B) / 2;
+    const x = i => L + i * (W - L - Rm) / bins, w = (W - L - Rm) / bins - 1;
+    let g = '';
+    up.forEach((v, i) => { const h = v / s.runs / mx * half; if (v) g += `<rect x="${x(i)}" y="${mid - h}" width="${w}" height="${h}" fill="var(--pass)"/>`; });
+    dn.forEach((v, i) => { const h = v / s.runs / mx * half; if (v) g += `<rect x="${x(i)}" y="${mid}" width="${w}" height="${h}" fill="var(--fail)"/>`; });
+    const tickEvery = c.maxDays <= 30 ? 5 : c.maxDays <= 90 ? 10 : 25;
+    let ticks = '';
+    for (let d = tickEvery; d <= c.maxDays; d += tickEvery) { const xx = L + (d - 0.5) / c.maxDays * (W - L - Rm); ticks += `<text x="${xx}" y="${H - 10}" text-anchor="middle">${d}</text>`; }
+    const lab = v => (v * 100).toFixed(v * 100 < 1 ? 1 : 0) + '%';
+    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histogram of sessions until first payout or loss">
+      <line x1="${L}" x2="${W - Rm}" y1="${mid}" y2="${mid}" stroke="var(--line)"/>
+      <text x="${L - 6}" y="${T + 8}" text-anchor="end">${lab(mx)}</text>
+      <text x="${L - 6}" y="${mid + 4}" text-anchor="end">0</text>
+      <text x="${L - 6}" y="${H - B}" text-anchor="end">${lab(mx)}</text>
+      ${g}${ticks}
+      <text x="${W - Rm}" y="${T + 8}" text-anchor="end">first payout</text>
+      <text x="${W - Rm}" y="${H - B - 4}" text-anchor="end">lost</text>
+    </svg>`;
+  }
+
+  function sourcesHTML() {
+    const rows = last.sources;
+    if (!rows) return '';
+    return `<div class="card">
+      <h3>By strategy</h3>
+      <p class="sub">Each strategy at 1 contract, after fees and slippage.</p>
+      <div class="scroll"><table>
+        <thead><tr><th>File</th><th>Contract</th><th>Trades</th><th>Win rate</th><th>Avg win</th><th>Avg loss</th><th>Profit factor</th><th>Per trade</th><th>Total</th></tr></thead>
+        <tbody>${rows.map(s => `<tr>
+          <td>${esc(s.name.length > 34 ? s.name.slice(0, 32) + '…' : s.name)}</td><td>${s.short}</td><td>${s.n}</td><td>${pct(s.winRate, 1)}</td>
+          <td>${fmt$(s.avgWin, 2)}</td><td>${fmt$(s.avgLoss, 2)}</td><td>${isFinite(s.pf) ? s.pf.toFixed(2) : '∞'}</td>
+          <td class="${s.exp >= 0 ? 'delta-pos' : 'delta-neg'}">${fmt$(s.exp, 2)}</td><td class="${s.total >= 0 ? 'delta-pos' : 'delta-neg'}">${fmt$(s.total)}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+  }
+
+  // Rank by first payout, or by reaching the cap when the firm has one; fewer median days breaks ties
+  const metric = r => rankBy === 'cap' && r.capOn ? [r.pCap, r.medCap] : [r.pPay, r.medPay];
+  const better = (a, b) => {
+    const [pa, da] = metric(a), [pb, db] = metric(b);
+    return pa > pb + 1e-9 || (Math.abs(pa - pb) < 1e-9 && (da || 1e9) < (db || 1e9));
+  };
+
+  // ───────── Config ─────────
+  function readCfg() {
+    const c = {
+      lock: $('lock').checked, dll: num('dll') || 0, dllAction: $('dllAction').value,
+      maxDays: Math.round(num('maxDays')),
+      inst: $('inst').value, pv: num('pv'), tick: num('tick'), comm: num('comm') || 0, slip: num('slip') || 0,
+      wr: num('wr') / 100, tpd: Math.max(1, Math.round(num('tpd'))), aw: num('aw'), al: num('al'),
+      tpdList: Math.max(1, Math.round(num('tpdList') || 1)),
+      setup: num('setup') / 100, cFrom: Math.max(1, Math.round(num('cFrom'))), cTo: Math.max(1, Math.round(num('cTo'))),
+      runs: parseInt($('runs').value, 10), sampleBy: $('sampleBy').value, mode,
+      fastTol: Math.min(20, Math.max(0, isFinite(num('fastTol')) ? num('fastTol') : 2)) / 100
+    };
+    const errs = [];
+    const firmIds = scope === 'all' ? FIRM_IDS : [$('firm').value];
+    firmIds.forEach(id => {
+      const r = rules[id], n = FIRMS[id].name;
+      if (!(r.mll > 0)) errs.push(`${n}: max loss limit must be above 0.`);
+      if (!(r.wPct > 0 && r.wPct <= 100)) errs.push(`${n}: withdraw % must be between 1 and 100.`);
+      if (!(r.start > 0)) errs.push(`${n}: starting balance must be above 0.`);
+    });
+    if (!(c.setup > 0 && c.setup <= 1)) errs.push('Days with a setup must be between 1 and 100%.');
+    if (!(c.maxDays >= 5)) errs.push('Give up after must be at least 5 sessions.');
+    if (mode === 'stats') {
+      if (!(c.pv > 0) || !(c.tick > 0)) errs.push('Point value and tick size must be above 0.');
+      if (!(c.wr > 0 && c.wr < 1)) errs.push('Win rate must be between 1 and 99%.');
+      if (!(c.aw > 0) || !(c.al > 0)) errs.push('Average win and loss must be above 0 points.');
+    } else {
+      const s = poolSummary(), n = comboCount();
+      if (!datasets.length) errs.push('Add at least one strategy file, or switch to Single strategy.');
+      else if (!s.ok) errs.push(s.msg);
+      else if (n < 1) errs.push('Set "Test up to" to at least 1 for one strategy.');
+      else if (n > MAX_COMBOS) errs.push(`${n.toLocaleString()} allocations to test. The limit is ${MAX_COMBOS.toLocaleString()}: lower some "Test up to" values.`);
+    }
+    if (c.cTo < c.cFrom) [c.cFrom, c.cTo] = [c.cTo, c.cFrom];
+    if (c.cTo - c.cFrom > 29) c.cTo = c.cFrom + 29;
+    c.errs = errs;
+    return c;
+  }
+
+  // ───────── One size or allocation, many funded accounts ─────────
+  // vec[src] = contracts traded for each strategy. No withdrawals are taken during an attempt.
+  function simulate(c, sampler, vec, runs, seed, opt = {}) {
+    const rng = mulberry32(seed);
+    const slip = c.slip + (opt.extraSlip || 0), xf = opt.xf;
+    const keep = opt.keep == null ? 60 : opt.keep;
+    const capOn = c.cap > 0, wp = c.wPct / 100;
+    const res = { pay: 0, cap: 0, failPre: 0, failPost: 0, daysPass: [], daysCap: [], daysFail: [], amts: [], held: 0, paths: [], vec, key: vec.join(','), capOn,
+      reasons: { bigday: 0, giveback: 0, streak: 0, dll: 0 } };
+    for (let r = 0; r < runs; r++) {
+      if (sampler.reset) sampler.reset();
+      let bal = c.start, peak = c.start, hiBal = c.start, thr = c.start - c.mll, tdays = 0, wins = 0, best = -Infinity;
+      let out = null, day = 0, failDay = 0, payDay = 0, heldBefore = false;
+      const path = r < keep ? [0] : null;
+      for (day = 1; day <= c.maxDays; day++) {
+        const trades = sampler(rng);
+        let dayPnl = 0, traded = false;
+        for (let i = 0; i < trades.length; i++) {
+          const t = trades[i], m = vec[t.src];
+          if (!m) continue;
+          const pnl = ((xf ? xf(t.g) : t.g) - slip * t.tv - t.fee) * m;
+          bal += pnl; dayPnl += pnl; traded = true;
+          if (c.dd === 'intraday' && bal > peak) { peak = bal; thr = c.lock ? Math.min(peak - c.mll, c.start) : peak - c.mll; }
+          if (bal <= thr) { out = 'fail'; break; }
+          if (c.dll > 0 && dayPnl <= -c.dll) { if (c.dllAction === 'fail') out = 'dll'; break; }
+        }
+        if (traded) { tdays++; if (dayPnl > 0 && dayPnl >= c.winMin) wins++; if (dayPnl > best) best = dayPnl; }
+        if (path) path.push(bal - c.start);
+        if (out) { failDay = dayPnl; break; }
+        if (bal > hiBal) hiBal = bal;
+        if (c.dd === 'eod' && bal > peak) { peak = bal; thr = c.lock ? Math.min(peak - c.mll, c.start) : peak - c.mll; }
+        // Payout check at the end of the day
+        const profit = bal - c.start;
+        const w = Math.max(0, profit - c.buffer) * wp;
+        if (tdays >= c.minDays && wins >= c.winDays && w >= c.minPay && w > 0) {
+          const consOk = c.cons <= 0 || (profit > 0 && best <= (c.cons / 100) * profit);
+          if (!consOk) { if (!payDay) heldBefore = true; }
+          else {
+            if (!payDay) { payDay = day; res.amts.push(capOn ? Math.min(w, c.cap) : w); }
+            if (!capOn) { out = 'paid'; break; }
+            if (w >= c.cap) { out = 'cap'; break; }
+          }
+        }
+      }
+      if (!out) day = c.maxDays;
+      if (payDay) { res.pay++; res.daysPass.push(payDay); if (heldBefore) res.held++; }
+      if (out === 'cap') { res.cap++; res.daysCap.push(day); }
+      else if (out === 'fail' || out === 'dll') {
+        if (payDay) res.failPost++;
+        else {
+          res.failPre++; res.daysFail.push(day);
+          if (out === 'dll') res.reasons.dll++;
+          else if (failDay <= -0.5 * c.mll) res.reasons.bigday++;
+          else if (hiBal > c.start) res.reasons.giveback++;
+          else res.reasons.streak++;
+        }
+      }
+      if (path) res.paths.push({ path, out: out === 'cap' ? 'cap' : payDay ? 'pay' : (out === 'fail' || out === 'dll') ? 'fail' : 'open' });
+    }
+    res.runs = runs;
+    res.pPay = res.pay / runs; res.pCap = res.cap / runs; res.pFailPre = res.failPre / runs; res.pFailPost = res.failPost / runs;
+    res.pOpen = Math.max(0, 1 - res.pPay - res.pFailPre);
+    res.medPay = quantile(res.daysPass, 0.5); res.p90Pay = quantile(res.daysPass, 0.9);
+    res.medCap = quantile(res.daysCap, 0.5); res.p90Cap = quantile(res.daysCap, 0.9);
+    res.medFail = quantile(res.daysFail, 0.5);
+    res.avgAmt = res.amts.length ? res.amts.reduce((a, b) => a + b, 0) / res.amts.length : NaN;
+    return res;
+  }
+
+  // Fastest result (fewest median days) among those within tol of the best odds
+  function fastestOf(list, best, tol) {
+    const [pb] = metric(best);
+    let f = best;
+    list.forEach(r => {
+      const [p, d] = metric(r), [fp, fd] = metric(f);
+      if (isNaN(d) || p < pb - tol - 1e-9) return;
+      if (isNaN(fd) || d < fd || (d === fd && p > fp)) f = r;
+    });
+    return f;
+  }
+  const FAST_K = 4;          // extra fast candidates re-run at full precision
+
+  // Screen every allocation quickly, then re-run the best few (and the fastest close ones) at full precision
+  function searchAlloc(tc, smp, pool, runs, screenRuns) {
+    const combos = allocations(pool, tc.maxC);
+    const screened = combos.map(v => simulate(tc, smp, v, screenRuns, 4242, { keep: 0 }));
+    screened.sort((a, b) => better(a, b) ? -1 : better(b, a) ? 1 : 0);
+    const rows = screened.slice(0, TOP_K).map(r => simulate(tc, smp, r.vec, runs, 1000));
+    rows.sort((a, b) => better(a, b) ? -1 : better(b, a) ? 1 : 0);
+    // Extra margin on the screen, where odds are noisier
+    const tol = tc.fastTol || 0, inRows = new Set(rows.map(r => r.key)), top = metric(screened[0])[0];
+    const cand = screened.filter(r => !inRows.has(r.key) && !isNaN(metric(r)[1]) && metric(r)[0] >= top - tol - 0.03)
+      .sort((a, b) => metric(a)[1] - metric(b)[1] || metric(b)[0] - metric(a)[0]).slice(0, FAST_K);
+    const fastRows = cand.map(r => simulate(tc, smp, r.vec, runs, 1000));
+    const fast = fastestOf([...rows, ...fastRows], rows[0], tol);
+    return { rows, best: rows[0], fast, fastRows, tested: combos.length, attempts: combos.length * screenRuns + (rows.length + fastRows.length) * runs };
+  }
+
+  // ───────── Run ─────────
+  function run() {
+    const c = readCfg();
+    const R = $('results');
+    if (c.errs.length) { R.innerHTML = `<div class="card"><div class="err-box">${c.errs.join('<br>')}</div></div>`; return; }
+    rankBy = $('rankBy').value;
+    const pool = buildPool(c);
+    if (!pool.days) c.sampleBy = 'day';
+    $('setup').disabled = c.mode === 'list' && c.sampleBy === 'week';
+    const sampler = makeSampler(c, pool, 'equal', c.sampleBy);
+    $('runBtn').disabled = true; $('runBtn').textContent = 'Running…';
+    setTimeout(() => {
+      const t0 = performance.now();
+      const ids = scope === 'all' ? FIRM_IDS : [$('firm').value];
+      let attempts = 0;
+      // Same seeds everywhere, so every firm and size sees the same random sessions
+      const firms = ids.map(id => {
+        const tc = { ...c, ...rules[id] };
+        const t = { id, name: FIRMS[id].name, c: tc };
+        if (c.mode === 'stats') {
+          const rows = [];
+          for (let k = c.cFrom; k <= c.cTo; k++) rows.push(simulate(tc, sampler, [k], c.runs, 1000 + k));
+          attempts += rows.length * c.runs;
+          let best = rows[0];
+          rows.forEach(r => { if (better(r, best)) best = r; });
+          return { ...t, rows, best, fast: fastestOf(rows, best, tc.fastTol), fastRows: [] };
+        }
+        const n = allocations(pool, tc.maxC).length;
+        const screenRuns = Math.max(100, Math.min(1000, Math.floor(1.5e6 / Math.max(1, n * ids.length))));
+        const r = searchAlloc(tc, sampler, pool, c.runs, screenRuns);
+        attempts += r.attempts;
+        return { ...t, rows: r.rows, best: r.best, fast: r.fast, fastRows: r.fastRows, tested: r.tested, screenRuns };
+      });
+      last = { pool, sampler, firms, by: c.sampleBy, unit: c.mode === 'stats' ? unitStats(c, pool) : null, sources: c.mode === 'list' ? perSource(c, pool) : null, ms: performance.now() - t0 };
+      if (scope === 'all') {
+        if (!firms.some(f => f.id === selFirm)) selFirm = [...firms].sort((a, b) => better(a.best, b.best) ? -1 : 1)[0].id;
+      } else selFirm = ids[0];
+      const cur = firms.find(f => f.id === selFirm) || firms[0];
+      if (!cur.rows.some(r => r.key === selKey) && !cur.fastRows.some(r => r.key === selKey)) selKey = cur.best.key;
+      render();
+      $('runBtn').disabled = false; $('runBtn').textContent = 'Run simulation';
+      $('runInfo').textContent = `${attempts.toLocaleString()} attempts · ${(last.ms / 1000).toFixed(1)} s` + (c.mode === 'list' ? ` · ${BYNAME[c.sampleBy]}` : '');
+    }, 20);
+  }
+
+  // ───────── Render ─────────
+  function verdict(p) {
+    if (p >= 0.7) return ['good', 'Likely'];
+    if (p >= 0.45) return ['mid', 'Coin flip'];
+    if (p >= 0.2) return ['bad', 'Unlikely'];
+    return ['bad', 'Very unlikely'];
+  }
+  const vecLabel = (pool, vec) => pool.sources.length === 1 && last.pool.W ? `${vec[0]} × ${pool.sources[0].inst}`
+    : pool.sources.map((s, i) => `${s.short} ${vec[i]}`).join(' · ');
+  const inPlay = vec => vec.reduce((a, b) => a + b, 0);
+  const days = v => isNaN(v) ? '—' : v;
+  function mainReason(r) {
+    if (!r.failPre) return null;
+    const [k, v] = Object.entries(r.reasons).sort((a, b) => b[1] - a[1])[0];
+    return { k, label: REASONS[k], share: v / r.failPre };
+  }
+  function rulesText(r) {
+    const parts = [r.dd === 'intraday' ? 'intraday trailing' : r.dd === 'static' ? 'static max loss' : 'end-of-day trailing'];
+    if (r.minDays > 0) parts.push(`${r.minDays} days`);
+    if (r.winDays > 0) parts.push(`${r.winDays} wins ≥ ${fmt$(r.winMin)}`);
+    if (r.buffer > 0) parts.push(`buffer ${fmt$(r.buffer)}`);
+    if (r.cons > 0) parts.push(`best day ${r.cons}%`);
+    parts.push(`${r.wPct}% of profit`);
+    parts.push(r.cap > 0 ? `cap ${fmt$(r.cap)}` : 'no cap');
+    return parts.join(' · ');
+  }
+  // Profit needed (above the start) before the full cap can be withdrawn
+  const capProfit = c => c.cap > 0 ? c.buffer + c.cap / (c.wPct / 100) : null;
+
+  function compareHTML(cur) {
+    if (last.firms.length < 2) return '';
+    const ranked = [...last.firms].sort((a, b) => better(a.best, b.best) ? -1 : better(b.best, a.best) ? 1 : 0);
+    const portfolio = !last.pool.W;
+    const rows = ranked.map((fm, i) => {
+      const b = fm.best, r = fm.c;
+      return `<tr data-f="${fm.id}" tabindex="0" class="${fm === cur ? 'sel' : ''}">
+        <td>${fm.name}${i === 0 ? '<span class="best">BEST ODDS</span>' : ''}</td>
+        <td>${fmt$(-r.mll)}</td>
+        <td style="white-space:normal;min-width:220px;text-align:left">${rulesText(r)}</td>
+        <td>${vecLabel(last.pool, b.vec)}</td>
+        <td style="color:var(--pass)">${pct(b.pPay, 1)}</td>
+        <td>${days(b.medPay)}</td>
+        <td style="color:var(--pass)">${b.capOn ? pct(b.pCap, 1) : 'no cap'}</td>
+        <td>${b.capOn ? days(b.medCap) : '—'}</td>
+        <td style="color:var(--fail)">${pct(b.pFailPre, 1)}</td>
+      </tr>`;
+    }).join('');
+    return `<div class="card">
+      <h3>Prop firm comparison</h3>
+      <p class="sub">Same trades and the same random sessions for every firm, ranked by ${rankBy === 'cap' ? 'reaching the cap' : 'first payout'} at each firm's best ${portfolio ? 'allocation' : 'size'}. Select a firm to see its detail below.</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Firm</th><th>Max loss</th><th style="text-align:left">Payout rules</th><th>${portfolio ? 'Best allocation' : 'Best size'}</th><th>First payout</th><th>Median days</th><th>Reach cap</th><th>Median days</th><th>Lost before payout</th></tr></thead>
+        <tbody id="firmRows" class="pick">${rows}</tbody>
+      </table></div>
+    </div>`;
+  }
+
+  function sizeTableHTML(f, s) {
+    const { c, rows, best } = f;
+    const portfolio = !last.pool.W;
+    const body = rows.map(r => {
+      const st = portfolio ? allocStats(c, last.pool, r.vec) : null;
+      const h = st && st.hist;
+      const risk = portfolio ? Math.abs(st.avgLoss) : Math.abs(last.unit.avgLoss) * r.vec[0];
+      const tags = (r === best ? '<span class="best">BEST</span>' : '') + (f.fast && r.key === f.fast.key && r !== best ? '<span class="mine">FASTEST</span>' : '') + (inPlay(r.vec) > c.maxC ? '<span class="over">OVER LIMIT</span>' : '') + (h && h.maxDD >= c.mll ? '<span class="over">DD ≥ MAX LOSS</span>' : '');
+      const cells = portfolio
+        ? `<td>${inPlay(r.vec)}</td><td>${h ? fmt$(h.worst) : '—'}</td><td class="${h && h.maxDD >= c.mll ? 'delta-neg' : ''}">${h ? fmt$(-h.maxDD) : '—'}</td>`
+        : `<td>${fmt$(risk)}</td><td>${pct(risk / c.mll, 0)}</td>`;
+      return `<tr data-k="${r.key}" tabindex="0" class="${r === s ? 'sel' : ''}">
+        <td>${portfolio ? vecLabel(last.pool, r.vec) : r.vec[0]}${tags}</td>
+        <td><div class="stack" aria-hidden="true"><i style="width:${r.pCap * 100}%;background:var(--pass)"></i><i style="width:${(r.pPay - r.pCap) * 100}%;background:var(--accent)"></i><i style="width:${r.pOpen * 100}%;background:var(--wait)"></i><i style="width:${r.pFailPre * 100}%;background:var(--fail)"></i></div></td>
+        <td style="color:var(--pass)">${pct(r.pPay, 1)}</td>
+        <td>${days(r.medPay)}</td>
+        <td style="color:var(--pass)">${r.capOn ? pct(r.pCap, 1) : '—'}</td>
+        <td>${r.capOn ? days(r.medCap) : '—'}</td>
+        <td style="color:var(--fail)">${pct(r.pFailPre, 1)}</td>
+        <td>${isNaN(r.avgAmt) ? '—' : fmt$(r.avgAmt)}</td>
+        ${cells}
+      </tr>`;
+    }).join('');
+    const head = `<th>${portfolio ? 'Allocation' : 'Contracts'}</th><th>Outcome</th><th>First payout</th><th>Median days</th><th>Reach cap</th><th>Median days</th><th>Lost before payout</th><th>Avg first payout</th>`
+      + (portfolio ? '<th>Contracts</th><th>Worst day</th><th>Max drawdown</th>' : '<th>Loss / trade</th><th>% of max loss</th>');
+    const sub = portfolio
+      ? `${BYNAME[last.by][0].toUpperCase() + BYNAME[last.by].slice(1)}. Tested ${f.tested.toLocaleString()} allocations (${f.screenRuns.toLocaleString()} attempts each), then re-ran the top ${Math.min(TOP_K, f.tested)} at ${c.runs.toLocaleString()} attempts. Worst day and drawdown come from your real trade history at that allocation.`
+      : `Each row is ${c.runs.toLocaleString()} simulated funded accounts.`;
+    return `<div class="card">
+      <h3>${portfolio ? 'Best allocations' : 'Contract size'} · ${f.name}</h3>
+      <p class="sub">${sub} Select a row to see its detail below.</p>
+      <div class="scroll"><table><thead><tr>${head}</tr></thead><tbody id="sizeRows" class="pick">${body}</tbody></table></div>
+      <div class="legend"><span style="--c:var(--pass)">Reached the cap</span><span style="--c:var(--accent)">First payout only</span><span style="--c:var(--wait)">No payout after ${c.maxDays} sessions</span><span style="--c:var(--fail)">Lost before a payout</span></div>
+    </div>`;
+  }
+
+  // Speed vs safety: best odds next to the quickest payout within a few points of it
+  function speedHTML(f, s) {
+    const { c, best } = f, fast = f.fast || best;
+    const portfolio = !last.pool.W;
+    const tolPts = +(c.fastTol * 100).toFixed(1);
+    const unit = portfolio ? 'combination' : 'size';
+    const goal = rankBy === 'cap' && best.capOn ? 'reach the cap' : 'get the first payout';
+    const row = (lab, r) => {
+      const st = portfolio ? allocStats(c, last.pool, r.vec) : null, h = st && st.hist;
+      const edge = portfolio ? st.expDay : last.unit.expDay * r.vec[0];
+      const risk = portfolio
+        ? `<td>${h ? fmt$(h.worst) : '—'}</td><td class="${h && h.maxDD >= c.mll ? 'delta-neg' : ''}">${h ? fmt$(-h.maxDD) : '—'}</td>`
+        : `<td>${fmt$(Math.abs(last.unit.avgLoss) * r.vec[0])}</td>`;
+      return `<tr data-k="${r.key}" tabindex="0" class="${r.key === s.key ? 'sel' : ''}">
+        <td>${lab}</td><td>${portfolio ? vecLabel(last.pool, r.vec) : r.vec[0]}</td>
+        <td style="color:var(--pass)">${pct(r.pPay, 1)}</td><td>${days(r.medPay)}</td>
+        <td style="color:var(--pass)">${r.capOn ? pct(r.pCap, 1) : '—'}</td><td>${r.capOn ? days(r.medCap) : '—'}</td>
+        <td style="color:var(--fail)">${pct(r.pFailPre, 1)}</td>
+        <td class="${edge >= 0 ? 'delta-pos' : 'delta-neg'}">${fmt$(edge)}</td>${risk}
+      </tr>`;
+    };
+    const head = `<th></th><th>${portfolio ? 'Combination' : 'Contracts'}</th><th>First payout</th><th>Median days</th><th>Reach cap</th><th>Median days</th><th>Lost before payout</th><th>Edge per session</th>`
+      + (portfolio ? '<th>Worst real day</th><th>Max real drawdown</th>' : '<th>Loss / trade</th>');
+    const same = fast.key === best.key;
+    const [pb, db] = metric(best), [pf, df] = metric(fast);
+    const dP = (pb - pf) * 100, dD = (db || 0) - (df || 0);
+    const dayWord = dD === 1 ? 'day' : 'days';
+    let note;
+    if (same) note = `<span class="pill good">Best odds is also the fastest</span> <span class="sub" style="display:inline">No ${unit} within ${tolPts} pts of the best odds gets there sooner.</span>`;
+    else {
+      const lead = dP <= 0
+        ? `The faster ${unit} gets there about ${dD} ${dayWord} sooner at the median, with the same or better odds.`
+        : `It gets there about ${dD} ${dayWord} sooner at the median for ${dP.toFixed(1)} pts lower odds.`;
+      const more = fast.pFailPre > best.pFailPre ? ` Accounts lost before a payout rise ${((fast.pFailPre - best.pFailPre) * 100).toFixed(1)} pts.` : '';
+      let dd = '';
+      if (portfolio) { const h = allocStats(c, last.pool, fast.vec).hist; if (h && h.maxDD >= c.mll) dd = ` Your real history at the faster combination already had a ${fmt$(h.maxDD)} drawdown, over the ${fmt$(c.mll)} max loss.`; }
+      note = `<p class="vtext">${lead}${more}${dd}</p>`;
+    }
+    return `<div class="card">
+      <h3>Fastest way to ${goal} · ${f.name}</h3>
+      <p class="sub">The ${unit} with the fewest median days to ${goal}, among those whose odds are within ${tolPts} pts of the best.${portfolio ? ` The quickest screened combinations were checked again at ${c.runs.toLocaleString()} attempts.` : ''} Differences under about 1–2 pts are within simulation noise. Select a row to see its detail below.</p>
+      <div class="scroll"><table><thead><tr>${head}</tr></thead><tbody id="speedRows" class="pick">
+        ${row('<span class="best">BEST ODDS</span>', best)}${same ? '' : row(`<span class="mine">FASTEST WITHIN ${tolPts} PTS</span>`, fast)}
+      </tbody></table></div>
+      ${note}
+    </div>`;
+  }
+
+  function render() {
+    const f = last.firms.find(x => x.id === selFirm) || last.firms[0];
+    const { c, rows, best } = f;
+    const portfolio = !last.pool.W;
+    const s = rows.find(x => x.key === selKey) || (f.fastRows || []).find(x => x.key === selKey) || best;
+    const label = vecLabel(last.pool, s.vec);
+    const [vk, vl] = verdict(s.pPay);
+    const [ck, cl] = s.capOn ? verdict(s.pCap) : ['mid', 'No cap'];
+    const st = portfolio ? allocStats(c, last.pool, s.vec) : null;
+    const lossPerTrade = portfolio ? Math.abs(st.avgLoss) : Math.abs(last.unit.avgLoss) * s.vec[0];
+    const edgeDay = portfolio ? st.expDay : last.unit.expDay * s.vec[0];
+    const streak = portfolio ? st.streak : last.unit.streak;
+    const streakLabel = portfolio ? st.streakLabel : last.unit.streakLabel;
+    const killStreak = lossPerTrade > 0 ? Math.ceil(c.mll / lossPerTrade) : Infinity;
+    const reason = mainReason(s);
+    const need = capProfit(c);
+    const col = k => `var(--${k === 'good' ? 'pass' : k === 'mid' ? 'wait' : 'fail'})`;
+
+    const insights = [];
+    const expTrade = portfolio ? st.exp : last.unit.exp;
+    if (expTrade <= 0) insights.push(['fail', `This ${portfolio ? 'allocation' : 'strategy'} loses ${fmt$(-expTrade, 2)} per trade after costs. Any payout here is luck.`]);
+    insights.push([killStreak <= streak ? 'fail' : 'accent', `At ${label}, about ${killStreak} losing trades in a row (≈${fmt$(lossPerTrade)} each) lose the ${fmt$(c.mll)} max loss from a fresh account. ${streakLabel}: ${streak}.`]);
+    if (st && st.hist) {
+      const h = st.hist;
+      if (h.maxDD >= c.mll) insights.push(['fail', `Your real history at this allocation already had a ${fmt$(h.maxDD)} drawdown, which is over the ${fmt$(c.mll)} max loss.`]);
+      else insights.push([h.maxDD >= 0.75 * c.mll ? 'wait' : 'pass', `Worst real drawdown at this allocation was ${fmt$(h.maxDD)}, ${pct(h.maxDD / c.mll)} of the max loss. Worst single day: ${fmt$(h.worst)}.`]);
+    }
+    const FIX = {
+      bigday: 'A personal daily stop well below the max loss would cut most of these.',
+      giveback: 'Take the first payout as soon as you qualify, and trade smaller after a good run.',
+      streak: 'The size is too big for a normal losing run. Try a smaller allocation.',
+      dll: 'A personal daily stop tighter than the firm limit would cut most of these.'
+    };
+    if (reason) insights.push(['fail', `Main reason accounts are lost before a payout: ${reason.label.toLowerCase()} (${pct(reason.share)} of those losses). ${FIX[reason.k]}`]);
+    const avgWinNow = portfolio ? st.avgWin : last.unit.avgWin * s.vec[0];
+    if (!portfolio && c.tpd === 1 && c.winDays > 0 && avgWinNow < c.winMin) insights.push(['fail', `An average winning trade here is ${fmt$(avgWinNow)}, below the ${fmt$(c.winMin)} a day needs to count as a winning day. Most days will not count toward the ${c.winDays} winning days, so more size is needed.`]);
+    if (need) insights.push(['accent', `The full ${fmt$(c.cap)} cap needs ${fmt$(need)} of profit above the starting balance${c.buffer > 0 ? `, including the ${fmt$(c.buffer)} buffer` : ''}.`]);
+    if (s.pay && s.held) insights.push(['wait', `${pct(s.held / s.pay)} of first payouts were delayed by the ${c.cons}% best-day rule.`]);
+    if (s.pOpen > 0.1) insights.push(['wait', `${pct(s.pOpen)} of accounts had no payout after ${c.maxDays} sessions. More size, or a firm with lighter payout rules, would speed this up.`]);
+    if (portfolio) { const capped = last.pool.sources.filter((src, i) => src.max > 0 && best.vec[i] === src.max).map(src => src.short); if (capped.length) insights.push(['wait', `The best allocation uses the full "Test up to" for ${capped.join(', ')}. Raise it to check whether more size does better.`]); }
+
+    const reasonsKV = s.failPre ? Object.entries(s.reasons).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1])
+      .map(([key, v]) => `<div>${REASONS[key]}</div><div>${pct(v / s.failPre, 0)}</div>`).join('') : '<div>No accounts lost before a payout</div><div>—</div>';
+
+    $('results').innerHTML = `${compareHTML(f)}
+      <div class="card">
+        <div class="k" style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">${f.name} · ${label}${portfolio ? ' · ' + BYNAME[last.by] : ''} · ${rulesText(c)}</div>
+        <div class="duo">
+          <div>
+            <div class="k2">First payout</div>
+            <div class="big" style="color:${col(vk)}">${(s.pPay * 100).toFixed(0)}<small>%</small></div>
+            <span class="pill ${vk}">${vl}</span>
+            <p class="vtext">Median <strong>${days(s.medPay)}</strong> sessions · 90% within ${days(s.p90Pay)} · average first payout ${isNaN(s.avgAmt) ? '—' : fmt$(s.avgAmt)}</p>
+          </div>
+          <div>
+            <div class="k2">Reach the ${s.capOn ? fmt$(c.cap) + ' cap' : 'cap'}</div>
+            <div class="big" style="color:${s.capOn ? col(ck) : 'var(--muted)'}">${s.capOn ? (s.pCap * 100).toFixed(0) + '<small>%</small>' : '—'}</div>
+            <span class="pill ${ck}">${cl}</span>
+            <p class="vtext">${s.capOn ? `Median <strong>${days(s.medCap)}</strong> sessions · 90% within ${days(s.p90Cap)} · needs ${fmt$(need)} profit` : 'This firm has no payout cap in its rules, so only the first payout is measured.'}</p>
+          </div>
+        </div>
+        <div class="tiles" style="margin-top:16px">
+          <div class="tile"><div class="k">Lost before a payout</div><div class="v fail">${pct(s.pFailPre, 1)}</div></div>
+          <div class="tile"><div class="k">Lost after payout, before cap</div><div class="v fail">${s.capOn ? pct(s.pFailPost, 1) : '—'}</div></div>
+          <div class="tile"><div class="k">No payout after ${c.maxDays}</div><div class="v wait">${pct(s.pOpen, 1)}</div></div>
+          <div class="tile"><div class="k">Avg losing trade</div><div class="v">${fmt$(lossPerTrade)}</div></div>
+          <div class="tile"><div class="k">Edge per session</div><div class="v ${edgeDay >= 0 ? 'pass' : 'fail'}">${fmt$(edgeDay)}</div></div>
+          <div class="tile"><div class="k">Main loss reason</div><div class="v" style="font-size:14px">${reason ? `${reason.label} · ${pct(reason.share)}` : '—'}</div></div>
+        </div>
+      </div>
+
+      ${speedHTML(f, s)}
+      ${sizeTableHTML(f, s)}
+
+      <div class="charts">
+        <div class="card">
+          <h3>When the first payout comes</h3>
+          <p class="sub">Sessions until the first payout (above the line) or losing the account before one (below) at ${label}.</p>
+          ${histSVG(s, c)}
+        </div>
+        <div class="card">
+          <h3>Sample accounts</h3>
+          <p class="sub">60 funded accounts at ${label}, profit and loss after each session.</p>
+          ${pathsSVG(s, c)}
+          <div class="legend"><span style="--c:var(--pass)">Reached the cap</span><span style="--c:var(--accent)">First payout</span><span style="--c:var(--fail)">Lost before a payout</span><span style="--c:var(--wait)">No payout yet</span></div>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="card">
+          <h3>What to watch</h3>
+          <p class="sub">Read from the simulation at ${label}.</p>
+          <ul class="insights">${insights.map(([kk, t]) => `<li style="--c:var(--${kk})">${t}</li>`).join('')}</ul>
+        </div>
+        <div class="card">
+          <h3>Why accounts are lost before a payout</h3>
+          <div class="kv">${reasonsKV}</div>
+        </div>
+      </div>
+      ${portfolio ? sourcesHTML() : ''}`;
+
+    const wire = (tbody, fn) => tbody && tbody.querySelectorAll('tr').forEach(tr => {
+      tr.addEventListener('click', () => fn(tr));
+      tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(tr); } });
+    });
+    wire($('sizeRows'), tr => { selKey = tr.dataset.k; render(); });
+    wire($('speedRows'), tr => { selKey = tr.dataset.k; render(); });
+    wire($('firmRows'), tr => {
+      selFirm = tr.dataset.f;
+      const nf = last.firms.find(x => x.id === selFirm);
+      if (nf && !nf.rows.some(r => r.key === selKey) && !(nf.fastRows || []).some(r => r.key === selKey)) selKey = nf.best.key;
+      render();
+    });
+  }
+
+  function pathsSVG(s, c) {
+    const W = 560, H = 260, L = 56, Rm = 12, T = 14, B = 26;
+    const maxLen = Math.max(2, ...s.paths.map(p => p.path.length));
+    const need = capProfit(c);
+    let lo = -c.mll, hi = need || c.buffer + c.minPay;
+    s.paths.forEach(p => p.path.forEach(v => { if (v < lo) lo = v; if (v > hi) hi = v; }));
+    const pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
+    const x = i => L + i / (maxLen - 1) * (W - L - Rm);
+    const y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+    const colr = { cap: 'var(--pass)', pay: 'var(--accent)', fail: 'var(--fail)', open: 'var(--wait)' };
+    const lines = s.paths.map(p => `<polyline fill="none" stroke="${colr[p.out]}" stroke-opacity=".45" stroke-width="1.2" points="${p.path.map((v, i) => x(i).toFixed(1) + ',' + y(v).toFixed(1)).join(' ')}"/>`).join('');
+    const tickEvery = maxLen <= 30 ? 5 : maxLen <= 90 ? 10 : 25;
+    let ticks = '';
+    for (let d = tickEvery; d < maxLen; d += tickEvery) ticks += `<text x="${x(d)}" y="${H - 8}" text-anchor="middle">${d}</text>`;
+    const kf = v => (v < 0 ? '−' : v > 0 ? '+' : '') + '$' + (Math.abs(v) >= 1000 ? (Math.abs(v) / 1000).toFixed(1) + 'k' : Math.abs(v).toFixed(0));
+    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Sample funded account paths">
+      <line x1="${L}" x2="${W - Rm}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/>
+      ${need ? `<line x1="${L}" x2="${W - Rm}" y1="${y(need)}" y2="${y(need)}" stroke="var(--pass)" stroke-dasharray="4 4"/><text x="${L - 6}" y="${y(need) + 4}" text-anchor="end">${kf(need)}</text>` : ''}
+      <line x1="${L}" x2="${W - Rm}" y1="${y(-c.mll)}" y2="${y(-c.mll)}" stroke="var(--fail)" stroke-dasharray="4 4"/>
+      ${lines}
+      <text x="${L - 6}" y="${y(0) + 4}" text-anchor="end">$0</text>
+      <text x="${L - 6}" y="${y(-c.mll) + 4}" text-anchor="end">${kf(-c.mll)}</text>
+      ${ticks}
+    </svg>`;
+  }
+
+  // ───────── Wiring ─────────
+  function setMode(m, quiet) {
+    mode = m;
+    $('tabStats').setAttribute('aria-selected', m === 'stats');
+    $('tabList').setAttribute('aria-selected', m === 'list');
+    $('paneStats').hidden = m !== 'stats';
+    $('paneList').hidden = m !== 'list';
+    $('sizeRange').hidden = m !== 'stats';
+    $('byRow').hidden = m !== 'list';
+    selKey = null;
+    if (!quiet) { save(); schedule(); }
+  }
+  function setScope(m, quiet) {
+    scope = m;
+    $('tabOne').setAttribute('aria-selected', m === 'one');
+    $('tabAll').setAttribute('aria-selected', m === 'all');
+    $('allHint').hidden = m !== 'all';
+    if (!quiet) { save(); schedule(); }
+  }
+  function applyInst() {
+    const i = INST[$('inst').value];
+    $('pv').value = i.pv; $('tick').value = i.tick; $('comm').value = i.comm;
+  }
+  function readFiles(files) {
+    const arr = [...files];
+    if (!arr.length) return;
+    let left = arr.length;
+    arr.forEach(f => {
+      const rd = new FileReader();
+      rd.onload = () => { addDataset(f.name, String(rd.result || ''), null, true); if (--left === 0) afterFilesChange(true); };
+      rd.onerror = () => { if (--left === 0) afterFilesChange(true); };
+      rd.readAsText(f);
+    });
+  }
+
+  let timer = null;
+  function schedule() { clearTimeout(timer); timer = setTimeout(run, 450); }
+
+  $('tabStats').addEventListener('click', () => setMode('stats'));
+  $('tabList').addEventListener('click', () => setMode('list'));
+  $('tabOne').addEventListener('click', () => setScope('one'));
+  $('tabAll').addEventListener('click', () => setScope('all'));
+  $('firm').addEventListener('change', () => { showRules(); selKey = null; save(); schedule(); });
+  $('inst').addEventListener('change', () => { applyInst(); save(); schedule(); });
+  RULE_FIELDS.forEach(k => $(k).addEventListener('input', () => {
+    const v = parseFloat($(k).value);
+    if (isFinite(v)) rules[$('firm').value][k] = v;
+  }));
+  $('dd').addEventListener('change', () => { rules[$('firm').value].dd = $('dd').value; });
+  $('resetFirm').addEventListener('click', () => { const id = $('firm').value; rules[id] = { ...FIRMS[id] }; showRules(); save(); schedule(); });
+
+  $('file').addEventListener('change', e => { readFiles(e.target.files || []); e.target.value = ''; });
+  const drop = $('drop');
+  ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('over')));
+  drop.addEventListener('drop', e => { e.preventDefault(); readFiles((e.dataTransfer && e.dataTransfer.files) || []); });
+  $('addPaste').addEventListener('click', () => {
+    const t = $('paste').value;
+    if (!t.trim()) return;
+    addDataset(`Pasted trades ${datasets.filter(d => d.name.startsWith('Pasted')).length + 1}`, t, null, false);
+    $('paste').value = '';
+  });
+  $('dsList').addEventListener('click', e => {
+    const b = e.target.closest('[data-act="rm"]');
+    if (!b) return;
+    const id = +b.closest('.ds').dataset.id;
+    datasets = datasets.filter(d => d.id !== id);
+    selKey = null;
+    afterFilesChange(true);
+  });
+  $('dsList').addEventListener('change', e => {
+    const k = e.target.dataset.k;
+    if (!k) return;
+    const d = datasets.find(x => x.id === +e.target.closest('.ds').dataset.id);
+    if (!d) return;
+    if (k === 'inst') { d.inst = e.target.value; d.fee = INST[d.inst].comm; }
+    else if (k === 'unit') d.unit = e.target.value;
+    else if (k === 'max') d.max = Math.min(20, Math.max(0, Math.round(parseFloat(e.target.value) || 0)));
+    else if (k === 'fee') d.fee = Math.max(0, parseFloat(e.target.value) || 0);
+    renderFiles(); saveFiles(); schedule();
+  });
+
+  $('form').addEventListener('input', e => {
+    if (e.target.dataset.k || e.target.id === 'paste' || e.target.id === 'file') return;
+    if (['wr', 'aw', 'al', 'tpd'].includes(e.target.id)) $('exampleChip').hidden = true;
+    save(); schedule();
+  });
+  $('form').addEventListener('change', e => { if (e.target.dataset.k || e.target.id === 'firm') return; if (e.target.type === 'checkbox' || e.target.tagName === 'SELECT') { save(); schedule(); } });
+  $('form').addEventListener('submit', e => { e.preventDefault(); clearTimeout(timer); run(); });
+
+  load();
+  showRules();
+  renderFiles();
+  run();
+})();
+</script>
+
+<!-- PDF export: adds a "Download PDF" button that saves the whole page, as it is now, as an A4 PDF -->
+<style id="pdfx-style">
+.pdfx-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.pdfx-btn { display: inline-flex; align-items: center; gap: 6px; font: 600 12.5px var(--font-body, var(--f-body, system-ui, sans-serif)); padding: 6px 11px; border-radius: 7px; border: 1px solid var(--line, #D4DAE1); background: var(--surface, var(--card, #fff)); color: var(--ink, inherit); cursor: pointer; white-space: nowrap; }
+.pdfx-btn:hover { border-color: var(--accent, currentColor); }
+.pdfx-btn:disabled { opacity: .6; cursor: progress; }
+.pdfx-btn svg { width: 14px; height: 14px; flex: none; }
+.pdfx-btn:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 1px; }
+.pdfx-float { position: fixed; top: 12px; right: 12px; z-index: 50; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.pdfx-overlay { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: var(--bg, #EDF0F3); color: var(--ink, #131921); font: 600 15px var(--font-body, var(--f-body, system-ui, sans-serif)); }
+.pdfx-msg { position: fixed; right: 16px; bottom: 16px; z-index: 9999; max-width: min(360px, calc(100vw - 32px)); padding: 10px 14px; border-radius: 8px; background: var(--ink, #131921); color: var(--surface, #fff); font: 13px var(--font-body, var(--f-body, system-ui, sans-serif)); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+</style>
+<script>
+(() => {
+  const LIBS = [
+    ['html2canvas', 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'],
+    ['jspdf', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js']
+  ];
+  const RENDER_W = 920;            // page width used for the PDF (single-column layout)
+  const A4 = { w: 210, h: 297 }, M = 10, FOOT = 7;
+  const title = (document.title || 'Simulator').trim();
+  const inClaude = !!(window.claude && typeof window.claude.use === 'function');
+  let downloads;                   // undefined = not known yet, null = unavailable here
+
+  // ── Button ──
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'pdfx-btn';
+  btn.setAttribute('data-html2canvas-ignore', 'true');
+  btn.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3 3-3M3 12.5v1h10v-1"/></svg><span>Download PDF</span>';
+  const label = btn.querySelector('span');
+  const header = document.querySelector('header.top') || document.querySelector('.wrap > header') || document.querySelector('header');
+  const actions = header && header.querySelector(':scope > .actions');
+  if (actions) {
+    actions.appendChild(btn);
+  } else if (header && header.children.length > 1) {
+    // Group the button with the header's right-hand item (for example the run chip)
+    const right = header.lastElementChild, bar = document.createElement('div');
+    bar.className = 'pdfx-bar';
+    header.insertBefore(bar, right);
+    bar.appendChild(right); bar.appendChild(btn);
+  } else if (header) {
+    header.appendChild(btn);
+  } else {
+    btn.classList.add('pdfx-float');
+    document.body.appendChild(btn);
+  }
+
+  if (inClaude) {
+    window.claude.use('downloads').then(d => { downloads = d; if (!d) btn.hidden = true; }, () => { downloads = null; btn.hidden = true; });
+  } else downloads = null;
+
+  function toast(text) {
+    const el = document.createElement('div');
+    el.className = 'pdfx-msg'; el.setAttribute('data-html2canvas-ignore', 'true'); el.setAttribute('role', 'status');
+    el.textContent = text;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5000);
+  }
+  const loadLib = ([global, src]) => window[global] ? Promise.resolve() : new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = src; s.async = true;
+    s.onload = res; s.onerror = () => rej(new Error('Could not load the PDF tools. Check your connection and try again.'));
+    document.head.appendChild(s);
+  });
+  const frames = n => new Promise(r => { const f = () => (--n <= 0 ? r() : requestAnimationFrame(f)); requestAnimationFrame(f); });
+  const pad = n => String(n).padStart(2, '0');
+
+  async function build() {
+    await Promise.all(LIBS.map(loadLib));
+    const root = document.documentElement;
+    const prevTheme = root.getAttribute('data-theme');
+    const isDark = prevTheme === 'dark' || (prevTheme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+    // Light theme for the PDF; canvases on the page redraw while the overlay covers the switch
+    if (isDark) { root.setAttribute('data-theme', 'light'); await frames(3); }
+    try {
+      const bg = getComputedStyle(document.body).backgroundColor || '#ffffff';
+      const estH = document.documentElement.scrollHeight * Math.max(1, window.innerWidth / RENDER_W);
+      const scale = Math.max(0.8, Math.min(2, Math.sqrt(16e6 / (RENDER_W * estH))));
+      const breaks = [];
+      const canvas = await window.html2canvas(document.body, {
+        scale, backgroundColor: bg, useCORS: true, logging: false,
+        windowWidth: RENDER_W, width: RENDER_W, windowHeight: document.documentElement.scrollHeight, scrollX: 0, scrollY: 0,
+        onclone: doc => {
+          const st = doc.createElement('style');
+          st.textContent = `html,body{width:${RENDER_W}px!important;min-width:0!important}
+            .scroll,[class*="scroll"]{overflow:visible!important;max-height:none!important}
+            table{font-size:11px!important} td,th{padding:5px 5px!important;font-size:11px!important} th{white-space:normal!important}
+            td:first-child,td.alloc{white-space:normal!important;min-width:0!important} .stack{width:56px!important}
+            details:not([open]),.drop,button.run,#runBtn,.pdfx-bar>.pdfx-btn{display:none!important}
+            [data-html2canvas-ignore]{display:none!important}`;
+          doc.head.appendChild(st);
+          // Results first, settings after them
+          const rail = doc.querySelector('.layout > .rail, .grid > .rail, main > .rail, .wrap .rail');
+          if (rail && rail.parentElement && rail.nextElementSibling) rail.parentElement.appendChild(rail);
+          const win = doc.defaultView;
+          // html2canvas cannot parse color-mix()/color()/oklch(): resolve them to rgba on the copy
+          const BAD = /\b(?:color|oklch|oklab|lch|lab|hwb)\([^()]*\)/g, HAS = /\b(?:color|oklch|oklab|lch|lab|hwb|color-mix)\(/;
+          const px = doc.createElement('canvas'); px.width = px.height = 1;
+          const cx = px.getContext('2d', { willReadFrequently: true });
+          const rgba = v => { cx.clearRect(0, 0, 1, 1); cx.fillStyle = '#000'; cx.fillStyle = v; cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; return `rgba(${d[0]},${d[1]},${d[2]},${+(d[3] / 255).toFixed(3)})`; };
+          const fix = v => v.replace(BAD, m => rgba(m));
+          const PROPS = ['color', 'background-color', 'border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color', 'outline-color', 'text-decoration-color', 'fill', 'stroke', 'box-shadow', 'text-shadow', 'background-image'];
+          let pseudo = '', n = 0;
+          doc.querySelectorAll('*').forEach(el => {
+            const cs = win.getComputedStyle(el);
+            PROPS.forEach(pr => { const v = cs.getPropertyValue(pr); if (v && HAS.test(v)) el.style.setProperty(pr, fix(v), 'important'); });
+            ['::before', '::after'].forEach(ps => {
+              const pc = win.getComputedStyle(el, ps);
+              if (!pc || pc.content === 'none' || pc.content === 'normal') return;
+              const rules = PROPS.map(pr => { const v = pc.getPropertyValue(pr); return v && HAS.test(v) ? `${pr}:${fix(v)}!important;` : ''; }).join('');
+              if (rules) { if (!el.dataset.pdfx) el.dataset.pdfx = String(++n); pseudo += `[data-pdfx="${el.dataset.pdfx}"]${ps}{${rules}}`; }
+            });
+          });
+          if (pseudo) { const ps = doc.createElement('style'); ps.textContent = pseudo; doc.head.appendChild(ps); }
+          // Inline SVG is drawn as a standalone image, so resolve CSS colors and fonts onto each shape
+          doc.querySelectorAll('svg, svg *').forEach(el => {
+            const cs = win.getComputedStyle(el);
+            ['fill', 'stroke', 'fill-opacity', 'stroke-opacity', 'stroke-width', 'opacity', 'stroke-dasharray'].forEach(p => {
+              const v = cs.getPropertyValue(p);
+              if (v) el.style.setProperty(p, v);
+            });
+            if (el.tagName.toLowerCase() === 'text' || el.tagName.toLowerCase() === 'tspan') {
+              ['font-family', 'font-size', 'font-weight'].forEach(p => el.style.setProperty(p, cs.getPropertyValue(p)));
+            }
+          });
+          // Places where a page break looks clean: edges of cards, sections, rows, tiles, charts
+          const top = doc.body.getBoundingClientRect().top;
+          doc.querySelectorAll('.card, section, header, tr, li, p, h1, h2, h3, h4, svg, canvas, table, .tile, .tiles, .kv > div, .ds, details, label, .grid2, .charts, .two, .verdict')
+            .forEach(el => { const r = el.getBoundingClientRect(); if (r.height > 0) breaks.push(r.top - top, r.bottom - top); });
+        }
+      });
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+      const cw = A4.w - 2 * M, ch = A4.h - 2 * M - FOOT;
+      const pxPerCss = canvas.width / RENDER_W, cssPerMm = RENDER_W / cw, pageCss = ch * cssPerMm;
+      const total = canvas.height / pxPerCss;
+      const cuts = [...new Set(breaks.map(b => Math.round(b)))].filter(b => b > 0 && b < total).sort((a, b) => a - b);
+      const pages = [];
+      for (let y = 0; y < total - 1;) {
+        let end = Math.min(total, y + pageCss);
+        if (end < total) {
+          let best = -1;
+          for (const b of cuts) { if (b > y + pageCss * 0.55 && b <= end) best = b; }
+          if (best > 0) end = best;
+        }
+        pages.push([y, end]); y = end;
+      }
+      // A thin strip of bottom padding is not worth a page
+      if (pages.length > 1 && pages[pages.length - 1][1] - pages[pages.length - 1][0] < 60) pages.pop();
+      const now = new Date();
+      const stamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      pages.forEach(([y0, y1], i) => {
+        if (i) pdf.addPage();
+        const sh = Math.max(1, Math.round((y1 - y0) * pxPerCss));
+        const part = document.createElement('canvas');
+        part.width = canvas.width; part.height = sh;
+        const ctx = part.getContext('2d');
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, part.width, sh);
+        ctx.drawImage(canvas, 0, Math.round(y0 * pxPerCss), canvas.width, sh, 0, 0, canvas.width, sh);
+        pdf.addImage(part.toDataURL('image/jpeg', 0.92), 'JPEG', M, M, cw, (y1 - y0) / cssPerMm, undefined, 'FAST');
+        pdf.setFontSize(8); pdf.setTextColor(110);
+        pdf.text(`${title} · ${stamp}`, M, A4.h - M);
+        pdf.text(`${i + 1} / ${pages.length}`, A4.w - M, A4.h - M, { align: 'right' });
+      });
+      pdf.setProperties({ title: `${title} · ${stamp}` });
+      return { blob: pdf.output('blob'), filename: `${title} ${stamp.slice(0, 10)}.pdf` };
+    } finally {
+      if (isDark) { if (prevTheme == null) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', prevTheme); }
+    }
+  }
+
+  btn.addEventListener('click', async () => {
+    if (btn.disabled) return;
+    btn.disabled = true; label.textContent = 'Building PDF…';
+    const overlay = document.createElement('div');
+    overlay.className = 'pdfx-overlay'; overlay.setAttribute('data-html2canvas-ignore', 'true');
+    overlay.textContent = 'Building PDF…';
+    document.body.appendChild(overlay);
+    let file = null;
+    try { file = await build(); }
+    catch (e) { toast(e && e.message ? e.message : 'The PDF could not be built.'); }
+    finally { overlay.remove(); }
+    if (file) {
+      try {
+        if (inClaude && downloads === undefined) downloads = await window.claude.use('downloads');
+        if (downloads) await downloads.save({ filename: file.filename, data: file.blob });
+        else if (!inClaude) {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(file.blob); a.download = file.filename;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+        } else { btn.hidden = true; toast('Downloads are not available in this view.'); }
+      } catch (e) {
+        const code = e && e.code;
+        if (code === 'declined') { /* viewer said no */ }
+        else if (code === 'rate_limited') toast('A save prompt is already open. Try again in a moment.');
+        else if (code === 'too_large') toast('The PDF is too large to save here.');
+        else { btn.hidden = true; toast('Downloads are not available in this view.'); }
+      }
+    }
+    btn.disabled = false; label.textContent = 'Download PDF';
+  });
+})();
+</script>
+
+</body></html>

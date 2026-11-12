@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Badr Edge</title>
-<meta name="description" content="Badr Edge: tools and research for futures traders. Free prop-firm simulators coming soon.">
+<meta name="description" content="Badr Edge: tools and research for futures traders. Free prop-firm simulators: pass odds, payouts and contract sizing.">
 <meta name="theme-color" content="#0b0d10">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d10'/%3E%3Ccircle cx='32' cy='32' r='16' fill='%23d4af6a'/%3E%3C/svg%3E">
 <style>
@@ -39,14 +39,15 @@
     background: radial-gradient(circle at 35% 35%, #f3dcaa, var(--gold) 55%, #9b7a3e);
     box-shadow: 0 0 24px rgba(212, 175, 106, 0.45);
   }
-  .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; }
+  .tag { color: var(--text); text-decoration: none; font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; }
   main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-top: 72px; padding-bottom: 72px; }
   .eyebrow { color: var(--gold); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
   h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1.02; letter-spacing: -0.03em; font-weight: 650; max-width: 18ch; }
   h1 span { color: var(--gold); }
   .lede { margin-top: 24px; font-size: clamp(16px, 2vw, 19px); line-height: 1.6; color: var(--muted); max-width: 56ch; }
   .grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .card { display: block; color: inherit; text-decoration: none; transition: border-color .2s, transform .2s; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .card:hover { border-color: var(--gold); transform: translateY(-2px); }
   .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
   .card p { font-size: 14px; line-height: 1.55; color: var(--muted); }
   .soon { display: inline-block; margin-top: 14px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
@@ -65,7 +66,7 @@
 <body>
   <header>
     <div class="brand"><div class="moon" aria-hidden="true"></div>Badr Edge</div>
-    <div class="tag">Launching soon</div>
+    <a class="tag" href="#tools">Free tools</a>
   </header>
 
   <main>
@@ -73,22 +74,22 @@
     <h1>Trade with a process, <span>not a guess.</span></h1>
     <p class="lede">Free tools built by a working futures trader: model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
 
-    <div class="grid">
-      <div class="card">
+    <div class="grid" id="tools">
+      <a class="card" href="/tools/pass/">
         <h3>Prop Pass Simulator</h3>
         <p>Run thousands of simulated evaluations against firm-style rules to see how your numbers hold up.</p>
-        <span class="soon">Free · Coming soon</span>
-      </div>
-      <div class="card">
+        <span class="soon">Free · Open tool &rarr;</span>
+      </a>
+      <a class="card" href="/tools/payout/">
         <h3>Payout Simulator</h3>
         <p>Model buffers, splits and payout timing across accounts before you plan around them.</p>
-        <span class="soon">Free · Coming soon</span>
-      </div>
-      <div class="card">
+        <span class="soon">Free · Open tool &rarr;</span>
+      </a>
+      <a class="card" href="/tools/sizing/">
         <h3>Contract Sizing</h3>
         <p>Match micro and mini sizing to your drawdown so one bad day can't end the account.</p>
-        <span class="soon">Free · Coming soon</span>
-      </div>
+        <span class="soon">Free · Open tool &rarr;</span>
+      </a>
     </div>
 
     <p class="contact">Questions? <a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
