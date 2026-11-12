@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badr Edge</title>
+<meta name="description" content="Badr Edge: tools and research for futures traders. Free prop-firm simulators coming soon.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d10'/%3E%3Ccircle cx='32' cy='32' r='16' fill='%23d4af6a'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0b0d10;
+    --panel: #12151a;
+    --line: #232831;
+    --text: #e9e6df;
+    --muted: #8c929c;
+    --gold: #d4af6a;
+    --gold-soft: rgba(212, 175, 106, 0.14);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: radial-gradient(60% 45% at 50% 100%, var(--gold-soft), transparent 70%);
+    background-attachment: fixed;
+  }
+  header, footer, main { position: relative; width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  header { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .moon {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #f3dcaa, var(--gold) 55%, #9b7a3e);
+    box-shadow: 0 0 24px rgba(212, 175, 106, 0.45);
+  }
+  .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; }
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-top: 72px; padding-bottom: 72px; }
+  .eyebrow { color: var(--gold); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
+  h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1.02; letter-spacing: -0.03em; font-weight: 650; max-width: 18ch; }
+  h1 span { color: var(--gold); }
+  .lede { margin-top: 24px; font-size: clamp(16px, 2vw, 19px); line-height: 1.6; color: var(--muted); max-width: 56ch; }
+  .grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .card p { font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .soon { display: inline-block; margin-top: 14px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+  .contact { margin-top: 48px; font-size: 15px; color: var(--muted); }
+  .contact a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+  .contact a:hover { color: var(--gold); }
+  footer { padding-bottom: 28px; border-top: 1px solid var(--line); padding-top: 20px; font-size: 12px; line-height: 1.6; color: var(--muted); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  footer p { max-width: 70ch; }
+  @media (max-width: 760px) {
+    header, footer, main { padding-left: 16px; padding-right: 16px; }
+    .grid { grid-template-columns: 1fr; }
+    main { padding-top: 48px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand"><div class="moon" aria-hidden="true"></div>Badr Edge</div>
+    <div class="tag">Launching soon</div>
+  </header>
+
+  <main>
+    <p class="eyebrow">Tools &amp; research for futures traders</p>
+    <h1>Trade with a process, <span>not a guess.</span></h1>
+    <p class="lede">Free tools built by a working futures trader: model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Prop Pass Simulator</h3>
+        <p>Run thousands of simulated evaluations against firm-style rules to see how your numbers hold up.</p>
+        <span class="soon">Free · Coming soon</span>
+      </div>
+      <div class="card">
+        <h3>Payout Simulator</h3>
+        <p>Model buffers, splits and payout timing across accounts before you plan around them.</p>
+        <span class="soon">Free · Coming soon</span>
+      </div>
+      <div class="card">
+        <h3>Contract Sizing</h3>
+        <p>Match micro and mini sizing to your drawdown so one bad day can't end the account.</p>
+        <span class="soon">Free · Coming soon</span>
+      </div>
+    </div>
+
+    <p class="contact">Questions? <a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+  </main>
+
+  <footer>
+    <p>Educational tools only. Nothing on this site is investment advice or a recommendation to buy or sell any instrument. Simulations are hypothetical and do not predict future results. Trading futures involves substantial risk of loss.</p>
+    <p>&copy; <span id="y">2026</span> Badr Edge</p>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
