@@ -5,14 +5,16 @@ Run:  python3 _src/build.py
 It writes the HTML files at their published paths. The tools under /tools/<name>/ are
 standalone pages and are not touched, except /tools/index.html, which is built here.
 """
-import os, random, datetime
+import os, random, datetime, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import research
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://badredge.com"
 YEAR = datetime.date.today().year
 UPDATED = "November 2026"
 
-NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/pine/", "Pine Script"), ("/about/", "About")]
+NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/research/", "Research"), ("/pine/", "Pine Script"), ("/about/", "About")]
 
 ICONS = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
@@ -95,6 +97,7 @@ def footer():
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
         <li><a href="/about/">About</a></li>
+        <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Pine Script</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
         <li><a href="/legal/privacy/">Privacy</a></li>
@@ -329,6 +332,18 @@ rr      = <span class="k">input.float</span>(<span class="n">1.5</span>, <span c
 
 inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.period, sess))
 <span class="c">// ... range tracking, one trade per day, exits at the bell</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Research</span><h2>Most strategies fail. Here's the record.</h2>
+      <p class="lede">A public log of a futures research desk: the method, every strategy family tested, results after costs, and why each one was closed. No strategy has passed final validation.</p></div>
+    <div class="grid-3">
+      <a class="card reveal" href="/research/method/"><div class="icon">{ICONS['scale']}</div><h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
+      <a class="card reveal" href="/research/graveyard/"><div class="icon">{ICONS['shield']}</div><h3>Strategy graveyard</h3><p>Opening ranges, FVGs, pivots, momentum and more. One page each, with the verdict.</p><span class="go">Open the graveyard</span></a>
+      <a class="card reveal" href="/research/lessons/"><div class="icon">{ICONS['book']}</div><h3>Lessons</h3><p>Why in-sample results fool you, and why costs beat most retail setups.</p><span class="go">Read the lessons</span></a>
+    </div>
   </div>
 </section>
 
@@ -721,7 +736,7 @@ if __name__ == "__main__":
         article("/guides/prop-evaluation-math/", "The math of passing a prop evaluation", GUIDES[1][2], GUIDES[1][3], ARTICLE_MATH, "/tools/pass/", "Prop Pass Simulator"),
         article("/guides/contract-sizing/", "Sizing contracts against a trailing max loss", GUIDES[2][2], GUIDES[2][3], ARTICLE_SIZE, "/tools/sizing/", "Contract Sizing tool"),
         pine(), about(), legal_disclaimer(), legal_privacy(),
-    ]
+    ] + research.build_all(page, ICONS)
     not_found()
     statics(built)
     print("built", len(built), "pages")

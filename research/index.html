@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research · Badr Edge</title>
+<meta name="description" content="A public futures research record: method, a strategy graveyard with results after costs, and lessons. No strategy has passed validation.">
+<meta name="theme-color" content="#07080a">
+<link rel="canonical" href="https://badredge.com/research/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Research · Badr Edge">
+<meta property="og:description" content="A public futures research record: method, a strategy graveyard with results after costs, and lessons. No strategy has passed validation.">
+<meta property="og:url" content="https://badredge.com/research/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/">Guides</a><a href="/research/" aria-current="page">Research</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+
+<section class="page-head"><div class="wrap">
+  <span class="eyebrow">Research desk</span>
+  <h1>What we tested, and <span class="gold">why almost all of it failed.</span></h1>
+  <p class="lede">A public record of a futures research desk: the rules, the method and the results after costs. Including the failures, which are most of it. Nothing here is a strategy to follow.</p>
+</div></section>
+
+<section style="padding-top:12px"><div class="wrap">
+  <div class="stats reveal">
+    <div><b>0</b><span>strategies passed final validation</span></div>
+    <div><b>23</b><span>strategy families written up here</span></div>
+    <div><b>86</b><span>closed ideas in the failure log</span></div>
+    <div><b>10</b><span>futures markets, 1-minute data</span></div>
+  </div>
+  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>The honest headline.</strong> No strategy on this desk has passed final validation. The closest lead is <a href="/research/under-observation/" style="color:var(--gold-2)">under observation</a>, and it fails the desk's own risk limits even if it holds up. Everything else is published so you don't have to spend months finding the same dead ends.</p></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="grid-3">
+    <a class="card reveal" href="/research/method/"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7a3 3 0 0 0 6 0L6 7zm12 0l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg></div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, frozen and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
+    <a class="card reveal" href="/research/graveyard/"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M4 21h16M12 9v6M9.5 12h5"/></svg></div><h3>Strategy graveyard</h3><p>One page per family: the idea, the markets, the results after costs, the verdict and the lesson.</p><span class="go">Open the graveyard</span></a>
+    <a class="card reveal" href="/research/lessons/"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></div><h3>Lessons</h3><p>What the failures taught: over-fitting, fill artifacts, costs and effects that fade.</p><span class="go">Read the lessons</span></a>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap split">
+  <div class="sec-head" style="margin:0">
+    <span class="eyebrow">Why ideas fail</span>
+    <h2>The main reason each idea was closed.</h2>
+    <p class="lede">From the desk's failure log of 86 closed ideas. Most did not fail on costs or bad luck. They simply had no directional edge to begin with.</p>
+    <div class="hero-actions"><a class="btn" href="/research/graveyard/">See every family</a></div>
+  </div>
+  <div class="figure reveal"><div class="rbars"><div class="rbar"><span class="rl">Wrong direction: no better than a coin flip</span><span class="rt"><i style="width:100.0%"></i></span><b>39</b></div><div class="rbar"><span class="rl">Too few trades to tell</span><span class="rt"><i style="width:38.5%"></i></span><b>15</b></div><div class="rbar"><span class="rl">Failed a placebo or control</span><span class="rt"><i style="width:23.1%"></i></span><b>9</b></div><div class="rbar"><span class="rl">Worked in one period only</span><span class="rt"><i style="width:20.5%"></i></span><b>8</b></div><div class="rbar"><span class="rl">Edge smaller than costs</span><span class="rt"><i style="width:17.9%"></i></span><b>7</b></div><div class="rbar"><span class="rl">Same idea as one already closed</span><span class="rt"><i style="width:7.7%"></i></span><b>3</b></div><div class="rbar"><span class="rl">Fills only when wrong (limit orders)</span><span class="rt"><i style="width:5.1%"></i></span><b>2</b></div><div class="rbar"><span class="rl">Picked by luck from a big search</span><span class="rt"><i style="width:5.1%"></i></span><b>2</b></div><div class="rbar"><span class="rl">Backtest artifact</span><span class="rt"><i style="width:2.6%"></i></span><b>1</b></div></div><figcaption>Primary failure reason per closed idea, as of 12 November 2026.</figcaption></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">How to read the labels</span><h2>Every result carries a status.</h2></div>
+  <div class="principles">
+    <div class="principle"><b>Tested · no edge</b><span>Tested properly, no edge after costs. 19 families.</span></div>
+    <div class="principle"><b>Exploratory</b><span>Something worth a look, not enough evidence. 2 families.</span></div>
+    <div class="principle"><b>Real effect · currently unsuitable</b><span>The effect exists in the data but costs or concentration make it untradeable. 1 family.</span></div>
+    <div class="principle"><b>Under observation</b><span>The closest lead. Being tracked on new data with no changes. 1 family.</span></div>
+  </div>
+  <p class="note" style="margin-top:28px;max-width:860px">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. Market data comes from a licensed 1-minute futures feed and is not redistributed here; only rules, methods and summary results are published.</p>
+</div></section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+        <p class="foot-about">Free risk tools and plain-English guides for futures traders working through prop-firm accounts. Process first, always.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/research/">Research</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p><strong>Educational only.</strong> Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; 2026 Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
+      <div class="powered"><span class="live" aria-hidden="true"></span><span>Powered by <b>Cloudflare</b></span><span class="sep"></span><span>v1.0 · November 2026</span></div>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  document.querySelectorAll('a.card').forEach(c => c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>
