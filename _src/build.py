@@ -194,7 +194,7 @@ TOOLS = [
      "Thousands of simulated evaluation attempts with your numbers and a firm's rules: trailing max loss, daily limit, best-day consistency and minimum days.",
      ["Pass and fail odds by contract size", "Median days to pass", "Why attempts fail", "TradingView CSV import"]),
     ("/tools/payout/", "coins", "Payout Simulator",
-     "Models the funded account after you pass: winning-day rules, buffers, splits and caps, so you know how long a first payout really takes.",
+     "Models the funded account after you pass: winning-day rules, buffers, splits and caps, so you know how long a first payout takes.",
      ["Odds of reaching a first payout", "Days to payout and to the cap", "Compare firm-style rule sets", "Portfolio of strategies"]),
     ("/tools/sizing/", "scale", "Contract Sizing",
      "Finds the contract size that keeps a trailing max loss safe, scales it as your buffer grows, and stress-tests the ladder eight ways.",
@@ -396,7 +396,7 @@ def tools_index():
   <div class="grid-3">
     {tool_cards()}
   </div>
-  <div class="callout" style="margin-top:32px;max-width:820px"><p><strong>How to get the most out of them:</strong> export your strategy's "List of trades" from the TradingView Strategy Tester and load the CSV. Real trades with real dates keep losing streaks and bad weeks intact, which is where most accounts fail.</p></div>
+  <div class="callout" style="margin-top:32px;max-width:820px"><p><strong>Tip:</strong> export your strategy's "List of trades" from the TradingView Strategy Tester and load the CSV. Real trades with real dates keep losing streaks and bad weeks intact, which is where most accounts fail.</p></div>
 </div></section>
 """
     return page("/tools/", "Free tools", "Free Monte Carlo simulators for prop futures traders: pass odds, payout timing and contract sizing.", "/tools/", body)
@@ -407,13 +407,13 @@ def guides_index():
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Guides</span>
   <h1>Learn the rules that decide the account</h1>
-  <p class="lede">Worked examples, no jargon. Each guide ends with a tool so you can test the idea on your own numbers.</p>
+  <p class="lede">Worked examples. Each guide ends with a tool to test the idea on your own numbers.</p>
 </div></section>
 <section style="padding-top:24px"><div class="wrap"><div class="grid-3">
   {guide_cards()}
 </div></div></section>
 """
-    return page("/guides/", "Guides", "Plain-English guides to trailing drawdown, prop evaluation math and contract sizing for futures traders.", "/guides/", body)
+    return page("/guides/", "Guides", "Guides to trailing drawdown, prop evaluation math and contract sizing for futures traders, with worked numbers.", "/guides/", body)
 
 
 def article(path, title, desc, minutes, body_html, tool_href, tool_name):
@@ -434,7 +434,7 @@ def article(path, title, desc, minutes, body_html, tool_href, tool_name):
 
 
 ARTICLE_DD = """
-<p>The profit target gets all the attention, but the <strong>maximum loss limit</strong> is the rule that ends most prop accounts. On most futures evaluations it doesn't sit still. It <em>trails</em> your balance upward. Understanding exactly when it moves is the difference between a pullback and a closed account.</p>
+<p>The profit target gets all the attention, but the <strong>maximum loss limit</strong> is the rule that ends most prop accounts. On most futures evaluations it doesn't sit still. It <em>trails</em> your balance upward. Knowing when it moves is the difference between a pullback and a closed account.</p>
 
 <h2>The three types</h2>
 <h3>1. Static</h3>
@@ -483,7 +483,7 @@ ARTICLE_MATH = """
 
 <h2>Start with the ratio</h2>
 <p>A typical evaluation might ask for a <strong>$3,000 target with a $2,000 max loss</strong>. That's a 1.5 : 1 race: you need to make one and a half times what you're allowed to lose, and the loss limit usually trails behind you.</p>
-<p>If your edge were a coin flip with equal wins and losses, a race to +3 before −2 would succeed only about 40% of the time. You need a real edge just to get to even odds.</p>
+<p>If your edge were a coin flip with equal wins and losses, a race to +3 before −2 would succeed only about 40% of the time. You need a real edge to reach even odds.</p>
 
 <h2>Translate dollars into trades</h2>
 <p>Suppose your strategy wins 50% of the time, with an average win of $180 and an average loss of $120 per contract after costs.</p>
@@ -509,7 +509,7 @@ ARTICLE_MATH = """
 <div class="callout"><p>Rule of thumb: size so that your <strong>worst realistic losing streak</strong> costs no more than about half of your cushion. The other half absorbs slippage, a bad day and the trailing floor moving up.</p></div>
 
 <h2>The hidden rules</h2>
-<p>Consistency rules (no single day can be more than a set percentage of total profit) and minimum trading days both stretch the attempt. A big winning day can actually delay a pass because you need more profit on other days to dilute it. Model these rules, don't hope around them.</p>
+<p>Consistency rules (no single day can be more than a set percentage of total profit) and minimum trading days both stretch the attempt. A big winning day can delay a pass, because you need more profit on other days to dilute it. Model these rules, don't hope around them.</p>
 
 <h2>What to do with this</h2>
 <ol>
@@ -572,16 +572,16 @@ def pine():
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Pine Script</span>
   <h1>Built in v6. Tested until it breaks.</h1>
-  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and what I can help other traders with.</p>
+  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and where I can help.</p>
 </div></section>
 
 <section style="padding-top:24px"><div class="wrap">
   <div class="grid-3">
     <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Fixes and clean-ups</h3><p>Repainting, wrong session times, orders that don't fire, inputs that do nothing. Find the bug, fix it, and explain what was wrong.</p></div>
     <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Upgrades to v6</h3><p>Move older scripts to Pine v6 with the same logic, cleaner inputs and fewer surprises, checked trade by trade against the original.</p></div>
-    <div class="card reveal"><div class="icon">""" + ICONS["shield"] + """</div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, written up in plain English.</p></div>
+    <div class="card reveal"><div class="icon">""" + ICONS["shield"] + """</div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, in one written report.</p></div>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. For now this page explains the approach. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
+  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
 </div></section>
 
 <section class="band"><div class="wrap split">
@@ -632,16 +632,16 @@ def about():
 <section class="page-head"><div class="wrap" style="max-width:820px">
   <span class="eyebrow">About</span>
   <h1>Badr means <span class="gold">full moon.</span></h1>
-  <p class="lede">In Arabic, badr is the moon at its fullest: the night you can see the whole picture. That's the idea behind this site. See the full risk picture before you place the trade.</p>
+  <p class="lede">In Arabic, badr is the moon at its fullest: the night you can see the whole picture. See the full risk picture before you place the trade.</p>
 </div></section>
 
 <article class="prose" style="max-width:820px">
   <h2>Who's behind it</h2>
   <p>I'm a futures trader. I trade gold and US index futures, mostly micro contracts, through prop-firm accounts, using a discretionary price-action process I've refined over the past two years. Alongside that I build and test systematic strategies in Pine Script.</p>
-  <p>Every tool on this site started as something I built for my own accounts: to decide how many contracts to trade, how long an evaluation is likely to take, and when a payout is realistic. They were useful enough that I decided to make them public and free.</p>
+  <p>Every tool on this site started as something I built for my own accounts: to decide how many contracts to trade, how long an evaluation is likely to take, and when a payout is realistic. They proved useful, so they're now public and free.</p>
 
   <h2>Why it exists</h2>
-  <p>The prop-firm world is loud. Most of what traders see is screenshots of wins, promises of fast funding and strategies sold with perfect backtests. Very little of it helps you answer the boring questions that actually decide whether an account survives:</p>
+  <p>The prop-firm world is loud. Most of what traders see is screenshots of wins, promises of fast funding and strategies sold with perfect backtests. Little of it answers the boring questions that decide whether an account survives:</p>
   <ul>
     <li>How big is my real cushion today?</li>
     <li>How many losses in a row can this size survive?</li>
@@ -652,7 +652,7 @@ def about():
   <h2>What you can expect</h2>
   <ul>
     <li><strong>Free tools</strong> that run in your browser and keep your data on your device.</li>
-    <li><strong>Plain-English guides</strong> with worked numbers.</li>
+    <li><strong>Guides</strong> with worked numbers.</li>
     <li><strong>Honesty about limits.</strong> Simulations depend on their inputs, and past results don't predict future ones.</li>
   </ul>
 
