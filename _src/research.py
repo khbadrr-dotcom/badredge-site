@@ -438,7 +438,7 @@ def research_index(page):
     <div><b>86</b><span>closed ideas in the failure log</span></div>
     <div><b>10</b><span>futures markets, 1-minute data</span></div>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>The honest headline.</strong> No strategy on this desk has passed final validation. The closest lead is <a href="/research/under-observation/" style="color:var(--gold-2)">under observation</a>, and it fails the desk's own risk limits even if it holds up. Everything else is published so you don't have to spend months finding the same dead ends.</p></div>
+  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>The headline.</strong> No strategy on this desk has passed final validation. The closest lead is <a href="/research/under-observation/" style="color:var(--gold-2)">under observation</a>, and it fails the desk's own risk limits even if it holds up. Everything else is published so you don't have to spend months finding the same dead ends.</p></div>
 </div></section>
 
 <section><div class="wrap">
@@ -453,7 +453,7 @@ def research_index(page):
   <div class="sec-head" style="margin:0">
     <span class="eyebrow">Why ideas fail</span>
     <h2>The main reason each idea was closed.</h2>
-    <p class="lede">From the desk's failure log of 86 closed ideas. Most did not fail on costs or bad luck. They simply had no directional edge to begin with.</p>
+    <p class="lede">From the desk's failure log of 86 closed ideas. Most did not fail on costs or bad luck. They had no directional edge to begin with.</p>
     <div class="hero-actions"><a class="btn" href="/research/graveyard/">See every family</a></div>
   </div>
   <div class="figure reveal"><div class="rbars">{bars}</div><figcaption>Primary failure reason per closed idea, as of {RESEARCH_UPDATED}.</figcaption></div>
@@ -598,7 +598,7 @@ def lessons(page):
 <section class="page-head"><div class="wrap" style="max-width:860px">
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
   <h1>Lessons from <span class="gold">the failures.</span></h1>
-  <p class="lede">What months of tests with no validated edge actually taught. Each one changed how the next test was run.</p>
+  <p class="lede">What months of tests with no validated edge taught. Each one changed how the next test was run.</p>
 </div></section>
 <section style="padding-top:12px"><div class="wrap" style="max-width:860px">
   <div class="lessons">{cards}</div>
