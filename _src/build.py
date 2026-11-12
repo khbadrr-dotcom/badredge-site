@@ -31,13 +31,23 @@ DISCLAIMER_SHORT = ("Badr Edge publishes educational tools and articles only. No
                     "leveraged products involves substantial risk of loss and is not suitable for everyone.")
 
 
+THEME_INIT = ("<script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}"
+              "if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';"
+              "document.documentElement.setAttribute('data-theme',t)})();</script>")
+
+THEME_BTN = ('<button class="theme-btn" type="button" aria-label="Switch theme" title="Switch theme">'
+             '<svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'
+             '<svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button>')
+
+
 def head(title, desc, path, extra=""):
     full = title if title == "Badr Edge" else f"{title} · Badr Edge"
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{THEME_INIT}
 <title>{full}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#07080a">
@@ -54,6 +64,7 @@ def head(title, desc, path, extra=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/theme.js" defer></script>
 {extra}</head>
 <body>
 """
@@ -65,8 +76,8 @@ def header(active):
     return f"""<header class="site-head">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/">Open the tools</a></nav>
+    <div class="head-actions">{THEME_BTN}<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
   </div>
 </header>
 <main>
