@@ -4,101 +4,243 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Badr Edge</title>
-<meta name="description" content="Badr Edge: tools and research for futures traders. Free prop-firm simulators: pass odds, payouts and contract sizing.">
+<meta name="description" content="Free prop-firm simulators and plain-English guides for futures traders: pass odds, payouts and contract sizing under trailing drawdown rules.">
 <meta name="theme-color" content="#0b0d10">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d10'/%3E%3Ccircle cx='32' cy='32' r='16' fill='%23d4af6a'/%3E%3C/svg%3E">
-<style>
-  :root {
-    --bg: #0b0d10;
-    --panel: #12151a;
-    --line: #232831;
-    --text: #e9e6df;
-    --muted: #8c929c;
-    --gold: #d4af6a;
-    --gold-soft: rgba(212, 175, 106, 0.14);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-    background-image: radial-gradient(60% 45% at 50% 100%, var(--gold-soft), transparent 70%);
-    background-attachment: fixed;
-  }
-  header, footer, main { position: relative; width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-  header { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; }
-  .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: 0.02em; }
-  .moon {
-    width: 22px; height: 22px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #f3dcaa, var(--gold) 55%, #9b7a3e);
-    box-shadow: 0 0 24px rgba(212, 175, 106, 0.45);
-  }
-  .tag { color: var(--text); text-decoration: none; font-size: 12px; color: var(--muted); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; }
-  main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-top: 72px; padding-bottom: 72px; }
-  .eyebrow { color: var(--gold); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px; }
-  h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1.02; letter-spacing: -0.03em; font-weight: 650; max-width: 18ch; }
-  h1 span { color: var(--gold); }
-  .lede { margin-top: 24px; font-size: clamp(16px, 2vw, 19px); line-height: 1.6; color: var(--muted); max-width: 56ch; }
-  .grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .card { display: block; color: inherit; text-decoration: none; transition: border-color .2s, transform .2s; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
-  .card:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-  .card p { font-size: 14px; line-height: 1.55; color: var(--muted); }
-  .soon { display: inline-block; margin-top: 14px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
-  .contact { margin-top: 48px; font-size: 15px; color: var(--muted); }
-  .contact a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
-  .contact a:hover { color: var(--gold); }
-  footer { padding-bottom: 28px; border-top: 1px solid var(--line); padding-top: 20px; font-size: 12px; line-height: 1.6; color: var(--muted); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-  footer p { max-width: 70ch; }
-  @media (max-width: 760px) {
-    header, footer, main { padding-left: 16px; padding-right: 16px; }
-    .grid { grid-template-columns: 1fr; }
-    main { padding-top: 48px; }
-  }
-</style>
+<link rel="canonical" href="https://badredge.com/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Badr Edge">
+<meta property="og:description" content="Free prop-firm simulators and plain-English guides for futures traders: pass odds, payouts and contract sizing under trailing drawdown rules.">
+<meta property="og:url" content="https://badredge.com/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-  <header>
-    <div class="brand"><div class="moon" aria-hidden="true"></div>Badr Edge</div>
-    <a class="tag" href="#tools">Free tools</a>
-  </header>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/">Guides</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
 
-  <main>
-    <p class="eyebrow">Tools &amp; research for futures traders</p>
-    <h1>Trade with a process, <span>not a guess.</span></h1>
-    <p class="lede">Free tools built by a working futures trader: model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Tools &amp; research for futures traders</span>
+      <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
+      <p class="lede">Free simulators built by a working futures trader. Model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="/tools/">Open the free tools</a>
+        <a class="btn" href="/guides/">Read the guides</a>
+      </div>
+      <p class="muted small">No sign-up. Runs in your browser. Your trade files never leave your device.</p>
+    </div>
+    <div class="viz reveal" aria-hidden="false">
+      <div class="viz-top"><span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
+      <svg viewBox="0 0 520 280" role="img" aria-label="Illustration: an account balance rising while its trailing loss floor follows it up and then locks at the starting balance">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af6a" stop-opacity=".28"/><stop offset="1" stop-color="#d4af6a" stop-opacity="0"/></linearGradient></defs>
+  <line x1="46" x2="508" y1="142.7" y2="142.7" stroke="#232831" stroke-dasharray="0"/><text x="40" y="146.7" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">start</text><line x1="46" x2="508" y1="239.5" y2="239.5" stroke="#232831" stroke-dasharray="3 4"/><text x="40" y="243.5" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">−$2,000</text><line x1="46" x2="508" y1="45.9" y2="45.9" stroke="#232831" stroke-dasharray="3 4"/><text x="40" y="49.9" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">+$2,000</text>
+  <path d="M46.0,142.7 L59.6,134.0 L73.2,139.8 L86.8,127.2 L100.4,122.9 L113.9,133.0 L127.5,118.0 L141.1,122.4 L154.7,115.1 L168.3,103.5 L181.9,119.5 L195.5,113.7 L209.1,104.0 L222.6,106.9 L236.2,93.4 L249.8,100.6 L263.4,96.3 L277.0,80.3 L290.6,91.9 L304.2,84.2 L317.8,74.0 L331.4,79.3 L344.9,75.9 L358.5,63.4 L372.1,72.5 L385.7,65.8 L399.3,55.1 L412.9,59.0 L426.5,44.5 L440.1,57.5 L453.6,51.7 L467.2,42.5 L480.8,38.7 L494.4,45.0 L508.0,33.4 L508.0,254.0 L46.0,254.0 Z" fill="url(#g)"/>
+  <path d="M46.0,239.5 L59.6,230.8 L73.2,230.8 L86.8,224.0 L100.4,219.6 L113.9,219.6 L127.5,214.8 L141.1,214.8 L154.7,211.9 L168.3,200.3 L181.9,200.3 L195.5,200.3 L209.1,200.3 L222.6,200.3 L236.2,190.1 L249.8,190.1 L263.4,190.1 L277.0,177.1 L290.6,177.1 L304.2,177.1 L317.8,170.8 L331.4,170.8 L344.9,170.8 L358.5,160.1 L372.1,160.1 L385.7,160.1 L399.3,151.9 L412.9,151.9 L426.5,142.7 L440.1,142.7 L453.6,142.7 L467.2,142.7 L480.8,142.7 L494.4,142.7 L508.0,142.7" fill="none" stroke="#e07a6c" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M46.0,142.7 L59.6,134.0 L73.2,139.8 L86.8,127.2 L100.4,122.9 L113.9,133.0 L127.5,118.0 L141.1,122.4 L154.7,115.1 L168.3,103.5 L181.9,119.5 L195.5,113.7 L209.1,104.0 L222.6,106.9 L236.2,93.4 L249.8,100.6 L263.4,96.3 L277.0,80.3 L290.6,91.9 L304.2,84.2 L317.8,74.0 L331.4,79.3 L344.9,75.9 L358.5,63.4 L372.1,72.5 L385.7,65.8 L399.3,55.1 L412.9,59.0 L426.5,44.5 L440.1,57.5 L453.6,51.7 L467.2,42.5 L480.8,38.7 L494.4,45.0 L508.0,33.4" fill="none" stroke="#d4af6a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="508.0" cy="33.4" r="4" fill="#f3dcaa"/>
+</svg>
+      <div class="viz-legend"><span style="--c:#d4af6a">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+    </div>
+  </div>
+</section>
 
-    <div class="grid" id="tools">
-      <a class="card" href="/tools/pass/">
+<section class="band" id="tools">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Free tools</span>
+      <h2>Know your odds before the firm does.</h2>
+      <p class="lede">Each tool runs thousands of Monte Carlo attempts on your own numbers or your TradingView trade list, under the rules you choose.</p>
+    </div>
+    <div class="grid-3">
+      <a class="card reveal" href="/tools/pass/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></div>
+        <span class="tagline">Free</span>
         <h3>Prop Pass Simulator</h3>
-        <p>Run thousands of simulated evaluations against firm-style rules to see how your numbers hold up.</p>
-        <span class="soon">Free · Open tool &rarr;</span>
+        <p>Thousands of simulated evaluation attempts with your numbers and a firm's rules: trailing max loss, daily limit, best-day consistency and minimum days.</p>
+        <ul><li>Pass and fail odds by contract size</li><li>Median days to pass</li><li>Why attempts fail</li><li>TradingView CSV import</li></ul>
+        <span class="go">Open tool &rarr;</span>
       </a>
-      <a class="card" href="/tools/payout/">
+      <a class="card reveal" href="/tools/payout/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg></div>
+        <span class="tagline">Free</span>
         <h3>Payout Simulator</h3>
-        <p>Model buffers, splits and payout timing across accounts before you plan around them.</p>
-        <span class="soon">Free · Open tool &rarr;</span>
+        <p>Models the funded account after you pass: winning-day rules, buffers, splits and caps, so you know how long a first payout really takes.</p>
+        <ul><li>Odds of reaching a first payout</li><li>Days to payout and to the cap</li><li>Compare firm-style rule sets</li><li>Portfolio of strategies</li></ul>
+        <span class="go">Open tool &rarr;</span>
       </a>
-      <a class="card" href="/tools/sizing/">
+      <a class="card reveal" href="/tools/sizing/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7a3 3 0 0 0 6 0L6 7zm12 0l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg></div>
+        <span class="tagline">Free</span>
         <h3>Contract Sizing</h3>
-        <p>Match micro and mini sizing to your drawdown so one bad day can't end the account.</p>
-        <span class="soon">Free · Open tool &rarr;</span>
+        <p>Finds the contract size that keeps a trailing max loss safe, scales it as your buffer grows, and stress-tests the ladder eight ways.</p>
+        <ul><li>Size for today's buffer</li><li>Short-term forecast fan</li><li>Stress and out-of-sample tests</li><li>CSV and Excel import</li></ul>
+        <span class="go">Open tool &rarr;</span>
       </a>
     </div>
+  </div>
+</section>
 
-    <p class="contact">Questions? <a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
-  </main>
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The process</span>
+      <h2>Plan, size, review. Every account.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Plan the attempt</h3><p>Put your real win rate, average win and average loss into the pass simulator. See how often that edge clears the target before the max loss, and how long it takes.</p></div>
+      <div class="step reveal"><h3>Size to the buffer</h3><p>Start at the size the account can survive, not the size you hope for. Add contracts only as the gap between your balance and the floor grows.</p></div>
+      <div class="step reveal"><h3>Review the evidence</h3><p>Import your trade list after each week. Check if the edge still looks like the one you planned with, and stress it with worse fills and smaller winners.</p></div>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    <p>Educational tools only. Nothing on this site is investment advice or a recommendation to buy or sell any instrument. Simulations are hypothetical and do not predict future results. Trading futures involves substantial risk of loss.</p>
-    <p>&copy; <span id="y">2026</span> Badr Edge</p>
-  </footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Principles</span>
+      <h2>What Badr Edge is, and what it isn't.</h2>
+    </div>
+    <div class="principles">
+      <div class="principle reveal"><b>No signals</b><span>You won't find trade calls or alerts here. You make your own decisions.</span></div>
+      <div class="principle reveal"><b>No promised returns</b><span>No win rates, no screenshots of profits, no "guaranteed funded" claims.</span></div>
+      <div class="principle reveal"><b>Tools over talk</b><span>Every idea comes with a way to test it on your own numbers.</span></div>
+      <div class="principle reveal"><b>Private by design</b><span>The tools run in your browser. Nothing you load is uploaded.</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Guides</span>
+      <h2>The rules that end most accounts, explained.</h2>
+      <p class="lede">Plain-English breakdowns with worked numbers. Each one links to the tool that lets you test it.</p>
+    </div>
+    <div class="grid-3">
+      <a class="card reveal" href="/guides/trailing-drawdown/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></div>
+        <h3>Trailing drawdown, explained with numbers</h3>
+        <p>End-of-day, intraday and static drawdown, when the floor locks, and the mistakes that end accounts.</p>
+        <span class="go">8 min read &rarr;</span>
+      </a>
+      <a class="card reveal" href="/guides/prop-evaluation-math/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></div>
+        <h3>The math of passing a prop evaluation</h3>
+        <p>Why the target-to-max-loss ratio, your loss per trade and your give-up date decide the outcome more than win rate.</p>
+        <span class="go">9 min read &rarr;</span>
+      </a>
+      <a class="card reveal" href="/guides/contract-sizing/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></div>
+        <h3>Sizing contracts against a trailing max loss</h3>
+        <p>Micros vs minis, dollars per point, and a simple buffer ladder that grows size only when the account can afford it.</p>
+        <span class="go">8 min read &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div class="sec-head" style="margin:0">
+      <span class="eyebrow">Pine Script</span>
+      <h2>Strategies that are tested, not just coded.</h2>
+      <p class="lede">I write and validate TradingView strategies in Pine Script v6 for my own research: clean code, realistic costs, and tests that try to break the idea before the market does.</p>
+      <ul class="checklist" style="margin-top:8px">
+        <li><span><b>v6 code</b> with clear inputs, sessions and risk settings</span></li>
+        <li><span><b>Realistic costs:</b> commission and slippage on every test</span></li>
+        <li><span><b>Stress tests:</b> worse fills, smaller winners, unseen months</span></li>
+      </ul>
+      <div class="hero-actions"><a class="btn" href="/pine/">How I build and test</a></div>
+    </div>
+    <div class="code reveal" aria-label="Example Pine Script snippet"><span class="c">//@version=6</span>
+<span class="k">strategy</span>(<span class="s">"Session breakout · example"</span>, overlay = <span class="n">true</span>,
+     commission_type = strategy.commission.cash_per_contract,
+     commission_value = <span class="n">0.70</span>, slippage = <span class="n">1</span>)
+
+<span class="c">// Inputs keep the logic honest and testable</span>
+sess   = <span class="k">input.session</span>(<span class="s">"0930-1000"</span>, <span class="s">"Opening range"</span>)
+riskPts = <span class="k">input.float</span>(<span class="n">6.0</span>, <span class="s">"Stop (points)"</span>)
+rr      = <span class="k">input.float</span>(<span class="n">1.5</span>, <span class="s">"Reward : risk"</span>)
+
+inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.period, sess))
+<span class="c">// ... range tracking, one trade per day, exits at the bell</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions traders ask</h2></div>
+    <div class="faq">
+      <details><summary>Are the tools really free?</summary><p>Yes. There's no account, no paywall and no trial. They're the same tools I use to plan my own accounts.</p></details>
+      <details><summary>Is my trade data uploaded anywhere?</summary><p>No. The simulators run entirely in your browser. CSV and Excel files are read on your device, and settings are saved only in your own browser's storage.</p></details>
+      <details><summary>Which prop firms do the presets cover?</summary><p>The presets approximate common rule styles (trailing end-of-day, intraday trailing, best-day consistency, buffers and caps). Firms change their rules often, so every value is editable. Check your firm's current rules before relying on any result.</p></details>
+      <details><summary>Can a simulator tell me if I'll pass?</summary><p>No tool can. A simulation shows how your stated edge behaves under a set of rules if the future looks like the inputs. It's a planning aid that helps you avoid sizes and rule sets that are likely to fail.</p></details>
+      <details><summary>Do you sell signals, courses or strategies?</summary><p>No signals and no courses. Pine Script work is described on the <a href="/pine/" style="color:var(--gold)">Pine Script page</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band cta-band">
+  <div class="wrap">
+    <span class="eyebrow">Start here</span>
+    <h2>Run your numbers in under a minute.</h2>
+    <p class="lede">Enter your win rate, average win and average loss. Pick a rule set. See your odds.</p>
+    <a class="btn primary" href="/tools/pass/">Open the Prop Pass Simulator</a>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
+        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p>Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; 2026 Badr Edge.</p>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
 </body>
 </html>

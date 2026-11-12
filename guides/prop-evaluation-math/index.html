@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The math of passing a prop evaluation · Badr Edge</title>
+<meta name="description" content="Why the target-to-max-loss ratio, your loss per trade and your give-up date decide the outcome more than win rate.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="canonical" href="https://badredge.com/guides/prop-evaluation-math/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="The math of passing a prop evaluation · Badr Edge">
+<meta property="og:description" content="Why the target-to-max-loss ratio, your loss per trade and your give-up date decide the outcome more than win rate.">
+<meta property="og:url" content="https://badredge.com/guides/prop-evaluation-math/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/" aria-current="page">Guides</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
+  <h1>The math of passing a prop evaluation</h1>
+  <p class="lede">Why the target-to-max-loss ratio, your loss per trade and your give-up date decide the outcome more than win rate.</p>
+  <p class="meta">9 min read · Updated November 2026</p>
+</div></header>
+<article class="prose">
+
+<p>Most traders ask "what's my win rate?" when they plan an evaluation. A more useful question is: <strong>how many average losses can I take before the max loss, and how many average wins do I need to reach the target?</strong> Those two numbers decide most outcomes.</p>
+
+<h2>Start with the ratio</h2>
+<p>A typical evaluation might ask for a <strong>$3,000 target with a $2,000 max loss</strong>. That's a 1.5 : 1 race: you need to make one and a half times what you're allowed to lose, and the loss limit usually trails behind you.</p>
+<p>If your edge were a coin flip with equal wins and losses, a race to +3 before −2 would succeed only about 40% of the time. You need a real edge just to get to even odds.</p>
+
+<h2>Translate dollars into trades</h2>
+<p>Suppose your strategy wins 50% of the time, with an average win of $180 and an average loss of $120 per contract after costs.</p>
+<table>
+  <thead><tr><th>Contracts</th><th>Avg loss</th><th>Losses to max loss</th><th>Avg win</th><th>Wins to target</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>$120</td><td>16.7</td><td>$180</td><td>16.7</td></tr>
+    <tr><td>3</td><td>$360</td><td>5.6</td><td>$540</td><td>5.6</td></tr>
+    <tr><td>6</td><td>$720</td><td>2.8</td><td>$1,080</td><td>2.8</td></tr>
+  </tbody>
+</table>
+<p>At 1 contract the account almost never fails, but it also needs about 17 net winning trades, which can take months. At 6 contracts, three losses in a row (common for any 50% strategy) is enough to end the attempt.</p>
+
+<h2>Two ways to fail</h2>
+<ul>
+  <li><strong>Too big:</strong> a normal losing streak hits the floor before the edge has time to show.</li>
+  <li><strong>Too small:</strong> the attempt runs out of time or patience. You reset, pay again, or start forcing trades.</li>
+</ul>
+<p>The best size is usually in the middle, and it's narrower than people expect. That is exactly what a Monte Carlo simulation finds: it replays thousands of attempts at each size and counts how many pass, fail or stall.</p>
+
+<h2>Losing streaks are normal, not bad luck</h2>
+<p>A strategy that wins 50% of the time will produce a run of <strong>six or more losses in a row</strong> fairly often over a few hundred trades. If six average losses fit inside your cushion, you survive it. If they don't, the streak is the end of the attempt, not a rough patch.</p>
+<div class="callout"><p>Rule of thumb: size so that your <strong>worst realistic losing streak</strong> costs no more than about half of your cushion. The other half absorbs slippage, a bad day and the trailing floor moving up.</p></div>
+
+<h2>The hidden rules</h2>
+<p>Consistency rules (no single day can be more than a set percentage of total profit) and minimum trading days both stretch the attempt. A big winning day can actually delay a pass because you need more profit on other days to dilute it. Model these rules, don't hope around them.</p>
+
+<h2>What to do with this</h2>
+<ol>
+  <li>Use your <strong>after-cost</strong> averages, not gross.</li>
+  <li>Find the size where the pass rate peaks, then consider one size smaller for safety.</li>
+  <li>Decide in advance how many sessions you'll give the attempt.</li>
+  <li>Stress the plan: what happens if winners are 10% smaller than your backtest?</li>
+</ol>
+
+<div class="callout"><p><strong>Test it on your numbers.</strong> The <a href="/tools/pass/">Prop Pass Simulator</a> runs this on your own win rate, averages or TradingView trade list.</p></div>
+<p class="note">Educational content only, not investment advice. Rules differ by firm and change often, so always check your firm's current rules. Examples use round numbers for clarity.</p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
+        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p>Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; 2026 Badr Edge.</p>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

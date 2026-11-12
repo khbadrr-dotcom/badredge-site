@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sizing contracts against a trailing max loss · Badr Edge</title>
+<meta name="description" content="Micros vs minis, dollars per point, and a simple buffer ladder that grows size only when the account can afford it.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="canonical" href="https://badredge.com/guides/contract-sizing/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Sizing contracts against a trailing max loss · Badr Edge">
+<meta property="og:description" content="Micros vs minis, dollars per point, and a simple buffer ladder that grows size only when the account can afford it.">
+<meta property="og:url" content="https://badredge.com/guides/contract-sizing/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/" aria-current="page">Guides</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
+  <h1>Sizing contracts against a trailing max loss</h1>
+  <p class="lede">Micros vs minis, dollars per point, and a simple buffer ladder that grows size only when the account can afford it.</p>
+  <p class="meta">8 min read · Updated November 2026</p>
+</div></header>
+<article class="prose">
+
+<p>Choosing between a micro and a mini contract isn't a style preference. It's a risk decision. The same 5-point move on gold is $50 on a micro and $500 on a full contract. Under a $2,000 trailing max loss, that difference is the whole game.</p>
+
+<h2>Dollars per point</h2>
+<table>
+  <thead><tr><th>Contract</th><th>Market</th><th>$ per point</th><th>Tick</th><th>$ per tick</th></tr></thead>
+  <tbody>
+    <tr><td>MGC</td><td>Micro Gold</td><td>$10</td><td>0.10</td><td>$1.00</td></tr>
+    <tr><td>GC</td><td>Gold</td><td>$100</td><td>0.10</td><td>$10.00</td></tr>
+    <tr><td>MES</td><td>Micro S&amp;P 500</td><td>$5</td><td>0.25</td><td>$1.25</td></tr>
+    <tr><td>ES</td><td>E-mini S&amp;P 500</td><td>$50</td><td>0.25</td><td>$12.50</td></tr>
+    <tr><td>MNQ</td><td>Micro Nasdaq-100</td><td>$2</td><td>0.25</td><td>$0.50</td></tr>
+    <tr><td>NQ</td><td>E-mini Nasdaq-100</td><td>$20</td><td>0.25</td><td>$5.00</td></tr>
+    <tr><td>MYM</td><td>Micro Dow</td><td>$0.50</td><td>1</td><td>$0.50</td></tr>
+    <tr><td>YM</td><td>E-mini Dow</td><td>$5</td><td>1</td><td>$5.00</td></tr>
+  </tbody>
+</table>
+<p>Contract specs are set by the exchange and can change. Check your broker's specs before trading.</p>
+
+<h2>Size from the stop, not the account</h2>
+<p>Work backwards from the dollar loss you can accept on one trade:</p>
+<p><strong>Contracts = (risk per trade in $) ÷ (stop in points × $ per point)</strong></p>
+<p>Example: you accept $150 of risk on a gold trade with a 6-point stop. On MGC that's 6 × $10 = $60 per contract, so 2 contracts ($120). On GC, one contract would risk $600, four times your limit. On a small account, micros are often the only way to size correctly.</p>
+
+<h2>The buffer ladder</h2>
+<p>Under a trailing max loss, the right size changes as your <strong>buffer</strong> (balance minus floor) changes. A simple ladder:</p>
+<ol>
+  <li>Pick a block size, for example $700 of buffer per contract.</li>
+  <li>Each morning, contracts = buffer ÷ block, rounded down, with a minimum of 1.</li>
+  <li>When the buffer grows, size grows. After a drawdown, size shrinks automatically.</li>
+</ol>
+<table>
+  <thead><tr><th>Buffer</th><th>Block $700</th><th>Block $500</th></tr></thead>
+  <tbody>
+    <tr><td>$1,200</td><td>1</td><td>2</td></tr>
+    <tr><td>$2,000</td><td>2</td><td>4</td></tr>
+    <tr><td>$3,500</td><td>5</td><td>7</td></tr>
+  </tbody>
+</table>
+<p>The ladder does what discipline often doesn't: it cuts size after losses and only adds it when the account has earned the room.</p>
+<div class="callout"><p>The block size is the key number. Too small and a normal losing streak breaches the floor. Too large and the account grows slowly. The Contract Sizing tool searches for the smallest block that keeps your breach chance under a limit you choose.</p></div>
+
+<h2>Don't forget costs</h2>
+<p>Commission and slippage are charged per contract, so they scale with size. One tick of slippage on MNQ is $0.50, but over hundreds of trades and several contracts it adds up. Always test your size with costs included.</p>
+
+<div class="callout"><p><strong>Test it on your numbers.</strong> The <a href="/tools/sizing/">Contract Sizing tool</a> runs this on your own win rate, averages or TradingView trade list.</p></div>
+<p class="note">Educational content only, not investment advice. Rules differ by firm and change often, so always check your firm's current rules. Examples use round numbers for clarity.</p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
+        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p>Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; 2026 Badr Edge.</p>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

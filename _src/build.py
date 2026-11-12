@@ -1,0 +1,709 @@
+#!/usr/bin/env python3
+"""Builds the static pages of badredge.com.
+
+Run:  python3 _src/build.py
+It writes the HTML files at their published paths. The tools under /tools/<name>/ are
+standalone pages and are not touched, except /tools/index.html, which is built here.
+"""
+import os, random, datetime
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SITE = "https://badredge.com"
+YEAR = datetime.date.today().year
+UPDATED = "November 2026"
+
+NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/pine/", "Pine Script"), ("/about/", "About")]
+
+ICONS = {
+    "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
+    "coins": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg>',
+    "scale": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7a3 3 0 0 0 6 0L6 7zm12 0l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>',
+    "code": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>',
+    "book": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg>',
+    "shield": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>',
+}
+
+DISCLAIMER_SHORT = ("Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, "
+                    "a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are "
+                    "hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and "
+                    "leveraged products involves substantial risk of loss and is not suitable for everyone.")
+
+
+def head(title, desc, path, extra=""):
+    full = title if title == "Badr Edge" else f"{title} · Badr Edge"
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{full}</title>
+<meta name="description" content="{desc}">
+<meta name="theme-color" content="#0b0d10">
+<link rel="canonical" href="{SITE}{path}">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="{full}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{SITE}{path}">
+<meta property="og:image" content="{SITE}/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+{extra}</head>
+<body>
+"""
+
+
+def header(active):
+    links = "".join(
+        f'<a href="{href}"{" aria-current=\"page\"" if href == active else ""}>{label}</a>' for href, label in NAV)
+    return f"""<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+"""
+
+
+def footer():
+    return f"""</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
+        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p>{DISCLAIMER_SHORT}</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; {YEAR} Badr Edge.</p>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {{
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => {{ const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; }});
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {{
+    const io = new IntersectionObserver(es => es.forEach(e => {{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }}), {{ rootMargin: '0px 0px -8% 0px' }});
+    els.forEach(el => io.observe(el));
+  }} else els.forEach(el => el.classList.add('in'));
+}})();
+</script>
+</body>
+</html>
+"""
+
+
+def page(path, title, desc, active, body, extra=""):
+    out = os.path.join(ROOT, path.strip("/"), "index.html") if path.endswith("/") else os.path.join(ROOT, path.strip("/"))
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(head(title, desc, path, extra) + header(active) + body + footer())
+    return path
+
+
+# ───────────────────────── Hero illustration ─────────────────────────
+def hero_svg():
+    """An illustrative account path with a trailing end-of-day floor that locks at the start balance."""
+    rnd = random.Random(11)
+    start, mll, days = 0.0, 2000.0, 34
+    bal, peak, floor = start, start, start - mll
+    pts_b, pts_f = [(0, bal)], [(0, floor)]
+    moves = [180, -120, 260, 90, -210, 310, -90, 150, 240, -330, 120, 200, -60, 280, -150, 90, 330, -240,
+             160, 210, -110, 70, 260, -190, 140, 220, -80, 300, -270, 120, 190, 80, -130, 240]
+    for d in range(1, days + 1):
+        bal += moves[d - 1]
+        peak = max(peak, bal)
+        floor = min(peak - mll, start)
+        pts_b.append((d, bal))
+        pts_f.append((d, floor))
+    W, H, L, R, T, B = 520, 280, 46, 12, 14, 26
+    lo, hi = -2300, max(b for _, b in pts_b) + 400
+    x = lambda d: L + d / days * (W - L - R)
+    y = lambda v: T + (hi - v) / (hi - lo) * (H - T - B)
+    path = lambda pts: " ".join(("M" if i == 0 else "L") + f"{x(d):.1f},{y(v):.1f}" for i, (d, v) in enumerate(pts))
+    area = path(pts_b) + f" L{x(days):.1f},{y(lo):.1f} L{x(0):.1f},{y(lo):.1f} Z"
+    grid = ""
+    for v, lab in [(0, "start"), (-2000, "−$2,000"), (2000, "+$2,000"), (4000, "+$4,000")]:
+        if lo <= v <= hi:
+            grid += f'<line x1="{L}" x2="{W-R}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="#232831" stroke-dasharray="{"0" if v == 0 else "3 4"}"/>'
+            grid += f'<text x="{L-6}" y="{y(v)+4:.1f}" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">{lab}</text>'
+    return f"""<svg viewBox="0 0 {W} {H}" role="img" aria-label="Illustration: an account balance rising while its trailing loss floor follows it up and then locks at the starting balance">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af6a" stop-opacity=".28"/><stop offset="1" stop-color="#d4af6a" stop-opacity="0"/></linearGradient></defs>
+  {grid}
+  <path d="{area}" fill="url(#g)"/>
+  <path d="{path(pts_f)}" fill="none" stroke="#e07a6c" stroke-width="2" stroke-linejoin="round"/>
+  <path d="{path(pts_b)}" fill="none" stroke="#d4af6a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="{x(days):.1f}" cy="{y(pts_b[-1][1]):.1f}" r="4" fill="#f3dcaa"/>
+</svg>"""
+
+
+# ───────────────────────── Pages ─────────────────────────
+TOOLS = [
+    ("/tools/pass/", "target", "Prop Pass Simulator",
+     "Thousands of simulated evaluation attempts with your numbers and a firm's rules: trailing max loss, daily limit, best-day consistency and minimum days.",
+     ["Pass and fail odds by contract size", "Median days to pass", "Why attempts fail", "TradingView CSV import"]),
+    ("/tools/payout/", "coins", "Payout Simulator",
+     "Models the funded account after you pass: winning-day rules, buffers, splits and caps, so you know how long a first payout really takes.",
+     ["Odds of reaching a first payout", "Days to payout and to the cap", "Compare firm-style rule sets", "Portfolio of strategies"]),
+    ("/tools/sizing/", "scale", "Contract Sizing",
+     "Finds the contract size that keeps a trailing max loss safe, scales it as your buffer grows, and stress-tests the ladder eight ways.",
+     ["Size for today's buffer", "Short-term forecast fan", "Stress and out-of-sample tests", "CSV and Excel import"]),
+]
+
+GUIDES = [
+    ("/guides/trailing-drawdown/", "Trailing drawdown, explained with numbers",
+     "End-of-day, intraday and static drawdown, when the floor locks, and the mistakes that end accounts.", "8 min read"),
+    ("/guides/prop-evaluation-math/", "The math of passing a prop evaluation",
+     "Why the target-to-max-loss ratio, your loss per trade and your give-up date decide the outcome more than win rate.", "9 min read"),
+    ("/guides/contract-sizing/", "Sizing contracts against a trailing max loss",
+     "Micros vs minis, dollars per point, and a simple buffer ladder that grows size only when the account can afford it.", "8 min read"),
+]
+
+
+def tool_cards():
+    out = []
+    for href, icon, name, desc, bullets in TOOLS:
+        lis = "".join(f"<li>{b}</li>" for b in bullets)
+        out.append(f"""<a class="card reveal" href="{href}">
+        <div class="icon">{ICONS[icon]}</div>
+        <span class="tagline">Free</span>
+        <h3>{name}</h3>
+        <p>{desc}</p>
+        <ul>{lis}</ul>
+        <span class="go">Open tool &rarr;</span>
+      </a>""")
+    return "\n      ".join(out)
+
+
+def guide_cards():
+    return "\n      ".join(f"""<a class="card reveal" href="{h}">
+        <div class="icon">{ICONS['book']}</div>
+        <h3>{t}</h3>
+        <p>{d}</p>
+        <span class="go">{m} &rarr;</span>
+      </a>""" for h, t, d, m in GUIDES)
+
+
+def home():
+    body = f"""
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Tools &amp; research for futures traders</span>
+      <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
+      <p class="lede">Free simulators built by a working futures trader. Model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="/tools/">Open the free tools</a>
+        <a class="btn" href="/guides/">Read the guides</a>
+      </div>
+      <p class="muted small">No sign-up. Runs in your browser. Your trade files never leave your device.</p>
+    </div>
+    <div class="viz reveal" aria-hidden="false">
+      <div class="viz-top"><span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
+      {hero_svg()}
+      <div class="viz-legend"><span style="--c:#d4af6a">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="tools">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Free tools</span>
+      <h2>Know your odds before the firm does.</h2>
+      <p class="lede">Each tool runs thousands of Monte Carlo attempts on your own numbers or your TradingView trade list, under the rules you choose.</p>
+    </div>
+    <div class="grid-3">
+      {tool_cards()}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The process</span>
+      <h2>Plan, size, review. Every account.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Plan the attempt</h3><p>Put your real win rate, average win and average loss into the pass simulator. See how often that edge clears the target before the max loss, and how long it takes.</p></div>
+      <div class="step reveal"><h3>Size to the buffer</h3><p>Start at the size the account can survive, not the size you hope for. Add contracts only as the gap between your balance and the floor grows.</p></div>
+      <div class="step reveal"><h3>Review the evidence</h3><p>Import your trade list after each week. Check if the edge still looks like the one you planned with, and stress it with worse fills and smaller winners.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Principles</span>
+      <h2>What Badr Edge is, and what it isn't.</h2>
+    </div>
+    <div class="principles">
+      <div class="principle reveal"><b>No signals</b><span>You won't find trade calls or alerts here. You make your own decisions.</span></div>
+      <div class="principle reveal"><b>No promised returns</b><span>No win rates, no screenshots of profits, no "guaranteed funded" claims.</span></div>
+      <div class="principle reveal"><b>Tools over talk</b><span>Every idea comes with a way to test it on your own numbers.</span></div>
+      <div class="principle reveal"><b>Private by design</b><span>The tools run in your browser. Nothing you load is uploaded.</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Guides</span>
+      <h2>The rules that end most accounts, explained.</h2>
+      <p class="lede">Plain-English breakdowns with worked numbers. Each one links to the tool that lets you test it.</p>
+    </div>
+    <div class="grid-3">
+      {guide_cards()}
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div class="sec-head" style="margin:0">
+      <span class="eyebrow">Pine Script</span>
+      <h2>Strategies that are tested, not just coded.</h2>
+      <p class="lede">I write and validate TradingView strategies in Pine Script v6 for my own research: clean code, realistic costs, and tests that try to break the idea before the market does.</p>
+      <ul class="checklist" style="margin-top:8px">
+        <li><span><b>v6 code</b> with clear inputs, sessions and risk settings</span></li>
+        <li><span><b>Realistic costs:</b> commission and slippage on every test</span></li>
+        <li><span><b>Stress tests:</b> worse fills, smaller winners, unseen months</span></li>
+      </ul>
+      <div class="hero-actions"><a class="btn" href="/pine/">How I build and test</a></div>
+    </div>
+    <div class="code reveal" aria-label="Example Pine Script snippet"><span class="c">//@version=6</span>
+<span class="k">strategy</span>(<span class="s">"Session breakout · example"</span>, overlay = <span class="n">true</span>,
+     commission_type = strategy.commission.cash_per_contract,
+     commission_value = <span class="n">0.70</span>, slippage = <span class="n">1</span>)
+
+<span class="c">// Inputs keep the logic honest and testable</span>
+sess   = <span class="k">input.session</span>(<span class="s">"0930-1000"</span>, <span class="s">"Opening range"</span>)
+riskPts = <span class="k">input.float</span>(<span class="n">6.0</span>, <span class="s">"Stop (points)"</span>)
+rr      = <span class="k">input.float</span>(<span class="n">1.5</span>, <span class="s">"Reward : risk"</span>)
+
+inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.period, sess))
+<span class="c">// ... range tracking, one trade per day, exits at the bell</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions traders ask</h2></div>
+    <div class="faq">
+      <details><summary>Are the tools really free?</summary><p>Yes. There's no account, no paywall and no trial. They're the same tools I use to plan my own accounts.</p></details>
+      <details><summary>Is my trade data uploaded anywhere?</summary><p>No. The simulators run entirely in your browser. CSV and Excel files are read on your device, and settings are saved only in your own browser's storage.</p></details>
+      <details><summary>Which prop firms do the presets cover?</summary><p>The presets approximate common rule styles (trailing end-of-day, intraday trailing, best-day consistency, buffers and caps). Firms change their rules often, so every value is editable. Check your firm's current rules before relying on any result.</p></details>
+      <details><summary>Can a simulator tell me if I'll pass?</summary><p>No tool can. A simulation shows how your stated edge behaves under a set of rules if the future looks like the inputs. It's a planning aid that helps you avoid sizes and rule sets that are likely to fail.</p></details>
+      <details><summary>Do you sell signals, courses or strategies?</summary><p>No signals and no courses. Pine Script work is described on the <a href="/pine/" style="color:var(--gold)">Pine Script page</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band cta-band">
+  <div class="wrap">
+    <span class="eyebrow">Start here</span>
+    <h2>Run your numbers in under a minute.</h2>
+    <p class="lede">Enter your win rate, average win and average loss. Pick a rule set. See your odds.</p>
+    <a class="btn primary" href="/tools/pass/">Open the Prop Pass Simulator</a>
+  </div>
+</section>
+"""
+    return page("/", "Badr Edge",
+                "Free prop-firm simulators and plain-English guides for futures traders: pass odds, payouts and contract sizing under trailing drawdown rules.",
+                "/", body)
+
+
+def tools_index():
+    body = f"""
+<section class="page-head"><div class="wrap">
+  <span class="eyebrow">Free tools</span>
+  <h1>Prop-firm simulators</h1>
+  <p class="lede">Three Monte Carlo tools for planning evaluations, payouts and position size under trailing drawdown rules. Free, no sign-up, and everything runs in your browser.</p>
+</div></section>
+<section style="padding-top:24px"><div class="wrap">
+  <div class="grid-3">
+    {tool_cards()}
+  </div>
+  <div class="callout" style="margin-top:32px;max-width:820px"><p><strong>How to get the most out of them:</strong> export your strategy's "List of trades" from the TradingView Strategy Tester and load the CSV. Real trades with real dates keep losing streaks and bad weeks intact, which is where most accounts fail.</p></div>
+</div></section>
+"""
+    return page("/tools/", "Free tools", "Free Monte Carlo simulators for prop futures traders: pass odds, payout timing and contract sizing.", "/tools/", body)
+
+
+def guides_index():
+    body = f"""
+<section class="page-head"><div class="wrap">
+  <span class="eyebrow">Guides</span>
+  <h1>Learn the rules that decide the account</h1>
+  <p class="lede">Worked examples, no jargon. Each guide ends with a tool so you can test the idea on your own numbers.</p>
+</div></section>
+<section style="padding-top:24px"><div class="wrap"><div class="grid-3">
+  {guide_cards()}
+</div></div></section>
+"""
+    return page("/guides/", "Guides", "Plain-English guides to trailing drawdown, prop evaluation math and contract sizing for futures traders.", "/guides/", body)
+
+
+def article(path, title, desc, minutes, body_html, tool_href, tool_name):
+    body = f"""
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
+  <h1>{title}</h1>
+  <p class="lede">{desc}</p>
+  <p class="meta">{minutes} · Updated {UPDATED}</p>
+</div></header>
+<article class="prose">
+{body_html}
+<div class="callout"><p><strong>Test it on your numbers.</strong> The <a href="{tool_href}">{tool_name}</a> runs this on your own win rate, averages or TradingView trade list.</p></div>
+<p class="note">Educational content only, not investment advice. Rules differ by firm and change often, so always check your firm's current rules. Examples use round numbers for clarity.</p>
+</article>
+"""
+    return page(path, title, desc, "/guides/", body)
+
+
+ARTICLE_DD = """
+<p>The profit target gets all the attention, but the <strong>maximum loss limit</strong> is the rule that ends most prop accounts. On most futures evaluations it doesn't sit still. It <em>trails</em> your balance upward. Understanding exactly when it moves is the difference between a pullback and a closed account.</p>
+
+<h2>The three types</h2>
+<h3>1. Static</h3>
+<p>The floor is fixed at your starting balance minus the max loss. On a $50,000 account with a $2,000 limit, the floor is $48,000 forever. Profit you make widens your cushion permanently. This is the most forgiving type and the least common on futures evaluations.</p>
+
+<h3>2. Trailing, end of day</h3>
+<p>At the end of each session, the firm looks at your closing balance. If it's a new high, the floor moves up to that high minus the max loss. Intraday swings don't move it. Only the close does.</p>
+<table>
+  <thead><tr><th>Day</th><th>Closing balance</th><th>Highest close</th><th>Floor</th><th>Cushion</th></tr></thead>
+  <tbody>
+    <tr><td>Start</td><td>$50,000</td><td>$50,000</td><td>$48,000</td><td>$2,000</td></tr>
+    <tr><td>1</td><td>$50,600</td><td>$50,600</td><td>$48,600</td><td>$2,000</td></tr>
+    <tr><td>2</td><td>$50,200</td><td>$50,600</td><td>$48,600</td><td>$1,600</td></tr>
+    <tr><td>3</td><td>$51,300</td><td>$51,300</td><td>$49,300</td><td>$2,000</td></tr>
+    <tr><td>4</td><td>$52,100</td><td>$52,100</td><td>$50,000</td><td>$2,100</td></tr>
+  </tbody>
+</table>
+<p>Notice that on day 2 the cushion shrank to $1,600 even though the account is still up $200. <strong>Your cushion is measured from your best close, not from where you started.</strong></p>
+
+<h3>3. Trailing, intraday</h3>
+<p>The floor follows your highest balance at any moment, including open profit. If a trade runs +$800 and comes back to breakeven, the floor already moved up $800 and stays there. This is the strictest type: letting winners breathe can shrink your cushion even on trades you don't lose.</p>
+
+<h2>When the floor stops: the lock</h2>
+<p>Most trailing rules stop trailing once the floor reaches a set level, usually the starting balance (sometimes start plus a small amount). In the table above, the floor hit $50,000 on day 4 and <strong>locks there</strong>. From that point on, every dollar of profit above the max loss is real cushion, and the account behaves like a static one.</p>
+<div class="callout"><p>Before the lock, you're playing defense against your own high-water mark. After it, you're playing with a buffer. Most blown accounts die <strong>before</strong> the lock.</p></div>
+
+<h2>Four mistakes that end accounts</h2>
+<ol>
+  <li><strong>Measuring risk from the starting balance.</strong> After a good run, your real cushion is smaller than the headline max loss. Size from the cushion, not the account size.</li>
+  <li><strong>Adding size after a winning day.</strong> A new high raises the floor at the same moment you raise risk. The next normal losing day now costs more cushion.</li>
+  <li><strong>Holding open profit on an intraday-trailing account.</strong> Open profit that you give back still moved the floor.</li>
+  <li><strong>Ignoring the daily loss limit.</strong> Some firms stop you for the day. Others fail the account. Know which one you're trading.</li>
+</ol>
+
+<h2>A quick self-check</h2>
+<ul>
+  <li>What is my floor <em>right now</em>, in dollars?</li>
+  <li>How many average losing trades fit between my balance and that floor?</li>
+  <li>Does my drawdown trail at the close or intraday, and where does it lock?</li>
+</ul>
+<p>If you can't answer all three in ten seconds, you're trading blind on the one rule that matters most.</p>
+"""
+
+ARTICLE_MATH = """
+<p>Most traders ask "what's my win rate?" when they plan an evaluation. A more useful question is: <strong>how many average losses can I take before the max loss, and how many average wins do I need to reach the target?</strong> Those two numbers decide most outcomes.</p>
+
+<h2>Start with the ratio</h2>
+<p>A typical evaluation might ask for a <strong>$3,000 target with a $2,000 max loss</strong>. That's a 1.5 : 1 race: you need to make one and a half times what you're allowed to lose, and the loss limit usually trails behind you.</p>
+<p>If your edge were a coin flip with equal wins and losses, a race to +3 before −2 would succeed only about 40% of the time. You need a real edge just to get to even odds.</p>
+
+<h2>Translate dollars into trades</h2>
+<p>Suppose your strategy wins 50% of the time, with an average win of $180 and an average loss of $120 per contract after costs.</p>
+<table>
+  <thead><tr><th>Contracts</th><th>Avg loss</th><th>Losses to max loss</th><th>Avg win</th><th>Wins to target</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>$120</td><td>16.7</td><td>$180</td><td>16.7</td></tr>
+    <tr><td>3</td><td>$360</td><td>5.6</td><td>$540</td><td>5.6</td></tr>
+    <tr><td>6</td><td>$720</td><td>2.8</td><td>$1,080</td><td>2.8</td></tr>
+  </tbody>
+</table>
+<p>At 1 contract the account almost never fails, but it also needs about 17 net winning trades, which can take months. At 6 contracts, three losses in a row (common for any 50% strategy) is enough to end the attempt.</p>
+
+<h2>Two ways to fail</h2>
+<ul>
+  <li><strong>Too big:</strong> a normal losing streak hits the floor before the edge has time to show.</li>
+  <li><strong>Too small:</strong> the attempt runs out of time or patience. You reset, pay again, or start forcing trades.</li>
+</ul>
+<p>The best size is usually in the middle, and it's narrower than people expect. That is exactly what a Monte Carlo simulation finds: it replays thousands of attempts at each size and counts how many pass, fail or stall.</p>
+
+<h2>Losing streaks are normal, not bad luck</h2>
+<p>A strategy that wins 50% of the time will produce a run of <strong>six or more losses in a row</strong> fairly often over a few hundred trades. If six average losses fit inside your cushion, you survive it. If they don't, the streak is the end of the attempt, not a rough patch.</p>
+<div class="callout"><p>Rule of thumb: size so that your <strong>worst realistic losing streak</strong> costs no more than about half of your cushion. The other half absorbs slippage, a bad day and the trailing floor moving up.</p></div>
+
+<h2>The hidden rules</h2>
+<p>Consistency rules (no single day can be more than a set percentage of total profit) and minimum trading days both stretch the attempt. A big winning day can actually delay a pass because you need more profit on other days to dilute it. Model these rules, don't hope around them.</p>
+
+<h2>What to do with this</h2>
+<ol>
+  <li>Use your <strong>after-cost</strong> averages, not gross.</li>
+  <li>Find the size where the pass rate peaks, then consider one size smaller for safety.</li>
+  <li>Decide in advance how many sessions you'll give the attempt.</li>
+  <li>Stress the plan: what happens if winners are 10% smaller than your backtest?</li>
+</ol>
+"""
+
+ARTICLE_SIZE = """
+<p>Choosing between a micro and a mini contract isn't a style preference. It's a risk decision. The same 5-point move on gold is $50 on a micro and $500 on a full contract. Under a $2,000 trailing max loss, that difference is the whole game.</p>
+
+<h2>Dollars per point</h2>
+<table>
+  <thead><tr><th>Contract</th><th>Market</th><th>$ per point</th><th>Tick</th><th>$ per tick</th></tr></thead>
+  <tbody>
+    <tr><td>MGC</td><td>Micro Gold</td><td>$10</td><td>0.10</td><td>$1.00</td></tr>
+    <tr><td>GC</td><td>Gold</td><td>$100</td><td>0.10</td><td>$10.00</td></tr>
+    <tr><td>MES</td><td>Micro S&amp;P 500</td><td>$5</td><td>0.25</td><td>$1.25</td></tr>
+    <tr><td>ES</td><td>E-mini S&amp;P 500</td><td>$50</td><td>0.25</td><td>$12.50</td></tr>
+    <tr><td>MNQ</td><td>Micro Nasdaq-100</td><td>$2</td><td>0.25</td><td>$0.50</td></tr>
+    <tr><td>NQ</td><td>E-mini Nasdaq-100</td><td>$20</td><td>0.25</td><td>$5.00</td></tr>
+    <tr><td>MYM</td><td>Micro Dow</td><td>$0.50</td><td>1</td><td>$0.50</td></tr>
+    <tr><td>YM</td><td>E-mini Dow</td><td>$5</td><td>1</td><td>$5.00</td></tr>
+  </tbody>
+</table>
+<p>Contract specs are set by the exchange and can change. Check your broker's specs before trading.</p>
+
+<h2>Size from the stop, not the account</h2>
+<p>Work backwards from the dollar loss you can accept on one trade:</p>
+<p><strong>Contracts = (risk per trade in $) ÷ (stop in points × $ per point)</strong></p>
+<p>Example: you accept $150 of risk on a gold trade with a 6-point stop. On MGC that's 6 × $10 = $60 per contract, so 2 contracts ($120). On GC, one contract would risk $600, four times your limit. On a small account, micros are often the only way to size correctly.</p>
+
+<h2>The buffer ladder</h2>
+<p>Under a trailing max loss, the right size changes as your <strong>buffer</strong> (balance minus floor) changes. A simple ladder:</p>
+<ol>
+  <li>Pick a block size, for example $700 of buffer per contract.</li>
+  <li>Each morning, contracts = buffer ÷ block, rounded down, with a minimum of 1.</li>
+  <li>When the buffer grows, size grows. After a drawdown, size shrinks automatically.</li>
+</ol>
+<table>
+  <thead><tr><th>Buffer</th><th>Block $700</th><th>Block $500</th></tr></thead>
+  <tbody>
+    <tr><td>$1,200</td><td>1</td><td>2</td></tr>
+    <tr><td>$2,000</td><td>2</td><td>4</td></tr>
+    <tr><td>$3,500</td><td>5</td><td>7</td></tr>
+  </tbody>
+</table>
+<p>The ladder does what discipline often doesn't: it cuts size after losses and only adds it when the account has earned the room.</p>
+<div class="callout"><p>The block size is the key number. Too small and a normal losing streak breaches the floor. Too large and the account grows slowly. The Contract Sizing tool searches for the smallest block that keeps your breach chance under a limit you choose.</p></div>
+
+<h2>Don't forget costs</h2>
+<p>Commission and slippage are charged per contract, so they scale with size. One tick of slippage on MNQ is $0.50, but over hundreds of trades and several contracts it adds up. Always test your size with costs included.</p>
+"""
+
+
+def pine():
+    body = """
+<section class="page-head"><div class="wrap">
+  <span class="eyebrow">Pine Script</span>
+  <h1>Built in v6. Tested until it breaks.</h1>
+  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and what I can help other traders with.</p>
+</div></section>
+
+<section style="padding-top:24px"><div class="wrap">
+  <div class="grid-3">
+    <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Fixes and clean-ups</h3><p>Repainting, wrong session times, orders that don't fire, inputs that do nothing. Find the bug, fix it, and explain what was wrong.</p></div>
+    <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Upgrades to v6</h3><p>Move older scripts to Pine v6 with the same logic, cleaner inputs and fewer surprises, checked trade by trade against the original.</p></div>
+    <div class="card reveal"><div class="icon">""" + ICONS["shield"] + """</div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, written up in plain English.</p></div>
+  </div>
+  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. For now this page explains the approach. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
+</div></section>
+
+<section class="band"><div class="wrap split">
+  <div class="sec-head" style="margin:0">
+    <span class="eyebrow">How a strategy gets tested</span>
+    <h2>Most backtests are too kind. These aren't.</h2>
+    <ul class="checklist" style="margin-top:8px">
+      <li><span><b>Frozen rules.</b> Settings are fixed before the test, so the result can't be tuned after the fact.</span></li>
+      <li><span><b>Real costs.</b> Commission per contract and at least one tick of slippage on every trade.</span></li>
+      <li><span><b>Unseen data.</b> Sized and tuned on earlier months, then judged on months it never saw.</span></li>
+      <li><span><b>Stress tests.</b> Doubled slippage, losses 50% bigger, winners 10% smaller.</span></li>
+      <li><span><b>Many-tests check.</b> When many variants are tried, results are corrected so a lucky one doesn't look like an edge.</span></li>
+      <li><span><b>Independent replica.</b> The Pine logic is rebuilt outside TradingView and compared trade by trade.</span></li>
+    </ul>
+  </div>
+  <div class="figure reveal">
+    <div class="code" style="border:0;padding:4px 2px;background:transparent">VALIDATION REPORT · structure
+
+<span class="k">1</span>  Summary and verdict
+     PASS · NO EDGE · INSUFFICIENT EVIDENCE
+<span class="k">2</span>  Rules as tested (frozen inputs)
+<span class="k">3</span>  Costs and fill assumptions
+<span class="k">4</span>  In-sample vs out-of-sample
+<span class="k">5</span>  Year-by-year stability
+<span class="k">6</span>  Stress: 2× slippage, smaller winners
+<span class="k">7</span>  Monte Carlo drawdown range
+<span class="k">8</span>  Prop-rule fit: pass and payout odds
+<span class="k">9</span>  Code review notes</div>
+    <figcaption>The structure of a report. The verdict can be "no edge", and often is. That's the point.</figcaption>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">What you won't get</span><h2>Clear lines</h2></div>
+  <div class="principles">
+    <div class="principle"><b>No signals</b><span>No trade calls, alerts or copy trading.</span></div>
+    <div class="principle"><b>No performance promises</b><span>A test describes the past under stated assumptions. It doesn't predict profit.</span></div>
+    <div class="principle"><b>No resold strategies</b><span>Your code stays yours and isn't shared or reused.</span></div>
+    <div class="principle"><b>No advice</b><span>Engineering and testing only. Trading decisions are yours.</span></div>
+  </div>
+</div></section>
+"""
+    return page("/pine/", "Pine Script", "Pine Script v6 strategy development and validation: frozen rules, realistic costs, out-of-sample and stress testing.", "/pine/", body)
+
+
+def about():
+    body = """
+<section class="page-head"><div class="wrap" style="max-width:820px">
+  <span class="eyebrow">About</span>
+  <h1>Badr means <span class="gold">full moon.</span></h1>
+  <p class="lede">In Arabic, badr is the moon at its fullest: the night you can see the whole picture. That's the idea behind this site. See the full risk picture before you place the trade.</p>
+</div></section>
+
+<article class="prose" style="max-width:820px">
+  <h2>Who's behind it</h2>
+  <p>I'm a futures trader. I trade gold and US index futures, mostly micro contracts, through prop-firm accounts, using a discretionary price-action process I've refined over the past two years. Alongside that I build and test systematic strategies in Pine Script.</p>
+  <p>Every tool on this site started as something I built for my own accounts: to decide how many contracts to trade, how long an evaluation is likely to take, and when a payout is realistic. They were useful enough that I decided to make them public and free.</p>
+
+  <h2>Why it exists</h2>
+  <p>The prop-firm world is loud. Most of what traders see is screenshots of wins, promises of fast funding and strategies sold with perfect backtests. Very little of it helps you answer the boring questions that actually decide whether an account survives:</p>
+  <ul>
+    <li>How big is my real cushion today?</li>
+    <li>How many losses in a row can this size survive?</li>
+    <li>Does my edge still look like the edge I planned with?</li>
+  </ul>
+  <p>Badr Edge exists to answer those questions with tools and evidence, not hype.</p>
+
+  <h2>What you can expect</h2>
+  <ul>
+    <li><strong>Free tools</strong> that run in your browser and keep your data on your device.</li>
+    <li><strong>Plain-English guides</strong> with worked numbers.</li>
+    <li><strong>Honesty about limits.</strong> Simulations depend on their inputs, and past results don't predict future ones.</li>
+  </ul>
+
+  <h2>Get in touch</h2>
+  <p>Feedback, bug reports and tool ideas are welcome: <a href="mailto:hello@badredge.com">hello@badredge.com</a>.</p>
+</article>
+"""
+    return page("/about/", "About", "About Badr Edge: free risk tools and guides for futures traders, built by a working trader.", "/about/", body)
+
+
+def legal_disclaimer():
+    body = f"""
+<header class="article-head"><div class="wrap"><span class="eyebrow">Legal</span><h1>Disclaimer</h1><p class="meta">Updated {UPDATED}</p></div></header>
+<article class="prose">
+<h2>Educational purposes only</h2>
+<p>All content on badredge.com, including tools, simulations, articles, code examples and any other material, is provided for general educational and informational purposes only. It is not investment, financial, legal or tax advice, and it is not a recommendation or solicitation to buy, sell or hold any security, futures contract, currency or other instrument.</p>
+<h2>No offer of financial services</h2>
+<p>Badr Edge does not manage money, execute trades, provide signals or offer personalised advice. Nothing on this site should be read as an offer of any regulated financial service in any jurisdiction.</p>
+<h2>Hypothetical results</h2>
+<p>Simulations and examples are hypothetical. They are based on inputs and assumptions that you or the author provide, and they have inherent limitations. They do not reflect real trading, do not account for every market condition, and cannot predict future results. Hypothetical performance is not indicative of future performance.</p>
+<h2>Risk</h2>
+<p>Trading futures, options, CFDs and other leveraged products involves substantial risk of loss and is not suitable for every investor. You can lose more than your initial deposit. Only trade with capital you can afford to lose, and consider seeking advice from a licensed professional.</p>
+<h2>Third parties</h2>
+<p>Names of prop firms, brokers, exchanges and platforms are used only to describe rule styles or compatibility. Badr Edge is not affiliated with, endorsed by or sponsored by any of them. Firm rules change often, and presets may be out of date. Always check the firm's current rules.</p>
+<h2>No warranty</h2>
+<p>The tools are provided "as is" without warranty of any kind. They may contain errors. You are solely responsible for your trading decisions and for verifying any output before relying on it.</p>
+<h2>Contact</h2>
+<p><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+</article>
+"""
+    return page("/legal/disclaimer/", "Disclaimer", "Badr Edge disclaimer: educational content only, not investment advice; hypothetical simulations.", "", body)
+
+
+def legal_privacy():
+    body = f"""
+<header class="article-head"><div class="wrap"><span class="eyebrow">Legal</span><h1>Privacy</h1><p class="meta">Updated {UPDATED}</p></div></header>
+<article class="prose">
+<h2>The short version</h2>
+<p>Badr Edge doesn't ask you to create an account, doesn't use advertising trackers and doesn't sell data.</p>
+<h2>Files you load into the tools</h2>
+<p>Trade lists (CSV, Excel or pasted text) are processed entirely in your browser. They are not uploaded to any server.</p>
+<h2>Browser storage</h2>
+<p>The tools save your settings and loaded trade lists in your own browser's local storage so they're there next time. This stays on your device. You can clear it at any time through your browser settings.</p>
+<h2>Hosting</h2>
+<p>The site is hosted on Cloudflare. Like any web host, Cloudflare processes basic technical data (such as IP addresses) to deliver pages and protect the site from abuse. See Cloudflare's privacy policy for details.</p>
+<h2>Third-party resources</h2>
+<p>Some tool pages load fonts from Google Fonts and code libraries from a public CDN (cdnjs). Those providers receive standard request data when your browser fetches them.</p>
+<h2>Email</h2>
+<p>If you email hello@badredge.com, your message is used only to reply to you.</p>
+<h2>Contact</h2>
+<p><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+</article>
+"""
+    return page("/legal/privacy/", "Privacy", "Badr Edge privacy: no accounts, no ad trackers; tool data stays in your browser.", "", body)
+
+
+def not_found():
+    body = """
+<section class="page-head" style="padding:120px 0"><div class="wrap" style="align-items:flex-start">
+  <span class="eyebrow">404</span>
+  <h1>This page is <span class="gold">off the chart.</span></h1>
+  <p class="lede">The page you're looking for doesn't exist or has moved.</p>
+  <div class="hero-actions"><a class="btn primary" href="/">Back to home</a><a class="btn" href="/tools/">Open the tools</a></div>
+</div></section>
+"""
+    path = "/404.html"
+    out = os.path.join(ROOT, "404.html")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(head("Page not found", "Page not found.", "/404.html") + header("") + body + footer())
+    return None
+
+
+def statics(paths):
+    urls = [p for p in paths if p] + ["/tools/pass/", "/tools/payout/", "/tools/sizing/"]
+    today = datetime.date.today().isoformat()
+    sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    sm += "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
+    sm += "</urlset>\n"
+    open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
+    open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+    os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
+    open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.36' r='.7'>"
+        "<stop offset='0' stop-color='#f3dcaa'/><stop offset='.55' stop-color='#d4af6a'/><stop offset='1' stop-color='#9b7a3e'/></radialGradient></defs>"
+        "<rect width='64' height='64' rx='14' fill='#0b0d10'/><circle cx='32' cy='32' r='17' fill='url(#m)'/></svg>\n")
+
+
+if __name__ == "__main__":
+    built = [
+        home(), tools_index(), guides_index(),
+        article("/guides/trailing-drawdown/", "Trailing drawdown, explained with numbers", GUIDES[0][2], GUIDES[0][3], ARTICLE_DD, "/tools/sizing/", "Contract Sizing tool"),
+        article("/guides/prop-evaluation-math/", "The math of passing a prop evaluation", GUIDES[1][2], GUIDES[1][3], ARTICLE_MATH, "/tools/pass/", "Prop Pass Simulator"),
+        article("/guides/contract-sizing/", "Sizing contracts against a trailing max loss", GUIDES[2][2], GUIDES[2][3], ARTICLE_SIZE, "/tools/sizing/", "Contract Sizing tool"),
+        pine(), about(), legal_disclaimer(), legal_privacy(),
+    ]
+    not_found()
+    statics(built)
+    print("built", len(built), "pages")

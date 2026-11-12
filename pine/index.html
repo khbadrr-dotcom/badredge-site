@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pine Script · Badr Edge</title>
+<meta name="description" content="Pine Script v6 strategy development and validation: frozen rules, realistic costs, out-of-sample and stress testing.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="canonical" href="https://badredge.com/pine/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Pine Script · Badr Edge">
+<meta property="og:description" content="Pine Script v6 strategy development and validation: frozen rules, realistic costs, out-of-sample and stress testing.">
+<meta property="og:url" content="https://badredge.com/pine/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/">Guides</a><a href="/pine/" aria-current="page">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+
+<section class="page-head"><div class="wrap">
+  <span class="eyebrow">Pine Script</span>
+  <h1>Built in v6. Tested until it breaks.</h1>
+  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and what I can help other traders with.</p>
+</div></section>
+
+<section style="padding-top:24px"><div class="wrap">
+  <div class="grid-3">
+    <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></div><h3>Fixes and clean-ups</h3><p>Repainting, wrong session times, orders that don't fire, inputs that do nothing. Find the bug, fix it, and explain what was wrong.</p></div>
+    <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></div><h3>Upgrades to v6</h3><p>Move older scripts to Pine v6 with the same logic, cleaner inputs and fewer surprises, checked trade by trade against the original.</p></div>
+    <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, written up in plain English.</p></div>
+  </div>
+  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. For now this page explains the approach. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
+</div></section>
+
+<section class="band"><div class="wrap split">
+  <div class="sec-head" style="margin:0">
+    <span class="eyebrow">How a strategy gets tested</span>
+    <h2>Most backtests are too kind. These aren't.</h2>
+    <ul class="checklist" style="margin-top:8px">
+      <li><span><b>Frozen rules.</b> Settings are fixed before the test, so the result can't be tuned after the fact.</span></li>
+      <li><span><b>Real costs.</b> Commission per contract and at least one tick of slippage on every trade.</span></li>
+      <li><span><b>Unseen data.</b> Sized and tuned on earlier months, then judged on months it never saw.</span></li>
+      <li><span><b>Stress tests.</b> Doubled slippage, losses 50% bigger, winners 10% smaller.</span></li>
+      <li><span><b>Many-tests check.</b> When many variants are tried, results are corrected so a lucky one doesn't look like an edge.</span></li>
+      <li><span><b>Independent replica.</b> The Pine logic is rebuilt outside TradingView and compared trade by trade.</span></li>
+    </ul>
+  </div>
+  <div class="figure reveal">
+    <div class="code" style="border:0;padding:4px 2px;background:transparent">VALIDATION REPORT · structure
+
+<span class="k">1</span>  Summary and verdict
+     PASS · NO EDGE · INSUFFICIENT EVIDENCE
+<span class="k">2</span>  Rules as tested (frozen inputs)
+<span class="k">3</span>  Costs and fill assumptions
+<span class="k">4</span>  In-sample vs out-of-sample
+<span class="k">5</span>  Year-by-year stability
+<span class="k">6</span>  Stress: 2× slippage, smaller winners
+<span class="k">7</span>  Monte Carlo drawdown range
+<span class="k">8</span>  Prop-rule fit: pass and payout odds
+<span class="k">9</span>  Code review notes</div>
+    <figcaption>The structure of a report. The verdict can be "no edge", and often is. That's the point.</figcaption>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">What you won't get</span><h2>Clear lines</h2></div>
+  <div class="principles">
+    <div class="principle"><b>No signals</b><span>No trade calls, alerts or copy trading.</span></div>
+    <div class="principle"><b>No performance promises</b><span>A test describes the past under stated assumptions. It doesn't predict profit.</span></div>
+    <div class="principle"><b>No resold strategies</b><span>Your code stays yours and isn't shared or reused.</span></div>
+    <div class="principle"><b>No advice</b><span>Engineering and testing only. Trading decisions are yours.</span></div>
+  </div>
+</div></section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
+        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p>Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; 2026 Badr Edge.</p>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

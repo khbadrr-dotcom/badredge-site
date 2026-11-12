@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trailing drawdown, explained with numbers · Badr Edge</title>
+<meta name="description" content="End-of-day, intraday and static drawdown, when the floor locks, and the mistakes that end accounts.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="canonical" href="https://badredge.com/guides/trailing-drawdown/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Trailing drawdown, explained with numbers · Badr Edge">
+<meta property="og:description" content="End-of-day, intraday and static drawdown, when the floor locks, and the mistakes that end accounts.">
+<meta property="og:url" content="https://badredge.com/guides/trailing-drawdown/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/" aria-current="page">Guides</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
+  <h1>Trailing drawdown, explained with numbers</h1>
+  <p class="lede">End-of-day, intraday and static drawdown, when the floor locks, and the mistakes that end accounts.</p>
+  <p class="meta">8 min read · Updated November 2026</p>
+</div></header>
+<article class="prose">
+
+<p>The profit target gets all the attention, but the <strong>maximum loss limit</strong> is the rule that ends most prop accounts. On most futures evaluations it doesn't sit still. It <em>trails</em> your balance upward. Understanding exactly when it moves is the difference between a pullback and a closed account.</p>
+
+<h2>The three types</h2>
+<h3>1. Static</h3>
+<p>The floor is fixed at your starting balance minus the max loss. On a $50,000 account with a $2,000 limit, the floor is $48,000 forever. Profit you make widens your cushion permanently. This is the most forgiving type and the least common on futures evaluations.</p>
+
+<h3>2. Trailing, end of day</h3>
+<p>At the end of each session, the firm looks at your closing balance. If it's a new high, the floor moves up to that high minus the max loss. Intraday swings don't move it. Only the close does.</p>
+<table>
+  <thead><tr><th>Day</th><th>Closing balance</th><th>Highest close</th><th>Floor</th><th>Cushion</th></tr></thead>
+  <tbody>
+    <tr><td>Start</td><td>$50,000</td><td>$50,000</td><td>$48,000</td><td>$2,000</td></tr>
+    <tr><td>1</td><td>$50,600</td><td>$50,600</td><td>$48,600</td><td>$2,000</td></tr>
+    <tr><td>2</td><td>$50,200</td><td>$50,600</td><td>$48,600</td><td>$1,600</td></tr>
+    <tr><td>3</td><td>$51,300</td><td>$51,300</td><td>$49,300</td><td>$2,000</td></tr>
+    <tr><td>4</td><td>$52,100</td><td>$52,100</td><td>$50,000</td><td>$2,100</td></tr>
+  </tbody>
+</table>
+<p>Notice that on day 2 the cushion shrank to $1,600 even though the account is still up $200. <strong>Your cushion is measured from your best close, not from where you started.</strong></p>
+
+<h3>3. Trailing, intraday</h3>
+<p>The floor follows your highest balance at any moment, including open profit. If a trade runs +$800 and comes back to breakeven, the floor already moved up $800 and stays there. This is the strictest type: letting winners breathe can shrink your cushion even on trades you don't lose.</p>
+
+<h2>When the floor stops: the lock</h2>
+<p>Most trailing rules stop trailing once the floor reaches a set level, usually the starting balance (sometimes start plus a small amount). In the table above, the floor hit $50,000 on day 4 and <strong>locks there</strong>. From that point on, every dollar of profit above the max loss is real cushion, and the account behaves like a static one.</p>
+<div class="callout"><p>Before the lock, you're playing defense against your own high-water mark. After it, you're playing with a buffer. Most blown accounts die <strong>before</strong> the lock.</p></div>
+
+<h2>Four mistakes that end accounts</h2>
+<ol>
+  <li><strong>Measuring risk from the starting balance.</strong> After a good run, your real cushion is smaller than the headline max loss. Size from the cushion, not the account size.</li>
+  <li><strong>Adding size after a winning day.</strong> A new high raises the floor at the same moment you raise risk. The next normal losing day now costs more cushion.</li>
+  <li><strong>Holding open profit on an intraday-trailing account.</strong> Open profit that you give back still moved the floor.</li>
+  <li><strong>Ignoring the daily loss limit.</strong> Some firms stop you for the day. Others fail the account. Know which one you're trading.</li>
+</ol>
+
+<h2>A quick self-check</h2>
+<ul>
+  <li>What is my floor <em>right now</em>, in dollars?</li>
+  <li>How many average losing trades fit between my balance and that floor?</li>
+  <li>Does my drawdown trail at the close or intraday, and where does it lock?</li>
+</ul>
+<p>If you can't answer all three in ten seconds, you're trading blind on the one rule that matters most.</p>
+
+<div class="callout"><p><strong>Test it on your numbers.</strong> The <a href="/tools/sizing/">Contract Sizing tool</a> runs this on your own win rate, averages or TradingView trade list.</p></div>
+<p class="note">Educational content only, not investment advice. Rules differ by firm and change often, so always check your firm's current rules. Examples use round numbers for clarity.</p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
+        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p>Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; 2026 Badr Edge.</p>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>
