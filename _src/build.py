@@ -78,7 +78,7 @@ def footer():
     <div class="foot-grid">
       <div>
         <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
-        <p class="foot-about">Free risk tools and plain-English guides for futures traders working through prop-firm accounts. Process first, always.</p>
+        <p class="foot-about">A working futures trader’s desk, opened up: free tools, plain-English guides and research. Process first, always.</p>
         <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
       </div>
       <div><h4>Tools</h4><ul>
@@ -222,42 +222,70 @@ def guide_cards():
 
 
 def home():
+    strip = "".join(f"<span>{t}</span>" for t in [
+        "Risk planning", "Position sizing", "Drawdown rules", "Session structure",
+        "Futures basics", "Pine Script v6", "Backtest hygiene", "Review &amp; journaling"])
     body = f"""
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <a class="hero-pill" href="/tools/"><b>Free</b>Three simulators &middot; no sign-up &middot; runs in your browser</a>
+      <a class="hero-pill" href="#desk"><b>Badr Edge</b>A working trader's desk, opened up</a>
       <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
-      <p class="lede">Free simulators built by a working futures trader. Model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
+      <p class="lede">Free tools to plan your risk, plain-English guides to the rules that move accounts, and research on how trading ideas get tested. Built by a futures trader, for traders who'd rather think than chase.</p>
       <div class="hero-actions">
-        <a class="btn primary" href="/tools/">Open the free tools</a>
+        <a class="btn primary" href="/tools/">Explore the tools</a>
         <a class="btn" href="/guides/">Read the guides</a>
       </div>
-      <div class="hero-meta"><span>Monte Carlo engine</span><span>TradingView CSV import</span><span>Files never leave your device</span></div>
+      <div class="hero-meta"><span>Free, no sign-up</span><span>Built by a working trader</span><span>No signals, no hype</span></div>
     </div>
     <div class="stage">
     <div class="orbits" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div></div>
     <div class="big-moon" aria-hidden="true"></div>
-    <div class="viz reveal">
-      <div class="viz-top"><span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
-      {hero_svg()}
-      <div class="viz-legend"><span style="--c:#d9b46c">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+    <div class="viz desk reveal">
+      <div class="viz-top"><span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>The desk</b></span><span>{UPDATED}</span></div>
+      <a class="desk-row" href="/tools/"><span class="desk-ico">{ICONS['target']}</span><span class="desk-name">Tools<small>Risk, sizing and planning simulators</small></span><span class="desk-state live">3 live</span></a>
+      <a class="desk-row" href="/guides/"><span class="desk-ico">{ICONS['book']}</span><span class="desk-name">Guides<small>The rules behind the numbers</small></span><span class="desk-state live">3 published</span></a>
+      <div class="desk-row"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state">Coming soon</span></div>
+      <a class="desk-row" href="/pine/"><span class="desk-ico">{ICONS['code']}</span><span class="desk-name">Pine Script<small>Tested TradingView strategy work</small></span><span class="desk-state">Opening soon</span></a>
     </div>
     </div>
   </div>
 </section>
 
-<div class="strip" aria-hidden="true"><div class="strip-track"><span>Evaluation odds</span><span>Trailing drawdown</span><span>Daily loss limits</span><span>Payout buffers</span><span>Profit splits</span><span>Micro vs mini sizing</span><span>Consistency rules</span><span>Risk of ruin</span><span>Evaluation odds</span><span>Trailing drawdown</span><span>Daily loss limits</span><span>Payout buffers</span><span>Profit splits</span><span>Micro vs mini sizing</span><span>Consistency rules</span><span>Risk of ruin</span></div></div>
+<div class="strip" aria-hidden="true"><div class="strip-track">{strip}{strip}</div></div>
 
-<section class="band" id="tools">
+<section class="band" id="desk">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Free tools</span>
-      <h2>Know your odds before the firm does.</h2>
-      <p class="lede">Each tool runs thousands of Monte Carlo attempts on your own numbers or your TradingView trade list, under the rules you choose.</p>
+      <span class="eyebrow">Inside the desk</span>
+      <h2>Everything here serves <span class="gold">one process.</span></h2>
+      <p class="lede">Plan before the session, size to what the account can take, and review what actually happened. Each part of Badr Edge supports one of those steps.</p>
     </div>
-    <div class="grid-3">
-      {tool_cards()}
+    <div class="grid-2 doors">
+      <a class="card reveal" href="/tools/">
+        <div class="icon">{ICONS['target']}</div><span class="tagline">Live</span>
+        <h3>Tools</h3>
+        <p>Free simulators for risk, position size and account planning. Put in your own numbers or a TradingView trade list and see the range of outcomes.</p>
+        <span class="go">Explore the tools &rarr;</span>
+      </a>
+      <a class="card reveal" href="/guides/">
+        <div class="icon">{ICONS['book']}</div><span class="tagline">Live</span>
+        <h3>Guides</h3>
+        <p>Plain-English breakdowns of drawdown, sizing and the maths of an attempt, with worked numbers and a tool to test each idea.</p>
+        <span class="go">Read the guides &rarr;</span>
+      </a>
+      <div class="card is-soon reveal">
+        <div class="icon">{ICONS['shield']}</div><span class="tagline">Soon</span>
+        <h3>Research</h3>
+        <p>Notes on how trading ideas are built, frozen and stress-tested before they're trusted. Process, not results.</p>
+        <span class="go">Coming soon</span>
+      </div>
+      <a class="card reveal" href="/pine/">
+        <div class="icon">{ICONS['code']}</div><span class="tagline">Soon</span>
+        <h3>Pine Script</h3>
+        <p>How TradingView strategies get written in Pine Script v6 and validated with realistic costs and out-of-sample tests.</p>
+        <span class="go">Opening soon &rarr;</span>
+      </a>
     </div>
   </div>
 </section>
@@ -266,12 +294,12 @@ def home():
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">The process</span>
-      <h2>Plan, size, review. Every account.</h2>
+      <h2>Plan, size, review. <span class="gold">Every session.</span></h2>
     </div>
     <div class="steps">
-      <div class="step reveal"><h3>Plan the attempt</h3><p>Put your real win rate, average win and average loss into the pass simulator. See how often that edge clears the target before the max loss, and how long it takes.</p></div>
-      <div class="step reveal"><h3>Size to the buffer</h3><p>Start at the size the account can survive, not the size you hope for. Add contracts only as the gap between your balance and the floor grows.</p></div>
-      <div class="step reveal"><h3>Review the evidence</h3><p>Import your trade list after each week. Check if the edge still looks like the one you planned with, and stress it with worse fills and smaller winners.</p></div>
+      <div class="step reveal"><h3>Plan the risk</h3><p>Decide what a bad day costs before the session starts. Know your loss limit, your stop and the point where you walk away.</p></div>
+      <div class="step reveal"><h3>Size to the account</h3><p>Trade the size the account can survive, not the size you hope for. Add size only when the cushion has grown to carry it.</p></div>
+      <div class="step reveal"><h3>Review the evidence</h3><p>Look at what you actually did, not what you remember. Check if your edge still looks like the one you planned with.</p></div>
     </div>
   </div>
 </section>
@@ -280,11 +308,11 @@ def home():
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Principles</span>
-      <h2>What Badr Edge is, and what it isn't.</h2>
+      <h2>What Badr Edge is, <span class="gold">and what it isn't.</span></h2>
     </div>
     <div class="principles">
       <div class="principle reveal"><b>No signals</b><span>You won't find trade calls or alerts here. You make your own decisions.</span></div>
-      <div class="principle reveal"><b>No promised returns</b><span>No win rates, no screenshots of profits, no "guaranteed funded" claims.</span></div>
+      <div class="principle reveal"><b>No promised returns</b><span>No win rates, no screenshots of profits, no "guaranteed" anything.</span></div>
       <div class="principle reveal"><b>Tools over talk</b><span>Every idea comes with a way to test it on your own numbers.</span></div>
       <div class="principle reveal"><b>Private by design</b><span>The tools run in your browser. Nothing you load is uploaded.</span></div>
     </div>
@@ -294,9 +322,9 @@ def home():
 <section>
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Guides</span>
-      <h2>The rules that end most accounts, explained.</h2>
-      <p class="lede">Plain-English breakdowns with worked numbers. Each one links to the tool that lets you test it.</p>
+      <span class="eyebrow">Latest guides</span>
+      <h2>Start with the rules <span class="gold">that end accounts.</span></h2>
+      <p class="lede">Worked numbers, no jargon. Each guide links to a tool so you can test the idea yourself.</p>
     </div>
     <div class="grid-3">
       {guide_cards()}
@@ -305,57 +333,29 @@ def home():
 </section>
 
 <section class="band">
-  <div class="wrap split">
-    <div class="sec-head" style="margin:0">
-      <span class="eyebrow">Pine Script</span>
-      <h2>Strategies that are tested, not just coded.</h2>
-      <p class="lede">I write and validate TradingView strategies in Pine Script v6 for my own research: clean code, realistic costs, and tests that try to break the idea before the market does.</p>
-      <ul class="checklist" style="margin-top:8px">
-        <li><span><b>v6 code</b> with clear inputs, sessions and risk settings</span></li>
-        <li><span><b>Realistic costs:</b> commission and slippage on every test</span></li>
-        <li><span><b>Stress tests:</b> worse fills, smaller winners, unseen months</span></li>
-      </ul>
-      <div class="hero-actions"><a class="btn" href="/pine/">How I build and test</a></div>
-    </div>
-    <div class="code reveal" aria-label="Example Pine Script snippet"><span class="c">//@version=6</span>
-<span class="k">strategy</span>(<span class="s">"Session breakout · example"</span>, overlay = <span class="n">true</span>,
-     commission_type = strategy.commission.cash_per_contract,
-     commission_value = <span class="n">0.70</span>, slippage = <span class="n">1</span>)
-
-<span class="c">// Inputs keep the logic honest and testable</span>
-sess   = <span class="k">input.session</span>(<span class="s">"0930-1000"</span>, <span class="s">"Opening range"</span>)
-riskPts = <span class="k">input.float</span>(<span class="n">6.0</span>, <span class="s">"Stop (points)"</span>)
-rr      = <span class="k">input.float</span>(<span class="n">1.5</span>, <span class="s">"Reward : risk"</span>)
-
-inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.period, sess))
-<span class="c">// ... range tracking, one trade per day, exits at the bell</span></div>
-  </div>
-</section>
-
-<section>
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions traders ask</h2></div>
     <div class="faq">
-      <details><summary>Are the tools really free?</summary><p>Yes. There's no account, no paywall and no trial. They're the same tools I use to plan my own accounts.</p></details>
-      <details><summary>Is my trade data uploaded anywhere?</summary><p>No. The simulators run entirely in your browser. CSV and Excel files are read on your device, and settings are saved only in your own browser's storage.</p></details>
-      <details><summary>Which prop firms do the presets cover?</summary><p>The presets approximate common rule styles (trailing end-of-day, intraday trailing, best-day consistency, buffers and caps). Firms change their rules often, so every value is editable. Check your firm's current rules before relying on any result.</p></details>
-      <details><summary>Can a simulator tell me if I'll pass?</summary><p>No tool can. A simulation shows how your stated edge behaves under a set of rules if the future looks like the inputs. It's a planning aid that helps you avoid sizes and rule sets that are likely to fail.</p></details>
-      <details><summary>Do you sell signals, courses or strategies?</summary><p>No signals and no courses. Pine Script work is described on the <a href="/pine/" style="color:var(--gold)">Pine Script page</a>.</p></details>
+      <details><summary>What is Badr Edge?</summary><p>The public side of a working futures trader's desk: the tools, guides and testing habits used to plan and review trading, shared for free. It isn't a signal service, a course or a fund.</p></details>
+      <details><summary>Is it really free?</summary><p>Yes. The tools and guides need no account, no paywall and no trial.</p></details>
+      <details><summary>Is my data uploaded anywhere?</summary><p>No. The tools run in your browser. Files you load are read on your device, and settings are saved only in your own browser's storage.</p></details>
+      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Pine Script work is described on the <a href="/pine/" style="color:var(--gold-2)">Pine Script page</a>.</p></details>
+      <details><summary>Is any of this financial advice?</summary><p>No. Everything here is educational. Simulations are hypothetical and rely on the inputs you give them. Your trading decisions are your own.</p></details>
     </div>
   </div>
 </section>
 
-<section class="band cta-band">
+<section class="cta-band">
   <div class="wrap">
     <span class="eyebrow">Start here</span>
-    <h2>Run your numbers in under a minute.</h2>
-    <p class="lede">Enter your win rate, average win and average loss. Pick a rule set. See your odds.</p>
-    <a class="btn primary" href="/tools/pass/">Open the Prop Pass Simulator</a>
+    <h2>Start where <span class="gold">you are.</span></h2>
+    <p class="lede">Have numbers to test? Open a tool. Want the reasoning first? Read a guide.</p>
+    <div class="hero-actions" style="justify-content:center"><a class="btn primary" href="/tools/">Explore the tools</a><a class="btn" href="/guides/">Read the guides</a></div>
   </div>
 </section>
 """
     return page("/", "Badr Edge",
-                "Free prop-firm simulators and plain-English guides for futures traders: pass odds, payouts and contract sizing under trailing drawdown rules.",
+                "Badr Edge: a working futures trader's desk, opened up. Free risk tools, plain-English guides and research on how trading ideas get tested.",
                 "/", body)
 
 
