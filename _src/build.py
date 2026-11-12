@@ -38,7 +38,7 @@ def head(title, desc, path, extra=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{full}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#07080a">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -48,6 +48,9 @@ def head(title, desc, path, extra=""):
 <meta property="og:url" content="{SITE}{path}">
 <meta property="og:image" content="{SITE}/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 {extra}</head>
 <body>
@@ -59,7 +62,7 @@ def header(active):
         f'<a href="{href}"{" aria-current=\"page\"" if href == active else ""}>{label}</a>' for href, label in NAV)
     return f"""<header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
+    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/">Open the tools</a></nav>
   </div>
@@ -74,14 +77,15 @@ def footer():
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
-        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
-        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+        <p class="foot-about">Free risk tools and plain-English guides for futures traders working through prop-firm accounts. Process first, always.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
       </div>
       <div><h4>Tools</h4><ul>
         <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
         <li><a href="/tools/payout/">Payout Simulator</a></li>
         <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
       </ul></div>
       <div><h4>Learn</h4><ul>
         <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
@@ -97,8 +101,12 @@ def footer():
       </ul></div>
     </div>
     <div class="foot-legal">
-      <p>{DISCLAIMER_SHORT}</p>
-      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; {YEAR} Badr Edge.</p>
+      <p><strong>Educational only.</strong> {DISCLAIMER_SHORT}</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; {YEAR} Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
+      <div class="powered"><span class="live" aria-hidden="true"></span><span>Powered by <b>Cloudflare</b></span><span class="sep"></span><span>v1.0 · {UPDATED}</span></div>
     </div>
   </div>
 </footer>
@@ -106,6 +114,10 @@ def footer():
 (() => {{
   const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
   if (b) b.addEventListener('click', () => {{ const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; }});
+  document.querySelectorAll('a.card').forEach(c => c.addEventListener('pointermove', e => {{
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }}));
   const els = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {{
     const io = new IntersectionObserver(es => es.forEach(e => {{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }}), {{ rootMargin: '0px 0px -8% 0px' }});
@@ -150,15 +162,15 @@ def hero_svg():
     grid = ""
     for v, lab in [(0, "start"), (-2000, "−$2,000"), (2000, "+$2,000"), (4000, "+$4,000")]:
         if lo <= v <= hi:
-            grid += f'<line x1="{L}" x2="{W-R}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="#232831" stroke-dasharray="{"0" if v == 0 else "3 4"}"/>'
-            grid += f'<text x="{L-6}" y="{y(v)+4:.1f}" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">{lab}</text>'
+            grid += f'<line x1="{L}" x2="{W-R}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="rgba(255,255,255,.08)" stroke-dasharray="{"0" if v == 0 else "3 4"}"/>'
+            grid += f'<text x="{L-6}" y="{y(v)+4:.1f}" text-anchor="end" fill="#5e636c" font-size="10" font-family="JetBrains Mono,ui-monospace,Menlo,monospace">{lab}</text>'
     return f"""<svg viewBox="0 0 {W} {H}" role="img" aria-label="Illustration: an account balance rising while its trailing loss floor follows it up and then locks at the starting balance">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af6a" stop-opacity=".28"/><stop offset="1" stop-color="#d4af6a" stop-opacity="0"/></linearGradient></defs>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9b46c" stop-opacity=".28"/><stop offset="1" stop-color="#d9b46c" stop-opacity="0"/></linearGradient></defs>
   {grid}
   <path d="{area}" fill="url(#g)"/>
   <path d="{path(pts_f)}" fill="none" stroke="#e07a6c" stroke-width="2" stroke-linejoin="round"/>
-  <path d="{path(pts_b)}" fill="none" stroke="#d4af6a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle cx="{x(days):.1f}" cy="{y(pts_b[-1][1]):.1f}" r="4" fill="#f3dcaa"/>
+  <path d="{path(pts_b)}" fill="none" stroke="#d9b46c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="{x(days):.1f}" cy="{y(pts_b[-1][1]):.1f}" r="4" fill="#f3deb0"/>
 </svg>"""
 
 
@@ -214,22 +226,28 @@ def home():
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="eyebrow">Tools &amp; research for futures traders</span>
+      <a class="hero-pill" href="/tools/"><b>Free</b>Three simulators &middot; no sign-up &middot; runs in your browser</a>
       <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
       <p class="lede">Free simulators built by a working futures trader. Model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/tools/">Open the free tools</a>
         <a class="btn" href="/guides/">Read the guides</a>
       </div>
-      <p class="muted small">No sign-up. Runs in your browser. Your trade files never leave your device.</p>
+      <div class="hero-meta"><span>Monte Carlo engine</span><span>TradingView CSV import</span><span>Files never leave your device</span></div>
     </div>
-    <div class="viz reveal" aria-hidden="false">
-      <div class="viz-top"><span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
+    <div class="stage">
+    <div class="orbits" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div></div>
+    <div class="big-moon" aria-hidden="true"></div>
+    <div class="viz reveal">
+      <div class="viz-top"><span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
       {hero_svg()}
-      <div class="viz-legend"><span style="--c:#d4af6a">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+      <div class="viz-legend"><span style="--c:#d9b46c">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+    </div>
     </div>
   </div>
 </section>
+
+<div class="strip" aria-hidden="true"><div class="strip-track"><span>Evaluation odds</span><span>Trailing drawdown</span><span>Daily loss limits</span><span>Payout buffers</span><span>Profit splits</span><span>Micro vs mini sizing</span><span>Consistency rules</span><span>Risk of ruin</span><span>Evaluation odds</span><span>Trailing drawdown</span><span>Daily loss limits</span><span>Payout buffers</span><span>Profit splits</span><span>Micro vs mini sizing</span><span>Consistency rules</span><span>Risk of ruin</span></div></div>
 
 <section class="band" id="tools">
   <div class="wrap">
@@ -692,7 +710,7 @@ def statics(paths):
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(
         "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.36' r='.7'>"
-        "<stop offset='0' stop-color='#f3dcaa'/><stop offset='.55' stop-color='#d4af6a'/><stop offset='1' stop-color='#9b7a3e'/></radialGradient></defs>"
+        "<stop offset='0' stop-color='#f3dcaa'/><stop offset='.55' stop-color='#d9b46c'/><stop offset='1' stop-color='#9b7a3e'/></radialGradient></defs>"
         "<rect width='64' height='64' rx='14' fill='#0b0d10'/><circle cx='32' cy='32' r='17' fill='url(#m)'/></svg>\n")
 
 
