@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume shocks and 1-minute reversals · Badr Edge</title>
+<meta name="description" content="Volume shocks and 1-minute reversals: what was tested, results after costs, and the verdict. Real effect · currently unsuitable.">
+<meta name="theme-color" content="#07080a">
+<link rel="canonical" href="https://badredge.com/research/graveyard/microstructure-effects/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Volume shocks and 1-minute reversals · Badr Edge">
+<meta property="og:description" content="Volume shocks and 1-minute reversals: what was tested, results after costs, and the verdict. Real effect · currently unsuitable.">
+<meta property="og:url" content="https://badredge.com/research/graveyard/microstructure-effects/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/">Guides</a><a href="/research/" aria-current="page">Research</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/research/graveyard/" style="text-decoration:none">&larr; Strategy graveyard</a>
+  <div><span class="status st-uns">Real effect · currently unsuitable</span></div>
+  <h1>Volume shocks and 1-minute reversals</h1>
+  <p class="lede">Small, short-lived effects around abnormal volume and very short moves.</p>
+  <p class="meta">Markets: MGC, MNQ, MES<br>Scope: 1m bars · several studies</p>
+</div></header>
+<article class="prose rs">
+  <h2>What was tested</h2>
+  <ul><li>Reversal after abnormal-volume shocks.</li><li>1-minute bounce after sharp bars.</li><li>MNQ continuation after large moves away from the open.</li><li>Passive limit orders around the last price.</li></ul>
+  <h2>What happened</h2>
+  <ul>
+<li>MGC after volume shocks: a real reversal of about 0.1 to 0.2 points, against a 0.78-point cost hurdle.</li>
+<li>The 1-minute bounce turned out to be the bid-ask bounce, which you cannot capture with market orders.</li>
+<li>MNQ continuation after large moves from the open: real before costs, but 83 to 87% of it came from the top 10 days.</li>
+<li>Passive limits: filled mostly when price was about to go against them (adverse selection).</li>
+</ul>
+  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
+  <h2>Verdict</h2>
+  <div class="callout"><p><span class="status st-uns">Real effect · currently unsuitable</span></p><p>Real effects, currently unsuitable. They exist in the data but are smaller than the cost of trading them, or too concentrated to rely on.</p></div>
+  <h2>Lesson</h2>
+  <p>A statistically real effect and a tradeable edge are different things. The cost of the round trip decides.</p>
+  <nav class="fam-nav" aria-label="More families"><a href="/research/graveyard/short-timeframe-trend/"><span>Previous</span>Short-timeframe trend following</a><a class="next" href="/research/graveyard/cross-market-portfolio/"><span>Next</span>14-strategy cross-market portfolio</a></nav>
+  <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+        <p class="foot-about">A working futures trader’s desk, opened up: free tools, guides and research. Process first, always.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/research/">Research</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p><strong>Educational only.</strong> Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; 2026 Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
+      <div class="powered"><span class="live" aria-hidden="true"></span><span>Powered by <b>Cloudflare</b></span><span class="sep"></span><span>v1.0 · November 2026</span></div>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  document.querySelectorAll('a.card').forEach(c => c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

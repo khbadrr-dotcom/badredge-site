@@ -5,14 +5,16 @@ Run:  python3 _src/build.py
 It writes the HTML files at their published paths. The tools under /tools/<name>/ are
 standalone pages and are not touched, except /tools/index.html, which is built here.
 """
-import os, random, datetime
+import os, random, datetime, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import research
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://badredge.com"
 YEAR = datetime.date.today().year
 UPDATED = "November 2026"
 
-NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/pine/", "Pine Script"), ("/about/", "About")]
+NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/research/", "Research"), ("/pine/", "Pine Script"), ("/about/", "About")]
 
 ICONS = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
@@ -78,7 +80,7 @@ def footer():
     <div class="foot-grid">
       <div>
         <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
-        <p class="foot-about">A working futures trader’s desk, opened up: free tools, plain-English guides and research. Process first, always.</p>
+        <p class="foot-about">A working futures trader’s desk, opened up: free tools, guides and research. Process first, always.</p>
         <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
       </div>
       <div><h4>Tools</h4><ul>
@@ -95,6 +97,7 @@ def footer():
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
         <li><a href="/about/">About</a></li>
+        <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Pine Script</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
         <li><a href="/legal/privacy/">Privacy</a></li>
@@ -231,7 +234,7 @@ def home():
     <div class="hero-copy">
       <a class="hero-pill" href="#desk"><b>Badr Edge</b>A working trader's desk, opened up</a>
       <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
-      <p class="lede">Free tools to plan your risk, plain-English guides to the rules that move accounts, and research on how trading ideas get tested. Built by a futures trader, for traders who'd rather think than chase.</p>
+      <p class="lede">Free tools to plan your risk, guides to the rules that move accounts, and research on how trading ideas get tested. Built by a futures trader, for traders who'd rather think than chase.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/tools/">Explore the tools</a>
         <a class="btn" href="/guides/">Read the guides</a>
@@ -245,7 +248,7 @@ def home():
       <div class="viz-top"><span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>The desk</b></span><span>{UPDATED}</span></div>
       <a class="desk-row" href="/tools/"><span class="desk-ico">{ICONS['target']}</span><span class="desk-name">Tools<small>Risk, sizing and planning simulators</small></span><span class="desk-state live">3 live</span></a>
       <a class="desk-row" href="/guides/"><span class="desk-ico">{ICONS['book']}</span><span class="desk-name">Guides<small>The rules behind the numbers</small></span><span class="desk-state live">3 published</span></a>
-      <div class="desk-row"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state">Coming soon</span></div>
+      <a class="desk-row" href="/research/"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state live">Live</span></a>
       <a class="desk-row" href="/pine/"><span class="desk-ico">{ICONS['code']}</span><span class="desk-name">Pine Script<small>Tested TradingView strategy work</small></span><span class="desk-state">Opening soon</span></a>
     </div>
     </div>
@@ -259,7 +262,7 @@ def home():
     <div class="sec-head">
       <span class="eyebrow">Inside the desk</span>
       <h2>Everything here serves <span class="gold">one process.</span></h2>
-      <p class="lede">Plan before the session, size to what the account can take, and review what actually happened. Each part of Badr Edge supports one of those steps.</p>
+      <p class="lede">Plan before the session, size to what the account can take, and review what happened. Each part of Badr Edge supports one of those steps.</p>
     </div>
     <div class="grid-2 doors">
       <a class="card reveal" href="/tools/">
@@ -271,15 +274,15 @@ def home():
       <a class="card reveal" href="/guides/">
         <div class="icon">{ICONS['book']}</div><span class="tagline">Live</span>
         <h3>Guides</h3>
-        <p>Plain-English breakdowns of drawdown, sizing and the maths of an attempt, with worked numbers and a tool to test each idea.</p>
+        <p>Clear breakdowns of drawdown, sizing and the maths of an attempt, with worked numbers and a tool to test each idea.</p>
         <span class="go">Read the guides &rarr;</span>
       </a>
-      <div class="card is-soon reveal">
-        <div class="icon">{ICONS['shield']}</div><span class="tagline">Soon</span>
+      <a class="card reveal" href="/research/">
+        <div class="icon">{ICONS['shield']}</div><span class="tagline">Live</span>
         <h3>Research</h3>
-        <p>Notes on how trading ideas are built, frozen and stress-tested before they're trusted. Process, not results.</p>
-        <span class="go">Coming soon</span>
-      </div>
+        <p>A public log of how trading ideas are built, frozen and stress-tested before they're trusted, including the ones that failed.</p>
+        <span class="go">Open the research &rarr;</span>
+      </a>
       <a class="card reveal" href="/pine/">
         <div class="icon">{ICONS['code']}</div><span class="tagline">Soon</span>
         <h3>Pine Script</h3>
@@ -299,7 +302,7 @@ def home():
     <div class="steps">
       <div class="step reveal"><h3>Plan the risk</h3><p>Decide what a bad day costs before the session starts. Know your loss limit, your stop and the point where you walk away.</p></div>
       <div class="step reveal"><h3>Size to the account</h3><p>Trade the size the account can survive, not the size you hope for. Add size only when the cushion has grown to carry it.</p></div>
-      <div class="step reveal"><h3>Review the evidence</h3><p>Look at what you actually did, not what you remember. Check if your edge still looks like the one you planned with.</p></div>
+      <div class="step reveal"><h3>Review the evidence</h3><p>Look at what you did, not what you remember. Check if your edge still looks like the one you planned with.</p></div>
     </div>
   </div>
 </section>
@@ -334,10 +337,22 @@ def home():
 
 <section class="band">
   <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Research</span><h2>Most strategies fail. Here's the record.</h2>
+      <p class="lede">A public log of a futures research desk: the method, every strategy family tested, results after costs, and why each one was closed. No strategy has passed final validation.</p></div>
+    <div class="grid-3">
+      <a class="card reveal" href="/research/method/"><div class="icon">{ICONS['scale']}</div><h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
+      <a class="card reveal" href="/research/graveyard/"><div class="icon">{ICONS['shield']}</div><h3>Strategy graveyard</h3><p>Opening ranges, FVGs, pivots, momentum and more. One page each, with the verdict.</p><span class="go">Open the graveyard</span></a>
+      <a class="card reveal" href="/research/lessons/"><div class="icon">{ICONS['book']}</div><h3>Lessons</h3><p>Why in-sample results fool you, and why costs beat most retail setups.</p><span class="go">Read the lessons</span></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions traders ask</h2></div>
     <div class="faq">
       <details><summary>What is Badr Edge?</summary><p>The public side of a working futures trader's desk: the tools, guides and testing habits used to plan and review trading, shared for free. It isn't a signal service, a course or a fund.</p></details>
-      <details><summary>Is it really free?</summary><p>Yes. The tools and guides need no account, no paywall and no trial.</p></details>
+      <details><summary>Is it free?</summary><p>Yes. The tools and guides need no account, no paywall and no trial.</p></details>
       <details><summary>Is my data uploaded anywhere?</summary><p>No. The tools run in your browser. Files you load are read on your device, and settings are saved only in your own browser's storage.</p></details>
       <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Pine Script work is described on the <a href="/pine/" style="color:var(--gold-2)">Pine Script page</a>.</p></details>
       <details><summary>Is any of this financial advice?</summary><p>No. Everything here is educational. Simulations are hypothetical and rely on the inputs you give them. Your trading decisions are your own.</p></details>
@@ -721,7 +736,7 @@ if __name__ == "__main__":
         article("/guides/prop-evaluation-math/", "The math of passing a prop evaluation", GUIDES[1][2], GUIDES[1][3], ARTICLE_MATH, "/tools/pass/", "Prop Pass Simulator"),
         article("/guides/contract-sizing/", "Sizing contracts against a trailing max loss", GUIDES[2][2], GUIDES[2][3], ARTICLE_SIZE, "/tools/sizing/", "Contract Sizing tool"),
         pine(), about(), legal_disclaimer(), legal_privacy(),
-    ]
+    ] + research.build_all(page, ICONS)
     not_found()
     statics(built)
     print("built", len(built), "pages")

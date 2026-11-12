@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research method · Badr Edge</title>
+<meta name="description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, freeze, validate. Costs, nulls, Holm correction and acceptance rules.">
+<meta name="theme-color" content="#07080a">
+<link rel="canonical" href="https://badredge.com/research/method/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Research method · Badr Edge">
+<meta property="og:description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, freeze, validate. Costs, nulls, Holm correction and acceptance rules.">
+<meta property="og:url" content="https://badredge.com/research/method/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/">Guides</a><a href="/research/" aria-current="page">Research</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+  </div>
+</header>
+<main>
+
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
+  <h1>Method: two tracks, one gate.</h1>
+  <p class="lede">Most backtests are built to look good. This process is built to find out whether an idea survives data it has never seen, after real costs.</p>
+  <p class="meta">Updated 12 November 2026</p>
+</div></header>
+<article class="prose rs">
+  <h2>Track 1: explore</h2>
+  <p>New ideas are explored on the most recent 12 months (22 Oct 2025 to 21 Oct 2026). Grid searches are allowed here, and anything found here is labelled <strong>in-sample</strong>. An in-sample result is a hypothesis, never evidence, because the best of thousands of settings will always look good on the data it was picked from.</p>
+  <p>Before an idea moves on, it has to pass three cheap checks:</p>
+  <ul>
+    <li><strong>Gross check, both directions.</strong> The raw signal is measured before costs, on the real side and on the flipped side. If both lose before costs, the idea stops.</li>
+    <li><strong>Random-direction null.</strong> The whole search is rerun many times with random trade directions, using the same times, stops and costs. The real pick has to beat at least 95% of these random picks. This one check caught every over-fitted strategy on this desk.</li>
+    <li><strong>Walk-forward.</strong> Pick the best setting on the first half of the window, then trade it unchanged on the second half.</li>
+  </ul>
+
+  <h2>Track 2: confirm on frozen data</h2>
+  <p>The rules are written down, hashed and committed before the test (pre-registration). They are then run <strong>once</strong> on four earlier years, 22 Oct 2021 to 21 Oct 2025, that the idea was never tuned on. Nothing is changed after the result. If it fails, that window is spent for that idea.</p>
+
+  <h2>The Validator gate</h2>
+  <p>A separate reviewer role decides the verdict. The researcher who built the idea does not. The gate checks:</p>
+  <ul>
+    <li><strong>Independent rebuild.</strong> Trades are rebuilt from raw bars with separate code and must match.</li>
+    <li><strong>Holm correction.</strong> When several versions are tested together, the significance bar is raised so one lucky version cannot pass.</li>
+    <li><strong>Minimum meaningful effect and power,</strong> set before the run. An edge too small to cover costs and the risk budget does not count, even if it is statistically real.</li>
+    <li><strong>Cost stress.</strong> 2x and 3x slippage, and fees +50%.</li>
+    <li><strong>Year-by-year consistency</strong> and both unseen sub-periods positive.</li>
+    <li><strong>Concentration.</strong> The best 10 days may not carry more than half the profit.</li>
+    <li><strong>Placebo controls.</strong> Level-based ideas are rerun on fake levels; confluence ideas on fake zones.</li>
+  </ul>
+  <p>Verdicts are <strong>PASS</strong>, <strong>NO EDGE</strong> or <strong>INSUFFICIENT EVIDENCE</strong> (when the test did not have enough trades to rule an edge out). No idea has received a PASS.</p>
+
+  <h2>Acceptance: a separate, later filter</h2>
+  <p>Even a PASS would still have to meet the desk's practical limits before it could be considered. These limits are a filter at the end, <strong>never a research target</strong>:</p>
+  <table><thead><tr><th>Rule</th><th>Limit</th></tr></thead><tbody>
+    <tr><td>Win rate</td><td>at least 75%</td></tr>
+    <tr><td>Max drawdown, 1 contract</td><td>$2,000</td></tr>
+    <tr><td>Profit target</td><td>$3,000</td></tr>
+    <tr><td>Trading hours</td><td>01:00 to 22:00 GMT+3, flat by the end, no overnight holds</td></tr>
+    <tr><td>Size in tests</td><td>1 micro (1 contract for platinum), no compounding</td></tr>
+  </tbody></table>
+  <div class="callout"><p><strong>Why the 75% win-rate bar is never optimised for.</strong> When the random-direction pipeline was run, its own best picks showed 77 to 92% win rates on 12 months. A high win rate with a small target is what a search produces by default. Ranking on win rate selects luck.</p></div>
+
+  <h2>Costs used in every test</h2>
+  <p>Fees per round turn plus one tick of slippage on each side for market and stop orders. Limit orders need price to trade one tick through before they count as filled.</p>
+  <table><thead><tr><th>Market</th><th>Tick value</th><th>Fee per round turn</th><th>Base round trip</th></tr></thead><tbody>
+    <tr><td>MGC micro gold</td><td>$1.00</td><td>$1.92</td><td>$3.92</td></tr>
+    <tr><td>MES micro S&amp;P 500</td><td>$1.25</td><td>$1.22</td><td>$3.72</td></tr>
+    <tr><td>MNQ micro Nasdaq-100</td><td>$0.50</td><td>$1.22</td><td>$2.22</td></tr>
+    <tr><td>MYM micro Dow</td><td>$0.50</td><td>$1.22</td><td>$2.22</td></tr>
+    <tr><td>M2K micro Russell</td><td>$0.50</td><td>$1.22</td><td>$2.22</td></tr>
+    <tr><td>SIL micro silver</td><td>$5.00</td><td>$2.72</td><td>$12.72</td></tr>
+    <tr><td>PL platinum</td><td>$5.00</td><td>$4.32</td><td>$14.32</td></tr>
+    <tr><td>MCL micro crude</td><td>$1.00</td><td>$1.72</td><td>$3.72</td></tr>
+    <tr><td>MHG micro copper</td><td>$1.25</td><td>$1.92</td><td>$4.42</td></tr>
+    <tr><td>M6E micro EUR/USD</td><td>$1.25</td><td>$1.00</td><td>$3.50</td></tr>
+  </tbody></table>
+  <p class="note">Slippage of one tick is a convention, not a measurement. Current fee rates are applied to older years.</p>
+
+  <h2>Data</h2>
+  <p>1-minute bars for ten CME Globex futures markets, from a licensed data vendor, checked against TradingView. Contracts roll to the daily volume leader. The licence does not allow redistribution, so no raw data is published here, only rules and summary results.</p>
+
+  <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss.</p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+        <p class="foot-about">A working futures trader’s desk, opened up: free tools, guides and research. Process first, always.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/research/">Research</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p><strong>Educational only.</strong> Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; 2026 Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
+      <div class="powered"><span class="live" aria-hidden="true"></span><span>Powered by <b>Cloudflare</b></span><span class="sep"></span><span>v1.0 · November 2026</span></div>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  document.querySelectorAll('a.card').forEach(c => c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>
