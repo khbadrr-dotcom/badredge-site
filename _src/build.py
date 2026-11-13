@@ -322,7 +322,7 @@ def market_board():
         for t, title, per, src in cal["events"])
     return f'''    <div class="term board reveal">
       <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Markets</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag">Micro futures</span></div>
-      <div class="mb-pane" data-pane="mk"><div class="tv-quotes" data-cfg='{tv}'></div><a class="tv-credit" href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">Quotes by TradingView</a></div>
+      <div class="mb-pane" data-pane="mk"><div class="tradingview-widget-container tv-quotes" data-cfg='{tv}'></div><a class="tv-credit" href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">Quotes by TradingView</a></div>
       <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}<p class="ev-src-note">US high-impact releases from the official BLS, BEA, Census and Fed schedules. Shown in your time.</p></div>
     </div>
     <script>(function(){{var b=document.querySelector('.board');if(!b)return;
