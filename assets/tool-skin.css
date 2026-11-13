@@ -16,7 +16,9 @@
 .be-actions { display: inline-flex; align-items: center; gap: 12px; }
 .be-bar .be-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-stretch: 125%; font-size: 14.5px; letter-spacing: .02em; text-transform: uppercase; }
 .be-bar .be-brand span span { color: #8e9b97; font-weight: 800; }
-.be-moon { width: 22px; height: 24px; flex: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 6 48 52'%3E%3Cpath fill='%23e3e8e5' fill-rule='evenodd' d='M10 8H30L46 24V26L41 31L50 40V47L41 56H10Z M19 17H28L31 20.5L28 24H19Z M19 38H35L39 42.5L35 47H19Z'/%3E%3Cpath fill='%23c8a15c' d='M35 8H46V19Z'/%3E%3C/svg%3E") center/contain no-repeat; }
+.be-moon { width: 22px; height: 22px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 63% 60%, rgba(100,74,34,.32) 0 9%, transparent 10%), radial-gradient(circle at 40% 70%, rgba(100,74,34,.24) 0 6%, transparent 7%), radial-gradient(circle at 34% 30%, #f6e6c2 0%, #e2c58c 24%, #c8a15c 55%, #8a6a32 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,236,196,.14), 0 0 12px rgba(200,161,92,.28); }
 .be-bar .crumb { color: #6f7c78; display: inline-flex; align-items: center; gap: 8px; }
 .be-bar .crumb a { color: #8e9b97; } .be-bar .crumb a:hover { color: #7cc4b0; }
 .be-bar .crumb b { color: #e3e8e5; font-weight: 500; }
@@ -68,7 +70,7 @@ html[data-theme="light"] .be-bar .crumb, html[data-theme="light"] .be-bar .crumb
 html[data-theme="light"] .be-bar .crumb a:hover, html[data-theme="light"] .be-bar .be-back:hover { color: #175c4f; }
 html[data-theme="light"] .be-bar .theme-btn { border-color: rgba(40, 30, 12, .18); color: #4c5956; }
 html[data-theme="light"] .be-bar .theme-btn:hover { color: #175c4f; border-color: rgba(29, 107, 92, .36); background: rgba(29, 107, 92, .08); }
-html[data-theme="light"] .be-moon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='6 6 48 52'%3E%3Cpath fill='%230d1615' fill-rule='evenodd' d='M10 8H30L46 24V26L41 31L50 40V47L41 56H10Z M19 17H28L31 20.5L28 24H19Z M19 38H35L39 42.5L35 47H19Z'/%3E%3Cpath fill='%2394691f' d='M35 8H46V19Z'/%3E%3C/svg%3E"); }
+html[data-theme="light"] .be-moon { box-shadow: inset 0 0 0 1px rgba(110,80,32,.25), 0 1px 2px rgba(60,40,10,.2); }
 html[data-theme="light"] .be-mini-foot { border-top-color: rgba(40, 30, 12, .1); color: #637070; }
 html[data-theme="light"] .be-mini-foot a { color: #4c5956; } html[data-theme="light"] .be-mini-foot a:hover { color: #175c4f; }
 @media print { .be-bar, .be-mini-foot { display: none !important; } }

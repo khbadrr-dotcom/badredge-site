@@ -14,11 +14,8 @@ SITE = "https://badredge.com"
 YEAR = datetime.date.today().year
 UPDATED = "November 2026"  # legal pages only; not shown on the homepage or footer
 
-# The Badr Edge mark: a chamfered B with the cut-off corner set apart in brass (the "edge").
-MARK_B = "M10 8H30L46 24V26L41 31L50 40V47L41 56H10Z M19 17H28L31 20.5L28 24H19Z M19 38H35L39 42.5L35 47H19Z"
-MARK_E = "M35 8H46V19Z"
-MARK = (f'<svg class="mark" viewBox="6 6 48 52" aria-hidden="true"><path class="mk-b" fill-rule="evenodd" d="{MARK_B}"/>'
-        f'<path class="mk-e" d="{MARK_E}"/></svg>')
+# The Badr Edge logo: the full moon (badr), drawn in CSS (.moon in assets/site.css).
+MARK = '<span class="moon" aria-hidden="true"></span>'
 BRAND = f'<a class="brand" href="/" aria-label="Badr Edge home">{MARK}<span class="wm">Badr <span class="word-2">Edge</span></span></a>'
 
 # Payout figure on /about/. Off until the lawyer call clears dollar figures on the site.
@@ -254,6 +251,37 @@ def desk_chart():
             f'a false break below it, a breakout above and a retest">' + "".join(out) + "</svg>")
 
 
+# ───────────────────────── Hero moon ─────────────────────────
+def moon_ring():
+    """Two slow rings of candlesticks around the full moon. Each candle points outward; its body follows
+    an illustrative price walk, teal up and red down. Pure SVG, rotated by CSS."""
+    import math
+    def ring(n, r0, seed, scale):
+        rnd = random.Random(seed)
+        out, p = [], 0.0
+        for i in range(n):
+            o = p; p += rnd.gauss(0.15, 1.0); c = p
+            a = 2 * math.pi * i / n
+            lo_b, hi_b = sorted((o, c))
+            hi_w, lo_w = hi_b + rnd.uniform(.2, .8), lo_b - rnd.uniform(.2, .8)
+            # map price to radial distance around r0, centred on the ring's running mean
+            def rad(v): return r0 + (v - p * 0) * 0 + 0
+            base = r0
+            b0 = base + (lo_b - o) * scale + 9; b1 = base + (hi_b - o) * scale + 9 + 2
+            w0 = base + (lo_w - o) * scale + 9; w1 = base + (hi_w - o) * scale + 9 + 2
+            ca, sa = math.cos(a), math.sin(a)
+            k = "up" if c >= o else "dn"
+            pt = lambda r: (200 + r * ca, 200 + r * sa)
+            (x0, y0), (x1, y1) = pt(w0), pt(w1)
+            out.append(f'<line class="mr-w mr-{k}" x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}"/>')
+            (x0, y0), (x1, y1) = pt(b0), pt(b1)
+            out.append(f'<line class="mr-b mr-{k}" x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}"/>')
+        return "".join(out)
+    return ('<svg class="moon-ring" viewBox="0 0 400 400" aria-hidden="true">'
+            '<circle class="mr-orbit" cx="200" cy="200" r="150"/><circle class="mr-orbit dash" cx="200" cy="200" r="186"/>'
+            f'<g class="mr-g1">{ring(72, 150, 3, 5)}</g><g class="mr-g2">{ring(96, 186, 9, 3.5)}</g></svg>')
+
+
 # ───────────────────────── Pages ─────────────────────────
 TOOLS = [
     ("/tools/pass/", "target", "Prop Pass Simulator",
@@ -315,16 +343,17 @@ def home():
       </div>
       <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Built by</dt><dd>A working trader</dd></div><div><dt>Signals</dt><dd>None</dd></div></dl>
     </div>
+    <div class="hero-visual">
+    <div class="moon-stage" aria-hidden="true"><div class="big-moon"></div>{moon_ring()}</div>
     <div class="term reveal">
-      <div class="term-bar"><span class="term-tabs"><span class="on"><b>MGC</b>5m</span><span>MES</span><span>MNQ</span></span><span class="term-tag">Illustration</span></div>
-      <div class="term-chart">{desk_chart()}</div>
-      <div class="ch-legend"><span><i class="bx"></i>Opening range</span><span><i></i>Range high / low</span><span><i class="vw"></i>Session average</span></div>
+      <div class="term-bar"><span><b>The desk</b></span><span class="term-tag">Free · no sign-up</span></div>
       <div class="desk">
       <a class="desk-row" href="/tools/"><span class="desk-ico">{ICONS['target']}</span><span class="desk-name">Tools<small>Risk, sizing and planning simulators</small></span><span class="desk-state live">3 live</span></a>
       <a class="desk-row" href="/guides/"><span class="desk-ico">{ICONS['book']}</span><span class="desk-name">Guides<small>The rules behind the numbers</small></span><span class="desk-state live">3 published</span></a>
       <a class="desk-row" href="/research/"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state live">{len(research.FAMILIES)} families</span></a>
       <a class="desk-row" href="/pine/"><span class="desk-ico">{ICONS['code']}</span><span class="desk-name">Pine Script<small>Tested TradingView strategy work</small></span><span class="desk-state">Soon</span></a>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -696,18 +725,7 @@ def pine():
 
 
 def about():
-    if SHOW_PAYOUT_FIGURE:
-        proof = (f'<a class="proof" href="{PAYOUT_PROOF_URL}">View payout records &rarr;</a>' if PAYOUT_PROOF_URL
-                 else '<span class="proof off">Payout records available on request</span>')
-        fig = f"""<span class="k">Prop firm payouts</span>
-      <span class="v">{PAYOUT_FIGURE}</span>
-      <p>Paid out by prop firms on funded accounts, from firm dashboards and payout certificates. Not audited, and not a return on anyone else's money.</p>
-      {proof}"""
-    else:
-        fig = """<span class="k">Prop firm payouts</span>
-      <span class="v pending">Payout record on file.</span>
-      <p>Payouts from four prop firms are documented with dashboards and certificates. A summary will be published here once it has been reviewed.</p>
-      <span class="proof off">Summary in review</span>"""
+    payouts = (f", with more than {PAYOUT_FIGURE.rstrip('+')} in payouts from four firms" if SHOW_PAYOUT_FIGURE else "")
     body = f"""
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">About</span>
@@ -715,24 +733,10 @@ def about():
   <p class="lede">Badr Edge is an independent futures research desk, built on more than three years of active trading and shaped by data, testing and disciplined execution.</p>
 </div></section>
 
-<section style="padding:48px 0 0"><div class="wrap">
-  <div class="record reveal">
-    <div class="record-fig">
-      {fig}
-    </div>
-    <dl>
-      <div><dt>Experience</dt><dd><b>3+ years</b> of active trading in financial markets</dd></div>
-      <div><dt>Prop firms</dt><dd>Evaluations passed at <b>6 firms</b>, payouts from <b>4</b>, promoted to the live funded stage at <b>3</b></dd></div>
-      <div><dt>Markets</dt><dd>Gold and US equity index futures, mainly micros: MGC, MES, MNQ, MYM</dd></div>
-      <div><dt>Also</dt><dd>Personal CFD brokerage accounts, traded alongside the prop accounts</dd></div>
-      <div><dt>Method</dt><dd>Discretionary price action for execution; systematic research for everything that can be tested</dd></div>
-    </dl>
-  </div>
-</div></section>
 
 <article class="prose" style="max-width:820px;padding-top:56px;padding-bottom:0">
   <h2>Experience</h2>
-  <p>Most of my trading has been through proprietary trading firms: passing evaluations, trading funded accounts under each firm's rules and drawdown limits, and taking payouts. At three firms that has led to promotion to the live funded stage, and the work now is progressing toward trading live funded accounts at size. Alongside the prop accounts, I trade personal CFD brokerage accounts.</p>
+  <p>I've traded futures actively for more than three years, mostly through prop firms{payouts}. That has meant passing evaluations, trading funded accounts under each firm's drawdown rules and moving up to the live funded stage at three firms, with the work now progressing toward live trading at size. Alongside the prop accounts, I trade personal CFD brokerage accounts.</p>
   <p>Execution is a discretionary candlestick price-action process, built over two years and traded mostly in gold and US index futures across the Asia, London and New York sessions.</p>
 
   <h2>Focus</h2>
@@ -835,8 +839,10 @@ def statics(paths):
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(
-        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='#0c1111'/>"
-        f"<g transform='translate(3 2) scale(.94)'><path fill='#e3e8e5' fill-rule='evenodd' d='{MARK_B}'/><path fill='#c8a15c' d='{MARK_E}'/></g></svg>\n")
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.36' r='.7'>"
+        "<stop offset='0' stop-color='#f1dcae'/><stop offset='.55' stop-color='#c8a15c'/><stop offset='1' stop-color='#8a6a32'/></radialGradient></defs>"
+        "<rect width='64' height='64' rx='12' fill='#0c1111'/><circle cx='32' cy='32' r='18' fill='url(#m)'/>"
+        "<circle cx='38' cy='37' r='3' fill='#6e5226' opacity='.35'/><circle cx='27' cy='40' r='2' fill='#6e5226' opacity='.28'/><circle cx='39' cy='25' r='1.8' fill='#6e5226' opacity='.25'/></svg>\n")
 
 
 if __name__ == "__main__":

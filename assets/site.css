@@ -94,9 +94,16 @@ img, svg { max-width: 100%; display: block; }
 
 /* ---------- Brand ---------- */
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; white-space: nowrap; color: var(--text); }
-.brand .mark { width: 26px; height: 26px; flex: none; }
-.mark .mk-b { fill: var(--text); }
-.mark .mk-e { fill: var(--amber); }
+.moon {
+  width: 24px; height: 24px; border-radius: 50%; flex: none;
+  background:
+    radial-gradient(circle at 63% 60%, rgba(100, 74, 34, .32) 0 9%, transparent 10%),
+    radial-gradient(circle at 40% 70%, rgba(100, 74, 34, .24) 0 6%, transparent 7%),
+    radial-gradient(circle at 70% 32%, rgba(100, 74, 34, .2) 0 5%, transparent 6%),
+    radial-gradient(circle at 34% 30%, #f6e6c2 0%, #e2c58c 24%, #c8a15c 55%, #8a6a32 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 236, 196, .14), 0 0 14px rgba(200, 161, 92, .28);
+}
+html[data-theme="light"] .moon { box-shadow: inset 0 0 0 1px rgba(110, 80, 32, .25), 0 1px 2px rgba(60, 40, 10, .2); }
 .brand .wm { font-weight: 800; font-stretch: 125%; font-size: 15px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; }
 .brand .word-2 { color: var(--muted); font-weight: 800; }
 
@@ -477,3 +484,36 @@ h2.grp:first-child { margin-top: 0; }
 .focus b { display: block; font-size: 15px; font-weight: 700; font-stretch: 106%; margin-bottom: 6px; }
 .focus b::before { content: attr(data-n); font: 500 11px/1 var(--mono); color: var(--amber); margin-right: 10px; letter-spacing: .06em; }
 .focus span { color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+/* ---------- Hero moon: the full moon with two slow rings of candles ---------- */
+.hero-visual { position: relative; display: grid; justify-items: center; }
+.moon-stage { position: relative; width: min(440px, 100%); aspect-ratio: 1; margin-bottom: -96px; }
+.big-moon {
+  position: absolute; left: 50%; top: 50%; width: 52%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
+  background:
+    radial-gradient(circle at 63% 60%, rgba(100, 74, 34, .28) 0 7%, transparent 8%),
+    radial-gradient(circle at 38% 68%, rgba(100, 74, 34, .2) 0 5%, transparent 6%),
+    radial-gradient(circle at 70% 30%, rgba(100, 74, 34, .18) 0 4%, transparent 5%),
+    radial-gradient(circle at 30% 44%, rgba(100, 74, 34, .1) 0 9%, transparent 10%),
+    radial-gradient(circle at 34% 28%, #f6e6c2 0%, #e2c58c 22%, #c8a15c 52%, #7a5c2a 100%);
+  box-shadow: inset -16px -14px 40px rgba(40, 28, 10, .35), 0 0 80px rgba(200, 161, 92, .18);
+}
+html[data-theme="light"] .big-moon { box-shadow: inset -16px -14px 40px rgba(40, 28, 10, .3), 0 24px 60px -24px rgba(90, 64, 24, .45); }
+.moon-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.mr-orbit { fill: none; stroke: var(--line-2); stroke-width: 1; }
+.mr-orbit.dash { stroke-dasharray: 2 5; }
+.mr-w { stroke-width: 1; stroke-linecap: butt; }
+.mr-b { stroke-width: 3.2; stroke-linecap: butt; }
+.mr-up { stroke: var(--up); }
+.mr-dn { stroke: var(--down); }
+.mr-g2 .mr-b { stroke-width: 2.4; opacity: .7; }
+.mr-g2 .mr-w { opacity: .7; }
+.mr-g1, .mr-g2 { transform-origin: 200px 200px; transform-box: view-box; }
+@media (prefers-reduced-motion: no-preference) {
+  .mr-g1 { animation: be-turn 160s linear infinite; }
+  .mr-g2 { animation: be-turn 240s linear infinite reverse; }
+}
+@keyframes be-turn { to { transform: rotate(360deg); } }
+.hero-visual .term { position: relative; width: 100%; max-width: 520px; }
+.term-bar b { font: 600 13px/1 var(--sans); }
+@media (max-width: 1000px) { .moon-stage { width: min(360px, 90%); margin-bottom: -72px; } }
