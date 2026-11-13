@@ -438,7 +438,7 @@ def research_index(page):
     <div><b>86</b><span>closed ideas in the failure log</span></div>
     <div><b>10</b><span>futures markets, 1-minute data</span></div>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>The headline.</strong> No strategy on this desk has passed final validation. The closest lead is <a href="/research/under-observation/" style="color:var(--gold-2)">under observation</a>, and it fails the desk's own risk limits even if it holds up. Everything else is published so you don't have to spend months finding the same dead ends.</p></div>
+  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>The headline.</strong> No strategy on this desk has passed final validation. The closest lead is <a href="/research/under-observation/">under observation</a>, and it fails the desk's own risk limits even if it holds up. Everything else is published so you don't have to spend months finding the same dead ends.</p></div>
 </div></section>
 
 <section><div class="wrap">
