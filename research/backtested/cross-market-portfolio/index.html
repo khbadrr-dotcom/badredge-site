@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>14-strategy cross-market portfolio · Badr Edge</title>
-<meta name="description" content="14-strategy cross-market portfolio: what was tested, results after costs, and the verdict. Tested · no edge.">
+<meta name="description" content="14-strategy cross-market portfolio: what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/cross-market-portfolio/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="14-strategy cross-market portfolio · Badr Edge">
-<meta property="og:description" content="14-strategy cross-market portfolio: what was tested, results after costs, and the verdict. Tested · no edge.">
+<meta property="og:description" content="14-strategy cross-market portfolio: what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/cross-market-portfolio/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-no">Tested · no edge</span></div>
+  <div><span class="status st-exp">Exploratory · needs forward testing</span></div>
   <h1>14-strategy cross-market portfolio</h1>
   <p class="lede">Individually weak strategies on different markets, combined with risk managed at portfolio level, might add up to something steady.</p>
   <p class="meta">Markets: MGC, MES, MYM, MNQ, SIL, PL, M2K, MCL, MHG, M6E<br>Scope: The 14 best opening range and Initial Balance picks, run together · 1 micro each</p>
@@ -43,19 +43,12 @@
   <h2>What was tested</h2>
   <ul><li>The 14 frozen picks combined, settings never changed.</li><li>Replay on 2021 to 2025, data none of them was chosen on.</li><li>Also: a 'best 5 of 14' subset and a cross-market gap fade held for hours.</li></ul>
   <h2>What happened</h2>
-  <table><thead><tr><th></th><th>Last 12 months (where picks were chosen)</th><th>2021 to 2025 (unseen)</th></tr></thead><tbody>
-<tr><td>Net, after costs</td><td>+$89,458</td><td>&minus;$31,794</td></tr>
-<tr><td>Max drawdown</td><td>$1,549</td><td>$34,196</td></tr>
-<tr><td>Win rate</td><td>75.5%</td><td>below 75% on most picks</td></tr>
-<tr><td>Picks making money</td><td>14 of 14</td><td>1 of 14 (+$77)</td></tr>
-<tr><td>Years making money</td><td></td><td>0 of 5</td></tr>
-</tbody></table>
-<p>The left column is the best of many thousands of combinations on the same year, so it is in-sample by construction. The 'best 5' subset lost &minus;$9,641. The cross-market gap fade lost on all 9 versions.</p>
+  <div class="tbl-wrap"><table class="picks"><caption>Last year, in-sample vs the same settings on 2021&ndash;25 · 1 micro · after fees and slippage</caption><thead><tr><th>Strategy</th><th>Chart</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Net</th><th>Max DD</th><th>2021&ndash;25 replay: net</th><th>Win rate</th><th>PF</th></tr></thead><tbody><tr><td><a href="/research/backtested/orb-pro-max/">MGC ORB Pro Max</a><small>Micro Gold</small></td><td>5m</td><td>323</td><td>70.6%</td><td>2.20</td><td>+$7,403</td><td>$714</td><td>&minus;$4,666</td><td>52.4%</td><td>0.71</td></tr><tr><td><a href="/research/backtested/orb-pro-max/">MES ORB Pro Max</a><small>Micro S&amp;P 500</small></td><td>5m</td><td>76</td><td>71.1%</td><td>2.34</td><td>+$821</td><td>$180</td><td>+$77</td><td>58.3%</td><td>1.02</td></tr><tr><td><a href="/research/backtested/orb-break-and-hold/">MYM ORB Break &amp; Hold</a><small>Micro Dow</small></td><td>5m</td><td>245</td><td>70.6%</td><td>1.80</td><td>+$2,660</td><td>$415</td><td>&minus;$1,812</td><td>64.0%</td><td>0.89</td></tr><tr><td><a href="/research/backtested/orb-pro-max/">MYM ORB Pro Max</a><small>Micro Dow</small></td><td>15m</td><td>122</td><td>79.5%</td><td>2.99</td><td>+$1,844</td><td>$175</td><td>&minus;$2,074</td><td>53.0%</td><td>0.80</td></tr><tr><td><a href="/research/backtested/orb-v4/">MGC ORB v4</a><small>Micro Gold</small></td><td>1m</td><td>152</td><td>80.3%</td><td>3.13</td><td>+$9,517</td><td>$952</td><td>&minus;$374</td><td>66.1%</td><td>0.98</td></tr><tr><td><a href="/research/backtested/initial-balance/">MGC IB Multi-Session</a><small>Micro Gold</small></td><td>1m</td><td>231</td><td>79.7%</td><td>1.75</td><td>+$5,006</td><td>$845</td><td>&minus;$2,733</td><td>75.6%</td><td>0.78</td></tr><tr><td><a href="/research/backtested/orb-v4/">MNQ ORB v4</a><small>Micro Nasdaq</small></td><td>1m</td><td>242</td><td>84.7%</td><td>2.47</td><td>+$6,844</td><td>$682</td><td>&minus;$1,895</td><td>71.2%</td><td>0.92</td></tr><tr><td><a href="/research/backtested/initial-balance/">MNQ IB Multi-Session</a><small>Micro Nasdaq</small></td><td>1m</td><td>417</td><td>81.1%</td><td>2.14</td><td>+$8,383</td><td>$633</td><td>&minus;$2,803</td><td>73.4%</td><td>0.91</td></tr><tr><td><a href="/research/backtested/orb-v4/">SIL ORB v4</a><small>Micro Silver</small></td><td>1m</td><td>145</td><td>90.3%</td><td>4.47</td><td>+$21,156</td><td>$883</td><td>&minus;$2,657</td><td>74.7%</td><td>0.86</td></tr><tr><td><a href="/research/backtested/orb-v4/">PL ORB v4</a><small>Platinum</small></td><td>1m</td><td>79</td><td>88.6%</td><td>11.41</td><td>+$13,839</td><td>$584</td><td>&minus;$967</td><td>67.7%</td><td>0.96</td></tr><tr><td><a href="/research/backtested/orb-v4/">M2K ORB v4</a><small>Micro Russell 2000</small></td><td>1m</td><td>78</td><td>94.9%</td><td>8.24</td><td>+$1,082</td><td>$53</td><td>&minus;$1,006</td><td>62.4%</td><td>0.59</td></tr><tr><td><a href="/research/backtested/orb-v4/">MCL ORB v4</a><small>Micro WTI Crude</small></td><td>1m</td><td>151</td><td>83.4%</td><td>4.35</td><td>+$2,645</td><td>$184</td><td>&minus;$2,210</td><td>66.3%</td><td>0.75</td></tr><tr><td><a href="/research/backtested/initial-balance/">MHG IB Multi-Session</a><small>Micro Copper</small></td><td>1m</td><td>375</td><td>50.7%</td><td>1.59</td><td>+$7,156</td><td>$796</td><td>&minus;$7,611</td><td>41.1%</td><td>0.83</td></tr><tr><td><a href="/research/backtested/initial-balance/">M6E IB Multi-Session</a><small>Micro EUR/USD</small></td><td>1m</td><td>137</td><td>73.7%</td><td>2.13</td><td>+$1,102</td><td>$168</td><td>&minus;$1,064</td><td>56.0%</td><td>0.88</td></tr><tr class="tot"><td>All 14 together</td><td></td><td>2,773</td><td>75.5%</td><td>2.61</td><td>+$89,458</td><td>$1,549</td><td>&minus;$31,794<small>max DD $34,196</small></td><td></td><td></td></tr></tbody></table></div><p class="note">Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. None of these strategies is validated. Each one needs forward testing before any real-money use.</p>
   <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
   <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-no">Tested · no edge</span></p><p>No edge. Combining picks diversified the risk but could not create an edge the single picks did not have.</p></div>
+  <div class="callout"><p><span class="status st-exp">Exploratory · needs forward testing</span></p><p>Exploratory. The settings were picked on last year's data, so these results are in-sample. Not validated: this needs forward testing before any real-money use. On 2021&ndash;25 the same settings, unchanged, lost money, as the table shows.</p></div>
   <h2>Lesson</h2>
-  <p>Fourteen small losers add up to one large loser. Diversification reduces noise; it cannot turn a zero edge into a positive one.</p>
+  <p>A great backtest on the year you tuned on mostly shows how good the search was, not how good the strategy is. That is why both numbers sit side by side.</p>
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/microstructure-effects/"><span>Previous</span>Volume shocks and 1-minute reversals</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

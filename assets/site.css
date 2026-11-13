@@ -548,3 +548,16 @@ html[data-theme="light"] .tk b { color: #74561a; }
 .btn.primary, .nav .cta { background: linear-gradient(180deg, #f1d9a6 0%, #d9b46c 55%, #c49c52 100%); border-color: transparent; color: #17120a; }
 .btn.primary:hover, .nav .cta:hover { background: linear-gradient(180deg, #f6e2b8 0%, #e0bd78 55%, #c9a159 100%); color: #17120a; }
 .eyebrow::before { background: var(--live); }
+
+/* ---------- Last year's picks table (research) ---------- */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line-2); border-radius: var(--r-lg); margin: 8px 0 10px; background: var(--panel); }
+table.picks { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 640px; }
+table.picks caption { caption-side: top; text-align: left; padding: 12px 14px; font: 500 10.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line); }
+table.picks th { text-align: right; padding: 10px 14px; font: 500 10.5px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.picks td { text-align: right; padding: 10px 14px; border-top: 1px solid var(--line); color: var(--text-2); font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.picks th:first-child, table.picks td:first-child { text-align: left; font-family: var(--sans); }
+table.picks td:first-child a { color: var(--text); font-weight: 600; }
+table.picks td:first-child a:hover { color: var(--accent-2); }
+table.picks td small { display: block; font: 400 11.5px/1.4 var(--sans); color: var(--dim); }
+table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--panel-2); }
+.prose .tbl-wrap table.picks { display: table; border: 0; border-radius: 0; }
