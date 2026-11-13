@@ -819,3 +819,22 @@ html[data-theme="light"] { --sky-a: .14; --star: rgba(60, 50, 30, .22); --orbit:
 .sky-aurora.a1 { background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 60%, transparent), transparent); }
 .sky-aurora.a2 { background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 35%, color-mix(in srgb, var(--accent) 20%, transparent)), transparent); }
 .sky-aurora.a3 { display: none; }
+
+/* Sky, light theme: a daylight star chart (pale morning sky, ink dots, engraved orbits, soft haze) */
+.sky-chart { display: none; }
+html[data-theme="light"] { --sky-a: .30; --star: rgba(34, 34, 30, .42); --orbit: rgba(34, 34, 30, .16); }
+html[data-theme="light"] .sky { background: radial-gradient(1400px 700px at 85% -5%, rgba(255, 255, 255, .9), transparent 60%), linear-gradient(180deg, #edf0ef 0%, #f4f2ec 42%, #f7f2e8 100%); }
+html[data-theme="light"] .sky-stars { opacity: .55; }
+html[data-theme="light"] .sky-stars.s2 { opacity: .3; }
+html[data-theme="light"] .sky-orbits ellipse { stroke-dasharray: 1 6; stroke-width: 1.1; }
+html[data-theme="light"] .sky-aurora { mix-blend-mode: multiply; filter: blur(100px); }
+html[data-theme="light"] .sky-aurora.a1 { background: radial-gradient(closest-side, rgba(29, 107, 92, .38), transparent); }
+html[data-theme="light"] .sky-aurora.a2 { background: radial-gradient(closest-side, rgba(176, 138, 66, .34), transparent); }
+html[data-theme="light"] .sky-chart { display: block; position: absolute; right: -14vmax; top: -16vmax; width: 70vmax; height: 70vmax; opacity: .9; }
+.sky-chart g { transform-origin: 400px 400px; animation: sky-spin 480s linear infinite reverse; }
+.sky-chart circle, .sky-chart line { fill: none; stroke: var(--orbit); vector-effect: non-scaling-stroke; }
+.sky-chart .c1 { stroke-width: 1; }
+.sky-chart .tk { stroke-width: 7; stroke-dasharray: 1 13; vector-effect: none; }
+.sky-chart .c2 { stroke-dasharray: 2 6; }
+.sky-chart line { stroke-dasharray: 1 7; }
+@media (prefers-reduced-motion: reduce) { .sky-chart g { animation: none !important; } }
