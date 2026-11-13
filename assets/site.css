@@ -754,3 +754,68 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .mb-tabs button { white-space: nowrap; }
 @media (max-width: 380px) { .board .ss-tz { display: none; } }
 .nav a .nav-soon { margin-left: 6px; font: 500 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--amber); opacity: .85; white-space: nowrap; }
+
+/* ---------- Night sky: one fixed background behind every page; content floats on glass ---------- */
+:root { --glass: color-mix(in srgb, var(--panel) 66%, transparent); --glass-2: color-mix(in srgb, var(--panel-2) 74%, transparent); --glass-line: rgba(255, 255, 255, .10); --glass-shadow: 0 18px 50px -24px rgba(0, 0, 0, .8); --sky-a: .55; --star: rgba(255, 244, 220, .75); --orbit: rgba(217, 180, 108, .16); }
+html[data-theme="light"] { --glass: color-mix(in srgb, var(--panel) 72%, transparent); --glass-2: color-mix(in srgb, var(--panel-2) 80%, transparent); --glass-line: rgba(60, 40, 10, .12); --glass-shadow: 0 18px 44px -26px rgba(80, 56, 16, .35); --sky-a: .34; --star: rgba(140, 104, 40, .28); --orbit: rgba(140, 104, 40, .18); }
+.sky { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: radial-gradient(1200px 700px at 78% -10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%), var(--bg); }
+.sky-stars { position: absolute; inset: -50%; background-image:
+  radial-gradient(1px 1px at 20px 30px, var(--star), transparent 60%), radial-gradient(1px 1px at 140px 90px, var(--star), transparent 60%),
+  radial-gradient(1.4px 1.4px at 80px 160px, var(--star), transparent 60%), radial-gradient(1px 1px at 210px 210px, var(--star), transparent 60%),
+  radial-gradient(1px 1px at 260px 40px, var(--star), transparent 60%), radial-gradient(1.2px 1.2px at 330px 140px, var(--star), transparent 60%);
+  background-size: 360px 260px; opacity: .55; animation: sky-drift 240s linear infinite; }
+.sky-stars.s2 { background-size: 520px 380px; opacity: .35; animation-duration: 360s; animation-direction: reverse; }
+.sky-aurora { position: absolute; width: 70vmax; height: 38vmax; border-radius: 50%; filter: blur(70px); opacity: var(--sky-a); mix-blend-mode: screen; will-change: transform; }
+html[data-theme="light"] .sky-aurora { mix-blend-mode: multiply; }
+.sky-aurora.a1 { left: -18vmax; top: 18vh; background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 55%, transparent), transparent); animation: aurora-1 46s ease-in-out infinite alternate; }
+.sky-aurora.a2 { right: -22vmax; top: 48vh; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 50%, transparent), transparent); animation: aurora-2 58s ease-in-out infinite alternate; }
+.sky-aurora.a3 { left: 20vw; bottom: -20vmax; width: 60vmax; background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 30%, color-mix(in srgb, var(--accent) 30%, transparent)), transparent); animation: aurora-1 70s ease-in-out infinite alternate-reverse; }
+.sky-orbits { position: absolute; left: 50%; top: 50%; width: 160vmax; height: 160vmax; transform: translate(-50%, -50%); }
+.sky-orbits g { transform-origin: 600px 600px; animation: sky-spin 300s linear infinite; }
+.sky-orbits ellipse { fill: none; stroke: var(--orbit); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 2 7; }
+@keyframes sky-drift { to { transform: translate(360px, 260px); } }
+@keyframes sky-spin { to { transform: rotate(360deg); } }
+@keyframes aurora-1 { 0% { transform: translate(0, 0) rotate(-8deg) scale(1); } 100% { transform: translate(18vw, -10vh) rotate(10deg) scale(1.25); } }
+@keyframes aurora-2 { 0% { transform: translate(0, 0) rotate(6deg) scale(1.1); } 100% { transform: translate(-20vw, -14vh) rotate(-10deg) scale(.9); } }
+@media (prefers-reduced-motion: reduce) { .sky * , .sky-orbits g { animation: none !important; } }
+
+/* sections become transparent so the sky runs through the whole page */
+body { background: var(--bg); }
+.band, .specbar, .site-foot { background: transparent; }
+.hero, .band, .cta-band, .page-head, .article-head, .specbar, .site-foot { border-color: transparent; }
+.hero::before { opacity: .35; }
+
+/* floating glass panels */
+.card, .term, .tbl-wrap, .viz, .pick-card, .callout, .record, .principles, .prose table, .code {
+  background: var(--glass); border-color: var(--glass-line);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+a.card:hover { background: var(--glass-2); }
+.principles { background: var(--glass-line); }
+.principle { background: transparent; }
+.record { background: var(--glass); }
+.steps { border-top: 0; padding: 4px 28px 20px; border: 1px solid var(--glass-line); border-radius: var(--r-lg); background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--glass-shadow); }
+.faq { border: 1px solid var(--glass-line); border-radius: var(--r-lg); padding: 4px 26px; background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--glass-shadow); }
+.faq details:last-child { border-bottom: 0; }
+.specbar dl { border: 1px solid var(--glass-line); border-radius: var(--r-lg); background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--glass-shadow); margin-top: 24px; padding: 0 24px; }
+.cta-band .wrap { border: 1px solid var(--glass-line); border-radius: 18px; background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--glass-shadow); padding-block: 48px; width: calc(100% - 32px); }
+.site-foot .foot-grid, .site-foot .foot-legal { position: relative; }
+.icon { background: color-mix(in srgb, var(--bg-2) 60%, transparent); }
+@media (max-width: 760px) { .steps, .faq { padding-left: 18px; padding-right: 18px; } .specbar dl { padding: 0 16px; } }
+.hero::before { -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 75%), linear-gradient(180deg, #000 60%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 30%, #000 75%), linear-gradient(180deg, #000 60%, transparent); mask-composite: intersect; }
+
+/* Sky v2: mostly dark, small white stars, faint northern lights */
+:root { --sky-a: .16; --star: rgba(255, 255, 255, .85); --orbit: rgba(255, 255, 255, .07); }
+html[data-theme="light"] { --sky-a: .14; --star: rgba(60, 50, 30, .22); --orbit: rgba(60, 50, 30, .10); }
+.sky { background: var(--bg); }
+.sky-stars { opacity: .7; background-image:
+  radial-gradient(1px 1px at 20px 30px, var(--star), transparent 70%), radial-gradient(1px 1px at 140px 90px, var(--star), transparent 70%),
+  radial-gradient(1.2px 1.2px at 80px 160px, var(--star), transparent 70%), radial-gradient(1px 1px at 210px 210px, var(--star), transparent 70%),
+  radial-gradient(.8px .8px at 260px 40px, var(--star), transparent 70%), radial-gradient(1px 1px at 330px 140px, var(--star), transparent 70%),
+  radial-gradient(.8px .8px at 300px 230px, var(--star), transparent 70%), radial-gradient(.8px .8px at 50px 240px, var(--star), transparent 70%); }
+.sky-stars.s2 { opacity: .4; }
+.sky-aurora { filter: blur(90px); height: 26vmax; }
+.sky-aurora.a1 { background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 60%, transparent), transparent); }
+.sky-aurora.a2 { background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 35%, color-mix(in srgb, var(--accent) 20%, transparent)), transparent); }
+.sky-aurora.a3 { display: none; }
