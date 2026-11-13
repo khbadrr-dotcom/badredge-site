@@ -328,7 +328,7 @@ def market_board():
         for sym, name, grp, last, chg, c in d["markets"])
     ev = "".join(
         f'<div class="ev-row" data-t="{t}"><span class="ev-when"><b class="ev-day"></b><small class="ev-time"></small></span>'
-        f'<span class="ev-name"><b>{title}</b><small>{cur} · {per}</small></span>'
+        f'<span class="ev-name"><b>{title}</b><small>{cur}{" · " + per if per else ""}</small></span>'
         f'<span class="ev-num"><small>Fcst</small>{fc or "–"}</span><span class="ev-num"><small>Prev</small>{pv}</span>'
         f'<span class="ev-imp" aria-label="High impact"><i></i><i></i><i></i></span></div>'
         for t, title, per, fc, pv, cur in d["events"])
