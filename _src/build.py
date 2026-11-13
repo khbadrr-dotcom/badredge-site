@@ -298,6 +298,57 @@ def guide_cards():
       </a>""" for h, t, d, m in GUIDES)
 
 
+def _ema(vals, n):
+    k, e = 2 / (n + 1), vals[0]
+    for v in vals[1:]:
+        e = v * k + e * (1 - k)
+    return e
+
+
+def _trend(vals, n, label):
+    up = vals[-1] >= _ema(vals, n)
+    return f'<span class="mb-tr {"up" if up else "dn"}" title="{label}: price {"above" if up else "below"} its {n}-hour average">{"&#9650;" if up else "&#9660;"}<em>{"Up" if up else "Down"}</em></span>'
+
+
+def _fmt(v):
+    if v >= 1000: return f"{v:,.2f}"
+    if v >= 10: return f"{v:.2f}"
+    return f"{v:.4f}"
+
+
+def market_board():
+    import json
+    d = json.load(open(os.path.join(os.path.dirname(__file__), "board_data.json")))
+    rows = "".join(
+        f'<div class="mb-row">'
+        f'<span class="mb-sym"><b>{sym}</b><small>{name}</small></span>'
+        f'{_trend(c, 8, "Fast trend")}{_trend(c, 48, "Slow trend")}'
+        f'<span class="mb-last">{_fmt(last)}</span>'
+        f'<span class="mb-chg {"up" if chg >= 0 else "dn"}">{chg:+.2f}%</span></div>'
+        for sym, name, grp, last, chg, c in d["markets"])
+    ev = "".join(
+        f'<div class="ev-row" data-t="{t}"><span class="ev-when"><b class="ev-day"></b><small class="ev-time"></small></span>'
+        f'<span class="ev-name"><b>{title}</b><small>{cur} · {per}</small></span>'
+        f'<span class="ev-num"><small>Fcst</small>{fc or "–"}</span><span class="ev-num"><small>Prev</small>{pv}</span>'
+        f'<span class="ev-imp" aria-label="High impact"><i></i><i></i><i></i></span></div>'
+        for t, title, per, fc, pv, cur in d["events"])
+    return f'''    <div class="term board reveal">
+      <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Markets</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag mb-asof" data-t="{d["asof"]}">Updated</span></div>
+      <div class="mb-pane" data-pane="mk"><div class="mb-row mb-head"><span>Market</span><span>Fast trend</span><span>Slow trend</span><span>Last</span><span>Day</span></div>{rows}</div>
+      <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}</div>
+    </div>
+    <script>(function(){{var b=document.querySelector('.board');if(!b)return;
+b.querySelectorAll('[data-tab]').forEach(function(t){{t.onclick=function(){{b.querySelectorAll('[data-tab]').forEach(function(x){{x.setAttribute('aria-selected',x===t)}});b.querySelectorAll('[data-pane]').forEach(function(p){{p.hidden=p.dataset.pane!==t.dataset.tab}})}}}});
+var a=b.querySelector('.mb-asof');a.textContent='Updated '+new Date(a.dataset.t).toLocaleTimeString([], {{hour:'2-digit',minute:'2-digit'}});
+var now=Date.now(),next=null;b.querySelectorAll('.ev-row').forEach(function(r){{var d=new Date(r.dataset.t);
+r.querySelector('.ev-day').textContent=d.toLocaleDateString(undefined,{{weekday:'short',day:'numeric'}});
+r.querySelector('.ev-time').textContent=d.toLocaleTimeString([], {{hour:'2-digit',minute:'2-digit'}});
+if(d<now)r.classList.add('past');else if(!next){{next=d;r.classList.add('next')}}}});
+if(next){{var m=Math.round((next-now)/60000),h=Math.floor(m/60);b.querySelector('.ev-next-txt').textContent='Next release in '+(h?h+'h ':'')+(m%60)+'m · your time'}}
+}})();</script>
+'''
+
+
 def home():
     body = f"""
 <section class="hero">
@@ -324,14 +375,7 @@ def home():
       <span class="rider r2 tk" style="--d:-50"><b>MES</b></span>
       <span class="rider r2 tk" style="--d:-83"><b>MYM</b></span>
     </div>
-    <div class="term reveal">
-      <div class="term-bar"><span><b>The desk</b></span><span class="term-tag">Free · no sign-up</span></div>
-      <div class="desk">
-      <a class="desk-row" href="/tools/"><span class="desk-ico">{ICONS['target']}</span><span class="desk-name">Tools<small>Risk, sizing and planning simulators</small></span><span class="desk-state live">3 live</span></a>
-      <a class="desk-row" href="/guides/"><span class="desk-ico">{ICONS['book']}</span><span class="desk-name">Guides<small>The rules behind the numbers</small></span><span class="desk-state live">3 published</span></a>
-      <a class="desk-row" href="/research/"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state live">{len(research.FAMILIES)} families</span></a>
-      <a class="desk-row" href="/pine/"><span class="desk-ico">{ICONS['code']}</span><span class="desk-name">Pine Script<small>Tested TradingView strategy work</small></span><span class="desk-state">Soon</span></a>
-      </div>
+{market_board()}
     </div>
     </div>
   </div>
