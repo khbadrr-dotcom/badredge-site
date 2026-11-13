@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap");
+/* Badr Edge chrome for the standalone simulators. Loaded only on /tools/<name>/ pages. */
+/* ==========================================================================
+   Simulators: re-skin in the house palette. Their own logic and layout stay
+   untouched; only colour and type tokens are overridden in dark mode.
+   ========================================================================== */
+.be-bar {
+  position: sticky; top: 0; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  height: 56px; padding: 0 max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(7, 8, 10, .78); backdrop-filter: saturate(160%) blur(16px); -webkit-backdrop-filter: saturate(160%) blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, .075); font: 500 13px/1.2 "Inter Tight", system-ui, sans-serif;
+}
+.be-bar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent 5%, rgba(217, 180, 108, .5), transparent 95%); opacity: .5; }
+.be-bar a { color: #ece8df; text-decoration: none; }
+.be-bar .be-word { color: #ece8df; }
+.be-bar .be-back { color: #8f939b; } .be-bar .be-back:hover { color: #f3deb0; }
+.be-actions { display: inline-flex; align-items: center; gap: 12px; }
+.be-bar .be-brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Archivo", system-ui, sans-serif; font-weight: 800; font-stretch: 125%; font-size: 14.5px; letter-spacing: .02em; text-transform: uppercase; }
+.be-bar .be-brand span span { color: #d9b46c; font-weight: 800; }
+.be-moon { width: 20px; height: 20px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 63% 60%, rgba(110,80,32,.34) 0 9%, transparent 10%), radial-gradient(circle at 40% 70%, rgba(110,80,32,.24) 0 6%, transparent 7%), radial-gradient(circle at 34% 30%, #fff3d6 0%, #ecd09a 22%, #d9b46c 52%, #9c7a3c 100%);
+  box-shadow: 0 0 0 1px rgba(255,236,196,.16) inset, 0 0 16px rgba(217,180,108,.45); }
+.be-bar .crumb { color: #5e636c; display: inline-flex; align-items: center; gap: 8px; }
+.be-bar .crumb a { color: #8f939b; } .be-bar .crumb a:hover { color: #f3deb0; }
+.be-bar .crumb b { color: #ece8df; font-weight: 500; }
+@media (max-width: 560px) { .be-bar .crumb { display: none; } }
+.be-mini-foot { max-width: 1320px; margin: 0 auto; padding: 22px max(16px, env(safe-area-inset-left, 0px)) 36px; border-top: 1px solid rgba(255, 255, 255, .075);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font: 400 12px/1.6 "Inter Tight", system-ui, sans-serif; color: #5e636c; }
+.be-mini-foot a { color: #8f939b; text-decoration: none; } .be-mini-foot a:hover { color: #f3deb0; }
+html.be-tool[data-theme="dark"]:root {
+  --bg: #07080a; --surface: #0f1013; --sunken: #0b0c0f; --sunk: #0b0c0f;
+  --ink: #ece8df; --muted: #8f939b; --line: #1f2228;
+  --accent: #d9b46c; --accent-soft: rgba(217, 180, 108, .13);
+  --gold: #d9b46c; --gold-line: #c9a35c; --gold-soft: rgba(217, 180, 108, .14);
+  --font-display: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --font-body: "Inter Tight", "IBM Plex Sans", system-ui, sans-serif;
+  --f-display: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --f-body: "Inter Tight", "Archivo", system-ui, sans-serif;
+}
+html.be-tool[data-theme="dark"] body { background: #07080a; }
+
+/* ---------- Theme toggle (shared with the main site) ---------- */
+.be-bar .theme-btn {
+  width: 34px; height: 34px; flex: none; display: grid; place-items: center; cursor: pointer; padding: 0;
+  border-radius: 10px; border: 1px solid rgba(255, 255, 255, .13); background: transparent; color: #8f939b;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.be-bar .theme-btn:hover { color: #f3deb0; border-color: rgba(217, 180, 108, .28); background: rgba(217, 180, 108, .1); }
+.be-bar .theme-btn svg { width: 16px; height: 16px; display: block; }
+.be-bar .theme-btn .i-sun { display: none; }
+html[data-theme="light"] .be-bar .theme-btn .i-sun { display: block; }
+html[data-theme="light"] .be-bar .theme-btn .i-moon { display: none; }
+
+/* ---------- Light theme: warm ivory and gold, matching the main site ---------- */
+html.be-tool[data-theme="light"]:root {
+  --bg: #f7f4ee; --surface: #fffdf9; --sunken: #f3efe7; --sunk: #efeae0;
+  --ink: #16130e; --muted: #5d5850; --line: #e2dbcd;
+  --accent: #8e6a22; --accent-soft: rgba(176, 134, 58, .14);
+  --gold: #8e6a22; --gold-line: #a8823a; --gold-soft: rgba(176, 134, 58, .15);
+  --font-display: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --font-body: "Inter Tight", "IBM Plex Sans", system-ui, sans-serif;
+  --f-display: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --f-body: "Inter Tight", "Archivo", system-ui, sans-serif;
+  color-scheme: light;
+}
+html.be-tool[data-theme="light"] body { background: #f7f4ee; }
+html[data-theme="light"] .be-bar { background: rgba(247, 244, 238, .82); border-bottom-color: rgba(40, 30, 12, .1); }
+html[data-theme="light"] .be-bar a, html[data-theme="light"] .be-bar .be-word, html[data-theme="light"] .be-bar .crumb b { color: #16130e; }
+html[data-theme="light"] .be-bar .be-brand span span { color: #8e6a22; }
+html[data-theme="light"] .be-bar .crumb, html[data-theme="light"] .be-bar .crumb a, html[data-theme="light"] .be-bar .be-back { color: #7a746a; }
+html[data-theme="light"] .be-bar .crumb a:hover, html[data-theme="light"] .be-bar .be-back:hover { color: #74561a; }
+html[data-theme="light"] .be-bar .theme-btn { border-color: rgba(40, 30, 12, .18); color: #5d5850; }
+html[data-theme="light"] .be-bar .theme-btn:hover { color: #74561a; border-color: rgba(142, 106, 34, .32); background: rgba(176, 134, 58, .1); }
+html[data-theme="light"] .be-moon { box-shadow: 0 0 0 1px rgba(120, 90, 40, .25) inset, 0 0 12px rgba(196, 156, 82, .45); }
+html[data-theme="light"] .be-mini-foot { border-top-color: rgba(40, 30, 12, .1); color: #7a746a; }
+html[data-theme="light"] .be-mini-foot a { color: #5d5850; } html[data-theme="light"] .be-mini-foot a:hover { color: #74561a; }
+@media print { .be-bar, .be-mini-foot { display: none !important; } }

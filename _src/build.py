@@ -5,18 +5,29 @@ Run:  python3 _src/build.py
 It writes the HTML files at their published paths. The tools under /tools/<name>/ are
 standalone pages and are not touched, except /tools/index.html, which is built here.
 """
-import os, random, datetime
+import os, random, datetime, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import research
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://badredge.com"
 YEAR = datetime.date.today().year
-UPDATED = "November 2026"
+UPDATED = "November 2026"  # legal pages only; not shown on the homepage or footer
 
-NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/pine/", "Pine Script"), ("/about/", "About")]
+# The Badr Edge logo: the full moon (badr), drawn in CSS (.moon in assets/site.css).
+MARK = '<span class="moon" aria-hidden="true"></span>'
+BRAND = f'<a class="brand" href="/" aria-label="Badr Edge home">{MARK}<span class="wm">Badr <span class="word-2">Edge</span></span></a>'
+
+# Payout figure on /about/. Off until the lawyer call clears dollar figures on the site.
+SHOW_PAYOUT_FIGURE = False
+PAYOUT_FIGURE = "$250,000+"
+PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
+
+NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/research/", "Research"), ("/pine/", "Pine Script"), ("/about/", "About")]
 
 ICONS = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
-    "coins": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg>',
+    "coins": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg>',
     "scale": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7a3 3 0 0 0 6 0L6 7zm12 0l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>',
     "code": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>',
     "book": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg>',
@@ -29,16 +40,26 @@ DISCLAIMER_SHORT = ("Badr Edge publishes educational tools and articles only. No
                     "leveraged products involves substantial risk of loss and is not suitable for everyone.")
 
 
+THEME_INIT = ("<script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}"
+              "if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';"
+              "document.documentElement.setAttribute('data-theme',t)})();</script>")
+
+THEME_BTN = ('<button class="theme-btn" type="button" aria-label="Switch theme" title="Switch theme">'
+             '<svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'
+             '<svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button>')
+
+
 def head(title, desc, path, extra=""):
     full = title if title == "Badr Edge" else f"{title} · Badr Edge"
     return f"""<!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{THEME_INIT}
 <title>{full}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#07080a">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -48,7 +69,11 @@ def head(title, desc, path, extra=""):
 <meta property="og:url" content="{SITE}{path}">
 <meta property="og:image" content="{SITE}/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/theme.js" defer></script>
 {extra}</head>
 <body>
 """
@@ -59,9 +84,9 @@ def header(active):
         f'<a href="{href}"{" aria-current=\"page\"" if href == active else ""}>{label}</a>' for href, label in NAV)
     return f"""<header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    {BRAND}
     <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/">Open the tools</a></nav>
+    <div class="head-actions">{THEME_BTN}<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
   </div>
 </header>
 <main>
@@ -74,14 +99,15 @@ def footer():
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="brand" href="/"><span class="moon" aria-hidden="true"></span>Badr Edge</a>
-        <p class="muted small" style="margin-top:12px;max-width:34ch">Free risk tools and plain-English guides for futures traders working through prop-firm accounts.</p>
-        <p class="small" style="margin-top:12px"><a href="mailto:hello@badredge.com">hello@badredge.com</a></p>
+        {BRAND}
+        <p class="foot-about">An independent futures research desk. Free tools, guides and a public research record.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
       </div>
       <div><h4>Tools</h4><ul>
         <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
         <li><a href="/tools/payout/">Payout Simulator</a></li>
         <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
       </ul></div>
       <div><h4>Learn</h4><ul>
         <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
@@ -91,14 +117,18 @@ def footer():
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
         <li><a href="/about/">About</a></li>
+        <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Pine Script</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
         <li><a href="/legal/privacy/">Privacy</a></li>
       </ul></div>
     </div>
     <div class="foot-legal">
-      <p>{DISCLAIMER_SHORT}</p>
-      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange. &copy; {YEAR} Badr Edge.</p>
+      <p><strong>Educational only.</strong> {DISCLAIMER_SHORT}</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; {YEAR} Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
     </div>
   </div>
 </footer>
@@ -150,16 +180,75 @@ def hero_svg():
     grid = ""
     for v, lab in [(0, "start"), (-2000, "−$2,000"), (2000, "+$2,000"), (4000, "+$4,000")]:
         if lo <= v <= hi:
-            grid += f'<line x1="{L}" x2="{W-R}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="#232831" stroke-dasharray="{"0" if v == 0 else "3 4"}"/>'
-            grid += f'<text x="{L-6}" y="{y(v)+4:.1f}" text-anchor="end" fill="#626873" font-size="10" font-family="ui-monospace,Menlo,monospace">{lab}</text>'
+            grid += f'<line x1="{L}" x2="{W-R}" y1="{y(v):.1f}" y2="{y(v):.1f}" stroke="rgba(255,255,255,.08)" stroke-dasharray="{"0" if v == 0 else "3 4"}"/>'
+            grid += f'<text x="{L-6}" y="{y(v)+4:.1f}" text-anchor="end" fill="#5e636c" font-size="10" font-family="JetBrains Mono,ui-monospace,Menlo,monospace">{lab}</text>'
     return f"""<svg viewBox="0 0 {W} {H}" role="img" aria-label="Illustration: an account balance rising while its trailing loss floor follows it up and then locks at the starting balance">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4af6a" stop-opacity=".28"/><stop offset="1" stop-color="#d4af6a" stop-opacity="0"/></linearGradient></defs>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9b46c" stop-opacity=".28"/><stop offset="1" stop-color="#d9b46c" stop-opacity="0"/></linearGradient></defs>
   {grid}
   <path d="{area}" fill="url(#g)"/>
   <path d="{path(pts_f)}" fill="none" stroke="#e07a6c" stroke-width="2" stroke-linejoin="round"/>
-  <path d="{path(pts_b)}" fill="none" stroke="#d4af6a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle cx="{x(days):.1f}" cy="{y(pts_b[-1][1]):.1f}" r="4" fill="#f3dcaa"/>
+  <path d="{path(pts_b)}" fill="none" stroke="#d9b46c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="{x(days):.1f}" cy="{y(pts_b[-1][1]):.1f}" r="4" fill="#f3deb0"/>
 </svg>"""
+
+
+# ───────────────────────── Hero chart ─────────────────────────
+def desk_chart():
+    """Illustrative 5-minute session: an opening range, a false break lower, the breakout and a retest.
+    Deterministic, drawn with CSS classes so it follows the light/dark theme."""
+    rnd = random.Random(7)
+    # target closes for each bar: range, sweep below, breakout, retest of range high, continuation
+    path = ([101.6, 102.8, 101.2, 103.4, 102.1, 103.0] + [101.0, 99.9, 100.6, 102.4, 103.6, 104.9, 106.2, 105.4,
+            107.1, 108.3, 107.0, 105.6, 104.7, 105.3, 106.6, 108.0, 109.2, 108.6, 110.1, 111.4, 110.7, 112.0,
+            112.9, 112.2, 113.6, 114.1, 113.2, 114.6])
+    bars, prev = [], 102.2
+    for c in path:
+        c += rnd.uniform(-.25, .25)
+        o = prev + rnd.uniform(-.3, .3)
+        hi = max(o, c) + rnd.uniform(.2, .9)
+        lo = min(o, c) - rnd.uniform(.2, .9)
+        bars.append((o, hi, lo, c)); prev = c
+    n = len(bars)
+    W, H, L, R, T, B = 560, 236, 4, 58, 10, 18
+    lo_p, hi_p = 98.0, 116.0
+    bw = (W - L - R) / n
+    x = lambda i: L + (i + .5) * bw
+    y = lambda v: T + (hi_p - v) / (hi_p - lo_p) * (H - T - B)
+    out = []
+    last = bars[-1][3]
+    for v in range(98, 117, 3):
+        if abs(y(v) - y(last)) < 13: 
+            out.append(f'<line class="ch-grid" x1="{L}" x2="{W-R+6}" y1="{y(v):.1f}" y2="{y(v):.1f}"/>'); continue
+        out.append(f'<line class="ch-grid" x1="{L}" x2="{W-R+6}" y1="{y(v):.1f}" y2="{y(v):.1f}"/>'
+                   f'<text class="ch-axis" x="{W-R+12}" y="{y(v)+3:.1f}">{2380+v*1.0:.1f}</text>')
+    for i in range(0, n, 6):
+        out.append(f'<line class="ch-grid" x1="{x(i):.1f}" x2="{x(i):.1f}" y1="{T}" y2="{H-B}"/>')
+    t0 = 9 * 60 + 30
+    for i in range(0, n, 6):
+        m = t0 + i * 5
+        out.append(f'<text class="ch-axis" x="{x(i):.1f}" y="{H-4}" text-anchor="middle">{m//60:02d}:{m%60:02d}</text>')
+    orh = max(b[1] for b in bars[:6]); orl = min(b[2] for b in bars[:6])
+    out.append(f'<rect class="ch-or" x="{L}" y="{y(orh):.1f}" width="{x(5)+bw/2-L:.1f}" height="{y(orl)-y(orh):.1f}"/>')
+    for v, lab in [(orh, "OR HIGH"), (orl, "OR LOW")]:
+        out.append(f'<line class="ch-orl" x1="{L}" x2="{W-R+6}" y1="{y(v):.1f}" y2="{y(v):.1f}"/>'
+                   f'<text class="ch-orlab" x="{W-R-2}" text-anchor="end" y="{y(v)-5 if lab == "OR HIGH" else y(v)+12:.1f}">{lab}</text>')
+    # session average line
+    acc, vw = 0, []
+    for i, (o, h, l, c) in enumerate(bars):
+        acc += (h + l + c) / 3; vw.append((i, acc / (i + 1)))
+    out.append('<path class="ch-vw" d="' + " ".join(("M" if i == 0 else "L") + f"{x(i):.1f},{y(v):.1f}" for i, v in vw) + '"/>')
+    for i, (o, h, l, c) in enumerate(bars):
+        up = c >= o
+        k = "up" if up else "dn"
+        top, bot = y(max(o, c)), y(min(o, c))
+        out.append(f'<line class="ch-wick-{k}" x1="{x(i):.1f}" x2="{x(i):.1f}" y1="{y(h):.1f}" y2="{y(l):.1f}"/>'
+                   f'<rect class="ch-{k}" x="{x(i)-bw*.32:.1f}" y="{top:.1f}" width="{bw*.64:.1f}" height="{max(bot-top, 1):.1f}"/>')
+    last = bars[-1][3]
+    out.append(f'<line class="ch-lastl" x1="{x(n-1):.1f}" x2="{W-R+6}" y1="{y(last):.1f}" y2="{y(last):.1f}"/>'
+               f'<rect class="ch-last" x="{W-R+6}" y="{y(last)-8:.1f}" width="{R-4}" height="16" rx="2"/>'
+               f'<text class="ch-lastt" x="{W-R+12}" y="{y(last)+3.5:.1f}">{2380+last:.1f}</text>')
+    return (f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="Illustration: a five-minute futures chart with an opening range, '
+            f'a false break below it, a breakout above and a retest">' + "".join(out) + "</svg>")
 
 
 # ───────────────────────── Pages ─────────────────────────
@@ -168,7 +257,7 @@ TOOLS = [
      "Thousands of simulated evaluation attempts with your numbers and a firm's rules: trailing max loss, daily limit, best-day consistency and minimum days.",
      ["Pass and fail odds by contract size", "Median days to pass", "Why attempts fail", "TradingView CSV import"]),
     ("/tools/payout/", "coins", "Payout Simulator",
-     "Models the funded account after you pass: winning-day rules, buffers, splits and caps, so you know how long a first payout really takes.",
+     "Models the funded account after you pass: winning-day rules, buffers, splits and caps, so you know how long a first payout takes.",
      ["Odds of reaching a first payout", "Days to payout and to the cap", "Compare firm-style rule sets", "Portfolio of strategies"]),
     ("/tools/sizing/", "scale", "Contract Sizing",
      "Finds the contract size that keeps a trailing max loss safe, scales it as your buffer grows, and stress-tests the ladder eight ways.",
@@ -214,32 +303,79 @@ def home():
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="eyebrow">Tools &amp; research for futures traders</span>
+      <span class="eyebrow">Independent futures research desk</span>
       <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
-      <p class="lede">Free simulators built by a working futures trader. Model your prop-firm evaluation, plan your payouts and size your contracts before you risk a dollar.</p>
+      <p class="lede">Free tools to plan risk, guides to the rules that move accounts, and an open record of how trading ideas get tested. Built by a working futures trader.</p>
       <div class="hero-actions">
-        <a class="btn primary" href="/tools/">Open the free tools</a>
-        <a class="btn" href="/guides/">Read the guides</a>
+        <a class="btn primary" href="/tools/">Explore the tools</a>
+        <a class="btn" href="/research/">See the research</a>
       </div>
-      <p class="muted small">No sign-up. Runs in your browser. Your trade files never leave your device.</p>
+      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Built by</dt><dd>A working trader</dd></div><div><dt>Signals</dt><dd>None</dd></div></dl>
     </div>
-    <div class="viz reveal" aria-hidden="false">
-      <div class="viz-top"><span><b>Trailing max loss</b> · end of day</span><span>Illustration</span></div>
-      {hero_svg()}
-      <div class="viz-legend"><span style="--c:#d4af6a">Account balance</span><span style="--c:#e07a6c">Loss floor (trails, then locks)</span></div>
+    <div class="hero-visual">
+    <div class="moon-stage" aria-hidden="true">
+      <svg class="orbit-lines back" viewBox="0 0 540 540"><g mask="url(#orb-back)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-back"><rect width="540" height="270" fill="#fff"/></mask></defs></svg>
+      <img class="big-moon" src="/assets/moon.webp" alt="" width="1024" height="1024" decoding="async" fetchpriority="high">
+      <svg class="orbit-lines front" viewBox="0 0 540 540"><g mask="url(#orb-front)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-front"><rect y="270" width="540" height="270" fill="#fff"/></mask></defs></svg>
+      <span class="rider r1 cdl up" style="--d:0"></span>
+      <span class="rider r1 tk" style="--d:-33.3"><b>MGC</b></span>
+      <span class="rider r1 tk" style="--d:-66.6"><b>MNQ</b></span>
+      <span class="rider r2 cdl dn" style="--d:-16"></span>
+      <span class="rider r2 tk" style="--d:-50"><b>MES</b></span>
+      <span class="rider r2 tk" style="--d:-83"><b>MYM</b></span>
+    </div>
+    <div class="term reveal">
+      <div class="term-bar"><span><b>The desk</b></span><span class="term-tag">Free · no sign-up</span></div>
+      <div class="desk">
+      <a class="desk-row" href="/tools/"><span class="desk-ico">{ICONS['target']}</span><span class="desk-name">Tools<small>Risk, sizing and planning simulators</small></span><span class="desk-state live">3 live</span></a>
+      <a class="desk-row" href="/guides/"><span class="desk-ico">{ICONS['book']}</span><span class="desk-name">Guides<small>The rules behind the numbers</small></span><span class="desk-state live">3 published</span></a>
+      <a class="desk-row" href="/research/"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state live">{len(research.FAMILIES)} families</span></a>
+      <a class="desk-row" href="/pine/"><span class="desk-ico">{ICONS['code']}</span><span class="desk-name">Pine Script<small>Tested TradingView strategy work</small></span><span class="desk-state">Soon</span></a>
+      </div>
+    </div>
     </div>
   </div>
 </section>
 
-<section class="band" id="tools">
+<div class="specbar"><div class="wrap"><dl>
+  <div><dt>Markets</dt><dd>MGC MES MNQ MYM <span>+6</span></dd></div>
+  <div><dt>Sessions</dt><dd>Asia · London · New York</dd></div>
+  <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> 0 passed</dd></div>
+  <div><dt>Tools</dt><dd>3 simulators <span>·</span> in-browser</dd></div>
+</dl></div></div>
+
+<section class="band" id="desk">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Free tools</span>
-      <h2>Know your odds before the firm does.</h2>
-      <p class="lede">Each tool runs thousands of Monte Carlo attempts on your own numbers or your TradingView trade list, under the rules you choose.</p>
+      <span class="eyebrow">Inside the desk</span>
+      <h2>Everything here serves <span class="gold">one process.</span></h2>
+      <p class="lede">Plan before the session, size to what the account can take, and review what happened. Each part of Badr Edge supports one of those steps.</p>
     </div>
-    <div class="grid-3">
-      {tool_cards()}
+    <div class="grid-2 doors">
+      <a class="card reveal" href="/tools/">
+        <div class="icon">{ICONS['target']}</div><span class="tagline">Live</span>
+        <h3>Tools</h3>
+        <p>Free simulators for risk, position size and account planning. Put in your own numbers or a TradingView trade list and see the range of outcomes.</p>
+        <span class="go">Explore the tools &rarr;</span>
+      </a>
+      <a class="card reveal" href="/guides/">
+        <div class="icon">{ICONS['book']}</div><span class="tagline">Live</span>
+        <h3>Guides</h3>
+        <p>Clear breakdowns of drawdown, sizing and the maths of an attempt, with worked numbers and a tool to test each idea.</p>
+        <span class="go">Read the guides &rarr;</span>
+      </a>
+      <a class="card reveal" href="/research/">
+        <div class="icon">{ICONS['shield']}</div><span class="tagline">Live</span>
+        <h3>Research</h3>
+        <p>A public log of how trading ideas are built, frozen and stress-tested before they're trusted, including the ones that failed.</p>
+        <span class="go">Open the research &rarr;</span>
+      </a>
+      <a class="card reveal" href="/pine/">
+        <div class="icon">{ICONS['code']}</div><span class="tagline">Soon</span>
+        <h3>Pine Script</h3>
+        <p>How TradingView strategies get written in Pine Script v6 and validated with realistic costs and out-of-sample tests.</p>
+        <span class="go">Opening soon &rarr;</span>
+      </a>
     </div>
   </div>
 </section>
@@ -248,12 +384,12 @@ def home():
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">The process</span>
-      <h2>Plan, size, review. Every account.</h2>
+      <h2>Plan, size, review. <span class="gold">Every session.</span></h2>
     </div>
     <div class="steps">
-      <div class="step reveal"><h3>Plan the attempt</h3><p>Put your real win rate, average win and average loss into the pass simulator. See how often that edge clears the target before the max loss, and how long it takes.</p></div>
-      <div class="step reveal"><h3>Size to the buffer</h3><p>Start at the size the account can survive, not the size you hope for. Add contracts only as the gap between your balance and the floor grows.</p></div>
-      <div class="step reveal"><h3>Review the evidence</h3><p>Import your trade list after each week. Check if the edge still looks like the one you planned with, and stress it with worse fills and smaller winners.</p></div>
+      <div class="step reveal"><h3>Plan the risk</h3><p>Decide what a bad day costs before the session starts. Know your loss limit, your stop and the point where you walk away.</p></div>
+      <div class="step reveal"><h3>Size to the account</h3><p>Trade the size the account can survive, not the size you hope for. Add size only when the cushion has grown to carry it.</p></div>
+      <div class="step reveal"><h3>Review the evidence</h3><p>Look at what you did, not what you remember. Check if your edge still looks like the one you planned with.</p></div>
     </div>
   </div>
 </section>
@@ -262,11 +398,11 @@ def home():
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Principles</span>
-      <h2>What Badr Edge is, and what it isn't.</h2>
+      <h2>What Badr Edge is, <span class="gold">and what it isn't.</span></h2>
     </div>
     <div class="principles">
       <div class="principle reveal"><b>No signals</b><span>You won't find trade calls or alerts here. You make your own decisions.</span></div>
-      <div class="principle reveal"><b>No promised returns</b><span>No win rates, no screenshots of profits, no "guaranteed funded" claims.</span></div>
+      <div class="principle reveal"><b>No promised returns</b><span>No win rates, no screenshots of profits, no "guaranteed" anything.</span></div>
       <div class="principle reveal"><b>Tools over talk</b><span>Every idea comes with a way to test it on your own numbers.</span></div>
       <div class="principle reveal"><b>Private by design</b><span>The tools run in your browser. Nothing you load is uploaded.</span></div>
     </div>
@@ -276,9 +412,9 @@ def home():
 <section>
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Guides</span>
-      <h2>The rules that end most accounts, explained.</h2>
-      <p class="lede">Plain-English breakdowns with worked numbers. Each one links to the tool that lets you test it.</p>
+      <span class="eyebrow">Latest guides</span>
+      <h2>Start with the rules <span class="gold">that end accounts.</span></h2>
+      <p class="lede">Worked numbers, no jargon. Each guide links to a tool so you can test the idea yourself.</p>
     </div>
     <div class="grid-3">
       {guide_cards()}
@@ -287,30 +423,14 @@ def home():
 </section>
 
 <section class="band">
-  <div class="wrap split">
-    <div class="sec-head" style="margin:0">
-      <span class="eyebrow">Pine Script</span>
-      <h2>Strategies that are tested, not just coded.</h2>
-      <p class="lede">I write and validate TradingView strategies in Pine Script v6 for my own research: clean code, realistic costs, and tests that try to break the idea before the market does.</p>
-      <ul class="checklist" style="margin-top:8px">
-        <li><span><b>v6 code</b> with clear inputs, sessions and risk settings</span></li>
-        <li><span><b>Realistic costs:</b> commission and slippage on every test</span></li>
-        <li><span><b>Stress tests:</b> worse fills, smaller winners, unseen months</span></li>
-      </ul>
-      <div class="hero-actions"><a class="btn" href="/pine/">How I build and test</a></div>
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Research</span><h2>Most strategies fail. Here's the record.</h2>
+      <p class="lede">A public log of a futures research desk: the method, every strategy family tested, results after costs, and why each one was closed. No strategy has passed final validation.</p></div>
+    <div class="grid-3">
+      <a class="card reveal" href="/research/method/"><div class="icon">{ICONS['scale']}</div><h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
+      <a class="card reveal" href="/research/backtested/"><div class="icon">{ICONS['shield']}</div><h3>Backtested strategies</h3><p>Opening ranges, FVGs, pivots, momentum and more. One page each, with the verdict.</p><span class="go">See the backtests</span></a>
+      <a class="card reveal" href="/research/lessons/"><div class="icon">{ICONS['book']}</div><h3>Lessons</h3><p>Why in-sample results fool you, and why costs beat most retail setups.</p><span class="go">Read the lessons</span></a>
     </div>
-    <div class="code reveal" aria-label="Example Pine Script snippet"><span class="c">//@version=6</span>
-<span class="k">strategy</span>(<span class="s">"Session breakout · example"</span>, overlay = <span class="n">true</span>,
-     commission_type = strategy.commission.cash_per_contract,
-     commission_value = <span class="n">0.70</span>, slippage = <span class="n">1</span>)
-
-<span class="c">// Inputs keep the logic honest and testable</span>
-sess   = <span class="k">input.session</span>(<span class="s">"0930-1000"</span>, <span class="s">"Opening range"</span>)
-riskPts = <span class="k">input.float</span>(<span class="n">6.0</span>, <span class="s">"Stop (points)"</span>)
-rr      = <span class="k">input.float</span>(<span class="n">1.5</span>, <span class="s">"Reward : risk"</span>)
-
-inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.period, sess))
-<span class="c">// ... range tracking, one trade per day, exits at the bell</span></div>
   </div>
 </section>
 
@@ -318,26 +438,26 @@ inRange = <span class="k">not na</span>(<span class="k">time</span>(timeframe.pe
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions traders ask</h2></div>
     <div class="faq">
-      <details><summary>Are the tools really free?</summary><p>Yes. There's no account, no paywall and no trial. They're the same tools I use to plan my own accounts.</p></details>
-      <details><summary>Is my trade data uploaded anywhere?</summary><p>No. The simulators run entirely in your browser. CSV and Excel files are read on your device, and settings are saved only in your own browser's storage.</p></details>
-      <details><summary>Which prop firms do the presets cover?</summary><p>The presets approximate common rule styles (trailing end-of-day, intraday trailing, best-day consistency, buffers and caps). Firms change their rules often, so every value is editable. Check your firm's current rules before relying on any result.</p></details>
-      <details><summary>Can a simulator tell me if I'll pass?</summary><p>No tool can. A simulation shows how your stated edge behaves under a set of rules if the future looks like the inputs. It's a planning aid that helps you avoid sizes and rule sets that are likely to fail.</p></details>
-      <details><summary>Do you sell signals, courses or strategies?</summary><p>No signals and no courses. Pine Script work is described on the <a href="/pine/" style="color:var(--gold)">Pine Script page</a>.</p></details>
+      <details><summary>What is Badr Edge?</summary><p>The public side of a working futures trader's desk: the tools, guides and testing habits used to plan and review trading, shared for free. It isn't a signal service, a course or a fund.</p></details>
+      <details><summary>Is it free?</summary><p>Yes. The tools and guides need no account, no paywall and no trial.</p></details>
+      <details><summary>Is my data uploaded anywhere?</summary><p>No. The tools run in your browser. Files you load are read on your device, and settings are saved only in your own browser's storage.</p></details>
+      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Pine Script work is described on the <a href="/pine/" >Pine Script page</a>.</p></details>
+      <details><summary>Is any of this financial advice?</summary><p>No. Everything here is educational. Simulations are hypothetical and rely on the inputs you give them. Your trading decisions are your own.</p></details>
     </div>
   </div>
 </section>
 
-<section class="band cta-band">
+<section class="cta-band">
   <div class="wrap">
     <span class="eyebrow">Start here</span>
-    <h2>Run your numbers in under a minute.</h2>
-    <p class="lede">Enter your win rate, average win and average loss. Pick a rule set. See your odds.</p>
-    <a class="btn primary" href="/tools/pass/">Open the Prop Pass Simulator</a>
+    <h2>Start where <span class="gold">you are.</span></h2>
+    <p class="lede">Have numbers to test? Open a tool. Want the reasoning first? Read a guide.</p>
+    <div class="hero-actions" style="justify-content:center"><a class="btn primary" href="/tools/">Explore the tools</a><a class="btn" href="/guides/">Read the guides</a></div>
   </div>
 </section>
 """
     return page("/", "Badr Edge",
-                "Free prop-firm simulators and plain-English guides for futures traders: pass odds, payouts and contract sizing under trailing drawdown rules.",
+                "Badr Edge: a working futures trader's desk, opened up. Free risk tools, guides and research on how trading ideas get tested.",
                 "/", body)
 
 
@@ -352,7 +472,7 @@ def tools_index():
   <div class="grid-3">
     {tool_cards()}
   </div>
-  <div class="callout" style="margin-top:32px;max-width:820px"><p><strong>How to get the most out of them:</strong> export your strategy's "List of trades" from the TradingView Strategy Tester and load the CSV. Real trades with real dates keep losing streaks and bad weeks intact, which is where most accounts fail.</p></div>
+  <div class="callout" style="margin-top:32px;max-width:820px"><p><strong>Tip:</strong> export your strategy's "List of trades" from the TradingView Strategy Tester and load the CSV. Real trades with real dates keep losing streaks and bad weeks intact, which is where most accounts fail.</p></div>
 </div></section>
 """
     return page("/tools/", "Free tools", "Free Monte Carlo simulators for prop futures traders: pass odds, payout timing and contract sizing.", "/tools/", body)
@@ -363,13 +483,13 @@ def guides_index():
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Guides</span>
   <h1>Learn the rules that decide the account</h1>
-  <p class="lede">Worked examples, no jargon. Each guide ends with a tool so you can test the idea on your own numbers.</p>
+  <p class="lede">Worked examples. Each guide ends with a tool to test the idea on your own numbers.</p>
 </div></section>
 <section style="padding-top:24px"><div class="wrap"><div class="grid-3">
   {guide_cards()}
 </div></div></section>
 """
-    return page("/guides/", "Guides", "Plain-English guides to trailing drawdown, prop evaluation math and contract sizing for futures traders.", "/guides/", body)
+    return page("/guides/", "Guides", "Guides to trailing drawdown, prop evaluation math and contract sizing for futures traders, with worked numbers.", "/guides/", body)
 
 
 def article(path, title, desc, minutes, body_html, tool_href, tool_name):
@@ -378,7 +498,7 @@ def article(path, title, desc, minutes, body_html, tool_href, tool_name):
   <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
   <h1>{title}</h1>
   <p class="lede">{desc}</p>
-  <p class="meta">{minutes} · Updated {UPDATED}</p>
+  <p class="meta">{minutes}</p>
 </div></header>
 <article class="prose">
 {body_html}
@@ -390,7 +510,7 @@ def article(path, title, desc, minutes, body_html, tool_href, tool_name):
 
 
 ARTICLE_DD = """
-<p>The profit target gets all the attention, but the <strong>maximum loss limit</strong> is the rule that ends most prop accounts. On most futures evaluations it doesn't sit still. It <em>trails</em> your balance upward. Understanding exactly when it moves is the difference between a pullback and a closed account.</p>
+<p>The profit target gets all the attention, but the <strong>maximum loss limit</strong> is the rule that ends most prop accounts. On most futures evaluations it doesn't sit still. It <em>trails</em> your balance upward. Knowing when it moves is the difference between a pullback and a closed account.</p>
 
 <h2>The three types</h2>
 <h3>1. Static</h3>
@@ -439,7 +559,7 @@ ARTICLE_MATH = """
 
 <h2>Start with the ratio</h2>
 <p>A typical evaluation might ask for a <strong>$3,000 target with a $2,000 max loss</strong>. That's a 1.5 : 1 race: you need to make one and a half times what you're allowed to lose, and the loss limit usually trails behind you.</p>
-<p>If your edge were a coin flip with equal wins and losses, a race to +3 before −2 would succeed only about 40% of the time. You need a real edge just to get to even odds.</p>
+<p>If your edge were a coin flip with equal wins and losses, a race to +3 before −2 would succeed only about 40% of the time. You need a real edge to reach even odds.</p>
 
 <h2>Translate dollars into trades</h2>
 <p>Suppose your strategy wins 50% of the time, with an average win of $180 and an average loss of $120 per contract after costs.</p>
@@ -465,7 +585,7 @@ ARTICLE_MATH = """
 <div class="callout"><p>Rule of thumb: size so that your <strong>worst realistic losing streak</strong> costs no more than about half of your cushion. The other half absorbs slippage, a bad day and the trailing floor moving up.</p></div>
 
 <h2>The hidden rules</h2>
-<p>Consistency rules (no single day can be more than a set percentage of total profit) and minimum trading days both stretch the attempt. A big winning day can actually delay a pass because you need more profit on other days to dilute it. Model these rules, don't hope around them.</p>
+<p>Consistency rules (no single day can be more than a set percentage of total profit) and minimum trading days both stretch the attempt. A big winning day can delay a pass, because you need more profit on other days to dilute it. Model these rules, don't hope around them.</p>
 
 <h2>What to do with this</h2>
 <ol>
@@ -528,16 +648,16 @@ def pine():
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Pine Script</span>
   <h1>Built in v6. Tested until it breaks.</h1>
-  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and what I can help other traders with.</p>
+  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and where I can help.</p>
 </div></section>
 
 <section style="padding-top:24px"><div class="wrap">
   <div class="grid-3">
     <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Fixes and clean-ups</h3><p>Repainting, wrong session times, orders that don't fire, inputs that do nothing. Find the bug, fix it, and explain what was wrong.</p></div>
     <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Upgrades to v6</h3><p>Move older scripts to Pine v6 with the same logic, cleaner inputs and fewer surprises, checked trade by trade against the original.</p></div>
-    <div class="card reveal"><div class="icon">""" + ICONS["shield"] + """</div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, written up in plain English.</p></div>
+    <div class="card reveal"><div class="icon">""" + ICONS["shield"] + """</div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, in one written report.</p></div>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. For now this page explains the approach. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
+  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
 </div></section>
 
 <section class="band"><div class="wrap split">
@@ -584,49 +704,56 @@ def pine():
 
 
 def about():
-    body = """
-<section class="page-head"><div class="wrap" style="max-width:820px">
+    payouts = (f", with more than {PAYOUT_FIGURE.rstrip('+')} in payouts from four firms" if SHOW_PAYOUT_FIGURE else "")
+    body = f"""
+<section class="page-head"><div class="wrap">
   <span class="eyebrow">About</span>
-  <h1>Badr means <span class="gold">full moon.</span></h1>
-  <p class="lede">In Arabic, badr is the moon at its fullest: the night you can see the whole picture. That's the idea behind this site. See the full risk picture before you place the trade.</p>
+  <h1>Built from real trading. <span class="gold">Refined through research.</span></h1>
+  <p class="lede">Badr Edge is an independent futures research desk, built on more than three years of active trading and shaped by data, testing and disciplined execution.</p>
 </div></section>
 
-<article class="prose" style="max-width:820px">
-  <h2>Who's behind it</h2>
-  <p>I'm a futures trader. I trade gold and US index futures, mostly micro contracts, through prop-firm accounts, using a discretionary price-action process I've refined over the past two years. Alongside that I build and test systematic strategies in Pine Script.</p>
-  <p>Every tool on this site started as something I built for my own accounts: to decide how many contracts to trade, how long an evaluation is likely to take, and when a payout is realistic. They were useful enough that I decided to make them public and free.</p>
 
-  <h2>The record behind the tools</h2>
-  <p>You won't find P&amp;L screenshots here. What I can show is that the process has been checked by the people with the most reason to doubt it: the firms that pay out on it.</p>
+<article class="prose" style="max-width:820px;padding-top:56px;padding-bottom:0">
+  <h2>Experience</h2>
+  <p>I've traded futures actively for more than three years, mostly through prop firms{payouts}. That has meant passing evaluations, trading funded accounts under each firm's drawdown rules and moving up to the live funded stage at three firms, with the work now progressing toward live trading at size. Alongside the prop accounts, I trade personal CFD brokerage accounts.</p>
+  <p>Execution is a discretionary candlestick price-action process, built over two years and traded mostly in gold and US index futures across the Asia, London and New York sessions.</p>
+
+  <h2>The record</h2>
+  <p>No P&amp;L screenshots here. What I can show is that the process has been checked by the people with the most reason to doubt it: the firms that pay out on it.</p>
   <div class="record">
     <div class="record-cell"><span class="record-k">Live-funded</span><b>3 firms</b><span>Promoted to live accounts at MyFundedFutures, Lucid and Topstep in 2026.</span></div>
     <div class="record-cell"><span class="record-k">Payouts received</span><b>4 firms</b><span>Topstep, Lucid, Take Profit Trader and MyFundedFutures, since 2025.</span></div>
     <div class="record-cell"><span class="record-k">Evaluations passed</span><b>6 firms</b><span>The four above, plus FundedNext and Tradeify.</span></div>
     <div class="record-cell"><span class="record-k">Verification</span><b>Originals on file</b><span>Firm-issued certificates, with personal and account details removed.</span></div>
   </div>
-  <p class="record-note">Prop-firm payouts are paid under each firm's own rules, often from simulated accounts. They are not investment returns, they are not an offer, and they don't predict anyone's future results, including mine.</p>
+  <p class="note">Prop-firm payouts are paid under each firm's own rules, often from simulated accounts. They are not investment returns, they are not an offer, and they don't predict anyone's future results, including mine.</p>
 
+  <h2>Focus</h2>
+</article>
+<section style="padding:20px 0 0"><div class="wrap" style="max-width:820px">
+  <div class="focus">
+    <div><b data-n="01">Futures trading</b><span>Gold and index micros, session by session.</span></div>
+    <div><b data-n="02">Strategy research</b><span>Systematic ideas, written as rules before they are tested.</span></div>
+    <div><b data-n="03">Quantitative analysis</b><span>Random-direction nulls, unseen years, many-tests corrections.</span></div>
+    <div><b data-n="04">Backtesting</b><span>Pine Script v6, checked trade by trade against an independent replica.</span></div>
+    <div><b data-n="05">Risk management</b><span>Size to the drawdown the account can survive, not the target.</span></div>
+    <div><b data-n="06">Execution</b><span>Costs, slippage and fills treated as part of the strategy.</span></div>
+  </div>
+</div></section>
+<article class="prose" style="max-width:820px;padding-top:32px">
   <h2>Why it exists</h2>
-  <p>The prop-firm world is loud. Most of what traders see is screenshots of wins, promises of fast funding and strategies sold with perfect backtests. Very little of it helps you answer the boring questions that actually decide whether an account survives:</p>
-  <ul>
-    <li>How big is my real cushion today?</li>
-    <li>How many losses in a row can this size survive?</li>
-    <li>Does my edge still look like the edge I planned with?</li>
-  </ul>
-  <p>Badr Edge exists to answer those questions with tools and evidence, not hype.</p>
+  <p>The prop-firm world is loud: screenshots of wins, promises of fast funding, strategies sold on perfect backtests. Little of it answers the questions that decide whether an account survives. How big is my real cushion today? How many losses in a row can this size take? Does my edge still look like the one I planned with?</p>
+  <p>Every tool here started as something I built for my own accounts. The research is published in full, including the failures, which are most of it.</p>
 
-  <h2>What you can expect</h2>
-  <ul>
-    <li><strong>Free tools</strong> that run in your browser and keep your data on your device.</li>
-    <li><strong>Plain-English guides</strong> with worked numbers.</li>
-    <li><strong>Honesty about limits.</strong> Simulations depend on their inputs, and past results don't predict future ones.</li>
-  </ul>
+  <h2>The name</h2>
+  <p>Badr is Arabic for the full moon: the night you can see the whole picture. The edge is the process, not a promise of results.</p>
 
   <h2>Get in touch</h2>
-  <p>Feedback, bug reports and tool ideas are welcome: <a href="mailto:hello@badredge.com">hello@badredge.com</a>.</p>
+  <p>Feedback, bug reports and tool ideas: <a href="mailto:hello@badredge.com">hello@badredge.com</a>.</p>
+  <p class="note">Past payouts and trading results do not predict future results. Badr Edge does not manage money, offer signals or give investment advice. See the <a href="/legal/disclaimer/">disclaimer</a>.</p>
 </article>
 """
-    return page("/about/", "About", "About Badr Edge: free risk tools and guides for futures traders, built by a working trader.", "/about/", body)
+    return page("/about/", "About", "About Badr Edge: an independent futures research desk built on more than three years of active trading, mostly through prop firms.", "/about/", body)
 
 
 def legal_disclaimer():
@@ -698,12 +825,23 @@ def statics(paths):
     sm += "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
     sm += "</urlset>\n"
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
+    # Old /research/graveyard/ URLs: server-side 301s, plus stub pages in case _redirects is not applied.
+    open(os.path.join(ROOT, "_redirects"), "w").write(
+        "/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n")
+    for sub in [""] + [f["slug"] + "/" for f in research.FAMILIES]:
+        new = f"/research/backtested/{sub}"
+        d = os.path.join(ROOT, "research", "graveyard", sub)
+        os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, "index.html"), "w").write(
+            f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{SITE}{new}">'
+            f'<meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={new}"><a href="{new}">This page has moved.</a>\n')
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(
         "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.36' r='.7'>"
-        "<stop offset='0' stop-color='#f3dcaa'/><stop offset='.55' stop-color='#d4af6a'/><stop offset='1' stop-color='#9b7a3e'/></radialGradient></defs>"
-        "<rect width='64' height='64' rx='14' fill='#0b0d10'/><circle cx='32' cy='32' r='17' fill='url(#m)'/></svg>\n")
+        "<stop offset='0' stop-color='#f1dcae'/><stop offset='.55' stop-color='#c8a15c'/><stop offset='1' stop-color='#8a6a32'/></radialGradient></defs>"
+        "<rect width='64' height='64' rx='12' fill='#0b0d10'/><circle cx='32' cy='32' r='18' fill='url(#m)'/>"
+        "<circle cx='38' cy='37' r='3' fill='#6e5226' opacity='.35'/><circle cx='27' cy='40' r='2' fill='#6e5226' opacity='.28'/><circle cx='39' cy='25' r='1.8' fill='#6e5226' opacity='.25'/></svg>\n")
 
 
 if __name__ == "__main__":
@@ -713,7 +851,7 @@ if __name__ == "__main__":
         article("/guides/prop-evaluation-math/", "The math of passing a prop evaluation", GUIDES[1][2], GUIDES[1][3], ARTICLE_MATH, "/tools/pass/", "Prop Pass Simulator"),
         article("/guides/contract-sizing/", "Sizing contracts against a trailing max loss", GUIDES[2][2], GUIDES[2][3], ARTICLE_SIZE, "/tools/sizing/", "Contract Sizing tool"),
         pine(), about(), legal_disclaimer(), legal_privacy(),
-    ]
+    ] + research.build_all(page, ICONS)
     not_found()
     statics(built)
     print("built", len(built), "pages")

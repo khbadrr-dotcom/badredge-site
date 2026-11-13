@@ -1,0 +1,3 @@
+/research/graveyard /research/backtested/ 301
+/research/graveyard/ /research/backtested/ 301
+/research/graveyard/* /research/backtested/:splat 301

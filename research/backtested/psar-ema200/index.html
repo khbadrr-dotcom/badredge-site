@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
+<title>Parabolic SAR with 200 EMA · Badr Edge</title>
+<meta name="description" content="Parabolic SAR with 200 EMA: what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
+<meta name="theme-color" content="#07080a">
+<link rel="canonical" href="https://badredge.com/research/backtested/psar-ema200/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:title" content="Parabolic SAR with 200 EMA · Badr Edge">
+<meta property="og:description" content="Parabolic SAR with 200 EMA: what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
+<meta property="og:url" content="https://badredge.com/research/backtested/psar-ema200/">
+<meta property="og:image" content="https://badredge.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/theme.js" defer></script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span class="wm">Badr <span class="word-2">Edge</span></span></a>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/tools/">Tools</a><a href="/guides/">Guides</a><a href="/research/" aria-current="page">Research</a><a href="/pine/">Pine Script</a><a href="/about/">About</a><a class="cta" href="/tools/">Open the tools</a></nav>
+    <div class="head-actions"><button class="theme-btn" type="button" aria-label="Switch theme" title="Switch theme"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button><button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
+  </div>
+</header>
+<main>
+
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
+  <div><span class="status st-exp">Exploratory · needs forward testing</span></div>
+  <h1>Parabolic SAR with 200 EMA</h1>
+  <p class="lede">Take Parabolic SAR flips only in the direction of the 200 EMA, with volume above average.</p>
+  <p class="meta">Markets: MGC, SIL, PL, MHG, M2K<br>Scope: 5m to 60m · volume and delta filters · frozen test on MGC 30m</p>
+</div></header>
+<article class="prose rs">
+  <h2>What was tested</h2>
+  <ul><li>Timeframe scan from 5 to 60 minutes and filter tuning on the last 12 months.</li><li>Frozen replay of the gold 30m version on 2021 to 2025.</li></ul>
+  <h2>What happened</h2>
+  <ul>
+<li>Best 12-month picks sat inside the random-direction null (MGC 0.885, SIL 0.495 percentile; 0.95 needed).</li>
+<li>Walk-forward second half was negative or broke the $2,000 drawdown limit in 9 of 15 cases.</li>
+<li>MGC 30m frozen replay: profit factor 0.75, &minus;$8,012.</li>
+</ul>
+  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
+  <h2>Verdict</h2>
+  <div class="callout"><p><span class="status st-exp">Exploratory · needs forward testing</span></p><p>Not validated.</p></div>
+  <h2>Lesson</h2>
+  <p>Classic indicator combinations are already in every chart package. Expect them to be priced in, and test them like anything else.</p>
+  <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/support-resistance-pivots/"><span>Previous</span>Support and resistance with pivots</a><a class="next" href="/research/backtested/ema-vwap-momentum/"><span>Next</span>EMA and VWAP momentum</a></nav>
+  <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span class="wm">Badr <span class="word-2">Edge</span></span></a>
+        <p class="foot-about">An independent futures research desk. Free tools, guides and a public research record.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/research/">Research</a></li>
+        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p><strong>Educational only.</strong> Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; 2026 Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>
