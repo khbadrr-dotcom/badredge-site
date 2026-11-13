@@ -10,7 +10,7 @@ Imported by build.py. Content rules (from Khaled, 2026-11-12):
 RESEARCH_UPDATED = "12 November 2026"
 
 STATUS = {
-    "no-edge": ("Exploratory · needs forward testing", "st-exp"),
+    "no-edge": ("Exploratory · requires forward testing", "st-exp"),
     "exploratory": ("Exploratory", "st-exp"),
     "unsuitable": ("Real effect · currently unsuitable", "st-uns"),
     "observe": ("Under observation", "st-obs"),
@@ -27,7 +27,7 @@ NFA = ("Research notes for education only. Not financial advice, not a recommend
 # Last year's 14 picks (Khaled's write-up, Nov 2026). 1 micro, after fees and slippage, GMT+3 sessions.
 # Last year = 1 Nov 2025 to 21 Oct 2026, the 12 months the settings were chosen on (in-sample).
 # Replay = same frozen settings on Oct 2021 to 21 Oct 2025 (MHG from May 2022).
-SHOW_REPLAY = True
+SHOW_REPLAY = False
 PICKS = [
     # name, market, chart, family slug, trades, win%, pf, net, maxdd, replay net, replay win%, replay pf
     ("MGC ORB Pro Max", "Micro Gold", "5m", "orb-pro-max", 323, 70.6, 2.20, 7403, 714, -4666, 52.4, 0.71),
@@ -48,7 +48,7 @@ PICKS = [
 PICKS_TOTAL = (2773, 75.5, 2.61, 89458, 1549, -31794, 34196)
 PICKS_NOTE = ("Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. "
               "That makes every number here in-sample: the best of a very large search, flattered by that search. "
-              "None of these strategies is validated. Each one needs forward testing before any real-money use.")
+              "None of these strategies is validated. Each one requires forward testing before any real-money use.")
 
 
 def _usd(v):
@@ -98,7 +98,7 @@ FAMILIES = [
 <tr><td>MGC #2 (pre-registered)</td><td>90 trades · 84% WR · +$2,412</td><td>294 trades · 66% WR · &minus;$323</td></tr>
 </tbody></table>
 <p>The in-sample column is the best result out of a very large search on the same data, so it is expected to look good. The added trader filters: 0 of 15 beat a random placebo filter, and all 15 made the base version worse.</p>""",
-        verdict="Not validated: the results sit within what a random search produces. The picked settings sit inside what a random-direction search produces, and both pre-registered frozen tests failed.",
+        verdict="Exploratory, requires forward testing. The results sit within what a random search produces. The picked settings sit inside what a random-direction search produces, and both pre-registered frozen tests failed.",
         lesson="A 70 to 80% win rate on the year you optimised on is the normal output of a big search, not a sign of an edge. Random-direction picks from the same pipeline also showed 77 to 92% win rates.",
     ),
     dict(
@@ -115,7 +115,7 @@ FAMILIES = [
 <tr><td>MYM #1, in-sample 12m</td><td>245 trades · 71% WR · +$2,660</td></tr>
 <tr><td>MYM #1, 2021 to 2025 unseen</td><td>1,064 trades · 64% WR · &minus;$1,812 · DD $2,844</td></tr>
 </tbody></table>""",
-        verdict="Not validated: the results sit within what a random search produces on any of the four markets.",
+        verdict="Exploratory, requires forward testing. The results sit within what a random search produces on any of the four markets.",
         lesson="A walk-forward collapse (large profit on the half you chose from, a loss on the next half) is the fastest way to spot an over-fitted setting.",
     ),
     dict(
@@ -134,7 +134,7 @@ FAMILIES = [
 <tr><td>MCL #1</td><td>151 trades · 83% WR · +$2,645</td><td>601 trades · 66% WR · &minus;$2,193</td></tr>
 </tbody></table>
 <p>PL was the only pick that beat all ten random-direction searches and passed its walk-forward check. It still lost on the four unseen years, so it stays exploratory, not promising.</p>""",
-        verdict="Not validated. Every frozen pick lost money on the unseen years.",
+        verdict="Exploratory, requires forward testing. Every frozen pick lost money on the unseen years.",
         lesson="Even a pick that beats its random-direction null can fail on unseen data when the sample is thin (85 trades). Passing one check is not validation.",
     ),
     dict(
@@ -152,7 +152,7 @@ FAMILIES = [
 <tr><td>MHG #1</td><td>375 trades · 51% WR · +$7,156</td><td>1,320 trades · 41% WR · &minus;$7,693</td></tr>
 </tbody></table>
 <p>Notice the MGC row: a 76% win rate on unseen data, and still a loss. Small targets win often, and the few full-size losses take it all back.</p>""",
-        verdict="Not validated: the results sit within what a random search produces. Two narrow Tokyo/London variants remain exploratory, with too few trades and edges too small to matter after costs.",
+        verdict="Exploratory, requires forward testing. The results sit within what a random search produces. Two narrow Tokyo/London variants remain exploratory, with too few trades and edges too small to matter after costs.",
         lesson="A high win rate is not an edge. What matters is average net profit per trade compared with the round-trip cost.",
     ),
     dict(
@@ -184,7 +184,7 @@ FAMILIES = [
 <li>London Initial Balance fade on MES when MNQ has not broken: 147 trades, about +$5 per contract (+0.08R). The mirror trade was negative. Exploratory.</li>
 <li>New York pre-session MNQ version: 21 trades in-sample and 8 out-of-sample. Far too few to judge.</li>
 </ul>""",
-        verdict="Not validated as a general reversal signal. Two narrow versions are logged as exploratory because the samples are tiny.",
+        verdict="Exploratory as a general reversal signal, requires forward testing. Two narrow versions are logged as exploratory because the samples are tiny.",
         lesson="Divergence feels predictive on a chart because you remember the reversals. Counted over every occurrence, it was no better than a coin flip on direction.",
     ),
     dict(
@@ -201,7 +201,7 @@ FAMILIES = [
 <li>Walk-forward second half was zero or negative on 9 of 10.</li>
 <li>Frozen test: 0 of 10 primaries passed. Average result per trade ranged from &minus;0.23R to +0.03R after costs.</li>
 </ul>""",
-        verdict="Not validated, in this scope.",
+        verdict="Exploratory, requires forward testing, in this scope.",
         lesson="A confluence of two concepts needs a placebo test (fake zones of the same size), not just a test of each part on its own.",
     ),
     dict(
@@ -214,7 +214,7 @@ FAMILIES = [
 <li>Pooled: &minus;0.21R per trade (upper 95% bound &minus;0.15R).</li>
 <li>The same entries with a random direction also lost about &minus;0.22R, so cost and payoff shape decided the result, not the pattern.</li>
 </ul>""",
-        verdict="Not validated, in this scope.",
+        verdict="Exploratory, requires forward testing, in this scope.",
         lesson="If random entries with the same stops and targets lose about the same amount, the pattern is adding nothing.",
     ),
     dict(
@@ -226,7 +226,7 @@ FAMILIES = [
 <li>Before costs, the average result was negative on the real side in 36 of 36 groups, and on the flipped side in 35 of 36.</li>
 <li>No setting survived the random-direction null or walk-forward.</li>
 </ul>""",
-        verdict="Not validated. Formally closed as insufficient evidence on statistical power, with the family closed in this scope.",
+        verdict="Exploratory, requires forward testing. Formally closed as insufficient evidence on statistical power, with the family closed in this scope.",
         lesson="Check the gross result on both directions before any optimisation. If both lose before costs, no filter or exit will rescue it.",
     ),
     dict(
@@ -238,7 +238,7 @@ FAMILIES = [
 <li>Frozen pooled primary (15m bounce at confluence): &minus;0.095R per trade, 95% interval &minus;0.115R to &minus;0.074R, with full statistical power.</li>
 <li>0 of 20 primaries passed after Holm correction.</li>
 </ul>""",
-        verdict="Not validated. Family closed in this scope.",
+        verdict="Exploratory, requires forward testing. Family closed in this scope.",
         lesson="A precise negative result is still a result: this test had enough trades to rule out an edge of the size that would matter.",
     ),
     dict(
@@ -251,7 +251,7 @@ FAMILIES = [
 <li>Walk-forward second half was negative or broke the $2,000 drawdown limit in 9 of 15 cases.</li>
 <li>MGC 30m frozen replay: profit factor 0.75, &minus;$8,012.</li>
 </ul>""",
-        verdict="Not validated.",
+        verdict="Exploratory, requires forward testing.",
         lesson="Classic indicator combinations are already in every chart package. Expect them to be priced in, and test them like anything else.",
     ),
     dict(
@@ -264,7 +264,7 @@ FAMILIES = [
 <li>Frozen test: 0 of 12 passed. The best one made +$224 over four years (t = &minus;0.22, so indistinguishable from zero).</li>
 <li>12-month to 6-month walk-forward was negative on all four markets.</li>
 </ul>""",
-        verdict="Not validated.",
+        verdict="Exploratory, requires forward testing.",
         lesson="Compare the average gross profit per trade with the round-trip cost first. If the edge is smaller than the cost, nothing else matters.",
     ),
     dict(
@@ -276,7 +276,7 @@ FAMILIES = [
 <li>12-month picks beat the selection null only weakly, and walk-forward failed on all three markets.</li>
 <li>Frozen: 4 of 4 not validated. MNQ primary &minus;0.056R per trade.</li>
 </ul>""",
-        verdict="Not validated, in this scope.",
+        verdict="Exploratory, requires forward testing, in this scope.",
         lesson="A weak pass on correlated markets (three US indices) counts as one result, not three.",
     ),
     dict(
@@ -288,7 +288,7 @@ FAMILIES = [
 <li>All six market and model cells lost after costs: &minus;0.03R to &minus;0.27R per trade.</li>
 <li>The best wall settings were no better than the best placebo settings.</li>
 </ul>""",
-        verdict="Not validated, in this scope. Weekly and 0DTE options were not tested.",
+        verdict="Exploratory, requires forward testing, in this scope. Weekly and 0DTE options were not tested.",
         lesson="Placebo levels are the fair test for any level-based idea. If made-up levels do as well, the real ones carry no information.",
     ),
     dict(
@@ -301,7 +301,7 @@ FAMILIES = [
 <li>Gross results before costs were also slightly negative.</li>
 <li>Power was 0.77 to 1.00, so an edge of a useful size would likely have been detected.</li>
 </ul>""",
-        verdict="Not validated.",
+        verdict="Exploratory, requires forward testing.",
         lesson="Trend following earns over weeks and months. Cutting it into single sessions removes most of what it captures.",
     ),
     dict(
@@ -314,7 +314,7 @@ FAMILIES = [
 <li>The predictive link faded year by year: +0.15 in 2021, +0.07, +0.01, then negative from 2024.</li>
 <li>Inside the allowed trading hours the gross gain was about $1 to $2 per trade, below a $2.20 to $3.70 round trip.</li>
 </ul>""",
-        verdict="Not validated. Exhausted in scope.",
+        verdict="Exploratory, requires forward testing. Exhausted in scope.",
         lesson="Published effects decay once they are known. Check the effect year by year before trusting a paper's full-period average.",
     ),
     dict(
@@ -328,7 +328,7 @@ FAMILIES = [
 <li>Tokyo and London anchors: not validated on MNQ or MGC.</li>
 <li>Seven other markets (MYM, M2K, SIL, PL, MCL, MHG, M6E): 0 of 7 profitable, &minus;$18,326 combined.</li>
 </ul>""",
-        verdict="Under observation on MNQ only (formally insufficient evidence). Not validated on any other market and session tested.",
+        verdict="Under observation on MNQ only (formally insufficient evidence). Exploratory on every other market and session tested.",
         lesson="When an effect shows up on one market and nowhere else, treat that as a warning, not as confirmation.",
     ),
     dict(
@@ -341,7 +341,7 @@ FAMILIES = [
 <tr><td>MES</td><td>0.21</td><td>133 trades · &minus;$559</td></tr>
 <tr><td>MGC</td><td>0.46</td><td>114 trades · &minus;$2,282</td></tr>
 </tbody></table>""",
-        verdict="Not validated. Formally insufficient evidence, because four months is too short to rule an edge out completely.",
+        verdict="Exploratory, requires forward testing. Formally insufficient evidence, because four months is too short to rule an edge out completely.",
         lesson="A pick that sits inside its random-direction null has nothing to explain. Further tuning cannot fix that.",
     ),
     dict(
@@ -354,7 +354,7 @@ FAMILIES = [
 <li>All three picks sat inside their null, walk-forward failed 3 of 3, and the untouched check lost on all three (&minus;$12, &minus;$535, &minus;$398).</li>
 <li>Shifted fake levels did as well as the real ones.</li>
 </ul>""",
-        verdict="Not validated. Family closed in this scope.",
+        verdict="Exploratory, requires forward testing. Family closed in this scope.",
         lesson="If fake levels work as well as real ones, the levels are not the reason for the result.",
     ),
     dict(
@@ -366,7 +366,7 @@ FAMILIES = [
 <li>0 of 3 picks survived. Walk-forward failed on all three.</li>
 <li>Untouched check, average per trade: MNQ &minus;0.56R, MES &minus;0.45R, MGC &minus;0.14R.</li>
 </ul>""",
-        verdict="Not validated on MNQ and MGC. MES is formally insufficient evidence (only 21 trades in the check).",
+        verdict="Exploratory on MNQ and MGC. MES is formally insufficient evidence (only 21 trades in the check).",
         lesson="A popular narrative is not a mechanism. It has to be written as exact rules before it can be tested at all.",
     ),
     dict(
@@ -409,7 +409,7 @@ FAMILIES = [
 <tr><td>Years making money</td><td></td><td>0 of 5</td></tr>
 </tbody></table>
 <p>The left column is the best of many thousands of combinations on the same year, so it is in-sample by construction. The 'best 5' subset lost &minus;$9,641. The cross-market gap fade lost on all 9 versions.</p>""",
-        verdict="Not validated. Combining picks diversified the risk but could not create an edge the single picks did not have.",
+        verdict="Exploratory, requires forward testing. Combining picks diversified the risk but could not create an edge the single picks did not have.",
         lesson="Fourteen small losers add up to one large loser. Diversification reduces noise; it cannot turn a zero edge into a positive one.",
     ),
 ]
@@ -428,7 +428,7 @@ ALSO_TESTED = [
 
 PICK_SLUGS = {p[3] for p in PICKS}
 NEUTRAL_VERDICT = ("Exploratory. The settings were picked on last year's data, so these results are in-sample. "
-                   "Not validated: this needs forward testing before any real-money use.")
+                   "Not validated: this requires forward testing before any real-money use.")
 
 
 def family_view(f):
@@ -603,7 +603,7 @@ def method(page):
     <li><strong>Concentration.</strong> The best 10 days may not carry more than half the profit.</li>
     <li><strong>Placebo controls.</strong> Level-based ideas are rerun on fake levels; confluence ideas on fake zones.</li>
   </ul>
-  <p>Verdicts are <strong>PASS</strong>, <strong>NO EDGE</strong> or <strong>INSUFFICIENT EVIDENCE</strong> (when the test did not have enough trades to rule an edge out). No idea has received a PASS.</p>
+  <p>Verdicts are <strong>PASS</strong>, <strong>EXPLORATORY</strong> (requires forward testing) or <strong>INSUFFICIENT EVIDENCE</strong> (when the test did not have enough trades to rule an edge out). No idea has received a PASS.</p>
 
   <h2>Acceptance: a separate, later filter</h2>
   <p>Even a PASS would still have to meet the desk's practical limits before it could be considered. These limits are a filter at the end, <strong>never a research target</strong>:</p>

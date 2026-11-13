@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Initial Balance (multi-session) · Badr Edge</title>
-<meta name="description" content="Initial Balance (multi-session): what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
+<meta name="description" content="Initial Balance (multi-session): what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/initial-balance/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Initial Balance (multi-session) · Badr Edge">
-<meta property="og:description" content="Initial Balance (multi-session): what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
+<meta property="og:description" content="Initial Balance (multi-session): what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/initial-balance/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · needs forward testing</span></div>
+  <div><span class="status st-exp">Exploratory · requires forward testing</span></div>
   <h1>Initial Balance (multi-session)</h1>
   <p class="lede">The first hour of a session sets the Initial Balance. Trade rejections of its edges, immediate breakouts, or breakouts followed by a retest, with targets at the midpoint and 0.5x to 2x extensions.</p>
   <p class="meta">Markets: MGC, MNQ, MHG, M6E, SIL, MYM, MCL, M2K, MES<br>Scope: 1m charts · Tokyo, London and New York slots · tuned 12m, replayed 2021 to 2025</p>
@@ -43,10 +43,10 @@
   <h2>What was tested</h2>
   <ul><li>Up to three independent one-hour engines per day, three entry models and a range of extensions, searched per market.</li><li>Frozen replay of the best settings on 2021 to 2025.</li><li>A separate study of breakout continuation and fades in Tokyo and London.</li></ul>
   <h2>What happened</h2>
-  <div class="tbl-wrap"><table class="picks"><caption>Last year, in-sample vs the same settings on 2021&ndash;25 · 1 micro · after fees and slippage</caption><thead><tr><th>Strategy</th><th>Chart</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Net</th><th>Max DD</th><th>2021&ndash;25 replay: net</th><th>Win rate</th><th>PF</th></tr></thead><tbody><tr><td><a href="/research/backtested/initial-balance/">MGC IB Multi-Session</a><small>Micro Gold</small></td><td>1m</td><td>231</td><td>79.7%</td><td>1.75</td><td>+$5,006</td><td>$845</td><td>&minus;$2,733</td><td>75.6%</td><td>0.78</td></tr><tr><td><a href="/research/backtested/initial-balance/">MNQ IB Multi-Session</a><small>Micro Nasdaq</small></td><td>1m</td><td>417</td><td>81.1%</td><td>2.14</td><td>+$8,383</td><td>$633</td><td>&minus;$2,803</td><td>73.4%</td><td>0.91</td></tr><tr><td><a href="/research/backtested/initial-balance/">MHG IB Multi-Session</a><small>Micro Copper</small></td><td>1m</td><td>375</td><td>50.7%</td><td>1.59</td><td>+$7,156</td><td>$796</td><td>&minus;$7,611</td><td>41.1%</td><td>0.83</td></tr><tr><td><a href="/research/backtested/initial-balance/">M6E IB Multi-Session</a><small>Micro EUR/USD</small></td><td>1m</td><td>137</td><td>73.7%</td><td>2.13</td><td>+$1,102</td><td>$168</td><td>&minus;$1,064</td><td>56.0%</td><td>0.88</td></tr></tbody></table></div><p class="note">Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. None of these strategies is validated. Each one needs forward testing before any real-money use.</p>
+  <div class="tbl-wrap"><table class="picks"><caption>Last year, in-sample · 1 micro · after fees and slippage</caption><thead><tr><th>Strategy</th><th>Chart</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Net</th><th>Max DD</th></tr></thead><tbody><tr><td><a href="/research/backtested/initial-balance/">MGC IB Multi-Session</a><small>Micro Gold</small></td><td>1m</td><td>231</td><td>79.7%</td><td>1.75</td><td>+$5,006</td><td>$845</td></tr><tr><td><a href="/research/backtested/initial-balance/">MNQ IB Multi-Session</a><small>Micro Nasdaq</small></td><td>1m</td><td>417</td><td>81.1%</td><td>2.14</td><td>+$8,383</td><td>$633</td></tr><tr><td><a href="/research/backtested/initial-balance/">MHG IB Multi-Session</a><small>Micro Copper</small></td><td>1m</td><td>375</td><td>50.7%</td><td>1.59</td><td>+$7,156</td><td>$796</td></tr><tr><td><a href="/research/backtested/initial-balance/">M6E IB Multi-Session</a><small>Micro EUR/USD</small></td><td>1m</td><td>137</td><td>73.7%</td><td>2.13</td><td>+$1,102</td><td>$168</td></tr></tbody></table></div><p class="note">Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. None of these strategies is validated. Each one requires forward testing before any real-money use.</p>
   <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
   <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · needs forward testing</span></p><p>Exploratory. The settings were picked on last year's data, so these results are in-sample. Not validated: this needs forward testing before any real-money use. On 2021&ndash;25 the same settings, unchanged, lost money, as the table shows.</p></div>
+  <div class="callout"><p><span class="status st-exp">Exploratory · requires forward testing</span></p><p>Exploratory. The settings were picked on last year's data, so these results are in-sample. Not validated: this requires forward testing before any real-money use.</p></div>
   <h2>Lesson</h2>
   <p>A high win rate is not an edge. What matters is average net profit per trade compared with the round-trip cost.</p>
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/orb-v4/"><span>Previous</span>Opening range: two-window v4</a><a class="next" href="/research/backtested/asian-range-breakout/"><span>Next</span>Asian range breakout (gold)</a></nav>
