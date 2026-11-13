@@ -495,31 +495,54 @@ h2.grp:first-child { margin-top: 0; }
 
 /* ---------- Hero moon: a rendered gold moon with two candles on slow orbits ---------- */
 .hero-visual { position: relative; display: grid; justify-items: center; }
-.moon-stage { position: relative; width: min(460px, 100%); aspect-ratio: 1; margin-bottom: -110px; }
+.moon-stage { position: relative; width: 540px; height: 540px; margin: -30px 0 -150px; }
 .big-moon {
-  position: absolute; left: 50%; top: 50%; width: 60%; height: auto; transform: translate(-50%, -50%);
+  position: absolute; z-index: 2; left: 50%; top: 50%; width: 44%; height: auto; transform: translate(-50%, -50%);
   filter: drop-shadow(0 0 60px rgba(217, 180, 108, .28)) drop-shadow(0 0 140px rgba(217, 180, 108, .12));
 }
 html[data-theme="light"] .big-moon { filter: drop-shadow(0 30px 50px rgba(90, 64, 24, .35)); }
-.orbit { position: absolute; inset: 2%; border-radius: 50%; border: 1px solid rgba(217, 180, 108, .14); }
-.orbit.o2 { inset: 13%; border-style: dashed; border-color: rgba(217, 180, 108, .1); }
-html[data-theme="light"] .orbit { border-color: rgba(142, 106, 34, .22); }
-.cdl { position: absolute; left: 50%; width: 10px; height: 30px; margin-left: -5px; top: -15px; }
-.orbit.o2 .cdl { width: 8px; height: 24px; margin-left: -4px; top: auto; bottom: -12px; }
+/* tilted elliptical orbits; the back half is drawn under the moon, the front half over it */
+.orbit-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.orbit-lines.back { z-index: 0; } .orbit-lines.front { z-index: 3; }
+.orbit-lines ellipse { fill: none; stroke: rgba(217, 180, 108, .2); stroke-width: 1; }
+.orbit-lines ellipse + ellipse { stroke: rgba(217, 180, 108, .13); stroke-dasharray: 2 5; }
+.orbit-lines.back ellipse { opacity: .55; }
+html[data-theme="light"] .orbit-lines ellipse { stroke: rgba(142, 106, 34, .3); }
+/* riders travel the orbit paths, stay upright, pass in front of the moon on the near side and behind it on the far side */
+.rider { position: absolute; left: 0; top: 0; offset-rotate: 0deg; offset-anchor: center; z-index: 4; }
+.rider.r1 { offset-path: path("M522.4,216.4 A258,80 -12 1 1 17.6,323.6 A258,80 -12 1 1 522.4,216.4"); --t: 64s; }
+.rider.r2 { offset-path: path("M465.9,333.7 A206,62 18 1 1 74.1,206.3 A206,62 18 1 1 465.9,333.7"); --t: 88s; }
+@media (prefers-reduced-motion: no-preference) {
+  .rider { animation: be-ride var(--t) linear infinite; animation-delay: calc(var(--d) * var(--t) / 100); }
+}
+@media (prefers-reduced-motion: reduce) { .rider { offset-distance: calc(var(--d) * -1%); } }
+@keyframes be-ride {
+  0% { offset-distance: 0%; z-index: 4; scale: 1; opacity: 1; }
+  25% { scale: 1.12; }
+  49.9% { z-index: 4; }
+  50% { z-index: 1; scale: 1; }
+  75% { scale: .78; opacity: .7; }
+  100% { offset-distance: 100%; z-index: 1; scale: 1; opacity: 1; }
+}
+.cdl { width: 10px; height: 30px; }
+.r2.cdl { width: 8px; height: 24px; }
 .cdl::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1.5px; margin-left: -.75px; background: currentColor; }
 .cdl::before { content: ""; position: absolute; left: 0; right: 0; top: 26%; bottom: 22%; background: currentColor; border-radius: 1px; box-shadow: 0 0 14px currentColor; }
 .cdl.up { color: var(--live); }
 .cdl.dn { color: var(--down); }
-@media (prefers-reduced-motion: no-preference) {
-  .orbit.o1 { animation: be-spin 60s linear infinite; }
-  .orbit.o1 .cdl { animation: be-spin 60s linear infinite reverse; }
-  .orbit.o2 { animation: be-spin 90s linear infinite reverse; }
-  .orbit.o2 .cdl { animation: be-spin 90s linear infinite; }
-}
-@keyframes be-spin { to { transform: rotate(360deg); } }
+/* ticker tokens */
+.tk { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #1d1e23, #0b0c0f 70%);
+  box-shadow: inset 0 0 0 1px rgba(217, 180, 108, .55), inset 0 0 0 3px #0b0c0f, inset 0 0 0 4px rgba(217, 180, 108, .22), 0 6px 18px -6px rgba(0, 0, 0, .8); }
+.tk b { font: 600 9.5px/1 var(--mono); letter-spacing: .04em; color: #f3deb0; }
+html[data-theme="light"] .tk { background: radial-gradient(circle at 35% 30%, #ffffff, #f1ece3 70%);
+  box-shadow: inset 0 0 0 1px rgba(142, 106, 34, .55), inset 0 0 0 3px #fffdf9, inset 0 0 0 4px rgba(142, 106, 34, .22), 0 6px 16px -6px rgba(60, 40, 10, .35); }
+html[data-theme="light"] .tk b { color: #74561a; }
+@media (max-width: 1000px) { .moon-stage { zoom: .8; } }
+@media (max-width: 600px) { .moon-stage { zoom: .66; } }
 .hero-visual .term { position: relative; width: 100%; max-width: 520px; }
 .term-bar b { font: 600 13px/1 var(--sans); }
-@media (max-width: 1000px) { .moon-stage { width: min(360px, 90%); margin-bottom: -84px; } }
+
 
 /* gold buttons keep the original champagne finish */
 .btn.primary, .nav .cta { background: linear-gradient(180deg, #f1d9a6 0%, #d9b46c 55%, #c49c52 100%); border-color: transparent; color: #17120a; }
