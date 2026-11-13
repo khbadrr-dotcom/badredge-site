@@ -429,7 +429,7 @@ def home():
       <p class="lede">A public log of a futures research desk: the method, every strategy family tested, results after costs, and why each one was closed. No strategy has passed final validation.</p></div>
     <div class="grid-3">
       <a class="card reveal" href="/research/method/"><div class="icon">{ICONS['scale']}</div><h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
-      <a class="card reveal" href="/research/graveyard/"><div class="icon">{ICONS['shield']}</div><h3>Strategy graveyard</h3><p>Opening ranges, FVGs, pivots, momentum and more. One page each, with the verdict.</p><span class="go">Open the graveyard</span></a>
+      <a class="card reveal" href="/research/backtested/"><div class="icon">{ICONS['shield']}</div><h3>Backtested strategies</h3><p>Opening ranges, FVGs, pivots, momentum and more. One page each, with the verdict.</p><span class="go">See the backtests</span></a>
       <a class="card reveal" href="/research/lessons/"><div class="icon">{ICONS['book']}</div><h3>Lessons</h3><p>Why in-sample results fool you, and why costs beat most retail setups.</p><span class="go">Read the lessons</span></a>
     </div>
   </div>
@@ -816,6 +816,16 @@ def statics(paths):
     sm += "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
     sm += "</urlset>\n"
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
+    # Old /research/graveyard/ URLs: server-side 301s, plus stub pages in case _redirects is not applied.
+    open(os.path.join(ROOT, "_redirects"), "w").write(
+        "/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n")
+    for sub in [""] + [f["slug"] + "/" for f in research.FAMILIES]:
+        new = f"/research/backtested/{sub}"
+        d = os.path.join(ROOT, "research", "graveyard", sub)
+        os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, "index.html"), "w").write(
+            f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{SITE}{new}">'
+            f'<meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={new}"><a href="{new}">This page has moved.</a>\n')
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(

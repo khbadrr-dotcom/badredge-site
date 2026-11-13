@@ -1,4 +1,4 @@
-"""Research section of badredge.com: method, strategy graveyard, lessons, under observation.
+"""Research section of badredge.com: method, backtested strategies, lessons, under observation.
 
 Imported by build.py. Content rules (from Khaled, 2026-11-12):
 1. Never claim a profitable or validated strategy. Every result carries a status label.
@@ -30,7 +30,7 @@ def badge(status):
 
 
 # ---------------------------------------------------------------------------------------------------------------
-# Strategy graveyard: one entry per tested family
+# Backtested strategies: one entry per tested family
 # Each: slug, name, status, group, markets, scope, idea, tested (list), results (html), verdict, lesson
 # ---------------------------------------------------------------------------------------------------------------
 FAMILIES = [
@@ -383,15 +383,15 @@ def family_page(page, f, prev_f, next_f):
     tested = "".join(f"<li>{t}</li>" for t in f["tested"])
     nav = '<nav class="fam-nav" aria-label="More families">'
     if prev_f:
-        nav += f'<a href="/research/graveyard/{prev_f["slug"]}/"><span>Previous</span>{prev_f["name"]}</a>'
+        nav += f'<a href="/research/backtested/{prev_f["slug"]}/"><span>Previous</span>{prev_f["name"]}</a>'
     else:
         nav += "<span></span>"
     if next_f:
-        nav += f'<a class="next" href="/research/graveyard/{next_f["slug"]}/"><span>Next</span>{next_f["name"]}</a>'
+        nav += f'<a class="next" href="/research/backtested/{next_f["slug"]}/"><span>Next</span>{next_f["name"]}</a>'
     nav += "</nav>"
     body = f"""
 <header class="article-head"><div class="wrap">
-  <a class="eyebrow" href="/research/graveyard/" style="text-decoration:none">&larr; Strategy graveyard</a>
+  <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
   <div>{badge(f['status'])}</div>
   <h1>{f['name']}</h1>
   <p class="lede">{f['idea']}</p>
@@ -412,7 +412,7 @@ def family_page(page, f, prev_f, next_f):
 </article>
 """
     desc = f"{f['name']}: what was tested, results after costs, and the verdict. {STATUS[f['status']][0]}."
-    return page(f"/research/graveyard/{f['slug']}/", f["name"], desc, "/research/", body)
+    return page(f"/research/backtested/{f['slug']}/", f["name"], desc, "/research/", body)
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -444,7 +444,7 @@ def research_index(page):
 <section><div class="wrap">
   <div class="grid-3">
     <a class="card reveal" href="/research/method/"><div class="icon">{ICON_SCALE}</div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, frozen and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
-    <a class="card reveal" href="/research/graveyard/"><div class="icon">{ICON_STONE}</div><h3>Strategy graveyard</h3><p>One page per family: the idea, the markets, the results after costs, the verdict and the lesson.</p><span class="go">Open the graveyard</span></a>
+    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>One page per family: the idea, the markets, the results after costs, the verdict and the lesson.</p><span class="go">See the backtests</span></a>
     <a class="card reveal" href="/research/lessons/"><div class="icon">{ICON_BOOK}</div><h3>Lessons</h3><p>What the failures taught: over-fitting, fill artifacts, costs and effects that fade.</p><span class="go">Read the lessons</span></a>
   </div>
 </div></section>
@@ -454,7 +454,7 @@ def research_index(page):
     <span class="eyebrow">Why ideas fail</span>
     <h2>The main reason each idea was closed.</h2>
     <p class="lede">From the desk's failure log of 86 closed ideas. Most did not fail on costs or bad luck. They had no directional edge to begin with.</p>
-    <div class="hero-actions"><a class="btn" href="/research/graveyard/">See every family</a></div>
+    <div class="hero-actions"><a class="btn" href="/research/backtested/">See every family</a></div>
   </div>
   <div class="figure reveal"><div class="rbars">{bars}</div><figcaption>Primary failure reason per closed idea, as of {RESEARCH_UPDATED}.</figcaption></div>
 </div></section>
@@ -470,7 +470,7 @@ def research_index(page):
   <p class="note" style="margin-top:28px;max-width:860px">{NFA} Market data comes from a licensed 1-minute futures feed and is not redistributed here; only rules, methods and summary results are published.</p>
 </div></section>
 """
-    return page("/research/", "Research", "A public futures research record: method, a strategy graveyard with results after costs, and lessons. No strategy has passed validation.", "/research/", body)
+    return page("/research/", "Research", "A public futures research record: method, backtested strategies with results after costs, and lessons. No strategy has passed validation.", "/research/", body)
 
 
 def graveyard(page):
@@ -479,7 +479,7 @@ def graveyard(page):
         fs = [f for f in FAMILIES if f["group"] == g]
         cards = []
         for f in fs:
-            cards.append(f"""<a class="card fam reveal" href="/research/graveyard/{f['slug']}/">
+            cards.append(f"""<a class="card fam reveal" href="/research/backtested/{f['slug']}/">
   {badge(f['status'])}
   <h3>{f['name']}</h3>
   <p>{f['verdict'].split('. ')[0].rstrip('.')}.</p>
@@ -490,7 +490,7 @@ def graveyard(page):
     body = f"""
 <section class="page-head"><div class="wrap">
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
-  <h1>Strategy <span class="gold">graveyard.</span></h1>
+  <h1>Backtested <span class="gold">strategies.</span></h1>
   <p class="lede">Every family the desk tested, one page each: the idea, the markets, what was run, the results after costs, the verdict and the lesson. Optimised numbers are always labelled in-sample.</p>
 </div></section>
 <section style="padding-top:12px"><div class="wrap">
@@ -500,7 +500,7 @@ def graveyard(page):
   <p class="note">{COST_NOTE} {NFA}</p></div>
 </div></section>
 """
-    return page("/research/graveyard/", "Strategy graveyard", "Every futures strategy family tested by the Badr Edge research desk, with results after costs and a verdict for each.", "/research/", body)
+    return page("/research/backtested/", "Backtested strategies", "Every futures strategy family tested by the Badr Edge research desk, with results after costs and a verdict for each.", "/research/", body)
 
 
 def method(page):
@@ -575,19 +575,19 @@ def method(page):
 
 def lessons(page):
     items = [
-        ("In-sample optimisation fools you", "The 14 best opening range and Initial Balance picks made +$89,458 together on the year they were chosen from, with a $1,549 drawdown and a 75.5% win rate. On four earlier years they lost &minus;$31,794 with a $34,196 drawdown. Search hard enough on one year and something will always look great on that year.", "/research/graveyard/cross-market-portfolio/"),
+        ("In-sample optimisation fools you", "The 14 best opening range and Initial Balance picks made +$89,458 together on the year they were chosen from, with a $1,549 drawdown and a 75.5% win rate. On four earlier years they lost &minus;$31,794 with a $34,196 drawdown. Search hard enough on one year and something will always look great on that year.", "/research/backtested/cross-market-portfolio/"),
         ("Run the random-direction null first", "Rerun the whole search with random directions. If your best pick does not beat 95% of the random picks, it was selected by luck. This check caught every over-fitted strategy on the desk; simple replication checks caught none of them.", "/research/method/"),
         ("The limit fill-bar artifact", "A backtest that fills a limit order and hits the target on the same bar is counting a trade that may never have happened. Early high-win-rate, small-target results came from this. Now the target only counts from the bar after the fill, and any high win rate with a small target is treated as a bug until it is replicated.", None),
         ("Drawdown caps must allow 'no pick'", "A risk limit is a hard filter. When nothing fits under the $2,000 drawdown cap, the answer is no strategy, not the closest one. A soft cap once let a pick through with a $3,763 drawdown.", None),
-        ("Costs exceed gross edge on most retail setups", "Many popular setups make between $0.10 and $2 per trade before costs. A micro contract round trip costs $2.20 to $3.90 here. Compare average gross profit per trade with the round-trip cost before anything else, and flag anything under about twice the cost.", "/research/graveyard/ema-vwap-momentum/"),
-        ("Effects decay", "The published first-half-hour to last-half-hour momentum effect measured +0.15 in 2021, +0.07 in 2022, about zero in 2023 and negative since 2024. A paper's full-period average can hide an effect that has already gone.", "/research/graveyard/intraday-momentum/"),
-        ("A high win rate is not an edge", "One Initial Balance pick kept a 76% win rate on unseen years and still lost $2,733. Small targets win often; a few full stops take it back. Never rank on win rate.", "/research/graveyard/initial-balance/"),
-        ("Check both directions before costs", "If the real side and the flipped side both lose before costs, no filter, exit or sizing rule will rescue the idea. Key-level retests failed this on 36 of 36 groups.", "/research/graveyard/key-level-retests/"),
-        ("Use placebos for levels and confluence", "Fake levels, fake strikes and shifted zones did as well as the real ones for volume profile and options walls. Ablations (removing one part at a time) are not enough.", "/research/graveyard/volume-profile/"),
+        ("Costs exceed gross edge on most retail setups", "Many popular setups make between $0.10 and $2 per trade before costs. A micro contract round trip costs $2.20 to $3.90 here. Compare average gross profit per trade with the round-trip cost before anything else, and flag anything under about twice the cost.", "/research/backtested/ema-vwap-momentum/"),
+        ("Effects decay", "The published first-half-hour to last-half-hour momentum effect measured +0.15 in 2021, +0.07 in 2022, about zero in 2023 and negative since 2024. A paper's full-period average can hide an effect that has already gone.", "/research/backtested/intraday-momentum/"),
+        ("A high win rate is not an edge", "One Initial Balance pick kept a 76% win rate on unseen years and still lost $2,733. Small targets win often; a few full stops take it back. Never rank on win rate.", "/research/backtested/initial-balance/"),
+        ("Check both directions before costs", "If the real side and the flipped side both lose before costs, no filter, exit or sizing rule will rescue the idea. Key-level retests failed this on 36 of 36 groups.", "/research/backtested/key-level-retests/"),
+        ("Use placebos for levels and confluence", "Fake levels, fake strikes and shifted zones did as well as the real ones for volume profile and options walls. Ablations (removing one part at a time) are not enough.", "/research/backtested/volume-profile/"),
         ("Sizing scales risk, not edge", "Fixed size, percent risk, equity steps, anti-martingale and Kelly-style rules all left the net per contract about the same. Streak-based rules were worse than fixed size, and percent-risk sizing loaded up on the worst, narrow-stop trades.", None),
         ("Watch concentration", "When the best 10 days carry most of the profit, the result describes those days. The closest lead on this desk has 98% of its profit in its top 10 days.", "/research/under-observation/"),
         ("Low-frequency ideas run out of power", "An idea that trades about once a week cannot be confirmed or rejected on a few years of data. Calculate the power before the test, and close the idea honestly as 'insufficient evidence' when it is too low.", None),
-        ("Combining weak strategies doesn't create an edge", "Diversification smooths noise but cannot turn many zero-edge strategies into one positive edge. Fourteen small losers made one large loser.", "/research/graveyard/cross-market-portfolio/"),
+        ("Combining weak strategies doesn't create an edge", "Diversification smooths noise but cannot turn many zero-edge strategies into one positive edge. Fourteen small losers made one large loser.", "/research/backtested/cross-market-portfolio/"),
         ("Fixed-clock rules change with the seasons", "Rules on fixed GMT+3 times shift by an hour against New York when US daylight saving changes. The noise-area lead made about $23 per trade in summer and about $2 in winter.", None),
     ]
     cards = ""
