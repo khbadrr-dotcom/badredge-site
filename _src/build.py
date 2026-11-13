@@ -299,21 +299,21 @@ def guide_cards():
       </a>""" for h, t, d, m in GUIDES)
 
 
-TV_SYMBOLS = [  # TradingView symbol, label
-    ("CME_MINI:MNQ1!", "MNQ · Micro Nasdaq-100"), ("CME_MINI:MES1!", "MES · Micro S&P 500"),
-    ("CBOT_MINI:MYM1!", "MYM · Micro Dow"), ("CME_MINI:M2K1!", "M2K · Micro Russell 2000"),
-    ("COMEX_MINI:MGC1!", "MGC · Micro Gold"), ("COMEX_MINI:SIL1!", "SIL · Micro Silver"),
-    ("NYMEX:PL1!", "PL · Platinum"), ("NYMEX_MINI:MCL1!", "MCL · Micro Crude"),
-    ("COMEX_MINI:MHG1!", "MHG · Micro Copper"), ("CME:M6E1!", "M6E · Micro EUR/USD"),
+TV_SYMBOLS = [  # widget-licensed spot/CFD feeds for the market each micro tracks (CME futures are not available in TradingView widgets)
+    ("OANDA:NAS100USD", "Nasdaq-100 · MNQ"), ("OANDA:SPX500USD", "S&P 500 · MES"),
+    ("OANDA:US30USD", "Dow · MYM"), ("OANDA:US2000USD", "Russell 2000 · M2K"),
+    ("OANDA:XAUUSD", "Gold · MGC"), ("OANDA:XAGUSD", "Silver · SIL"),
+    ("OANDA:XPTUSD", "Platinum · PL"), ("TVC:USOIL", "WTI crude · MCL"),
+    ("OANDA:XCUUSD", "Copper · MHG"), ("FX:EURUSD", "EUR/USD · M6E"),
 ]
 
 
 def market_board():
     import json
     cal = json.load(open(os.path.join(os.path.dirname(__file__), "calendar.json")))
-    tv = json.dumps({"width": "100%", "height": "100%", "isTransparent": True, "showSymbolLogo": False,
-                     "locale": "en", "symbolsGroups": [{"name": "Micro futures", "symbols": [
-                         {"name": n, "displayName": d} for n, d in TV_SYMBOLS]}]})
+    tv = json.dumps({"dateRange": "1D", "showChart": False, "locale": "en", "width": "100%", "height": "100%",
+                     "largeChartUrl": "", "isTransparent": True, "showSymbolLogo": False, "showFloatingTooltip": False,
+                     "tabs": [{"title": "Markets", "symbols": [{"s": n, "d": d} for n, d in TV_SYMBOLS]}]})
     ev = "".join(
         f'<div class="ev-row" data-t="{t}" hidden><span class="ev-when"><b class="ev-day"></b><small class="ev-time"></small></span>'
         f'<span class="ev-name"><b>{title}</b><small>USD · {per}</small></span>'
@@ -321,8 +321,8 @@ def market_board():
         f'<span class="ev-imp" aria-label="High impact"><i></i><i></i><i></i></span></div>'
         for t, title, per, src in cal["events"])
     return f'''    <div class="term board reveal">
-      <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Markets</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag">Micro futures</span></div>
-      <div class="mb-pane" data-pane="mk"><div class="tradingview-widget-container tv-quotes" data-cfg='{tv}'></div><a class="tv-credit" href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">Quotes by TradingView</a></div>
+      <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Markets</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag">Underlying markets</span></div>
+      <div class="mb-pane" data-pane="mk"><div class="tv-box"><div class="tradingview-widget-container tv-quotes" data-cfg='{tv}'></div></div><a class="tv-credit" href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">Spot and CFD quotes by TradingView</a></div>
       <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}<p class="ev-src-note">US high-impact releases from the official BLS, BEA, Census and Fed schedules. Shown in your time.</p></div>
     </div>
     <script>(function(){{var b=document.querySelector('.board');if(!b)return;
@@ -330,7 +330,7 @@ b.querySelectorAll('[data-tab]').forEach(function(t){{t.onclick=function(){{b.qu
 var q=b.querySelector('.tv-quotes'),root=document.documentElement,cur=null;
 function tv(){{var th=root.getAttribute('data-theme')==='light'?'light':'dark';if(th===cur)return;cur=th;
 var c=JSON.parse(q.dataset.cfg);c.colorTheme=th;q.innerHTML='<div class="tradingview-widget-container__widget"></div>';
-var s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js';s.async=true;s.text=JSON.stringify(c);q.appendChild(s)}}
+var s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';s.async=true;s.text=JSON.stringify(c);q.appendChild(s)}}
 tv();new MutationObserver(tv).observe(root,{{attributes:true,attributeFilter:['data-theme']}});
 var now=Date.now(),rows=[].slice.call(b.querySelectorAll('.ev-row')),past=null,shown=0,next=null;
 rows.forEach(function(r){{var d=new Date(r.dataset.t);
