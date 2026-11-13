@@ -718,6 +718,16 @@ def about():
   <p>I've traded futures actively for more than three years, mostly through prop firms{payouts}. That has meant passing evaluations, trading funded accounts under each firm's drawdown rules and moving up to the live funded stage at three firms, with the work now progressing toward live trading at size. Alongside the prop accounts, I trade personal CFD brokerage accounts.</p>
   <p>Execution is a discretionary candlestick price-action process, built over two years and traded mostly in gold and US index futures across the Asia, London and New York sessions.</p>
 
+  <h2>The record</h2>
+  <p>No P&amp;L screenshots here. What I can show is that the process has been checked by the people with the most reason to doubt it: the firms that pay out on it.</p>
+  <div class="record">
+    <div class="record-cell"><span class="record-k">Live-funded</span><b>3 firms</b><span>Promoted to live accounts at MyFundedFutures, Lucid and Topstep in 2026.</span></div>
+    <div class="record-cell"><span class="record-k">Payouts received</span><b>4 firms</b><span>Topstep, Lucid, Take Profit Trader and MyFundedFutures, since 2025.</span></div>
+    <div class="record-cell"><span class="record-k">Evaluations passed</span><b>6 firms</b><span>The four above, plus FundedNext and Tradeify.</span></div>
+    <div class="record-cell"><span class="record-k">Verification</span><b>Originals on file</b><span>Firm-issued certificates, with personal and account details removed.</span></div>
+  </div>
+  <p class="note">Prop-firm payouts are paid under each firm's own rules, often from simulated accounts. They are not investment returns, they are not an offer, and they don't predict anyone's future results, including mine.</p>
+
   <h2>Focus</h2>
 </article>
 <section style="padding:20px 0 0"><div class="wrap" style="max-width:820px">
