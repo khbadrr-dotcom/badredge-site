@@ -53,6 +53,7 @@ def head(title, desc, path, extra=""):
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="{full}">
@@ -734,10 +735,12 @@ def statics(paths):
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
+    # Full Moon B: the B is cut out of the gold full moon (badr = full moon).
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(
-        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.36' r='.7'>"
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.34' r='.72'>"
         "<stop offset='0' stop-color='#f3dcaa'/><stop offset='.55' stop-color='#d9b46c'/><stop offset='1' stop-color='#9b7a3e'/></radialGradient></defs>"
-        "<rect width='64' height='64' rx='14' fill='#0b0d10'/><circle cx='32' cy='32' r='17' fill='url(#m)'/></svg>\n")
+        "<rect width='64' height='64' rx='14' fill='#0b0d10'/><circle cx='32' cy='32' r='24' fill='url(#m)'/>"
+        "<path d='M24 18V46M24 18H34a6.5 6.5 0 0 1 0 13H24M24 31H36a7.5 7.5 0 0 1 0 15H24' fill='none' stroke='#0b0d10' stroke-width='5' stroke-linejoin='round' stroke-linecap='square'/></svg>\n")
 
 
 if __name__ == "__main__":
