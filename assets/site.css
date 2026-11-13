@@ -804,3 +804,18 @@ a.card:hover { background: var(--glass-2); }
 .icon { background: color-mix(in srgb, var(--bg-2) 60%, transparent); }
 @media (max-width: 760px) { .steps, .faq { padding-left: 18px; padding-right: 18px; } .specbar dl { padding: 0 16px; } }
 .hero::before { -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 75%), linear-gradient(180deg, #000 60%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 30%, #000 75%), linear-gradient(180deg, #000 60%, transparent); mask-composite: intersect; }
+
+/* Sky v2: mostly dark, small white stars, faint northern lights */
+:root { --sky-a: .16; --star: rgba(255, 255, 255, .85); --orbit: rgba(255, 255, 255, .07); }
+html[data-theme="light"] { --sky-a: .14; --star: rgba(60, 50, 30, .22); --orbit: rgba(60, 50, 30, .10); }
+.sky { background: var(--bg); }
+.sky-stars { opacity: .7; background-image:
+  radial-gradient(1px 1px at 20px 30px, var(--star), transparent 70%), radial-gradient(1px 1px at 140px 90px, var(--star), transparent 70%),
+  radial-gradient(1.2px 1.2px at 80px 160px, var(--star), transparent 70%), radial-gradient(1px 1px at 210px 210px, var(--star), transparent 70%),
+  radial-gradient(.8px .8px at 260px 40px, var(--star), transparent 70%), radial-gradient(1px 1px at 330px 140px, var(--star), transparent 70%),
+  radial-gradient(.8px .8px at 300px 230px, var(--star), transparent 70%), radial-gradient(.8px .8px at 50px 240px, var(--star), transparent 70%); }
+.sky-stars.s2 { opacity: .4; }
+.sky-aurora { filter: blur(90px); height: 26vmax; }
+.sky-aurora.a1 { background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 60%, transparent), transparent); }
+.sky-aurora.a2 { background: radial-gradient(closest-side, color-mix(in srgb, var(--live) 35%, color-mix(in srgb, var(--accent) 20%, transparent)), transparent); }
+.sky-aurora.a3 { display: none; }
