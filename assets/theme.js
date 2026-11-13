@@ -8,7 +8,7 @@
   const apply = (t, save) => {
     root.setAttribute('data-theme', t);
     const m = document.querySelector('meta[name="theme-color"]');
-    if (m) m.setAttribute('content', t === 'light' ? '#f3f2ee' : '#090d0d');
+    if (m) m.setAttribute('content', t === 'light' ? '#f7f4ee' : '#07080a');
     document.querySelectorAll('.theme-btn').forEach(b => {
       const label = t === 'light' ? 'Switch to dark theme' : 'Switch to light theme';
       b.setAttribute('aria-label', label); b.setAttribute('title', label);

@@ -59,7 +59,7 @@ def head(title, desc, path, extra=""):
 {THEME_INIT}
 <title>{full}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#090d0d">
+<meta name="theme-color" content="#07080a">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -251,37 +251,6 @@ def desk_chart():
             f'a false break below it, a breakout above and a retest">' + "".join(out) + "</svg>")
 
 
-# ───────────────────────── Hero moon ─────────────────────────
-def moon_ring():
-    """Two slow rings of candlesticks around the full moon. Each candle points outward; its body follows
-    an illustrative price walk, teal up and red down. Pure SVG, rotated by CSS."""
-    import math
-    def ring(n, r0, seed, scale):
-        rnd = random.Random(seed)
-        out, p = [], 0.0
-        for i in range(n):
-            o = p; p += rnd.gauss(0.15, 1.0); c = p
-            a = 2 * math.pi * i / n
-            lo_b, hi_b = sorted((o, c))
-            hi_w, lo_w = hi_b + rnd.uniform(.2, .8), lo_b - rnd.uniform(.2, .8)
-            # map price to radial distance around r0, centred on the ring's running mean
-            def rad(v): return r0 + (v - p * 0) * 0 + 0
-            base = r0
-            b0 = base + (lo_b - o) * scale + 9; b1 = base + (hi_b - o) * scale + 9 + 2
-            w0 = base + (lo_w - o) * scale + 9; w1 = base + (hi_w - o) * scale + 9 + 2
-            ca, sa = math.cos(a), math.sin(a)
-            k = "up" if c >= o else "dn"
-            pt = lambda r: (200 + r * ca, 200 + r * sa)
-            (x0, y0), (x1, y1) = pt(w0), pt(w1)
-            out.append(f'<line class="mr-w mr-{k}" x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}"/>')
-            (x0, y0), (x1, y1) = pt(b0), pt(b1)
-            out.append(f'<line class="mr-b mr-{k}" x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}"/>')
-        return "".join(out)
-    return ('<svg class="moon-ring" viewBox="0 0 400 400" aria-hidden="true">'
-            '<circle class="mr-orbit" cx="200" cy="200" r="150"/><circle class="mr-orbit dash" cx="200" cy="200" r="186"/>'
-            f'<g class="mr-g1">{ring(72, 150, 3, 5)}</g><g class="mr-g2">{ring(96, 186, 9, 3.5)}</g></svg>')
-
-
 # ───────────────────────── Pages ─────────────────────────
 TOOLS = [
     ("/tools/pass/", "target", "Prop Pass Simulator",
@@ -344,7 +313,11 @@ def home():
       <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Built by</dt><dd>A working trader</dd></div><div><dt>Signals</dt><dd>None</dd></div></dl>
     </div>
     <div class="hero-visual">
-    <div class="moon-stage" aria-hidden="true"><div class="big-moon"></div>{moon_ring()}</div>
+    <div class="moon-stage" aria-hidden="true">
+      <div class="orbit o1"><span class="cdl up"></span></div>
+      <div class="orbit o2"><span class="cdl dn"></span></div>
+      <img class="big-moon" src="/assets/moon.webp" alt="" width="1024" height="1024" decoding="async" fetchpriority="high">
+    </div>
     <div class="term reveal">
       <div class="term-bar"><span><b>The desk</b></span><span class="term-tag">Free · no sign-up</span></div>
       <div class="desk">
@@ -841,7 +814,7 @@ def statics(paths):
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(
         "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.36' r='.7'>"
         "<stop offset='0' stop-color='#f1dcae'/><stop offset='.55' stop-color='#c8a15c'/><stop offset='1' stop-color='#8a6a32'/></radialGradient></defs>"
-        "<rect width='64' height='64' rx='12' fill='#0c1111'/><circle cx='32' cy='32' r='18' fill='url(#m)'/>"
+        "<rect width='64' height='64' rx='12' fill='#0b0d10'/><circle cx='32' cy='32' r='18' fill='url(#m)'/>"
         "<circle cx='38' cy='37' r='3' fill='#6e5226' opacity='.35'/><circle cx='27' cy='40' r='2' fill='#6e5226' opacity='.28'/><circle cx='39' cy='25' r='1.8' fill='#6e5226' opacity='.25'/></svg>\n")
 
 
