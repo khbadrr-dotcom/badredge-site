@@ -69,14 +69,13 @@ img, svg { max-width: 100%; display: block; }
 .brand .word-2 { color: var(--gold); font-weight: 500; }
 .brand .ver { font: 500 9.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 7px; margin-left: 2px; }
 .moon {
-  width: 26px; height: 26px; border-radius: 50%; flex: none; position: relative;
-  background: radial-gradient(circle at 34% 30%, #fff3d6 0%, #ecd09a 22%, var(--gold) 52%, var(--gold-3) 100%);
+  width: 22px; height: 22px; border-radius: 50%; flex: none; position: relative;
+  background:
+    radial-gradient(circle at 63% 60%, rgba(110, 80, 32, .34) 0 9%, transparent 10%),
+    radial-gradient(circle at 40% 70%, rgba(110, 80, 32, .24) 0 6%, transparent 7%),
+    radial-gradient(circle at 70% 32%, rgba(110, 80, 32, .2) 0 5%, transparent 6%),
+    radial-gradient(circle at 34% 30%, #fff3d6 0%, #ecd09a 22%, var(--gold) 52%, var(--gold-3) 100%);
   box-shadow: 0 0 0 1px rgba(255, 236, 196, .16) inset, 0 0 18px rgba(217, 180, 108, .45);
-}
-/* Full Moon B: the letter is cut out of the moon and shows the page behind it */
-.moon::after {
-  content: ""; position: absolute; inset: 0; background: var(--bg);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='8 8 48 48'%3E%3Cpath d='M24%2018V46M24%2018H34a6.5%206.5%200%200%201%200%2013H24M24%2031H36a7.5%207.5%200%200%201%200%2015H24' fill='none' stroke='%23000' stroke-width='5' stroke-linejoin='round' stroke-linecap='square'/%3E%3C/svg%3E") center / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='8 8 48 48'%3E%3Cpath d='M24%2018V46M24%2018H34a6.5%206.5%200%200%201%200%2013H24M24%2031H36a7.5%207.5%200%200%201%200%2015H24' fill='none' stroke='%23000' stroke-width='5' stroke-linejoin='round' stroke-linecap='square'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
 }
 .nav { display: flex; align-items: center; gap: 2px; }
 .nav a { text-decoration: none; color: var(--muted); font-size: 13.5px; font-weight: 500; padding: 8px 13px; border-radius: 9px; transition: color .2s, background .2s; }
@@ -483,8 +482,12 @@ html[data-theme="light"] .site-head { background: rgba(247, 244, 238, .78); }
 html[data-theme="light"] .nav a:hover, html[data-theme="light"] .nav a[aria-current="page"] { background: rgba(40, 30, 12, .05); }
 html[data-theme="light"] .menu-btn { background: var(--panel); }
 @media (max-width: 860px) { html[data-theme="light"] .nav { background: rgba(250, 248, 243, .98); box-shadow: 0 24px 40px -24px rgba(40, 30, 12, .25); } }
-/* the moon takes a deeper gold on ivory so the cut-out B stays readable; the gold buttons keep the champagne gold */
-html[data-theme="light"] .moon { background: radial-gradient(circle at 34% 30%, #e6c483 0%, #c9a35a 28%, #a57d2e 60%, #6e5216 100%);
+/* the moon and gold buttons keep the champagne gold in both themes */
+html[data-theme="light"] .moon { background:
+    radial-gradient(circle at 63% 60%, rgba(110, 80, 32, .34) 0 9%, transparent 10%),
+    radial-gradient(circle at 40% 70%, rgba(110, 80, 32, .24) 0 6%, transparent 7%),
+    radial-gradient(circle at 70% 32%, rgba(110, 80, 32, .2) 0 5%, transparent 6%),
+    radial-gradient(circle at 34% 30%, #fff3d6 0%, #ecd09a 22%, #d9b46c 52%, #9c7a3c 100%);
   box-shadow: 0 0 0 1px rgba(120, 90, 40, .25) inset, 0 0 14px rgba(196, 156, 82, .45); }
 html[data-theme="light"] .nav .cta, html[data-theme="light"] .btn.primary { background: linear-gradient(180deg, #f1d9a6 0%, #d9b46c 55%, #c49c52 100%); color: #17120a; }
 html[data-theme="light"] .nav .cta:hover, html[data-theme="light"] .btn.primary:hover { background: linear-gradient(180deg, #f6e2b8 0%, #e0bd78 55%, #c9a159 100%); }
