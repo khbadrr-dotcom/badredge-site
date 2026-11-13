@@ -76,6 +76,7 @@ def head(title, desc, path, extra=""):
 <script src="/assets/theme.js" defer></script>
 {extra}</head>
 <body>
+<div class="sky" aria-hidden="true"><i class="sky-stars"></i><i class="sky-stars s2"></i><i class="sky-aurora a1"></i><i class="sky-aurora a2"></i><i class="sky-aurora a3"></i><svg class="sky-orbits" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice"><g><ellipse cx="600" cy="600" rx="560" ry="170" transform="rotate(-14 600 600)"/><ellipse cx="600" cy="600" rx="430" ry="128" transform="rotate(20 600 600)"/><ellipse cx="600" cy="600" rx="720" ry="230" transform="rotate(4 600 600)"/></g></svg></div>
 """
 
 
