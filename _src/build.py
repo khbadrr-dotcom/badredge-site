@@ -298,53 +298,46 @@ def guide_cards():
       </a>""" for h, t, d, m in GUIDES)
 
 
-def _ema(vals, n):
-    k, e = 2 / (n + 1), vals[0]
-    for v in vals[1:]:
-        e = v * k + e * (1 - k)
-    return e
-
-
-def _trend(vals, n, label):
-    up = vals[-1] >= _ema(vals, n)
-    return f'<span class="mb-tr {"up" if up else "dn"}" title="{label}: price {"above" if up else "below"} its {n}-hour average">{"&#9650;" if up else "&#9660;"}<em>{"Up" if up else "Down"}</em></span>'
-
-
-def _fmt(v):
-    if v >= 1000: return f"{v:,.2f}"
-    if v >= 10: return f"{v:.2f}"
-    return f"{v:.4f}"
+TV_SYMBOLS = [  # TradingView symbol, label
+    ("CME_MINI:MNQ1!", "MNQ · Micro Nasdaq-100"), ("CME_MINI:MES1!", "MES · Micro S&P 500"),
+    ("CBOT_MINI:MYM1!", "MYM · Micro Dow"), ("CME_MINI:M2K1!", "M2K · Micro Russell 2000"),
+    ("COMEX_MINI:MGC1!", "MGC · Micro Gold"), ("COMEX_MINI:SIL1!", "SIL · Micro Silver"),
+    ("NYMEX:PL1!", "PL · Platinum"), ("NYMEX_MINI:MCL1!", "MCL · Micro Crude"),
+    ("COMEX_MINI:MHG1!", "MHG · Micro Copper"), ("CME:M6E1!", "M6E · Micro EUR/USD"),
+]
 
 
 def market_board():
     import json
-    d = json.load(open(os.path.join(os.path.dirname(__file__), "board_data.json")))
-    rows = "".join(
-        f'<div class="mb-row">'
-        f'<span class="mb-sym"><b>{sym}</b><small>{name}</small></span>'
-        f'{_trend(c, 8, "Fast trend")}{_trend(c, 48, "Slow trend")}'
-        f'<span class="mb-last">{_fmt(last)}</span>'
-        f'<span class="mb-chg {"up" if chg >= 0 else "dn"}">{chg:+.2f}%</span></div>'
-        for sym, name, grp, last, chg, c in d["markets"])
+    cal = json.load(open(os.path.join(os.path.dirname(__file__), "calendar.json")))
+    tv = json.dumps({"width": "100%", "height": "100%", "isTransparent": True, "showSymbolLogo": False,
+                     "locale": "en", "symbolsGroups": [{"name": "Micro futures", "symbols": [
+                         {"name": n, "displayName": d} for n, d in TV_SYMBOLS]}]})
     ev = "".join(
-        f'<div class="ev-row" data-t="{t}"><span class="ev-when"><b class="ev-day"></b><small class="ev-time"></small></span>'
-        f'<span class="ev-name"><b>{title}</b><small>{cur} · {per}</small></span>'
-        f'<span class="ev-num"><small>Fcst</small>{fc or "–"}</span><span class="ev-num"><small>Prev</small>{pv}</span>'
+        f'<div class="ev-row" data-t="{t}" hidden><span class="ev-when"><b class="ev-day"></b><small class="ev-time"></small></span>'
+        f'<span class="ev-name"><b>{title}</b><small>USD · {per}</small></span>'
+        f'<span class="ev-src">{src}</span>'
         f'<span class="ev-imp" aria-label="High impact"><i></i><i></i><i></i></span></div>'
-        for t, title, per, fc, pv, cur in d["events"])
+        for t, title, per, src in cal["events"])
     return f'''    <div class="term board reveal">
-      <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Markets</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag mb-asof" data-t="{d["asof"]}">Updated</span></div>
-      <div class="mb-pane" data-pane="mk"><div class="mb-row mb-head"><span>Market</span><span>Fast trend</span><span>Slow trend</span><span>Last</span><span>Day</span></div>{rows}</div>
-      <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}</div>
+      <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Markets</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag">Micro futures</span></div>
+      <div class="mb-pane" data-pane="mk"><div class="tv-quotes" data-cfg='{tv}'></div><a class="tv-credit" href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">Quotes by TradingView</a></div>
+      <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}<p class="ev-src-note">US high-impact releases from the official BLS, BEA, Census and Fed schedules. Shown in your time.</p></div>
     </div>
     <script>(function(){{var b=document.querySelector('.board');if(!b)return;
 b.querySelectorAll('[data-tab]').forEach(function(t){{t.onclick=function(){{b.querySelectorAll('[data-tab]').forEach(function(x){{x.setAttribute('aria-selected',x===t)}});b.querySelectorAll('[data-pane]').forEach(function(p){{p.hidden=p.dataset.pane!==t.dataset.tab}})}}}});
-var a=b.querySelector('.mb-asof');a.textContent='Updated '+new Date(a.dataset.t).toLocaleTimeString([], {{hour:'2-digit',minute:'2-digit'}});
-var now=Date.now(),next=null;b.querySelectorAll('.ev-row').forEach(function(r){{var d=new Date(r.dataset.t);
-r.querySelector('.ev-day').textContent=d.toLocaleDateString(undefined,{{weekday:'short',day:'numeric'}});
+var q=b.querySelector('.tv-quotes'),root=document.documentElement,cur=null;
+function tv(){{var th=root.getAttribute('data-theme')==='light'?'light':'dark';if(th===cur)return;cur=th;
+var c=JSON.parse(q.dataset.cfg);c.colorTheme=th;q.innerHTML='<div class="tradingview-widget-container__widget"></div>';
+var s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js';s.async=true;s.text=JSON.stringify(c);q.appendChild(s)}}
+tv();new MutationObserver(tv).observe(root,{{attributes:true,attributeFilter:['data-theme']}});
+var now=Date.now(),rows=[].slice.call(b.querySelectorAll('.ev-row')),past=null,shown=0,next=null;
+rows.forEach(function(r){{var d=new Date(r.dataset.t);
+r.querySelector('.ev-day').textContent=d.toLocaleDateString(undefined,{{weekday:'short',day:'numeric',month:'short'}});
 r.querySelector('.ev-time').textContent=d.toLocaleTimeString([], {{hour:'2-digit',minute:'2-digit'}});
-if(d<now)r.classList.add('past');else if(!next){{next=d;r.classList.add('next')}}}});
-if(next){{var m=Math.round((next-now)/60000),h=Math.floor(m/60);b.querySelector('.ev-next-txt').textContent='Next release in '+(h?h+'h ':'')+(m%60)+'m · your time'}}
+if(d<now){{past=r;return}}if(shown<6){{r.hidden=false;shown++;if(!next){{next=d;r.classList.add('next')}}}}}});
+if(past){{past.hidden=false;past.classList.add('past')}}
+if(next){{var m=Math.round((next-now)/60000),dd=Math.floor(m/1440),h=Math.floor(m%1440/60);b.querySelector('.ev-next-txt').textContent='Next release in '+(dd?dd+'d ':'')+(h?h+'h ':'')+(dd?'':(m%60)+'m')}}
 }})();</script>
 '''
 
