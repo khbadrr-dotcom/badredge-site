@@ -340,7 +340,7 @@ def home():
 <div class="specbar"><div class="wrap"><dl>
   <div><dt>Markets</dt><dd>MGC MES MNQ MYM <span>+6</span></dd></div>
   <div><dt>Sessions</dt><dd>Asia · London · New York</dd></div>
-  <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> 0 passed</dd></div>
+  <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> forward testing</dd></div>
   <div><dt>Tools</dt><dd>3 simulators <span>·</span> in-browser</dd></div>
 </dl></div></div>
 
@@ -367,7 +367,7 @@ def home():
       <a class="card reveal" href="/research/">
         <div class="icon">{ICONS['shield']}</div><span class="tagline">Live</span>
         <h3>Research</h3>
-        <p>A public log of how trading ideas are built, frozen and stress-tested before they're trusted, including the ones that failed.</p>
+        <p>A public log of how trading ideas are built, frozen and stress-tested, with last year's results after costs.</p>
         <span class="go">Open the research &rarr;</span>
       </a>
       <a class="card reveal" href="/pine/">
@@ -424,12 +424,12 @@ def home():
 
 <section class="band">
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow">Research</span><h2>Most strategies fail. Here's the record.</h2>
-      <p class="lede">A public log of a futures research desk: the method, every strategy family tested, results after costs, and why each one was closed. No strategy has passed final validation.</p></div>
+    <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
+      <p class="lede">A public log of a futures research desk: the method, every strategy family tested and last year's results after costs. All of it is research and requires forward testing.</p></div>
     <div class="grid-3">
       <a class="card reveal" href="/research/method/"><div class="icon">{ICONS['scale']}</div><h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
-      <a class="card reveal" href="/research/backtested/"><div class="icon">{ICONS['shield']}</div><h3>Backtested strategies</h3><p>Opening ranges, FVGs, pivots, momentum and more. One page each, with the verdict.</p><span class="go">See the backtests</span></a>
-      <a class="card reveal" href="/research/lessons/"><div class="icon">{ICONS['book']}</div><h3>Lessons</h3><p>Why in-sample results fool you, and why costs beat most retail setups.</p><span class="go">Read the lessons</span></a>
+      <a class="card reveal" href="/research/backtested/"><div class="icon">{ICONS['shield']}</div><h3>Backtested strategies</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
+      <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICONS['book']}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
     </div>
   </div>
 </section>
@@ -677,7 +677,7 @@ def pine():
     <div class="code" style="border:0;padding:4px 2px;background:transparent">VALIDATION REPORT · structure
 
 <span class="k">1</span>  Summary and verdict
-     PASS · NO EDGE · INSUFFICIENT EVIDENCE
+     PASS · EXPLORATORY · INSUFFICIENT EVIDENCE
 <span class="k">2</span>  Rules as tested (frozen inputs)
 <span class="k">3</span>  Costs and fill assumptions
 <span class="k">4</span>  In-sample vs out-of-sample
@@ -686,7 +686,7 @@ def pine():
 <span class="k">7</span>  Monte Carlo drawdown range
 <span class="k">8</span>  Prop-rule fit: pass and payout odds
 <span class="k">9</span>  Code review notes</div>
-    <figcaption>The structure of a report. The verdict can be "no edge", and often is. That's the point.</figcaption>
+    <figcaption>The structure of a report. The verdict is often "exploratory": it requires forward testing. That's the point.</figcaption>
   </div>
 </div></section>
 
@@ -743,7 +743,7 @@ def about():
 <article class="prose" style="max-width:820px;padding-top:32px">
   <h2>Why it exists</h2>
   <p>The prop-firm world is loud: screenshots of wins, promises of fast funding, strategies sold on perfect backtests. Little of it answers the questions that decide whether an account survives. How big is my real cushion today? How many losses in a row can this size take? Does my edge still look like the one I planned with?</p>
-  <p>Every tool here started as something I built for my own accounts. The research is published in full, including the failures, which are most of it.</p>
+  <p>Every tool here started as something I built for my own accounts. The research is published in the open, and all of it requires forward testing.</p>
 
   <h2>The name</h2>
   <p>Badr is Arabic for the full moon: the night you can see the whole picture. The edge is the process, not a promise of results.</p>
@@ -827,10 +827,11 @@ def statics(paths):
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
     # Old /research/graveyard/ URLs: server-side 301s, plus stub pages in case _redirects is not applied.
     open(os.path.join(ROOT, "_redirects"), "w").write(
-        "/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n")
-    for sub in [""] + [f["slug"] + "/" for f in research.FAMILIES]:
-        new = f"/research/backtested/{sub}"
-        d = os.path.join(ROOT, "research", "graveyard", sub)
+        "/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n/research/lessons /research/ 301\n/research/lessons/ /research/ 301\n")
+    stubs = [("graveyard/" + sub, f"/research/backtested/{sub}") for sub in [""] + [f["slug"] + "/" for f in research.FAMILIES]]
+    stubs.append(("lessons/", "/research/"))
+    for old_sub, new in stubs:
+        d = os.path.join(ROOT, "research", old_sub)
         os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "index.html"), "w").write(
             f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{SITE}{new}">'

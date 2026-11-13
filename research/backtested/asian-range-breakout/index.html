@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Asian range breakout (gold) · Badr Edge</title>
-<meta name="description" content="Asian range breakout (gold): what was tested, results after costs, and the verdict. Exploratory.">
+<meta name="description" content="Asian range breakout (gold): what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/asian-range-breakout/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Asian range breakout (gold) · Badr Edge">
-<meta property="og:description" content="Asian range breakout (gold): what was tested, results after costs, and the verdict. Exploratory.">
+<meta property="og:description" content="Asian range breakout (gold): what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/asian-range-breakout/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>Asian range breakout (gold)</h1>
   <p class="lede">Mark the range of the Asian session. Trade the breakout during London and New York hours, stop at the other side of the range, target 1R, time exit in the afternoon.</p>
   <p class="meta">Markets: MGC<br>Scope: 1h chart · rules written before testing · split 2025 / 2026</p>
@@ -42,16 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>One rule set written down before any test (no grid search).</li><li>In-sample year 2025, then an out-of-sample test on 2026 to October.</li></ul>
-  <h2>What happened</h2>
-  <table><thead><tr><th>Window</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Avg per trade</th><th>Max DD</th></tr></thead><tbody>
-<tr><td>Full period</td><td>389</td><td>56%</td><td>1.38</td><td>+$45.6</td><td>$5,670</td></tr>
-<tr><td>2026 out-of-sample</td><td>168</td><td>58%</td><td>1.44</td><td>+$70.2</td><td>$3,246</td></tr>
-</tbody></table>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory</span></p><p>Exploratory (on hold). It passed its own out-of-sample bar, but a reviewer asked for gold data back to 2015 before anything can be concluded, and that test has not been run. The drawdown is also above the $2,000 limit for one contract.</p></div>
-  <h2>Lesson</h2>
-  <p>One good out-of-sample year is a reason to test further, not a reason to trade. A reviewer asked for about ten years of gold history before going further.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/initial-balance/"><span>Previous</span>Initial Balance (multi-session)</a><a class="next" href="/research/backtested/smt-divergence/"><span>Next</span>SMT divergence</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

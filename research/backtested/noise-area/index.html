@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Noise-area momentum · Badr Edge</title>
-<meta name="description" content="Noise-area momentum: what was tested, results after costs, and the verdict. Under observation.">
+<meta name="description" content="Noise-area momentum: what was tested, results after costs, and the verdict. Research · in forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/noise-area/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Noise-area momentum · Badr Edge">
-<meta property="og:description" content="Noise-area momentum: what was tested, results after costs, and the verdict. Under observation.">
+<meta property="og:description" content="Noise-area momentum: what was tested, results after costs, and the verdict. Research · in forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/noise-area/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-obs">Under observation</span></div>
+  <div><span class="status st-obs">Research · in forward testing</span></div>
   <h1>Noise-area momentum</h1>
   <p class="lede">Build a band around the open from the average move at each minute over the last 14 days. Trade only when price leaves the band and is on the same side of VWAP; otherwise stay flat.</p>
   <p class="meta">Markets: MNQ (lead), MES, MYM, M2K, MGC and 7 more<br>Scope: Zarattini, Aziz and Barbon (2024) rule · frozen tests 2021 to 2026</p>
@@ -42,18 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>The published rule, unchanged, on MNQ (with MES as a control).</li><li>The same rule on the other index micros, on Tokyo and London sessions, and on seven more markets.</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>MNQ, New York hours: the closest thing to a lead this desk has found. Details on the <a href="/research/under-observation/">Under observation</a> page.</li>
-<li>MES control: &minus;$4.16 per trade. MYM: &minus;$1.71. M2K: &minus;$5.27.</li>
-<li>Tokyo and London anchors: not validated on MNQ or MGC.</li>
-<li>Seven other markets (MYM, M2K, SIL, PL, MCL, MHG, M6E): 0 of 7 profitable, &minus;$18,326 combined.</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-obs">Under observation</span></p><p>Under observation on MNQ only (formally insufficient evidence). Not validated on any other market and session tested.</p></div>
-  <h2>Lesson</h2>
-  <p>When an effect shows up on one market and nowhere else, treat that as a warning, not as confirmation.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-obs">Research · in forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/intraday-momentum/"><span>Previous</span>Market intraday momentum</a><a class="next" href="/research/backtested/box-breakouts/"><span>Next</span>Consolidation box breakouts</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

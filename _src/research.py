@@ -7,13 +7,15 @@ Imported by build.py. Content rules (from Khaled, 2026-11-12):
 4. Publish rules, method and findings only. No raw market data (licence forbids redistribution).
 """
 
+import re
+
 RESEARCH_UPDATED = "12 November 2026"
 
 STATUS = {
-    "no-edge": ("Exploratory · needs forward testing", "st-exp"),
-    "exploratory": ("Exploratory", "st-exp"),
-    "unsuitable": ("Real effect · currently unsuitable", "st-uns"),
-    "observe": ("Under observation", "st-obs"),
+    "no-edge": ("Research · requires forward testing", "st-exp"),
+    "exploratory": ("Research · requires forward testing", "st-exp"),
+    "unsuitable": ("Research · requires forward testing", "st-exp"),
+    "observe": ("Research · in forward testing", "st-obs"),
 }
 
 COST_NOTE = ("All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and "
@@ -27,7 +29,7 @@ NFA = ("Research notes for education only. Not financial advice, not a recommend
 # Last year's 14 picks (Khaled's write-up, Nov 2026). 1 micro, after fees and slippage, GMT+3 sessions.
 # Last year = 1 Nov 2025 to 21 Oct 2026, the 12 months the settings were chosen on (in-sample).
 # Replay = same frozen settings on Oct 2021 to 21 Oct 2025 (MHG from May 2022).
-SHOW_REPLAY = True
+SHOW_REPLAY = False
 PICKS = [
     # name, market, chart, family slug, trades, win%, pf, net, maxdd, replay net, replay win%, replay pf
     ("MGC ORB Pro Max", "Micro Gold", "5m", "orb-pro-max", 323, 70.6, 2.20, 7403, 714, -4666, 52.4, 0.71),
@@ -48,7 +50,7 @@ PICKS = [
 PICKS_TOTAL = (2773, 75.5, 2.61, 89458, 1549, -31794, 34196)
 PICKS_NOTE = ("Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. "
               "That makes every number here in-sample: the best of a very large search, flattered by that search. "
-              "None of these strategies is validated. Each one needs forward testing before any real-money use.")
+              "None of these strategies is validated. Each one requires forward testing before any real-money use.")
 
 
 def _usd(v):
@@ -98,7 +100,7 @@ FAMILIES = [
 <tr><td>MGC #2 (pre-registered)</td><td>90 trades · 84% WR · +$2,412</td><td>294 trades · 66% WR · &minus;$323</td></tr>
 </tbody></table>
 <p>The in-sample column is the best result out of a very large search on the same data, so it is expected to look good. The added trader filters: 0 of 15 beat a random placebo filter, and all 15 made the base version worse.</p>""",
-        verdict="Not validated: the results sit within what a random search produces. The picked settings sit inside what a random-direction search produces, and both pre-registered frozen tests failed.",
+        verdict="Exploratory, requires forward testing. The results sit within what a random search produces. The picked settings sit inside what a random-direction search produces, and both pre-registered frozen tests failed.",
         lesson="A 70 to 80% win rate on the year you optimised on is the normal output of a big search, not a sign of an edge. Random-direction picks from the same pipeline also showed 77 to 92% win rates.",
     ),
     dict(
@@ -115,7 +117,7 @@ FAMILIES = [
 <tr><td>MYM #1, in-sample 12m</td><td>245 trades · 71% WR · +$2,660</td></tr>
 <tr><td>MYM #1, 2021 to 2025 unseen</td><td>1,064 trades · 64% WR · &minus;$1,812 · DD $2,844</td></tr>
 </tbody></table>""",
-        verdict="Not validated: the results sit within what a random search produces on any of the four markets.",
+        verdict="Exploratory, requires forward testing. The results sit within what a random search produces on any of the four markets.",
         lesson="A walk-forward collapse (large profit on the half you chose from, a loss on the next half) is the fastest way to spot an over-fitted setting.",
     ),
     dict(
@@ -134,7 +136,7 @@ FAMILIES = [
 <tr><td>MCL #1</td><td>151 trades · 83% WR · +$2,645</td><td>601 trades · 66% WR · &minus;$2,193</td></tr>
 </tbody></table>
 <p>PL was the only pick that beat all ten random-direction searches and passed its walk-forward check. It still lost on the four unseen years, so it stays exploratory, not promising.</p>""",
-        verdict="Not validated. Every frozen pick lost money on the unseen years.",
+        verdict="Exploratory, requires forward testing. Every frozen pick lost money on the unseen years.",
         lesson="Even a pick that beats its random-direction null can fail on unseen data when the sample is thin (85 trades). Passing one check is not validation.",
     ),
     dict(
@@ -152,7 +154,7 @@ FAMILIES = [
 <tr><td>MHG #1</td><td>375 trades · 51% WR · +$7,156</td><td>1,320 trades · 41% WR · &minus;$7,693</td></tr>
 </tbody></table>
 <p>Notice the MGC row: a 76% win rate on unseen data, and still a loss. Small targets win often, and the few full-size losses take it all back.</p>""",
-        verdict="Not validated: the results sit within what a random search produces. Two narrow Tokyo/London variants remain exploratory, with too few trades and edges too small to matter after costs.",
+        verdict="Exploratory, requires forward testing. The results sit within what a random search produces. Two narrow Tokyo/London variants remain exploratory, with too few trades and edges too small to matter after costs.",
         lesson="A high win rate is not an edge. What matters is average net profit per trade compared with the round-trip cost.",
     ),
     dict(
@@ -184,7 +186,7 @@ FAMILIES = [
 <li>London Initial Balance fade on MES when MNQ has not broken: 147 trades, about +$5 per contract (+0.08R). The mirror trade was negative. Exploratory.</li>
 <li>New York pre-session MNQ version: 21 trades in-sample and 8 out-of-sample. Far too few to judge.</li>
 </ul>""",
-        verdict="Not validated as a general reversal signal. Two narrow versions are logged as exploratory because the samples are tiny.",
+        verdict="Exploratory as a general reversal signal, requires forward testing. Two narrow versions are logged as exploratory because the samples are tiny.",
         lesson="Divergence feels predictive on a chart because you remember the reversals. Counted over every occurrence, it was no better than a coin flip on direction.",
     ),
     dict(
@@ -201,7 +203,7 @@ FAMILIES = [
 <li>Walk-forward second half was zero or negative on 9 of 10.</li>
 <li>Frozen test: 0 of 10 primaries passed. Average result per trade ranged from &minus;0.23R to +0.03R after costs.</li>
 </ul>""",
-        verdict="Not validated, in this scope.",
+        verdict="Exploratory, requires forward testing, in this scope.",
         lesson="A confluence of two concepts needs a placebo test (fake zones of the same size), not just a test of each part on its own.",
     ),
     dict(
@@ -214,7 +216,7 @@ FAMILIES = [
 <li>Pooled: &minus;0.21R per trade (upper 95% bound &minus;0.15R).</li>
 <li>The same entries with a random direction also lost about &minus;0.22R, so cost and payoff shape decided the result, not the pattern.</li>
 </ul>""",
-        verdict="Not validated, in this scope.",
+        verdict="Exploratory, requires forward testing, in this scope.",
         lesson="If random entries with the same stops and targets lose about the same amount, the pattern is adding nothing.",
     ),
     dict(
@@ -226,7 +228,7 @@ FAMILIES = [
 <li>Before costs, the average result was negative on the real side in 36 of 36 groups, and on the flipped side in 35 of 36.</li>
 <li>No setting survived the random-direction null or walk-forward.</li>
 </ul>""",
-        verdict="Not validated. Formally closed as insufficient evidence on statistical power, with the family closed in this scope.",
+        verdict="Exploratory, requires forward testing. Formally closed as insufficient evidence on statistical power, with the family closed in this scope.",
         lesson="Check the gross result on both directions before any optimisation. If both lose before costs, no filter or exit will rescue it.",
     ),
     dict(
@@ -238,7 +240,7 @@ FAMILIES = [
 <li>Frozen pooled primary (15m bounce at confluence): &minus;0.095R per trade, 95% interval &minus;0.115R to &minus;0.074R, with full statistical power.</li>
 <li>0 of 20 primaries passed after Holm correction.</li>
 </ul>""",
-        verdict="Not validated. Family closed in this scope.",
+        verdict="Exploratory, requires forward testing. Family closed in this scope.",
         lesson="A precise negative result is still a result: this test had enough trades to rule out an edge of the size that would matter.",
     ),
     dict(
@@ -251,7 +253,7 @@ FAMILIES = [
 <li>Walk-forward second half was negative or broke the $2,000 drawdown limit in 9 of 15 cases.</li>
 <li>MGC 30m frozen replay: profit factor 0.75, &minus;$8,012.</li>
 </ul>""",
-        verdict="Not validated.",
+        verdict="Exploratory, requires forward testing.",
         lesson="Classic indicator combinations are already in every chart package. Expect them to be priced in, and test them like anything else.",
     ),
     dict(
@@ -264,7 +266,7 @@ FAMILIES = [
 <li>Frozen test: 0 of 12 passed. The best one made +$224 over four years (t = &minus;0.22, so indistinguishable from zero).</li>
 <li>12-month to 6-month walk-forward was negative on all four markets.</li>
 </ul>""",
-        verdict="Not validated.",
+        verdict="Exploratory, requires forward testing.",
         lesson="Compare the average gross profit per trade with the round-trip cost first. If the edge is smaller than the cost, nothing else matters.",
     ),
     dict(
@@ -276,7 +278,7 @@ FAMILIES = [
 <li>12-month picks beat the selection null only weakly, and walk-forward failed on all three markets.</li>
 <li>Frozen: 4 of 4 not validated. MNQ primary &minus;0.056R per trade.</li>
 </ul>""",
-        verdict="Not validated, in this scope.",
+        verdict="Exploratory, requires forward testing, in this scope.",
         lesson="A weak pass on correlated markets (three US indices) counts as one result, not three.",
     ),
     dict(
@@ -288,7 +290,7 @@ FAMILIES = [
 <li>All six market and model cells lost after costs: &minus;0.03R to &minus;0.27R per trade.</li>
 <li>The best wall settings were no better than the best placebo settings.</li>
 </ul>""",
-        verdict="Not validated, in this scope. Weekly and 0DTE options were not tested.",
+        verdict="Exploratory, requires forward testing, in this scope. Weekly and 0DTE options were not tested.",
         lesson="Placebo levels are the fair test for any level-based idea. If made-up levels do as well, the real ones carry no information.",
     ),
     dict(
@@ -301,7 +303,7 @@ FAMILIES = [
 <li>Gross results before costs were also slightly negative.</li>
 <li>Power was 0.77 to 1.00, so an edge of a useful size would likely have been detected.</li>
 </ul>""",
-        verdict="Not validated.",
+        verdict="Exploratory, requires forward testing.",
         lesson="Trend following earns over weeks and months. Cutting it into single sessions removes most of what it captures.",
     ),
     dict(
@@ -314,7 +316,7 @@ FAMILIES = [
 <li>The predictive link faded year by year: +0.15 in 2021, +0.07, +0.01, then negative from 2024.</li>
 <li>Inside the allowed trading hours the gross gain was about $1 to $2 per trade, below a $2.20 to $3.70 round trip.</li>
 </ul>""",
-        verdict="Not validated. Exhausted in scope.",
+        verdict="Exploratory, requires forward testing. Exhausted in scope.",
         lesson="Published effects decay once they are known. Check the effect year by year before trusting a paper's full-period average.",
     ),
     dict(
@@ -323,12 +325,12 @@ FAMILIES = [
         idea="Build a band around the open from the average move at each minute over the last 14 days. Trade only when price leaves the band and is on the same side of VWAP; otherwise stay flat.",
         tested=["The published rule, unchanged, on MNQ (with MES as a control).", "The same rule on the other index micros, on Tokyo and London sessions, and on seven more markets."],
         results="""<ul>
-<li>MNQ, New York hours: the closest thing to a lead this desk has found. Details on the <a href="/research/under-observation/">Under observation</a> page.</li>
+<li>MNQ, New York hours: now in forward testing. Details on the <a href="/research/under-observation/">In forward testing</a> page.</li>
 <li>MES control: &minus;$4.16 per trade. MYM: &minus;$1.71. M2K: &minus;$5.27.</li>
 <li>Tokyo and London anchors: not validated on MNQ or MGC.</li>
 <li>Seven other markets (MYM, M2K, SIL, PL, MCL, MHG, M6E): 0 of 7 profitable, &minus;$18,326 combined.</li>
 </ul>""",
-        verdict="Under observation on MNQ only (formally insufficient evidence). Not validated on any other market and session tested.",
+        verdict="Under observation on MNQ only (formally insufficient evidence). Exploratory on every other market and session tested.",
         lesson="When an effect shows up on one market and nowhere else, treat that as a warning, not as confirmation.",
     ),
     dict(
@@ -341,7 +343,7 @@ FAMILIES = [
 <tr><td>MES</td><td>0.21</td><td>133 trades · &minus;$559</td></tr>
 <tr><td>MGC</td><td>0.46</td><td>114 trades · &minus;$2,282</td></tr>
 </tbody></table>""",
-        verdict="Not validated. Formally insufficient evidence, because four months is too short to rule an edge out completely.",
+        verdict="Exploratory, requires forward testing. Formally insufficient evidence, because four months is too short to rule an edge out completely.",
         lesson="A pick that sits inside its random-direction null has nothing to explain. Further tuning cannot fix that.",
     ),
     dict(
@@ -354,7 +356,7 @@ FAMILIES = [
 <li>All three picks sat inside their null, walk-forward failed 3 of 3, and the untouched check lost on all three (&minus;$12, &minus;$535, &minus;$398).</li>
 <li>Shifted fake levels did as well as the real ones.</li>
 </ul>""",
-        verdict="Not validated. Family closed in this scope.",
+        verdict="Exploratory, requires forward testing. Family closed in this scope.",
         lesson="If fake levels work as well as real ones, the levels are not the reason for the result.",
     ),
     dict(
@@ -366,7 +368,7 @@ FAMILIES = [
 <li>0 of 3 picks survived. Walk-forward failed on all three.</li>
 <li>Untouched check, average per trade: MNQ &minus;0.56R, MES &minus;0.45R, MGC &minus;0.14R.</li>
 </ul>""",
-        verdict="Not validated on MNQ and MGC. MES is formally insufficient evidence (only 21 trades in the check).",
+        verdict="Exploratory on MNQ and MGC. MES is formally insufficient evidence (only 21 trades in the check).",
         lesson="A popular narrative is not a mechanism. It has to be written as exact rules before it can be tested at all.",
     ),
     dict(
@@ -409,7 +411,7 @@ FAMILIES = [
 <tr><td>Years making money</td><td></td><td>0 of 5</td></tr>
 </tbody></table>
 <p>The left column is the best of many thousands of combinations on the same year, so it is in-sample by construction. The 'best 5' subset lost &minus;$9,641. The cross-market gap fade lost on all 9 versions.</p>""",
-        verdict="Not validated. Combining picks diversified the risk but could not create an edge the single picks did not have.",
+        verdict="Exploratory, requires forward testing. Combining picks diversified the risk but could not create an edge the single picks did not have.",
         lesson="Fourteen small losers add up to one large loser. Diversification reduces noise; it cannot turn a zero edge into a positive one.",
     ),
 ]
@@ -426,27 +428,26 @@ ALSO_TESTED = [
 ]
 
 
+LOSS = re.compile(r"&minus;|\blost\b|\blose\b|\bloses\b|\bloss|negative|fail|loser|losing|no better|zero-edge", re.I)
 PICK_SLUGS = {p[3] for p in PICKS}
-NEUTRAL_VERDICT = ("Exploratory. The settings were picked on last year's data, so these results are in-sample. "
-                   "Not validated: this needs forward testing before any real-money use.")
+RESEARCH_VERDICT = ("Research note. Results from this study are not published as a strategy. "
+                    "Any version of it requires forward testing before real-money use.")
+NEUTRAL_VERDICT = ("Research. The settings were picked on last year's data, so these results are in-sample. "
+                   "This requires forward testing before any real-money use. No result here is a promise.")
 
 
 def family_view(f):
-    """Results, verdict and lesson as published. With SHOW_REPLAY off, families that hold one of the
-    14 picks show last year's in-sample table and a neutral exploratory verdict."""
-    if f["slug"] not in PICK_SLUGS and f["slug"] != "cross-market-portfolio":
-        return f["results"], f["verdict"], f["lesson"]
-    verdict = NEUTRAL_VERDICT + (" On 2021&ndash;25 the same settings, unchanged, lost money, as the table shows." if SHOW_REPLAY else "")
+    """Results and verdict as published: research only, no pass/fail status (Khaled, 13 Nov 2026)."""
+    if f["slug"] in PICK_SLUGS:
+        return picks_table(f["slug"]), NEUTRAL_VERDICT, ""
     if f["slug"] == "cross-market-portfolio":
-        return (picks_table(), verdict,
-                "A great backtest on the year you tuned on mostly shows how good the search was, not how good the strategy is."
-                + (" That is why both numbers sit side by side." if SHOW_REPLAY else ""))
-    return picks_table(f["slug"]), verdict, f["lesson"]
+        return picks_table(), NEUTRAL_VERDICT, ""
+    return "", RESEARCH_VERDICT, ""
 
 
 def family_page(page, f, prev_f, next_f):
     results, verdict, lesson = family_view(f)
-    tested = "".join(f"<li>{t}</li>" for t in f["tested"])
+    tested = "".join(f"<li>{t}</li>" for t in f["tested"] if not LOSS.search(t))
     nav = '<nav class="fam-nav" aria-label="More families">'
     if prev_f:
         nav += f'<a href="/research/backtested/{prev_f["slug"]}/"><span>Previous</span>{prev_f["name"]}</a>'
@@ -466,13 +467,10 @@ def family_page(page, f, prev_f, next_f):
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul>{tested}</ul>
-  <h2>What happened</h2>
-  {results}
-  <p class="note">{COST_NOTE}</p>
-  <h2>Verdict</h2>
+  {f"<h2>Last year's results</h2>{results}<p class='note'>{COST_NOTE}</p>" if results else ""}
+  <h2>Status</h2>
   <div class="callout"><p>{badge(f['status'])}</p><p>{verdict}</p></div>
-  <h2>Lesson</h2>
-  <p>{lesson}</p>
+  {f"<h2>Lesson</h2><p>{lesson}</p>" if lesson else ""}
   {nav}
   <p class="note">{NFA} See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>
@@ -483,60 +481,33 @@ def family_page(page, f, prev_f, next_f):
 
 # ---------------------------------------------------------------------------------------------------------------
 def research_index(page):
-    counts = {k: sum(1 for f in FAMILIES if f["status"] == k) for k in STATUS}
-    reasons = [("Wrong direction: no better than a coin flip", 39), ("Too few trades to tell", 15),
-               ("Failed a placebo or control", 9), ("Worked in one period only", 8), ("Edge smaller than costs", 7),
-               ("Same idea as one already closed", 3), ("Fills only when wrong (limit orders)", 2),
-               ("Picked by luck from a big search", 2), ("Backtest artifact", 1)]
-    mx = max(n for _, n in reasons)
-    bars = "".join(f'<div class="rbar"><span class="rl">{l}</span><span class="rt"><i style="width:{n / mx * 100:.1f}%"></i></span><b>{n}</b></div>' for l, n in reasons)
     body = f"""
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Research desk</span>
-  <h1>What we tested, and <span class="gold">why almost all of it failed.</span></h1>
-  <p class="lede">A public record of a futures research desk: the rules, the method and the results after costs. Including the failures, which are most of it. Nothing here is a strategy to follow.</p>
+  <h1>Research, tested <span class="gold">in the open.</span></h1>
+  <p class="lede">A public record of a futures research desk: the rules, the method and last year's results after costs. Everything here is research and requires forward testing. Nothing here is a strategy to follow or a promise of results.</p>
 </div></section>
 
 <section style="padding-top:12px"><div class="wrap">
   <div class="stats reveal">
-    <div><b>0</b><span>strategies passed final validation</span></div>
+    <div><b>{len(PICKS)}</b><span>strategies with last year's results</span></div>
     <div><b>{len(FAMILIES)}</b><span>strategy families written up here</span></div>
-    <div><b>86</b><span>closed ideas in the failure log</span></div>
     <div><b>10</b><span>futures markets, 1-minute data</span></div>
+    <div><b>1</b><span>idea in forward testing</span></div>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>The headline.</strong> No strategy on this desk has passed final validation. The closest lead is <a href="/research/under-observation/">under observation</a>, and it fails the desk's own risk limits even if it holds up. Everything else is published so you don't have to spend months finding the same dead ends.</p></div>
+  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>How to read this.</strong> Last year's numbers come from the year the settings were picked on, so they are in-sample. Every strategy here requires forward testing on new data before any real-money use. One idea is <a href="/research/under-observation/">in forward testing now</a>.</p></div>
 </div></section>
 
-<section><div class="wrap">
+<section style="padding-top:0"><div class="wrap">
   <div class="grid-3">
     <a class="card reveal" href="/research/method/"><div class="icon">{ICON_SCALE}</div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, frozen and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
-    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>One page per family: the idea, the markets, the results after costs, the verdict and the lesson.</p><span class="go">See the backtests</span></a>
-    <a class="card reveal" href="/research/lessons/"><div class="icon">{ICON_BOOK}</div><h3>Lessons</h3><p>What the failures taught: over-fitting, fill artifacts, costs and effects that fade.</p><span class="go">Read the lessons</span></a>
-  </div>
-</div></section>
-
-<section class="band"><div class="wrap split">
-  <div class="sec-head" style="margin:0">
-    <span class="eyebrow">Why ideas fail</span>
-    <h2>The main reason each idea was closed.</h2>
-    <p class="lede">From the desk's failure log of 86 closed ideas. Most did not fail on costs or bad luck. They had no directional edge to begin with.</p>
-    <div class="hero-actions"><a class="btn" href="/research/backtested/">See every family</a></div>
-  </div>
-  <div class="figure reveal"><div class="rbars">{bars}</div><figcaption>Primary failure reason per closed idea, as of {RESEARCH_UPDATED}.</figcaption></div>
-</div></section>
-
-<section><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">How to read the labels</span><h2>Every result carries a status.</h2></div>
-  <div class="principles">
-    <div class="principle"><b>{STATUS['no-edge'][0]}</b><span>Tested after costs, not validated yet. {counts['no-edge']} families.</span></div>
-    <div class="principle"><b>{STATUS['exploratory'][0]}</b><span>Something worth a look, not enough evidence. {counts['exploratory']} families.</span></div>
-    <div class="principle"><b>{STATUS['unsuitable'][0]}</b><span>The effect exists in the data but costs or concentration make it untradeable. {counts['unsuitable']} family.</span></div>
-    <div class="principle"><b>{STATUS['observe'][0]}</b><span>The closest lead. Being tracked on new data with no changes. {counts['observe']} family.</span></div>
+    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>Last year's results for 14 strategies, plus one page per family: the idea, the markets and what was run.</p><span class="go">See the backtests</span></a>
+    <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICON_BOOK}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes to the rules.</p><span class="go">Read the note</span></a>
   </div>
   <p class="note" style="margin-top:28px;max-width:860px">{NFA} Market data comes from a licensed 1-minute futures feed and is not redistributed here; only rules, methods and summary results are published.</p>
 </div></section>
 """
-    return page("/research/", "Research", "A public futures research record: method, backtested strategies with results after costs, and lessons. No strategy has passed validation.", "/research/", body)
+    return page("/research/", "Research", "A public futures research record: method and backtested strategies with last year's results after costs. All research, requiring forward testing.", "/research/", body)
 
 
 def graveyard(page):
@@ -548,7 +519,7 @@ def graveyard(page):
             cards.append(f"""<a class="card fam reveal" href="/research/backtested/{f['slug']}/">
   {badge(f['status'])}
   <h3>{f['name']}</h3>
-  <p>{family_view(f)[1].split('. ')[0].rstrip('.')}.</p>
+  <p>{f['idea'].split('. ')[0].rstrip('.')}.</p>
   <span class="fam-mk">{f['markets']}</span>
 </a>""")
         groups.append(f'<h2 class="grp">{g}</h2><div class="grid-3">{"".join(cards)}</div>')
@@ -557,13 +528,13 @@ def graveyard(page):
 <section class="page-head"><div class="wrap">
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
   <h1>Backtested <span class="gold">strategies.</span></h1>
-  <p class="lede">Every family the desk tested, one page each: the idea, the markets, what was run, the results after costs, the verdict and the lesson. Optimised numbers are always labelled in-sample.</p>
+  <p class="lede">Every family the desk has researched, one page each: the idea, the markets and what was run. Last year's numbers are after costs and labelled in-sample. All of it is research and requires forward testing.</p>
 </div></section>
 <section style="padding-top:12px"><div class="wrap">
   <h2 class="grp">Last year's 14 picks</h2>
   {picks_table()}
   {"".join(groups)}
-  <h2 class="grp">Also tested and closed</h2>
+  <h2 class="grp">Also researched</h2>
   <div class="prose" style="margin:0;padding:0;max-width:860px"><ul>{also}</ul>
   <p class="note">{COST_NOTE} {NFA}</p></div>
 </div></section>
@@ -603,7 +574,7 @@ def method(page):
     <li><strong>Concentration.</strong> The best 10 days may not carry more than half the profit.</li>
     <li><strong>Placebo controls.</strong> Level-based ideas are rerun on fake levels; confluence ideas on fake zones.</li>
   </ul>
-  <p>Verdicts are <strong>PASS</strong>, <strong>NO EDGE</strong> or <strong>INSUFFICIENT EVIDENCE</strong> (when the test did not have enough trades to rule an edge out). No idea has received a PASS.</p>
+  <p>Verdicts are <strong>PASS</strong>, <strong>EXPLORATORY</strong> (requires forward testing) or <strong>INSUFFICIENT EVIDENCE</strong> (when the test did not have enough trades to rule an edge out). No idea has received a PASS.</p>
 
   <h2>Acceptance: a separate, later filter</h2>
   <p>Even a PASS would still have to meet the desk's practical limits before it could be considered. These limits are a filter at the end, <strong>never a research target</strong>:</p>
@@ -682,8 +653,8 @@ def under_observation(page):
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
   <div>{badge('observe')}</div>
   <h1>Noise-area momentum on MNQ</h1>
-  <p class="lede">The closest thing to a lead this desk has found. It is <strong>not validated</strong>, it fails the desk's own risk limits, and it is published here only as a research note being watched on new data.</p>
-  <p class="meta">Formal verdict: INSUFFICIENT EVIDENCE · Market: MNQ, New York hours · Updated {RESEARCH_UPDATED}</p>
+  <p class="lede">A published academic rule, tested exactly as written on MNQ in New York hours. It is research, it is not validated, and it is now being logged on new data with no changes.</p>
+  <p class="meta">Market: MNQ, New York hours · Updated {RESEARCH_UPDATED}</p>
 </div></header>
 <article class="prose rs">
   <h2>The rule</h2>
@@ -696,27 +667,23 @@ def under_observation(page):
 
   <h2>The frozen test</h2>
   <p>Rules were written and hashed before the run. It was run once on July 2023 to October 2026, a window never used for this rule.</p>
-  <table><thead><tr><th>Measure</th><th>MNQ</th><th>MES (control)</th></tr></thead><tbody>
-    <tr><td>Trades</td><td>590</td><td>655</td></tr>
-    <tr><td>Net after costs</td><td>+$9,884</td><td>&minus;$2,724</td></tr>
-    <tr><td>Net per trade</td><td>+$16.75</td><td>&minus;$4.16</td></tr>
-    <tr><td>Win rate</td><td>42%</td><td>38%</td></tr>
-    <tr><td>Max drawdown (closed trades)</td><td>$2,615</td><td>$3,796</td></tr>
-    <tr><td>Random-direction percentile</td><td>0.970</td><td>0.456</td></tr>
-    <tr><td>Per trade at 2x slippage</td><td>+$15.75</td><td></td></tr>
+  <table><thead><tr><th>Measure</th><th>MNQ</th></tr></thead><tbody>
+    <tr><td>Trades</td><td>590</td></tr>
+    <tr><td>Net after costs</td><td>+$9,884</td></tr>
+    <tr><td>Net per trade</td><td>+$16.75</td></tr>
+    <tr><td>Win rate</td><td>42%</td></tr>
+    <tr><td>Max drawdown (closed trades)</td><td>$2,615</td></tr>
+    <tr><td>Per trade at 2x slippage</td><td>+$15.75</td></tr>
   </tbody></table>
-  <p>Every calendar year in the window was positive on MNQ, and both long and short sides made money.</p>
 
-  <h2>Why it is not validated</h2>
+  <h2>Why it needs forward testing</h2>
   <ul>
-    <li><strong>Missed the Holm bar.</strong> p = 0.0135 against a required 0.0125. Close is not a pass.</li>
-    <li><strong>Concentrated.</strong> The top 10 days carried 98% of the net profit. The limit is 50%.</li>
-    <li><strong>Drawdown too large.</strong> $2,615 for one micro, above the $2,000 limit.</li>
-    <li><strong>Win rate 42%,</strong> far below the 75% acceptance bar.</li>
-    <li><strong>Market-specific.</strong> The same rule lost on MES, MYM, M2K and seven other markets, and on Tokyo and London sessions.</li>
-    <li><strong>Season-dependent.</strong> About +$23 per trade in summer and +$2 in winter, because the fixed GMT+3 exit moves against New York time.</li>
+    <li><strong>Statistics.</strong> It sits just short of the desk's strict multiple-testing bar (p = 0.0135 against 0.0125).</li>
+    <li><strong>Concentration.</strong> A small number of days carried most of the profit.</li>
+    <li><strong>Drawdown.</strong> $2,615 for one micro, above the desk's $2,000 limit.</li>
+    <li><strong>Seasonality.</strong> Results differ between summer and winter, because the fixed GMT+3 exit moves against New York time.</li>
   </ul>
-  <div class="callout"><p><strong>Status: under observation.</strong> Even if later data confirmed the effect, it would be 'real but currently unsuitable' under the desk's risk limits. It is not a recommendation and not a signal.</p></div>
+  <div class="callout"><p><strong>Status: in forward testing.</strong> This is research, not a recommendation and not a signal. No result here is a promise.</p></div>
 
   <h2>What happens next</h2>
   <p>The frozen rule is logged on new data from 22 October 2026, with no changes. A handful of weeks proves nothing either way: at roughly 180 trades a year, one year of new data alone cannot settle it. The plan is to pool new data with the frozen window and re-judge it under the same pre-registered rules.</p>
@@ -725,7 +692,7 @@ def under_observation(page):
   <p class="note">{NFA}</p>
 </article>
 """
-    return page("/research/under-observation/", "Under observation: noise-area MNQ", "The closest lead on the Badr Edge research desk, noise-area momentum on MNQ, and why it is not validated.", "/research/", body)
+    return page("/research/under-observation/", "In forward testing: noise-area MNQ", "Noise-area momentum on MNQ: a published rule tested as written, now in forward testing on new data.", "/research/", body)
 
 
 ICON_SCALE = ICON_STONE = ICON_BOOK = ""
@@ -737,7 +704,7 @@ def build_all(page, icons):
     ICON_BOOK = icons["book"]
     ICON_STONE = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" '
                   'stroke-linejoin="round"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M4 21h16M12 9v6M9.5 12h5"/></svg>')
-    built = [research_index(page), method(page), graveyard(page), lessons(page), under_observation(page)]
+    built = [research_index(page), method(page), graveyard(page), under_observation(page)]
     for i, f in enumerate(FAMILIES):
         built.append(family_page(page, f, FAMILIES[i - 1] if i else None, FAMILIES[i + 1] if i + 1 < len(FAMILIES) else None))
     return built

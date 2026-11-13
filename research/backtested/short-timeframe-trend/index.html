@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Short-timeframe trend following · Badr Edge</title>
-<meta name="description" content="Short-timeframe trend following: what was tested, results after costs, and the verdict. Exploratory.">
+<meta name="description" content="Short-timeframe trend following: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/short-timeframe-trend/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Short-timeframe trend following · Badr Edge">
-<meta property="og:description" content="Short-timeframe trend following: what was tested, results after costs, and the verdict. Exploratory.">
+<meta property="og:description" content="Short-timeframe trend following: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/short-timeframe-trend/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>Short-timeframe trend following</h1>
   <p class="lede">Join short intraday trends early with a trailing or time-based exit.</p>
   <p class="meta">Markets: MNQ, MES, MGC<br>Scope: 1m to 5m · EMA slope, N-bar breakout, strong bar · 504 settings</p>
@@ -42,17 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>504 settings with a gross check before costs.</li><li>1,000-seed random-direction null, walk-forward, untouched 4-month check.</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>1- and 2-minute signals had no gross edge on any market, so costs made them negative.</li>
-<li>MNQ 5m 'strong bar' continuation looked best in exploration (+$8,061 over 381 trades, in-sample) but missed the full null (0.932), and its walk-forward pick lost.</li>
-<li>Untouched check: +0.047R per trade with an interval from &minus;0.11R to +0.20R. All the profit came from 5 days.</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory</span></p><p>Exploratory. Formally insufficient evidence on MNQ and MES; no pick on MGC.</p></div>
-  <h2>Lesson</h2>
-  <p>When five days make all the profit, the result describes those five days, not a repeatable rule.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/amd-1h4h/"><span>Previous</span>1h and 4h AMD (accumulation, manipulation, distribution)</a><a class="next" href="/research/backtested/microstructure-effects/"><span>Next</span>Volume shocks and 1-minute reversals</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

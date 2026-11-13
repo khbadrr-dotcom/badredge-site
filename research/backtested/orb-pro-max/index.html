@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Opening range breakout: Pro Max · Badr Edge</title>
-<meta name="description" content="Opening range breakout: Pro Max: what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
+<meta name="description" content="Opening range breakout: Pro Max: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/orb-pro-max/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Opening range breakout: Pro Max · Badr Edge">
-<meta property="og:description" content="Opening range breakout: Pro Max: what was tested, results after costs, and the verdict. Exploratory · needs forward testing.">
+<meta property="og:description" content="Opening range breakout: Pro Max: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/orb-pro-max/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · needs forward testing</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>Opening range breakout: Pro Max</h1>
   <p class="lede">Mark the high and low of a fixed 30-minute window. Trade the first close beyond that range, or the first fair-value gap that forms after it, with the stop on the other side of the range.</p>
   <p class="meta">Markets: MGC, MES, MYM, MNQ, SIL, PL<br>Scope: 5m and 15m charts · tuned on Oct 2025 to Oct 2026 · replayed on Oct 2021 to Oct 2025</p>
@@ -42,13 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>Hundreds of thousands of setting combinations per market (window start, entry type, stop, target, filters), searched on the most recent 12 months.</li><li>The best setting per market was frozen and replayed unchanged on four earlier years it had never seen.</li><li>One market (MYM) also got a pre-registered frozen test, written down before it was run.</li><li>15 trader-designed filters (trend, volatility, session, day-of-week and more) were added to the best gold version, each compared against a random placebo filter.</li></ul>
-  <h2>What happened</h2>
-  <div class="tbl-wrap"><table class="picks"><caption>Last year, in-sample vs the same settings on 2021&ndash;25 · 1 micro · after fees and slippage</caption><thead><tr><th>Strategy</th><th>Chart</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Net</th><th>Max DD</th><th>2021&ndash;25 replay: net</th><th>Win rate</th><th>PF</th></tr></thead><tbody><tr><td><a href="/research/backtested/orb-pro-max/">MGC ORB Pro Max</a><small>Micro Gold</small></td><td>5m</td><td>323</td><td>70.6%</td><td>2.20</td><td>+$7,403</td><td>$714</td><td>&minus;$4,666</td><td>52.4%</td><td>0.71</td></tr><tr><td><a href="/research/backtested/orb-pro-max/">MES ORB Pro Max</a><small>Micro S&amp;P 500</small></td><td>5m</td><td>76</td><td>71.1%</td><td>2.34</td><td>+$821</td><td>$180</td><td>+$77</td><td>58.3%</td><td>1.02</td></tr><tr><td><a href="/research/backtested/orb-pro-max/">MYM ORB Pro Max</a><small>Micro Dow</small></td><td>15m</td><td>122</td><td>79.5%</td><td>2.99</td><td>+$1,844</td><td>$175</td><td>&minus;$2,074</td><td>53.0%</td><td>0.80</td></tr></tbody></table></div><p class="note">Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. None of these strategies is validated. Each one needs forward testing before any real-money use.</p>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · needs forward testing</span></p><p>Exploratory. The settings were picked on last year's data, so these results are in-sample. Not validated: this needs forward testing before any real-money use. On 2021&ndash;25 the same settings, unchanged, lost money, as the table shows.</p></div>
-  <h2>Lesson</h2>
-  <p>A 70 to 80% win rate on the year you optimised on is the normal output of a big search, not a sign of an edge. Random-direction picks from the same pipeline also showed 77 to 92% win rates.</p>
+  <h2>Last year's results</h2><div class="tbl-wrap"><table class="picks"><caption>Last year, in-sample · 1 micro · after fees and slippage</caption><thead><tr><th>Strategy</th><th>Chart</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Net</th><th>Max DD</th></tr></thead><tbody><tr><td><a href="/research/backtested/orb-pro-max/">MGC ORB Pro Max</a><small>Micro Gold</small></td><td>5m</td><td>323</td><td>70.6%</td><td>2.20</td><td>+$7,403</td><td>$714</td></tr><tr><td><a href="/research/backtested/orb-pro-max/">MES ORB Pro Max</a><small>Micro S&amp;P 500</small></td><td>5m</td><td>76</td><td>71.1%</td><td>2.34</td><td>+$821</td><td>$180</td></tr><tr><td><a href="/research/backtested/orb-pro-max/">MYM ORB Pro Max</a><small>Micro Dow</small></td><td>15m</td><td>122</td><td>79.5%</td><td>2.99</td><td>+$1,844</td><td>$175</td></tr></tbody></table></div><p class="note">Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. None of these strategies is validated. Each one requires forward testing before any real-money use.</p><p class='note'>All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research. The settings were picked on last year's data, so these results are in-sample. This requires forward testing before any real-money use. No result here is a promise.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><span></span><a class="next" href="/research/backtested/orb-break-and-hold/"><span>Next</span>Opening range: Break and Hold</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>
