@@ -589,18 +589,62 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .ev-more { display: block; padding: 11px 14px; border-top: 1px solid var(--line); font: 500 12px/1 var(--sans); color: var(--accent-2); }
 @media (max-width: 560px) { .ev-imp { display: none; } }
 
-/* Market board: TradingView quotes + official calendar */
-.tv-box { height: 470px; }
-.tv-box > .tv-quotes { height: 100% !important; width: 100% !important; }
-.tv-quotes > .tradingview-widget-container__widget { height: 100%; }
-.tv-quotes > .tradingview-widget-container__widget:empty { height: 0; }
-.tv-quotes > div:not(.tradingview-widget-container__widget) { height: 100%; }
-.tv-credit { display: block; padding: 8px 14px 10px; border-top: 1px solid var(--line); font: 400 11px/1.3 var(--sans); color: var(--dim); }
-.tv-credit:hover { color: var(--accent-2); }
+/* Market board: forex sessions timeline + official calendar */
+.fx-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px 12px; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 6%, transparent), transparent); }
+.fx-now-time { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.fx-clock-main { font: 600 26px/1 var(--mono); letter-spacing: -.02em; color: var(--text); font-variant-numeric: tabular-nums; }
+.fx-date { font: 400 12px/1.3 var(--sans); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fx-status { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line-2); font: 500 11px/1.2 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); text-align: right; }
+.fx-status i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--dim); }
+.fx-status.live { color: var(--live); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--live) 45%, transparent); }
+.fx-status.live i { background: var(--live); box-shadow: 0 0 10px var(--live); animation: fxpulse 2s ease-in-out infinite; }
+@keyframes fxpulse { 50% { opacity: .35; } }
+.fx-body { --id: 118px; position: relative; padding: 4px 16px 10px; }
+.fx-axis, .fx-row { display: grid; grid-template-columns: var(--id) minmax(0, 1fr); gap: 12px; align-items: center; }
+.fx-axis { height: 30px; }
+.fx-axis-l { font: 500 10.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.fx-ticks { position: relative; height: 100%; }
+.fx-ticks span { position: absolute; top: 50%; transform: translate(-50%, -50%); font: 400 10.5px/1 var(--mono); color: var(--dim); }
+.fx-ticks span:first-child { transform: translate(0, -50%); }
+.fx-ticks span:last-child { transform: translate(-100%, -50%); }
+.fx-row { padding: 9px 0; border-top: 1px solid var(--line); }
+.fx-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fx-id b { font: 600 13.5px/1.2 var(--sans); color: var(--text); }
+.fx-clock { font: 400 11px/1.3 var(--mono); color: var(--dim); white-space: nowrap; }
+.fx-st { display: flex; align-items: center; gap: 6px; font: 500 11px/1.3 var(--sans); color: var(--muted); white-space: nowrap; }
+.fx-st i { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--dim); }
+.fx-st em { font-style: normal; overflow: hidden; text-overflow: ellipsis; }
+.fx-row.open .fx-st { color: var(--live); }
+.fx-row.open .fx-st i { background: var(--live); box-shadow: 0 0 8px var(--live); }
+.fx-track { position: relative; height: 30px; border-radius: 6px; background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), var(--line) calc(25% - 1px) 25%), var(--panel-2); }
+.fx-track i { position: absolute; top: 4px; bottom: 4px; border-radius: 4px; display: flex; align-items: center; overflow: hidden; background: color-mix(in srgb, var(--accent) 18%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 50%, transparent); }
+.fx-track i.on { background: linear-gradient(90deg, color-mix(in srgb, var(--live) 70%, transparent), color-mix(in srgb, var(--live) 38%, transparent)); box-shadow: inset 0 0 0 1px var(--live), 0 0 16px color-mix(in srgb, var(--live) 35%, transparent); }
+.fx-track em { padding: 0 8px; font: 500 10.5px/1 var(--mono); font-style: normal; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fx-track i.on em { color: var(--text); }
+.fx-flow-row .fx-id b { font-size: 12.5px; color: var(--muted); }
+.fx-flow { display: block; width: 100%; height: 40px; color: var(--accent); overflow: visible; }
+.fx-area { fill: url(#fxg); }
+.fx-line { fill: none; stroke: var(--accent); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.fx-plot { position: absolute; top: 30px; bottom: 10px; left: calc(16px + var(--id) + 12px); right: 16px; pointer-events: none; }
+.fx-now { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px solid var(--accent); box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent); }
+.fx-now::after { content: ""; position: absolute; bottom: -4px; left: -4.75px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+.fx-now em { position: absolute; top: -24px; left: 0; transform: translateX(-50%); padding: 3px 6px; border-radius: 4px; background: var(--accent); color: var(--bg); font: 600 10px/1 var(--mono); font-style: normal; white-space: nowrap; }
+.fx-now.lo em { transform: none; }
+.fx-now.hi em { transform: translateX(-100%); }
+@media (max-width: 560px) {
+  .fx-head { padding: 12px 14px 10px; flex-wrap: wrap; }
+  .fx-clock-main { font-size: 22px; }
+  .fx-body { --id: 104px; padding: 4px 12px 8px; }
+  .fx-plot { left: calc(12px + var(--id) + 12px); right: 12px; }
+  .fx-ticks span.minor { display: none; }
+  .fx-track em { display: none; }
+  .fx-st { font-size: 10.5px; }
+}
 .ev-row[hidden] { display: none; }
 .ev-src { font: 500 10.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--dim); text-align: right; }
 .ev-src-note { margin: 0; padding: 11px 14px; border-top: 1px solid var(--line); font-size: 11.5px; line-height: 1.5; color: var(--dim); }
-@media (max-width: 560px) { .ev-row { grid-template-columns: 74px minmax(0, 1fr) 50px; } .tv-box { height: 440px; } }
+@media (max-width: 560px) { .ev-row { grid-template-columns: 74px minmax(0, 1fr) 50px; } }
 
 /* ---------- Nav: highlighted Backtested strategies ---------- */
 .nav a.nav-hl { color: var(--text); gap: 8px; }
@@ -706,3 +750,5 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .prose ol.pipeline, .prose ol.stepper { padding-left: 0; margin-left: 0; }
 
 @media (max-width: 400px) { .moon-stage { zoom: .56; } .hero { overflow-x: clip; } }
+.mb-tabs button { white-space: nowrap; }
+@media (max-width: 380px) { .board .ss-tz { display: none; } }

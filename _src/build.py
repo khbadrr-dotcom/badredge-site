@@ -299,21 +299,23 @@ def guide_cards():
       </a>""" for h, t, d, m in GUIDES)
 
 
-TV_SYMBOLS = [  # widget-licensed spot/CFD feeds for the market each micro tracks (CME futures are not available in TradingView widgets)
-    ("OANDA:NAS100USD", "Nasdaq-100 · MNQ"), ("OANDA:SPX500USD", "S&P 500 · MES"),
-    ("OANDA:US30USD", "Dow · MYM"), ("OANDA:US2000USD", "Russell 2000 · M2K"),
-    ("OANDA:XAUUSD", "Gold · MGC"), ("OANDA:XAGUSD", "Silver · SIL"),
-    ("OANDA:XPTUSD", "Platinum · PL"), ("TVC:USOIL", "WTI crude · MCL"),
-    ("OANDA:XCUUSD", "Copper · MHG"), ("FX:EURUSD", "EUR/USD · M6E"),
+SESSIONS = [  # key, name, IANA zone, open, close (local exchange time, Mon-Fri). Forex week: Sun 17:00 to Fri 17:00 New York.
+    ("sydney", "Sydney", "Australia/Sydney", "07:00", "16:00"),
+    ("tokyo", "Tokyo", "Asia/Tokyo", "09:00", "18:00"),
+    ("london", "London", "Europe/London", "08:00", "17:00"),
+    ("ny", "New York", "America/New_York", "08:00", "17:00"),
 ]
 
 
 def market_board():
     import json
     cal = json.load(open(os.path.join(os.path.dirname(__file__), "calendar.json")))
-    tv = json.dumps({"dateRange": "1D", "showChart": False, "locale": "en", "width": "100%", "height": "100%",
-                     "largeChartUrl": "", "isTransparent": True, "showSymbolLogo": False, "showFloatingTooltip": False,
-                     "tabs": [{"title": "Markets", "symbols": [{"s": n, "d": d} for n, d in TV_SYMBOLS]}]})
+    ses = "".join(
+        f'<div class="fx-row" data-k="{k}" data-tz="{tz}" data-o="{o}" data-c="{c}">'
+        f'<div class="fx-id"><b>{n}</b><span class="fx-clock">--:--</span><span class="fx-st"><i></i><em>&nbsp;</em></span></div>'
+        f'<div class="fx-track"></div></div>'
+        for k, n, tz, o, c in SESSIONS)
+    ticks = "".join(f'<span style="left:{h / 24 * 100:.4f}%"{" class=minor" if h % 6 else ""}>{h:02d}</span>' for h in range(0, 25, 3))
     ev = "".join(
         f'<div class="ev-row" data-t="{t}" hidden><span class="ev-when"><b class="ev-day"></b><small class="ev-time"></small></span>'
         f'<span class="ev-name"><b>{title}</b><small>USD · {per}</small></span>'
@@ -321,17 +323,37 @@ def market_board():
         f'<span class="ev-imp" aria-label="High impact"><i></i><i></i><i></i></span></div>'
         for t, title, per, src in cal["events"])
     return f'''    <div class="term board reveal">
-      <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Markets</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag">Underlying markets</span></div>
-      <div class="mb-pane" data-pane="mk"><div class="tv-box"><div class="tradingview-widget-container tv-quotes" data-cfg='{tv}'></div></div><a class="tv-credit" href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">Spot and CFD quotes by TradingView</a></div>
+      <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Sessions</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag ss-tz">Your time</span></div>
+      <div class="mb-pane" data-pane="mk"><div class="fx-head"><div class="fx-now-time"><b class="fx-clock-main">--:--</b><span class="fx-date">&nbsp;</span></div><div class="fx-status"><i></i><span>&nbsp;</span></div></div><div class="fx-body"><div class="fx-axis"><span class="fx-axis-l">Sessions</span><div class="fx-ticks">{ticks}</div></div>{ses}<div class="fx-row fx-flow-row"><div class="fx-id"><b>Overlap</b><span class="fx-clock">Sessions open</span></div><svg class="fx-flow" viewBox="0 0 960 40" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="fxg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".45"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs><path class="fx-area" d=""/><path class="fx-line" d=""/></svg></div><div class="fx-plot" aria-hidden="true"><i class="fx-now"><em>--:--</em></i></div></div><p class="ev-src-note">Forex session hours in your time zone, detected from your browser. The market trades Sunday 17:00 to Friday 17:00 New York. Holidays are not shown.</p></div>
       <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}<p class="ev-src-note">US high-impact releases from the official BLS, BEA, Census and Fed schedules. Shown in your time.</p></div>
     </div>
     <script>(function(){{var b=document.querySelector('.board');if(!b)return;
 b.querySelectorAll('[data-tab]').forEach(function(t){{t.onclick=function(){{b.querySelectorAll('[data-tab]').forEach(function(x){{x.setAttribute('aria-selected',x===t)}});b.querySelectorAll('[data-pane]').forEach(function(p){{p.hidden=p.dataset.pane!==t.dataset.tab}})}}}});
-var q=b.querySelector('.tv-quotes'),root=document.documentElement,cur=null;
-function tv(){{var th=root.getAttribute('data-theme')==='light'?'light':'dark';if(th===cur)return;cur=th;
-var c=JSON.parse(q.dataset.cfg);c.colorTheme=th;q.innerHTML='<div class="tradingview-widget-container__widget"></div>';
-var s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';s.async=true;s.text=JSON.stringify(c);q.appendChild(s)}}
-tv();new MutationObserver(tv).observe(root,{{attributes:true,attributeFilter:['data-theme']}});
+function off(tz,d){{var p={{}};new Intl.DateTimeFormat('en-US',{{timeZone:tz,hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'}}).formatToParts(d).forEach(function(x){{p[x.type]=+x.value}});return Date.UTC(p.year,p.month-1,p.day,p.hour%24,p.minute,p.second)-Math.floor(d/1000)*1000}}
+function zt(tz,y,m,d,hm){{var g=Date.UTC(y,m,d,+hm.slice(0,2),+hm.slice(3));return g-off(tz,new Date(g-off(tz,new Date(g))))}}
+function ymd(tz,d){{var p={{}};new Intl.DateTimeFormat('en-US',{{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',weekday:'short'}}).formatToParts(d).forEach(function(x){{p[x.type]=x.value}});return [+p.year,+p.month-1,+p.day,p.weekday]}}
+function spans(r,from){{var tz=r.dataset.tz,out=[];for(var i=-2;i<9;i++){{var t=ymd(tz,new Date(from+i*864e5));if(t[3]==='Sat'||t[3]==='Sun')continue;var x=[zt(tz,t[0],t[1],t[2],r.dataset.o),zt(tz,t[0],t[1],t[2],r.dataset.c)];if(!out.some(function(y){{return y[0]===x[0]}}))out.push(x)}}return out.sort(function(a,b){{return a[0]-b[0]}})}}
+function wk(t){{var d=ymd('America/New_York',new Date(t)),w=d[3],h=+new Intl.DateTimeFormat('en-US',{{timeZone:'America/New_York',hourCycle:'h23',hour:'2-digit'}}).format(new Date(t));return w==='Sat'||(w==='Fri'&&h>=17)||(w==='Sun'&&h<17)}}
+function wkEnd(t){{for(var i=0;i<4;i++){{var d=ymd('America/New_York',new Date(t+i*864e5));if(d[3]==='Sun')return zt('America/New_York',d[0],d[1],d[2],'17:00')}}return t}}
+function hm(t,tz){{var o={{hour:'2-digit',minute:'2-digit',hourCycle:'h23'}};if(tz)o.timeZone=tz;return new Date(t).toLocaleTimeString([],o)}}
+function dur(ms){{var m=Math.max(0,Math.round(ms/6e4)),d=Math.floor(m/1440),h=Math.floor(m%1440/60);return (d?d+'d ':'')+(h?h+'h ':'')+(d?'':(m%60)+'m')}}
+var rws=[].slice.call(b.querySelectorAll('.fx-row[data-k]'));
+function tick(){{var n=Date.now(),d0=new Date();d0.setHours(0,0,0,0);d0=+d0;var d1=new Date(d0);d1.setDate(d1.getDate()+1);d1=+d1;var L=d1-d0,we=wk(n),open=[],all=[];
+b.querySelector('.fx-clock-main').textContent=hm(n);b.querySelector('.fx-date').textContent=new Date(n).toLocaleDateString(undefined,{{weekday:'long',day:'numeric',month:'long'}});
+rws.forEach(function(r){{var sp=spans(r,n).map(function(x){{return wk(x[0])?[wkEnd(x[0]),x[1]]:x}}).filter(function(x){{return x[1]>x[0]}}),cur=null,nx=null;all.push(sp);
+sp.forEach(function(x){{if(x[0]<=n&&n<x[1])cur=x;else if(x[0]>n&&!nx)nx=x}});if(cur)open.push(r.querySelector('b').textContent);
+r.classList.toggle('open',!!cur);r.querySelector('.fx-clock').textContent=hm(n,r.dataset.tz)+' local';
+r.querySelector('.fx-st em').textContent=cur?'Open · '+dur(cur[1]-n)+' left':(nx?'Opens in '+dur(nx[0]-n):'Closed');
+var tr=r.querySelector('.fx-track');tr.innerHTML='';sp.forEach(function(x){{var a=Math.max(x[0],d0),z=Math.min(x[1],d1);if(z<=a)return;var i=document.createElement('i');i.style.left=((a-d0)/L*100)+'%';i.style.width=((z-a)/L*100)+'%';if(x===cur)i.className='on';if((z-a)/L>.12){{var e=document.createElement('em');e.textContent=hm(x[0])+' – '+hm(x[1]);i.appendChild(e)}}tr.appendChild(i)}})}});
+var pts=[],N=96;for(var k=0;k<=N;k++){{var t=d0+L*k/N,c=0;all.forEach(function(sp){{sp.forEach(function(x){{if(x[0]<=t&&t<x[1])c++}})}});pts.push(c)}}
+var sm=pts.map(function(v,k){{var s=0,w=0;for(var j=-2;j<=2;j++){{var q=pts[k+j];if(q!==undefined){{var f=3-Math.abs(j);s+=q*f;w+=f}}}}return s/w}});
+var line=sm.map(function(v,k){{return (k?'L':'M')+(k/N*960).toFixed(1)+' '+(38-v/3*34).toFixed(1)}}).join('');
+b.querySelector('.fx-line').setAttribute('d',line);b.querySelector('.fx-area').setAttribute('d',line+'L960 40L0 40Z');
+var st=b.querySelector('.fx-status');st.classList.toggle('live',open.length>0);
+st.querySelector('span').textContent=we?'Forex weekend · opens in '+dur(wkEnd(n)-n):open.length>1?open.join(' + ')+' overlap':open.length?open[0]+' session open':'Between sessions';
+var nw=b.querySelector('.fx-now'),px=(n-d0)/L;nw.style.left=(px*100)+'%';nw.className='fx-now'+(px<.06?' lo':px>.94?' hi':'');nw.querySelector('em').textContent=hm(n)}}
+try{{var tzn=Intl.DateTimeFormat().resolvedOptions().timeZone;b.querySelector('.ss-tz').textContent=tzn.split('/').pop().replace(/_/g,' ')+' time'}}catch(e){{}}
+tick();setInterval(tick,30000);
 var now=Date.now(),rows=[].slice.call(b.querySelectorAll('.ev-row')),past=null,shown=0,next=null;
 rows.forEach(function(r){{var d=new Date(r.dataset.t);
 r.querySelector('.ev-day').textContent=d.toLocaleDateString(undefined,{{weekday:'short',day:'numeric',month:'short'}});
