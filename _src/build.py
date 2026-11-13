@@ -27,7 +27,7 @@ NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/research/", "Research"),
 
 ICONS = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
-    "coins": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg>',
+    "coins": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg>',
     "scale": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7a3 3 0 0 0 6 0L6 7zm12 0l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>',
     "code": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>',
     "book": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg>',
@@ -314,9 +314,15 @@ def home():
     </div>
     <div class="hero-visual">
     <div class="moon-stage" aria-hidden="true">
-      <div class="orbit o1"><span class="cdl up"></span></div>
-      <div class="orbit o2"><span class="cdl dn"></span></div>
+      <svg class="orbit-lines back" viewBox="0 0 540 540"><g mask="url(#orb-back)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-back"><rect width="540" height="270" fill="#fff"/></mask></defs></svg>
       <img class="big-moon" src="/assets/moon.webp" alt="" width="1024" height="1024" decoding="async" fetchpriority="high">
+      <svg class="orbit-lines front" viewBox="0 0 540 540"><g mask="url(#orb-front)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-front"><rect y="270" width="540" height="270" fill="#fff"/></mask></defs></svg>
+      <span class="rider r1 cdl up" style="--d:0"></span>
+      <span class="rider r1 tk" style="--d:-33.3"><b>MGC</b></span>
+      <span class="rider r1 tk" style="--d:-66.6"><b>MNQ</b></span>
+      <span class="rider r2 cdl dn" style="--d:-16"></span>
+      <span class="rider r2 tk" style="--d:-50"><b>MES</b></span>
+      <span class="rider r2 tk" style="--d:-83"><b>MYM</b></span>
     </div>
     <div class="term reveal">
       <div class="term-bar"><span><b>The desk</b></span><span class="term-tag">Free · no sign-up</span></div>

@@ -46,9 +46,15 @@
     </div>
     <div class="hero-visual">
     <div class="moon-stage" aria-hidden="true">
-      <div class="orbit o1"><span class="cdl up"></span></div>
-      <div class="orbit o2"><span class="cdl dn"></span></div>
+      <svg class="orbit-lines back" viewBox="0 0 540 540"><g mask="url(#orb-back)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-back"><rect width="540" height="270" fill="#fff"/></mask></defs></svg>
       <img class="big-moon" src="/assets/moon.webp" alt="" width="1024" height="1024" decoding="async" fetchpriority="high">
+      <svg class="orbit-lines front" viewBox="0 0 540 540"><g mask="url(#orb-front)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-front"><rect y="270" width="540" height="270" fill="#fff"/></mask></defs></svg>
+      <span class="rider r1 cdl up" style="--d:0"></span>
+      <span class="rider r1 tk" style="--d:-33.3"><b>MGC</b></span>
+      <span class="rider r1 tk" style="--d:-66.6"><b>MNQ</b></span>
+      <span class="rider r2 cdl dn" style="--d:-16"></span>
+      <span class="rider r2 tk" style="--d:-50"><b>MES</b></span>
+      <span class="rider r2 tk" style="--d:-83"><b>MYM</b></span>
     </div>
     <div class="term reveal">
       <div class="term-bar"><span><b>The desk</b></span><span class="term-tag">Free · no sign-up</span></div>
