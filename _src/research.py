@@ -9,6 +9,8 @@ Imported by build.py. Content rules (from Khaled, 2026-11-12):
 
 import re
 
+from viz import hbars, paired, split_bar, stepper, timeline, pipeline, gauge
+
 RESEARCH_UPDATED = "12 November 2026"
 
 STATUS = {
@@ -430,6 +432,61 @@ ALSO_TESTED = [
 
 LOSS = re.compile(r"&minus;|\blost\b|\blose\b|\bloses\b|\bloss|negative|fail|loser|losing|no better|zero-edge", re.I)
 PICK_SLUGS = {p[3] for p in PICKS}
+
+
+def _plain(name):
+    return name.replace("&amp;", "&")
+
+
+PICK_WINDOW = "Last year, 22 Oct 2025 to 21 Oct 2026 · in-sample · 1 contract · after costs"
+
+
+def picks_overview():
+    t = PICKS_TOTAL
+    href = lambda p: f"/research/backtested/{p[3]}/"
+    wr = sorted(PICKS, key=lambda p: -p[5])
+    pf = sorted(PICKS, key=lambda p: -p[6])
+    nd = sorted(PICKS, key=lambda p: -p[7])
+    return f"""
+  <div class="stats reveal">
+    <div><b>{len(PICKS)}</b><span>strategies with last year's results</span></div>
+    <div><b>{t[0]:,}</b><span>trades across all 14, last year</span></div>
+    <div><b>{t[1]:.1f}%</b><span>combined win rate, in-sample</span></div>
+    <div><b>{t[2]:.2f}</b><span>combined profit factor, in-sample</span></div>
+  </div>
+  <div class="viz-grid">
+    {hbars([(p[0], p[5], href(p), p[1]) for p in wr], "Win rate by strategy", PICK_WINDOW, unit="%", max_v=100)}
+    {hbars([(p[0], p[6], href(p), p[1]) for p in pf], "Profit factor by strategy", "Gross profit divided by gross loss. Bars are capped at 5; the label shows the full value.", fmt="{:.2f}", ref=1.0, ref_label="1.0 = break-even", max_v=5)}
+  </div>
+  {paired([(p[0], p[7], p[8], href(p)) for p in nd], "Net result against the worst drawdown", PICK_WINDOW, "Net after costs", "Max drawdown")}
+  <p class="note">Charts and table show the same in-sample numbers. Every strategy requires forward testing on new data before any real-money use.</p>
+"""
+
+
+def pick_cards(slug):
+    cards = []
+    for p in PICKS:
+        if p[3] != slug:
+            continue
+        cards.append(f"""<div class="pick-card">
+  <div class="pc-head"><b>{p[0]}</b><span>{p[1]} · {p[2]} chart</span></div>
+  {split_bar(p[5])}
+  <dl class="pc-k">
+    <div><dt>Profit factor</dt><dd>{p[6]:.2f}</dd></div>
+    <div><dt>Trades</dt><dd>{p[4]:,}</dd></div>
+    <div><dt>Net after costs</dt><dd>{_usd(p[7])}</dd></div>
+    <div><dt>Max drawdown</dt><dd>${p[8]:,}</dd></div>
+  </dl>
+</div>""")
+    return f'<div class="pick-cards">{"".join(cards)}</div>' if cards else ""
+
+
+def stage_of(slug):
+    if slug == "noise-area":
+        return 4
+    if slug in PICK_SLUGS or slug == "cross-market-portfolio":
+        return 3
+    return 2
 RESEARCH_VERDICT = ("Research note. Results from this study are not published as a strategy. "
                     "Any version of it requires forward testing before real-money use.")
 NEUTRAL_VERDICT = ("Research. The settings were picked on last year's data, so these results are in-sample. "
@@ -465,9 +522,11 @@ def family_page(page, f, prev_f, next_f):
   <p class="meta">Markets: {f['markets']}<br>Scope: {f['scope']}</p>
 </div></header>
 <article class="prose rs">
+  <h2>Where it stands</h2>
+  {stepper(stage_of(f['slug']))}
   <h2>What was tested</h2>
   <ul>{tested}</ul>
-  {f"<h2>Last year's results</h2>{results}<p class='note'>{COST_NOTE}</p>" if results else ""}
+  {f"<h2>Last year's results</h2>{pick_cards(f['slug'])}{results}<p class='note'>{COST_NOTE}</p>" if results else ""}
   <h2>Status</h2>
   <div class="callout"><p>{badge(f['status'])}</p><p>{verdict}</p></div>
   {f"<h2>Lesson</h2><p>{lesson}</p>" if lesson else ""}
@@ -476,7 +535,7 @@ def family_page(page, f, prev_f, next_f):
 </article>
 """
     desc = f"{f['name']}: what was tested, results after costs, and the verdict. {STATUS[f['status']][0]}."
-    return page(f"/research/backtested/{f['slug']}/", f["name"], desc, "/research/", body)
+    return page(f"/research/backtested/{f['slug']}/", f["name"], desc, "/research/backtested/", body)
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -532,6 +591,7 @@ def graveyard(page):
 </div></section>
 <section style="padding-top:12px"><div class="wrap">
   <h2 class="grp">Last year's 14 picks</h2>
+  {picks_overview()}
   {picks_table()}
   {"".join(groups)}
   <h2 class="grp">Also researched</h2>
@@ -539,7 +599,7 @@ def graveyard(page):
   <p class="note">{COST_NOTE} {NFA}</p></div>
 </div></section>
 """
-    return page("/research/backtested/", "Backtested strategies", "Every futures strategy family tested by the Badr Edge research desk, with results after costs and a verdict for each.", "/research/", body)
+    return page("/research/backtested/", "Backtested strategies", "Every futures strategy family tested by the Badr Edge research desk, with results after costs and a research status for each.", "/research/backtested/", body)
 
 
 def method(page):
@@ -551,6 +611,18 @@ def method(page):
   <p class="meta">Updated {RESEARCH_UPDATED}</p>
 </div></header>
 <article class="prose rs">
+  <h2>The path every idea takes</h2>
+  {pipeline([("Explore", "Last 12 months. Grid searches allowed. Labelled in-sample."),
+             ("Three cheap checks", "Gross both ways, random-direction null, walk-forward."),
+             ("Pre-register", "Rules written, hashed and committed before the test."),
+             ("Frozen test", "Run once on four earlier years it was never tuned on."),
+             ("Validator gate", "A separate reviewer decides the status."),
+             ("Forward test", "Logged on new data with the rules unchanged.")])}
+  {timeline([("Frozen test window · 4 years", (2021, 10), (2025, 10), "frozen"),
+             ("Explore · 12 months", (2025, 10), (2026, 10), "explore"),
+             ("Forward", (2026, 10), (2027, 4), "forward")],
+            (2021, 10), (2027, 4), marks=[("22 Oct 2025", (2025, 10)), ("22 Oct 2026", (2026, 10))],
+            title="Which data each step uses", sub="Windows never overlap, so a test never sees the data an idea was tuned on.")}
   <h2>Track 1: explore</h2>
   <p>New ideas are explored on the most recent 12 months (22 Oct 2025 to 21 Oct 2026). Grid searches are allowed here, and anything found here is labelled <strong>in-sample</strong>. An in-sample result is a hypothesis, never evidence, because the best of thousands of settings will always look good on the data it was picked from.</p>
   <p>Before an idea moves on, it has to pass three cheap checks:</p>
@@ -589,6 +661,11 @@ def method(page):
 
   <h2>Costs used in every test</h2>
   <p>Fees per round turn plus one tick of slippage on each side for market and stop orders. Limit orders need price to trade one tick through before they count as filled.</p>
+  {hbars(sorted([("MGC", 3.92, None, "Micro gold"), ("MES", 3.72, None, "Micro S&amp;P 500"), ("MNQ", 2.22, None, "Micro Nasdaq-100"),
+                 ("MYM", 2.22, None, "Micro Dow"), ("M2K", 2.22, None, "Micro Russell"), ("SIL", 12.72, None, "Micro silver"),
+                 ("PL", 14.32, None, "Platinum"), ("MCL", 3.72, None, "Micro crude"), ("MHG", 4.42, None, "Micro copper"),
+                 ("M6E", 3.50, None, "Micro EUR/USD")], key=lambda r: -r[1]),
+         "Base cost of one round trip", "Fee plus one tick of slippage each side, per contract. Every result on this site is after this cost.", unit="", fmt="${:.2f}")}
   <table><thead><tr><th>Market</th><th>Tick value</th><th>Fee per round turn</th><th>Base round trip</th></tr></thead><tbody>
     <tr><td>MGC micro gold</td><td>$1.00</td><td>$1.92</td><td>$3.92</td></tr>
     <tr><td>MES micro S&amp;P 500</td><td>$1.25</td><td>$1.22</td><td>$3.72</td></tr>
@@ -657,6 +734,12 @@ def under_observation(page):
   <p class="meta">Market: MNQ, New York hours · Updated {RESEARCH_UPDATED}</p>
 </div></header>
 <article class="prose rs">
+  <h2>Where it stands</h2>
+  {stepper(4)}
+  {timeline([("Frozen test · Jul 2023 to Oct 2026", (2023, 7), (2026, 10), "frozen"),
+             ("Forward log", (2026, 10), (2027, 10), "forward")],
+            (2023, 7), (2027, 10), marks=[("Forward log starts 22 Oct 2026", (2026, 10))],
+            title="Test windows", sub="The forward log runs on new data only. Around a year of it is needed before it is judged again.")}
   <h2>The rule</h2>
   <p>This is the published rule from Zarattini, Aziz and Barbon (2024), tested exactly as written with nothing tuned:</p>
   <ul>
@@ -677,6 +760,10 @@ def under_observation(page):
   </tbody></table>
 
   <h2>Why it needs forward testing</h2>
+  <div class="gauges">
+    {gauge(0.0135, 0.0125, "Multiple-testing p-value", "{:.4f}", "Needs to be at or below the desk's bar.")}
+    {gauge(2615, 2000, "Max drawdown, 1 micro", "${:,.0f}", "Needs to be at or below the desk's limit.")}
+  </div>
   <ul>
     <li><strong>Statistics.</strong> It sits just short of the desk's strict multiple-testing bar (p = 0.0135 against 0.0125).</li>
     <li><strong>Concentration.</strong> A small number of days carried most of the profit.</li>

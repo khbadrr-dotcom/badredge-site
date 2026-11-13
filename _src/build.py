@@ -23,7 +23,7 @@ SHOW_PAYOUT_FIGURE = False
 PAYOUT_FIGURE = "$250,000+"
 PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
-NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/research/", "Research"), ("/pine/", "Pine Script"), ("/about/", "About")]
+NAV = [("/research/backtested/", "Backtested strategies"), ("/guides/", "Guides"), ("/research/", "Research"), ("/pine/", "Pine Script"), ("/about/", "About")]
 
 ICONS = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
@@ -81,7 +81,8 @@ def head(title, desc, path, extra=""):
 
 def header(active):
     links = "".join(
-        f'<a href="{href}"{" aria-current=\"page\"" if href == active else ""}>{label}</a>' for href, label in NAV)
+        f'<a href="{href}"{" class=\"nav-hl\"" if href == NAV[0][0] else ""}{" aria-current=\"page\"" if href == active else ""}>'
+        f'{"<i class=\"hl-dot\"></i>" if href == NAV[0][0] else ""}{label}</a>' for href, label in NAV)
     return f"""<header class="site-head">
   <div class="wrap">
     {BRAND}
