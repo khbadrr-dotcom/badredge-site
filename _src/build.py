@@ -71,7 +71,7 @@ def head(title, desc, path, extra=""):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 <script src="/assets/theme.js" defer></script>
 {extra}</head>
@@ -371,13 +371,13 @@ def home():
   <div class="wrap">
     <div class="hero-copy">
       <span class="eyebrow">Independent futures research desk</span>
-      <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
+      <h1>Patience is <span class="gold">a position.</span></h1>
       <p class="lede">Free tools to plan risk, guides to the rules that move accounts, and an open record of how trading ideas get tested. Built by a working futures trader.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/tools/">Explore the tools</a>
         <a class="btn" href="/research/">See the research</a>
       </div>
-      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Built by</dt><dd>A working trader</dd></div><div><dt>Signals</dt><dd>None</dd></div></dl>
+      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Built by</dt><dd>Moves freight by day, trades the open</dd></div><div><dt>Signals</dt><dd>Never offered</dd></div></dl>
     </div>
     <div class="hero-visual">
     <div class="moon-stage" aria-hidden="true">

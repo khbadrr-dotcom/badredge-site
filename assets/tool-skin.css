@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Manrope:wght@500..700&display=swap");
 /* Badr Edge chrome for the standalone simulators. Loaded only on /tools/<name>/ pages. */
 /* ==========================================================================
    Simulators: re-skin in the house palette. Their own logic and layout stay
@@ -15,8 +15,8 @@
 .be-bar .be-word { color: #ece8df; }
 .be-bar .be-back { color: #8f939b; } .be-bar .be-back:hover { color: #f3deb0; }
 .be-actions { display: inline-flex; align-items: center; gap: 12px; }
-.be-bar .be-brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Archivo", system-ui, sans-serif; font-weight: 800; font-stretch: 125%; font-size: 14.5px; letter-spacing: .02em; text-transform: uppercase; }
-.be-bar .be-brand span span { color: #d9b46c; font-weight: 800; }
+.be-bar .be-brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Manrope", system-ui, sans-serif; font-weight: 600; font-size: 13.5px; letter-spacing: .32em; text-transform: uppercase; }
+.be-bar .be-brand span span { color: #d9b46c; font-weight: 600; }
 .be-moon { width: 20px; height: 20px; border-radius: 50%; flex: none;
   background: radial-gradient(circle at 63% 60%, rgba(110,80,32,.34) 0 9%, transparent 10%), radial-gradient(circle at 40% 70%, rgba(110,80,32,.24) 0 6%, transparent 7%), radial-gradient(circle at 34% 30%, #fff3d6 0%, #ecd09a 22%, #d9b46c 52%, #9c7a3c 100%);
   box-shadow: 0 0 0 1px rgba(255,236,196,.16) inset, 0 0 16px rgba(217,180,108,.45); }
