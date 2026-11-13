@@ -317,13 +317,12 @@ def home():
       <svg class="orbit-lines back" viewBox="0 0 540 540"><g mask="url(#orb-back)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-back"><rect width="540" height="270" fill="#fff"/></mask></defs></svg>
       <img class="big-moon" src="/assets/moon.webp" alt="" width="1024" height="1024" decoding="async" fetchpriority="high">
       <svg class="orbit-lines front" viewBox="0 0 540 540"><g mask="url(#orb-front)"><ellipse cx="270" cy="270" rx="258" ry="80" transform="rotate(-12 270 270)"/><ellipse cx="270" cy="270" rx="206" ry="62" transform="rotate(18 270 270)"/></g><defs><mask id="orb-front"><rect y="270" width="540" height="270" fill="#fff"/></mask></defs></svg>
-      <svg class="tk-defs" width="0" height="0" aria-hidden="true"><defs><linearGradient id="tk-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e2b0"/><stop offset=".55" stop-color="#d9b46c"/><stop offset="1" stop-color="#9c7432"/></linearGradient></defs></svg>
       <span class="rider r1 cdl up" style="--d:0"></span>
-      <span class="rider r1 tk" style="--d:-33.3" title="Micro Gold"><svg viewBox="0 0 24 24"><path class="f" d="M3.5 19.5l1.6-4.5h5.8l1.6 4.5z"/><path class="f" d="M11.5 19.5l1.6-4.5h5.8l1.6 4.5z"/><path class="f" d="M7.5 13.5l1.6-4.5h5.8l1.6 4.5z"/><path d="M15.8 4.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z" class="f"/></svg></span>
-      <span class="rider r1 tk" style="--d:-66.6" title="Micro Nasdaq-100"><svg viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="1.6"/><rect class="f" x="9.5" y="9.5" width="5" height="5" rx=".6"/><path d="M9.5 3.5v3M12 3.5v3M14.5 3.5v3M9.5 17.5v3M12 17.5v3M14.5 17.5v3M3.5 9.5h3M3.5 12h3M3.5 14.5h3M17.5 9.5h3M17.5 12h3M17.5 14.5h3"/></svg></span>
+      <span class="rider r1 tk" style="--d:-33.3"><b>MGC</b></span>
+      <span class="rider r1 tk" style="--d:-66.6"><b>MNQ</b></span>
       <span class="rider r2 cdl dn" style="--d:-16"></span>
-      <span class="rider r2 tk" style="--d:-50" title="Micro S&amp;P 500"><svg viewBox="0 0 24 24"><path d="M4 20.5h16"/><rect class="f" x="5" y="13" width="3" height="6" rx=".5"/><rect class="f" x="10.5" y="9.5" width="3" height="9.5" rx=".5"/><rect class="f" x="16" y="6" width="3" height="13" rx=".5"/><path d="M4.5 10.5l5-4 3.5 2.5 6.5-5.5"/></svg></span>
-      <span class="rider r2 tk" style="--d:-83" title="Micro Dow"><svg viewBox="0 0 24 24"><path d="M12 3.2l1.4 2.4 2.7-.7.7 2.7 2.4 1.4-1.4 2.4 1.4 2.4-2.4 1.4-.7 2.7-2.7-.7L12 20.8l-1.4-2.4-2.7.7-.7-2.7-2.4-1.4L6.2 12 4.8 9.6l2.4-1.4.7-2.7 2.7.7z"/><circle class="f" cx="12" cy="12" r="3.2"/></svg></span>
+      <span class="rider r2 tk" style="--d:-50"><b>MES</b></span>
+      <span class="rider r2 tk" style="--d:-83"><b>MYM</b></span>
     </div>
     <div class="term reveal">
       <div class="term-bar"><span><b>The desk</b></span><span class="term-tag">Free · no sign-up</span></div>
