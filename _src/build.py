@@ -12,7 +12,19 @@ import research
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://badredge.com"
 YEAR = datetime.date.today().year
-UPDATED = "November 2026"
+UPDATED = "November 2026"  # legal pages only; not shown on the homepage or footer
+
+# The Badr Edge mark: a chamfered B with the cut-off corner set apart in brass (the "edge").
+MARK_B = "M10 8H30L46 24V26L41 31L50 40V47L41 56H10Z M19 17H28L31 20.5L28 24H19Z M19 38H35L39 42.5L35 47H19Z"
+MARK_E = "M35 8H46V19Z"
+MARK = (f'<svg class="mark" viewBox="6 6 48 52" aria-hidden="true"><path class="mk-b" fill-rule="evenodd" d="{MARK_B}"/>'
+        f'<path class="mk-e" d="{MARK_E}"/></svg>')
+BRAND = f'<a class="brand" href="/" aria-label="Badr Edge home">{MARK}<span class="wm">Badr <span class="word-2">Edge</span></span></a>'
+
+# Payout figure on /about/. Off until the lawyer call clears dollar figures on the site.
+SHOW_PAYOUT_FIGURE = False
+PAYOUT_FIGURE = "$250,000+"
+PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
 NAV = [("/tools/", "Tools"), ("/guides/", "Guides"), ("/research/", "Research"), ("/pine/", "Pine Script"), ("/about/", "About")]
 
@@ -50,7 +62,7 @@ def head(title, desc, path, extra=""):
 {THEME_INIT}
 <title>{full}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#07080a">
+<meta name="theme-color" content="#090d0d">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -62,7 +74,7 @@ def head(title, desc, path, extra=""):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 <script src="/assets/theme.js" defer></script>
 {extra}</head>
@@ -75,7 +87,7 @@ def header(active):
         f'<a href="{href}"{" aria-current=\"page\"" if href == active else ""}>{label}</a>' for href, label in NAV)
     return f"""<header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
+    {BRAND}
     <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/">Open the tools</a></nav>
     <div class="head-actions">{THEME_BTN}<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
   </div>
@@ -90,8 +102,8 @@ def footer():
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span>Badr <span class="word-2">Edge</span></span></a>
-        <p class="foot-about">A working futures trader’s desk, opened up: free tools, guides and research. Process first, always.</p>
+        {BRAND}
+        <p class="foot-about">An independent futures research desk. Free tools, guides and a public research record.</p>
         <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
       </div>
       <div><h4>Tools</h4><ul>
@@ -120,7 +132,6 @@ def footer():
     </div>
     <div class="foot-bar">
       <div>&copy; {YEAR} Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
-      <div class="powered"><span class="live" aria-hidden="true"></span><span>v1.0 · {UPDATED}</span></div>
     </div>
   </div>
 </footer>
@@ -128,10 +139,6 @@ def footer():
 (() => {{
   const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
   if (b) b.addEventListener('click', () => {{ const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; }});
-  document.querySelectorAll('a.card').forEach(c => c.addEventListener('pointermove', e => {{
-    const r = c.getBoundingClientRect();
-    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
-  }}));
   const els = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {{
     const io = new IntersectionObserver(es => es.forEach(e => {{ if (e.isIntersecting) {{ e.target.classList.add('in'); io.unobserve(e.target); }} }}), {{ rootMargin: '0px 0px -8% 0px' }});
@@ -188,6 +195,65 @@ def hero_svg():
 </svg>"""
 
 
+# ───────────────────────── Hero chart ─────────────────────────
+def desk_chart():
+    """Illustrative 5-minute session: an opening range, a false break lower, the breakout and a retest.
+    Deterministic, drawn with CSS classes so it follows the light/dark theme."""
+    rnd = random.Random(7)
+    # target closes for each bar: range, sweep below, breakout, retest of range high, continuation
+    path = ([101.6, 102.8, 101.2, 103.4, 102.1, 103.0] + [101.0, 99.9, 100.6, 102.4, 103.6, 104.9, 106.2, 105.4,
+            107.1, 108.3, 107.0, 105.6, 104.7, 105.3, 106.6, 108.0, 109.2, 108.6, 110.1, 111.4, 110.7, 112.0,
+            112.9, 112.2, 113.6, 114.1, 113.2, 114.6])
+    bars, prev = [], 102.2
+    for c in path:
+        c += rnd.uniform(-.25, .25)
+        o = prev + rnd.uniform(-.3, .3)
+        hi = max(o, c) + rnd.uniform(.2, .9)
+        lo = min(o, c) - rnd.uniform(.2, .9)
+        bars.append((o, hi, lo, c)); prev = c
+    n = len(bars)
+    W, H, L, R, T, B = 560, 236, 4, 58, 10, 18
+    lo_p, hi_p = 98.0, 116.0
+    bw = (W - L - R) / n
+    x = lambda i: L + (i + .5) * bw
+    y = lambda v: T + (hi_p - v) / (hi_p - lo_p) * (H - T - B)
+    out = []
+    last = bars[-1][3]
+    for v in range(98, 117, 3):
+        if abs(y(v) - y(last)) < 13: 
+            out.append(f'<line class="ch-grid" x1="{L}" x2="{W-R+6}" y1="{y(v):.1f}" y2="{y(v):.1f}"/>'); continue
+        out.append(f'<line class="ch-grid" x1="{L}" x2="{W-R+6}" y1="{y(v):.1f}" y2="{y(v):.1f}"/>'
+                   f'<text class="ch-axis" x="{W-R+12}" y="{y(v)+3:.1f}">{2380+v*1.0:.1f}</text>')
+    for i in range(0, n, 6):
+        out.append(f'<line class="ch-grid" x1="{x(i):.1f}" x2="{x(i):.1f}" y1="{T}" y2="{H-B}"/>')
+    t0 = 9 * 60 + 30
+    for i in range(0, n, 6):
+        m = t0 + i * 5
+        out.append(f'<text class="ch-axis" x="{x(i):.1f}" y="{H-4}" text-anchor="middle">{m//60:02d}:{m%60:02d}</text>')
+    orh = max(b[1] for b in bars[:6]); orl = min(b[2] for b in bars[:6])
+    out.append(f'<rect class="ch-or" x="{L}" y="{y(orh):.1f}" width="{x(5)+bw/2-L:.1f}" height="{y(orl)-y(orh):.1f}"/>')
+    for v, lab in [(orh, "OR HIGH"), (orl, "OR LOW")]:
+        out.append(f'<line class="ch-orl" x1="{L}" x2="{W-R+6}" y1="{y(v):.1f}" y2="{y(v):.1f}"/>'
+                   f'<text class="ch-orlab" x="{W-R-2}" text-anchor="end" y="{y(v)-5 if lab == "OR HIGH" else y(v)+12:.1f}">{lab}</text>')
+    # session average line
+    acc, vw = 0, []
+    for i, (o, h, l, c) in enumerate(bars):
+        acc += (h + l + c) / 3; vw.append((i, acc / (i + 1)))
+    out.append('<path class="ch-vw" d="' + " ".join(("M" if i == 0 else "L") + f"{x(i):.1f},{y(v):.1f}" for i, v in vw) + '"/>')
+    for i, (o, h, l, c) in enumerate(bars):
+        up = c >= o
+        k = "up" if up else "dn"
+        top, bot = y(max(o, c)), y(min(o, c))
+        out.append(f'<line class="ch-wick-{k}" x1="{x(i):.1f}" x2="{x(i):.1f}" y1="{y(h):.1f}" y2="{y(l):.1f}"/>'
+                   f'<rect class="ch-{k}" x="{x(i)-bw*.32:.1f}" y="{top:.1f}" width="{bw*.64:.1f}" height="{max(bot-top, 1):.1f}"/>')
+    last = bars[-1][3]
+    out.append(f'<line class="ch-lastl" x1="{x(n-1):.1f}" x2="{W-R+6}" y1="{y(last):.1f}" y2="{y(last):.1f}"/>'
+               f'<rect class="ch-last" x="{W-R+6}" y="{y(last)-8:.1f}" width="{R-4}" height="16" rx="2"/>'
+               f'<text class="ch-lastt" x="{W-R+12}" y="{y(last)+3.5:.1f}">{2380+last:.1f}</text>')
+    return (f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="Illustration: a five-minute futures chart with an opening range, '
+            f'a false break below it, a breakout above and a retest">' + "".join(out) + "</svg>")
+
+
 # ───────────────────────── Pages ─────────────────────────
 TOOLS = [
     ("/tools/pass/", "target", "Prop Pass Simulator",
@@ -236,37 +302,39 @@ def guide_cards():
 
 
 def home():
-    strip = "".join(f"<span>{t}</span>" for t in [
-        "Risk planning", "Position sizing", "Drawdown rules", "Session structure",
-        "Futures basics", "Pine Script v6", "Backtest hygiene", "Review &amp; journaling"])
     body = f"""
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <a class="hero-pill" href="#desk"><b>Badr Edge</b>A working trader's desk, opened up</a>
+      <span class="eyebrow">Independent futures research desk</span>
       <h1>Trade with a process, <span class="gold">not a guess.</span></h1>
-      <p class="lede">Free tools to plan your risk, guides to the rules that move accounts, and research on how trading ideas get tested. Built by a futures trader, for traders who'd rather think than chase.</p>
+      <p class="lede">Free tools to plan risk, guides to the rules that move accounts, and an open record of how trading ideas get tested. Built by a working futures trader.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/tools/">Explore the tools</a>
-        <a class="btn" href="/guides/">Read the guides</a>
+        <a class="btn" href="/research/">See the research</a>
       </div>
-      <div class="hero-meta"><span>Free, no sign-up</span><span>Built by a working trader</span><span>No signals, no hype</span></div>
+      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Built by</dt><dd>A working trader</dd></div><div><dt>Signals</dt><dd>None</dd></div></dl>
     </div>
-    <div class="stage">
-    <div class="orbits" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div></div>
-    <div class="big-moon" aria-hidden="true"></div>
-    <div class="viz desk reveal">
-      <div class="viz-top"><span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>The desk</b></span><span>{UPDATED}</span></div>
+    <div class="term reveal">
+      <div class="term-bar"><span class="term-tabs"><span class="on"><b>MGC</b>5m</span><span>MES</span><span>MNQ</span></span><span class="term-tag">Illustration</span></div>
+      <div class="term-chart">{desk_chart()}</div>
+      <div class="ch-legend"><span><i class="bx"></i>Opening range</span><span><i></i>Range high / low</span><span><i class="vw"></i>Session average</span></div>
+      <div class="desk">
       <a class="desk-row" href="/tools/"><span class="desk-ico">{ICONS['target']}</span><span class="desk-name">Tools<small>Risk, sizing and planning simulators</small></span><span class="desk-state live">3 live</span></a>
       <a class="desk-row" href="/guides/"><span class="desk-ico">{ICONS['book']}</span><span class="desk-name">Guides<small>The rules behind the numbers</small></span><span class="desk-state live">3 published</span></a>
-      <a class="desk-row" href="/research/"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state live">Live</span></a>
-      <a class="desk-row" href="/pine/"><span class="desk-ico">{ICONS['code']}</span><span class="desk-name">Pine Script<small>Tested TradingView strategy work</small></span><span class="desk-state">Opening soon</span></a>
-    </div>
+      <a class="desk-row" href="/research/"><span class="desk-ico">{ICONS['shield']}</span><span class="desk-name">Research<small>How ideas get tested, in the open</small></span><span class="desk-state live">{len(research.FAMILIES)} families</span></a>
+      <a class="desk-row" href="/pine/"><span class="desk-ico">{ICONS['code']}</span><span class="desk-name">Pine Script<small>Tested TradingView strategy work</small></span><span class="desk-state">Soon</span></a>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="strip" aria-hidden="true"><div class="strip-track">{strip}{strip}</div></div>
+<div class="specbar"><div class="wrap"><dl>
+  <div><dt>Markets</dt><dd>MGC MES MNQ MYM <span>+6</span></dd></div>
+  <div><dt>Sessions</dt><dd>Asia · London · New York</dd></div>
+  <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> 0 passed</dd></div>
+  <div><dt>Tools</dt><dd>3 simulators <span>·</span> in-browser</dd></div>
+</dl></div></div>
 
 <section class="band" id="desk">
   <div class="wrap">
@@ -365,7 +433,7 @@ def home():
       <details><summary>What is Badr Edge?</summary><p>The public side of a working futures trader's desk: the tools, guides and testing habits used to plan and review trading, shared for free. It isn't a signal service, a course or a fund.</p></details>
       <details><summary>Is it free?</summary><p>Yes. The tools and guides need no account, no paywall and no trial.</p></details>
       <details><summary>Is my data uploaded anywhere?</summary><p>No. The tools run in your browser. Files you load are read on your device, and settings are saved only in your own browser's storage.</p></details>
-      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Pine Script work is described on the <a href="/pine/" style="color:var(--gold-2)">Pine Script page</a>.</p></details>
+      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Pine Script work is described on the <a href="/pine/" >Pine Script page</a>.</p></details>
       <details><summary>Is any of this financial advice?</summary><p>No. Everything here is educational. Simulations are hypothetical and rely on the inputs you give them. Your trading decisions are your own.</p></details>
     </div>
   </div>
@@ -422,7 +490,7 @@ def article(path, title, desc, minutes, body_html, tool_href, tool_name):
   <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
   <h1>{title}</h1>
   <p class="lede">{desc}</p>
-  <p class="meta">{minutes} · Updated {UPDATED}</p>
+  <p class="meta">{minutes}</p>
 </div></header>
 <article class="prose">
 {body_html}
@@ -628,39 +696,71 @@ def pine():
 
 
 def about():
-    body = """
-<section class="page-head"><div class="wrap" style="max-width:820px">
+    if SHOW_PAYOUT_FIGURE:
+        proof = (f'<a class="proof" href="{PAYOUT_PROOF_URL}">View payout records &rarr;</a>' if PAYOUT_PROOF_URL
+                 else '<span class="proof off">Payout records available on request</span>')
+        fig = f"""<span class="k">Prop firm payouts</span>
+      <span class="v">{PAYOUT_FIGURE}</span>
+      <p>Paid out by prop firms on funded accounts, from firm dashboards and payout certificates. Not audited, and not a return on anyone else's money.</p>
+      {proof}"""
+    else:
+        fig = """<span class="k">Prop firm payouts</span>
+      <span class="v pending">Payout record on file.</span>
+      <p>Payouts from four prop firms are documented with dashboards and certificates. A summary will be published here once it has been reviewed.</p>
+      <span class="proof off">Summary in review</span>"""
+    body = f"""
+<section class="page-head"><div class="wrap">
   <span class="eyebrow">About</span>
-  <h1>Badr means <span class="gold">full moon.</span></h1>
-  <p class="lede">In Arabic, badr is the moon at its fullest: the night you can see the whole picture. See the full risk picture before you place the trade.</p>
+  <h1>Built from real trading. <span class="gold">Refined through research.</span></h1>
+  <p class="lede">Badr Edge is an independent futures research desk, built on more than three years of active trading and shaped by data, testing and disciplined execution.</p>
 </div></section>
 
-<article class="prose" style="max-width:820px">
-  <h2>Who's behind it</h2>
-  <p>I'm a futures trader. I trade gold and US index futures, mostly micro contracts, through prop-firm accounts, using a discretionary price-action process I've refined over the past two years. Alongside that I build and test systematic strategies in Pine Script.</p>
-  <p>Every tool on this site started as something I built for my own accounts: to decide how many contracts to trade, how long an evaluation is likely to take, and when a payout is realistic. They proved useful, so they're now public and free.</p>
+<section style="padding:48px 0 0"><div class="wrap">
+  <div class="record reveal">
+    <div class="record-fig">
+      {fig}
+    </div>
+    <dl>
+      <div><dt>Experience</dt><dd><b>3+ years</b> of active trading in financial markets</dd></div>
+      <div><dt>Prop firms</dt><dd>Evaluations passed at <b>6 firms</b>, payouts from <b>4</b>, promoted to the live funded stage at <b>3</b></dd></div>
+      <div><dt>Markets</dt><dd>Gold and US equity index futures, mainly micros: MGC, MES, MNQ, MYM</dd></div>
+      <div><dt>Also</dt><dd>Personal CFD brokerage accounts, traded alongside the prop accounts</dd></div>
+      <div><dt>Method</dt><dd>Discretionary price action for execution; systematic research for everything that can be tested</dd></div>
+    </dl>
+  </div>
+</div></section>
 
+<article class="prose" style="max-width:820px;padding-top:56px;padding-bottom:0">
+  <h2>Experience</h2>
+  <p>Most of my trading has been through proprietary trading firms: passing evaluations, trading funded accounts under each firm's rules and drawdown limits, and taking payouts. At three firms that has led to promotion to the live funded stage, and the work now is progressing toward trading live funded accounts at size. Alongside the prop accounts, I trade personal CFD brokerage accounts.</p>
+  <p>Execution is a discretionary candlestick price-action process, built over two years and traded mostly in gold and US index futures across the Asia, London and New York sessions.</p>
+
+  <h2>Focus</h2>
+</article>
+<section style="padding:20px 0 0"><div class="wrap" style="max-width:820px">
+  <div class="focus">
+    <div><b data-n="01">Futures trading</b><span>Gold and index micros, session by session.</span></div>
+    <div><b data-n="02">Strategy research</b><span>Systematic ideas, written as rules before they are tested.</span></div>
+    <div><b data-n="03">Quantitative analysis</b><span>Random-direction nulls, unseen years, many-tests corrections.</span></div>
+    <div><b data-n="04">Backtesting</b><span>Pine Script v6, checked trade by trade against an independent replica.</span></div>
+    <div><b data-n="05">Risk management</b><span>Size to the drawdown the account can survive, not the target.</span></div>
+    <div><b data-n="06">Execution</b><span>Costs, slippage and fills treated as part of the strategy.</span></div>
+  </div>
+</div></section>
+<article class="prose" style="max-width:820px;padding-top:32px">
   <h2>Why it exists</h2>
-  <p>The prop-firm world is loud. Most of what traders see is screenshots of wins, promises of fast funding and strategies sold with perfect backtests. Little of it answers the boring questions that decide whether an account survives:</p>
-  <ul>
-    <li>How big is my real cushion today?</li>
-    <li>How many losses in a row can this size survive?</li>
-    <li>Does my edge still look like the edge I planned with?</li>
-  </ul>
-  <p>Badr Edge exists to answer those questions with tools and evidence, not hype.</p>
+  <p>The prop-firm world is loud: screenshots of wins, promises of fast funding, strategies sold on perfect backtests. Little of it answers the questions that decide whether an account survives. How big is my real cushion today? How many losses in a row can this size take? Does my edge still look like the one I planned with?</p>
+  <p>Every tool here started as something I built for my own accounts. The research is published in full, including the failures, which are most of it.</p>
 
-  <h2>What you can expect</h2>
-  <ul>
-    <li><strong>Free tools</strong> that run in your browser and keep your data on your device.</li>
-    <li><strong>Guides</strong> with worked numbers.</li>
-    <li><strong>Honesty about limits.</strong> Simulations depend on their inputs, and past results don't predict future ones.</li>
-  </ul>
+  <h2>The name</h2>
+  <p>Badr is Arabic for the full moon: the night you can see the whole picture. The edge is the process, not a promise of results.</p>
 
   <h2>Get in touch</h2>
-  <p>Feedback, bug reports and tool ideas are welcome: <a href="mailto:hello@badredge.com">hello@badredge.com</a>.</p>
+  <p>Feedback, bug reports and tool ideas: <a href="mailto:hello@badredge.com">hello@badredge.com</a>.</p>
+  <p class="note">Past payouts and trading results do not predict future results. Badr Edge does not manage money, offer signals or give investment advice. See the <a href="/legal/disclaimer/">disclaimer</a>.</p>
 </article>
 """
-    return page("/about/", "About", "About Badr Edge: free risk tools and guides for futures traders, built by a working trader.", "/about/", body)
+    return page("/about/", "About", "About Badr Edge: an independent futures research desk built on more than three years of active trading, mostly through prop firms.", "/about/", body)
 
 
 def legal_disclaimer():
@@ -735,9 +835,8 @@ def statics(paths):
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(
-        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='m' cx='.38' cy='.36' r='.7'>"
-        "<stop offset='0' stop-color='#f3dcaa'/><stop offset='.55' stop-color='#d9b46c'/><stop offset='1' stop-color='#9b7a3e'/></radialGradient></defs>"
-        "<rect width='64' height='64' rx='14' fill='#0b0d10'/><circle cx='32' cy='32' r='17' fill='url(#m)'/></svg>\n")
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='#0c1111'/>"
+        f"<g transform='translate(3 2) scale(.94)'><path fill='#e3e8e5' fill-rule='evenodd' d='{MARK_B}'/><path fill='#c8a15c' d='{MARK_E}'/></g></svg>\n")
 
 
 if __name__ == "__main__":
