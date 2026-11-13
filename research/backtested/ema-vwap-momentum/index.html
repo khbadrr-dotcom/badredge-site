@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>EMA and VWAP momentum · Badr Edge</title>
-<meta name="description" content="EMA and VWAP momentum: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta name="description" content="EMA and VWAP momentum: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/ema-vwap-momentum/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="EMA and VWAP momentum · Badr Edge">
-<meta property="og:description" content="EMA and VWAP momentum: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta property="og:description" content="EMA and VWAP momentum: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/ema-vwap-momentum/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · requires forward testing</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>EMA and VWAP momentum</h1>
   <p class="lede">Enter when a fast EMA crosses the session VWAP (or a slower EMA), with a volume filter and a daily trend bias.</p>
   <p class="meta">Markets: MES, MNQ, MYM, MGC<br>Scope: 5m · 720 settings · 2021 to 2026 · frozen test</p>
@@ -42,17 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>EMA12 x VWAP crosses on MES and MYM.</li><li>720 momentum settings with volume and daily bias, with a frozen test on 2021 to 2025.</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>Gross edge was about $0.10 to $1 per trade against a $2 to $4 round-trip cost.</li>
-<li>Frozen test: 0 of 12 passed. The best one made +$224 over four years (t = &minus;0.22, so indistinguishable from zero).</li>
-<li>12-month to 6-month walk-forward was negative on all four markets.</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · requires forward testing</span></p><p>Exploratory, requires forward testing.</p></div>
-  <h2>Lesson</h2>
-  <p>Compare the average gross profit per trade with the round-trip cost first. If the edge is smaller than the cost, nothing else matters.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/psar-ema200/"><span>Previous</span>Parabolic SAR with 200 EMA</a><a class="next" href="/research/backtested/monday-high-low/"><span>Next</span>Monday high and low</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

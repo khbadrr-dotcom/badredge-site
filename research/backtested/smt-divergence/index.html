@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>SMT divergence · Badr Edge</title>
-<meta name="description" content="SMT divergence: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta name="description" content="SMT divergence: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/smt-divergence/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="SMT divergence · Badr Edge">
-<meta property="og:description" content="SMT divergence: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta property="og:description" content="SMT divergence: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/smt-divergence/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · requires forward testing</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>SMT divergence</h1>
   <p class="lede">When one of two related markets makes a new high or low and the other does not, the move is expected to fail and reverse.</p>
   <p class="meta">Markets: MNQ, MES, MYM, MGC, SIL, PL (8 market pairs)<br>Scope: 1m to 15m · reversal and filter versions</p>
@@ -42,17 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>General SMT reversal across eight market pairs.</li><li>SMT as a filter inside other setups (Initial Balance fades, GIFVG).</li><li>A narrow New York pre-session version on MNQ.</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>General reversal: no directional edge. Results matched a random-direction control.</li>
-<li>London Initial Balance fade on MES when MNQ has not broken: 147 trades, about +$5 per contract (+0.08R). The mirror trade was negative. Exploratory.</li>
-<li>New York pre-session MNQ version: 21 trades in-sample and 8 out-of-sample. Far too few to judge.</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · requires forward testing</span></p><p>Exploratory as a general reversal signal, requires forward testing. Two narrow versions are logged as exploratory because the samples are tiny.</p></div>
-  <h2>Lesson</h2>
-  <p>Divergence feels predictive on a chart because you remember the reversals. Counted over every occurrence, it was no better than a coin flip on direction.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/asian-range-breakout/"><span>Previous</span>Asian range breakout (gold)</a><a class="next" href="/research/backtested/ifvg-breaker/"><span>Next</span>iFVG and breaker blocks</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

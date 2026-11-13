@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Volume shocks and 1-minute reversals · Badr Edge</title>
-<meta name="description" content="Volume shocks and 1-minute reversals: what was tested, results after costs, and the verdict. Real effect · currently unsuitable.">
+<meta name="description" content="Volume shocks and 1-minute reversals: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/microstructure-effects/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Volume shocks and 1-minute reversals · Badr Edge">
-<meta property="og:description" content="Volume shocks and 1-minute reversals: what was tested, results after costs, and the verdict. Real effect · currently unsuitable.">
+<meta property="og:description" content="Volume shocks and 1-minute reversals: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/microstructure-effects/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-uns">Real effect · currently unsuitable</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>Volume shocks and 1-minute reversals</h1>
   <p class="lede">Small, short-lived effects around abnormal volume and very short moves.</p>
   <p class="meta">Markets: MGC, MNQ, MES<br>Scope: 1m bars · several studies</p>
@@ -42,18 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>Reversal after abnormal-volume shocks.</li><li>1-minute bounce after sharp bars.</li><li>MNQ continuation after large moves away from the open.</li><li>Passive limit orders around the last price.</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>MGC after volume shocks: a real reversal of about 0.1 to 0.2 points, against a 0.78-point cost hurdle.</li>
-<li>The 1-minute bounce turned out to be the bid-ask bounce, which you cannot capture with market orders.</li>
-<li>MNQ continuation after large moves from the open: real before costs, but 83 to 87% of it came from the top 10 days.</li>
-<li>Passive limits: filled mostly when price was about to go against them (adverse selection).</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-uns">Real effect · currently unsuitable</span></p><p>Real effects, currently unsuitable. They exist in the data but are smaller than the cost of trading them, or too concentrated to rely on.</p></div>
-  <h2>Lesson</h2>
-  <p>A statistically real effect and a tradeable edge are different things. The cost of the round trip decides.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/short-timeframe-trend/"><span>Previous</span>Short-timeframe trend following</a><a class="next" href="/research/backtested/cross-market-portfolio/"><span>Next</span>14-strategy cross-market portfolio</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

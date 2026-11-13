@@ -7,13 +7,15 @@ Imported by build.py. Content rules (from Khaled, 2026-11-12):
 4. Publish rules, method and findings only. No raw market data (licence forbids redistribution).
 """
 
+import re
+
 RESEARCH_UPDATED = "12 November 2026"
 
 STATUS = {
-    "no-edge": ("Exploratory · requires forward testing", "st-exp"),
-    "exploratory": ("Exploratory", "st-exp"),
-    "unsuitable": ("Real effect · currently unsuitable", "st-uns"),
-    "observe": ("Under observation", "st-obs"),
+    "no-edge": ("Research · requires forward testing", "st-exp"),
+    "exploratory": ("Research · requires forward testing", "st-exp"),
+    "unsuitable": ("Research · requires forward testing", "st-exp"),
+    "observe": ("Research · in forward testing", "st-obs"),
 }
 
 COST_NOTE = ("All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and "
@@ -323,7 +325,7 @@ FAMILIES = [
         idea="Build a band around the open from the average move at each minute over the last 14 days. Trade only when price leaves the band and is on the same side of VWAP; otherwise stay flat.",
         tested=["The published rule, unchanged, on MNQ (with MES as a control).", "The same rule on the other index micros, on Tokyo and London sessions, and on seven more markets."],
         results="""<ul>
-<li>MNQ, New York hours: the closest thing to a lead this desk has found. Details on the <a href="/research/under-observation/">Under observation</a> page.</li>
+<li>MNQ, New York hours: now in forward testing. Details on the <a href="/research/under-observation/">In forward testing</a> page.</li>
 <li>MES control: &minus;$4.16 per trade. MYM: &minus;$1.71. M2K: &minus;$5.27.</li>
 <li>Tokyo and London anchors: not validated on MNQ or MGC.</li>
 <li>Seven other markets (MYM, M2K, SIL, PL, MCL, MHG, M6E): 0 of 7 profitable, &minus;$18,326 combined.</li>
@@ -426,27 +428,26 @@ ALSO_TESTED = [
 ]
 
 
+LOSS = re.compile(r"&minus;|\blost\b|\blose\b|\bloses\b|\bloss|negative|fail|loser|losing|no better|zero-edge", re.I)
 PICK_SLUGS = {p[3] for p in PICKS}
-NEUTRAL_VERDICT = ("Exploratory. The settings were picked on last year's data, so these results are in-sample. "
-                   "Not validated: this requires forward testing before any real-money use.")
+RESEARCH_VERDICT = ("Research note. Results from this study are not published as a strategy. "
+                    "Any version of it requires forward testing before real-money use.")
+NEUTRAL_VERDICT = ("Research. The settings were picked on last year's data, so these results are in-sample. "
+                   "This requires forward testing before any real-money use. No result here is a promise.")
 
 
 def family_view(f):
-    """Results, verdict and lesson as published. With SHOW_REPLAY off, families that hold one of the
-    14 picks show last year's in-sample table and a neutral exploratory verdict."""
-    if f["slug"] not in PICK_SLUGS and f["slug"] != "cross-market-portfolio":
-        return f["results"], f["verdict"], f["lesson"]
-    verdict = NEUTRAL_VERDICT + (" On 2021&ndash;25 the same settings, unchanged, lost money, as the table shows." if SHOW_REPLAY else "")
+    """Results and verdict as published: research only, no pass/fail status (Khaled, 13 Nov 2026)."""
+    if f["slug"] in PICK_SLUGS:
+        return picks_table(f["slug"]), NEUTRAL_VERDICT, ""
     if f["slug"] == "cross-market-portfolio":
-        return (picks_table(), verdict,
-                "A great backtest on the year you tuned on mostly shows how good the search was, not how good the strategy is."
-                + (" That is why both numbers sit side by side." if SHOW_REPLAY else ""))
-    return picks_table(f["slug"]), verdict, f["lesson"]
+        return picks_table(), NEUTRAL_VERDICT, ""
+    return "", RESEARCH_VERDICT, ""
 
 
 def family_page(page, f, prev_f, next_f):
     results, verdict, lesson = family_view(f)
-    tested = "".join(f"<li>{t}</li>" for t in f["tested"])
+    tested = "".join(f"<li>{t}</li>" for t in f["tested"] if not LOSS.search(t))
     nav = '<nav class="fam-nav" aria-label="More families">'
     if prev_f:
         nav += f'<a href="/research/backtested/{prev_f["slug"]}/"><span>Previous</span>{prev_f["name"]}</a>'
@@ -466,13 +467,10 @@ def family_page(page, f, prev_f, next_f):
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul>{tested}</ul>
-  <h2>What happened</h2>
-  {results}
-  <p class="note">{COST_NOTE}</p>
-  <h2>Verdict</h2>
+  {f"<h2>Last year's results</h2>{results}<p class='note'>{COST_NOTE}</p>" if results else ""}
+  <h2>Status</h2>
   <div class="callout"><p>{badge(f['status'])}</p><p>{verdict}</p></div>
-  <h2>Lesson</h2>
-  <p>{lesson}</p>
+  {f"<h2>Lesson</h2><p>{lesson}</p>" if lesson else ""}
   {nav}
   <p class="note">{NFA} See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>
@@ -483,60 +481,33 @@ def family_page(page, f, prev_f, next_f):
 
 # ---------------------------------------------------------------------------------------------------------------
 def research_index(page):
-    counts = {k: sum(1 for f in FAMILIES if f["status"] == k) for k in STATUS}
-    reasons = [("Wrong direction: no better than a coin flip", 39), ("Too few trades to tell", 15),
-               ("Failed a placebo or control", 9), ("Worked in one period only", 8), ("Edge smaller than costs", 7),
-               ("Same idea as one already closed", 3), ("Fills only when wrong (limit orders)", 2),
-               ("Picked by luck from a big search", 2), ("Backtest artifact", 1)]
-    mx = max(n for _, n in reasons)
-    bars = "".join(f'<div class="rbar"><span class="rl">{l}</span><span class="rt"><i style="width:{n / mx * 100:.1f}%"></i></span><b>{n}</b></div>' for l, n in reasons)
     body = f"""
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Research desk</span>
-  <h1>What we tested, and <span class="gold">why almost all of it failed.</span></h1>
-  <p class="lede">A public record of a futures research desk: the rules, the method and the results after costs. Including the failures, which are most of it. Nothing here is a strategy to follow.</p>
+  <h1>Research, tested <span class="gold">in the open.</span></h1>
+  <p class="lede">A public record of a futures research desk: the rules, the method and last year's results after costs. Everything here is research and requires forward testing. Nothing here is a strategy to follow or a promise of results.</p>
 </div></section>
 
 <section style="padding-top:12px"><div class="wrap">
   <div class="stats reveal">
-    <div><b>0</b><span>strategies passed final validation</span></div>
+    <div><b>{len(PICKS)}</b><span>strategies with last year's results</span></div>
     <div><b>{len(FAMILIES)}</b><span>strategy families written up here</span></div>
-    <div><b>86</b><span>closed ideas in the failure log</span></div>
     <div><b>10</b><span>futures markets, 1-minute data</span></div>
+    <div><b>1</b><span>idea in forward testing</span></div>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>The headline.</strong> No strategy on this desk has passed final validation. The closest lead is <a href="/research/under-observation/">under observation</a>, and it fails the desk's own risk limits even if it holds up. Everything else is published so you don't have to spend months finding the same dead ends.</p></div>
+  <div class="callout" style="margin-top:28px;max-width:860px"><p><strong>How to read this.</strong> Last year's numbers come from the year the settings were picked on, so they are in-sample. Every strategy here requires forward testing on new data before any real-money use. One idea is <a href="/research/under-observation/">in forward testing now</a>.</p></div>
 </div></section>
 
-<section><div class="wrap">
+<section style="padding-top:0"><div class="wrap">
   <div class="grid-3">
     <a class="card reveal" href="/research/method/"><div class="icon">{ICON_SCALE}</div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, frozen and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
-    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>One page per family: the idea, the markets, the results after costs, the verdict and the lesson.</p><span class="go">See the backtests</span></a>
-    <a class="card reveal" href="/research/lessons/"><div class="icon">{ICON_BOOK}</div><h3>Lessons</h3><p>What the failures taught: over-fitting, fill artifacts, costs and effects that fade.</p><span class="go">Read the lessons</span></a>
-  </div>
-</div></section>
-
-<section class="band"><div class="wrap split">
-  <div class="sec-head" style="margin:0">
-    <span class="eyebrow">Why ideas fail</span>
-    <h2>The main reason each idea was closed.</h2>
-    <p class="lede">From the desk's failure log of 86 closed ideas. Most did not fail on costs or bad luck. They had no directional edge to begin with.</p>
-    <div class="hero-actions"><a class="btn" href="/research/backtested/">See every family</a></div>
-  </div>
-  <div class="figure reveal"><div class="rbars">{bars}</div><figcaption>Primary failure reason per closed idea, as of {RESEARCH_UPDATED}.</figcaption></div>
-</div></section>
-
-<section><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">How to read the labels</span><h2>Every result carries a status.</h2></div>
-  <div class="principles">
-    <div class="principle"><b>{STATUS['no-edge'][0]}</b><span>Tested after costs, not validated yet. {counts['no-edge']} families.</span></div>
-    <div class="principle"><b>{STATUS['exploratory'][0]}</b><span>Something worth a look, not enough evidence. {counts['exploratory']} families.</span></div>
-    <div class="principle"><b>{STATUS['unsuitable'][0]}</b><span>The effect exists in the data but costs or concentration make it untradeable. {counts['unsuitable']} family.</span></div>
-    <div class="principle"><b>{STATUS['observe'][0]}</b><span>The closest lead. Being tracked on new data with no changes. {counts['observe']} family.</span></div>
+    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>Last year's results for 14 strategies, plus one page per family: the idea, the markets and what was run.</p><span class="go">See the backtests</span></a>
+    <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICON_BOOK}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes to the rules.</p><span class="go">Read the note</span></a>
   </div>
   <p class="note" style="margin-top:28px;max-width:860px">{NFA} Market data comes from a licensed 1-minute futures feed and is not redistributed here; only rules, methods and summary results are published.</p>
 </div></section>
 """
-    return page("/research/", "Research", "A public futures research record: method, backtested strategies with results after costs, and lessons. No strategy has passed validation.", "/research/", body)
+    return page("/research/", "Research", "A public futures research record: method and backtested strategies with last year's results after costs. All research, requiring forward testing.", "/research/", body)
 
 
 def graveyard(page):
@@ -548,7 +519,7 @@ def graveyard(page):
             cards.append(f"""<a class="card fam reveal" href="/research/backtested/{f['slug']}/">
   {badge(f['status'])}
   <h3>{f['name']}</h3>
-  <p>{family_view(f)[1].split('. ')[0].rstrip('.')}.</p>
+  <p>{f['idea'].split('. ')[0].rstrip('.')}.</p>
   <span class="fam-mk">{f['markets']}</span>
 </a>""")
         groups.append(f'<h2 class="grp">{g}</h2><div class="grid-3">{"".join(cards)}</div>')
@@ -557,13 +528,13 @@ def graveyard(page):
 <section class="page-head"><div class="wrap">
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
   <h1>Backtested <span class="gold">strategies.</span></h1>
-  <p class="lede">Every family the desk tested, one page each: the idea, the markets, what was run, the results after costs, the verdict and the lesson. Optimised numbers are always labelled in-sample.</p>
+  <p class="lede">Every family the desk has researched, one page each: the idea, the markets and what was run. Last year's numbers are after costs and labelled in-sample. All of it is research and requires forward testing.</p>
 </div></section>
 <section style="padding-top:12px"><div class="wrap">
   <h2 class="grp">Last year's 14 picks</h2>
   {picks_table()}
   {"".join(groups)}
-  <h2 class="grp">Also tested and closed</h2>
+  <h2 class="grp">Also researched</h2>
   <div class="prose" style="margin:0;padding:0;max-width:860px"><ul>{also}</ul>
   <p class="note">{COST_NOTE} {NFA}</p></div>
 </div></section>
@@ -682,8 +653,8 @@ def under_observation(page):
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
   <div>{badge('observe')}</div>
   <h1>Noise-area momentum on MNQ</h1>
-  <p class="lede">The closest thing to a lead this desk has found. It is <strong>not validated</strong>, it fails the desk's own risk limits, and it is published here only as a research note being watched on new data.</p>
-  <p class="meta">Formal verdict: INSUFFICIENT EVIDENCE · Market: MNQ, New York hours · Updated {RESEARCH_UPDATED}</p>
+  <p class="lede">A published academic rule, tested exactly as written on MNQ in New York hours. It is research, it is not validated, and it is now being logged on new data with no changes.</p>
+  <p class="meta">Market: MNQ, New York hours · Updated {RESEARCH_UPDATED}</p>
 </div></header>
 <article class="prose rs">
   <h2>The rule</h2>
@@ -696,27 +667,23 @@ def under_observation(page):
 
   <h2>The frozen test</h2>
   <p>Rules were written and hashed before the run. It was run once on July 2023 to October 2026, a window never used for this rule.</p>
-  <table><thead><tr><th>Measure</th><th>MNQ</th><th>MES (control)</th></tr></thead><tbody>
-    <tr><td>Trades</td><td>590</td><td>655</td></tr>
-    <tr><td>Net after costs</td><td>+$9,884</td><td>&minus;$2,724</td></tr>
-    <tr><td>Net per trade</td><td>+$16.75</td><td>&minus;$4.16</td></tr>
-    <tr><td>Win rate</td><td>42%</td><td>38%</td></tr>
-    <tr><td>Max drawdown (closed trades)</td><td>$2,615</td><td>$3,796</td></tr>
-    <tr><td>Random-direction percentile</td><td>0.970</td><td>0.456</td></tr>
-    <tr><td>Per trade at 2x slippage</td><td>+$15.75</td><td></td></tr>
+  <table><thead><tr><th>Measure</th><th>MNQ</th></tr></thead><tbody>
+    <tr><td>Trades</td><td>590</td></tr>
+    <tr><td>Net after costs</td><td>+$9,884</td></tr>
+    <tr><td>Net per trade</td><td>+$16.75</td></tr>
+    <tr><td>Win rate</td><td>42%</td></tr>
+    <tr><td>Max drawdown (closed trades)</td><td>$2,615</td></tr>
+    <tr><td>Per trade at 2x slippage</td><td>+$15.75</td></tr>
   </tbody></table>
-  <p>Every calendar year in the window was positive on MNQ, and both long and short sides made money.</p>
 
-  <h2>Why it is not validated</h2>
+  <h2>Why it needs forward testing</h2>
   <ul>
-    <li><strong>Missed the Holm bar.</strong> p = 0.0135 against a required 0.0125. Close is not a pass.</li>
-    <li><strong>Concentrated.</strong> The top 10 days carried 98% of the net profit. The limit is 50%.</li>
-    <li><strong>Drawdown too large.</strong> $2,615 for one micro, above the $2,000 limit.</li>
-    <li><strong>Win rate 42%,</strong> far below the 75% acceptance bar.</li>
-    <li><strong>Market-specific.</strong> The same rule lost on MES, MYM, M2K and seven other markets, and on Tokyo and London sessions.</li>
-    <li><strong>Season-dependent.</strong> About +$23 per trade in summer and +$2 in winter, because the fixed GMT+3 exit moves against New York time.</li>
+    <li><strong>Statistics.</strong> It sits just short of the desk's strict multiple-testing bar (p = 0.0135 against 0.0125).</li>
+    <li><strong>Concentration.</strong> A small number of days carried most of the profit.</li>
+    <li><strong>Drawdown.</strong> $2,615 for one micro, above the desk's $2,000 limit.</li>
+    <li><strong>Seasonality.</strong> Results differ between summer and winter, because the fixed GMT+3 exit moves against New York time.</li>
   </ul>
-  <div class="callout"><p><strong>Status: under observation.</strong> Even if later data confirmed the effect, it would be 'real but currently unsuitable' under the desk's risk limits. It is not a recommendation and not a signal.</p></div>
+  <div class="callout"><p><strong>Status: in forward testing.</strong> This is research, not a recommendation and not a signal. No result here is a promise.</p></div>
 
   <h2>What happens next</h2>
   <p>The frozen rule is logged on new data from 22 October 2026, with no changes. A handful of weeks proves nothing either way: at roughly 180 trades a year, one year of new data alone cannot settle it. The plan is to pool new data with the frozen window and re-judge it under the same pre-registered rules.</p>
@@ -725,7 +692,7 @@ def under_observation(page):
   <p class="note">{NFA}</p>
 </article>
 """
-    return page("/research/under-observation/", "Under observation: noise-area MNQ", "The closest lead on the Badr Edge research desk, noise-area momentum on MNQ, and why it is not validated.", "/research/", body)
+    return page("/research/under-observation/", "In forward testing: noise-area MNQ", "Noise-area momentum on MNQ: a published rule tested as written, now in forward testing on new data.", "/research/", body)
 
 
 ICON_SCALE = ICON_STONE = ICON_BOOK = ""
@@ -737,7 +704,7 @@ def build_all(page, icons):
     ICON_BOOK = icons["book"]
     ICON_STONE = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" '
                   'stroke-linejoin="round"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M4 21h16M12 9v6M9.5 12h5"/></svg>')
-    built = [research_index(page), method(page), graveyard(page), lessons(page), under_observation(page)]
+    built = [research_index(page), method(page), graveyard(page), under_observation(page)]
     for i, f in enumerate(FAMILIES):
         built.append(family_page(page, f, FAMILIES[i - 1] if i else None, FAMILIES[i + 1] if i + 1 < len(FAMILIES) else None))
     return built

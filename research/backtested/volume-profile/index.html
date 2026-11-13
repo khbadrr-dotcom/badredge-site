@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Volume profile levels · Badr Edge</title>
-<meta name="description" content="Volume profile levels: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta name="description" content="Volume profile levels: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/volume-profile/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Volume profile levels · Badr Edge">
-<meta property="og:description" content="Volume profile levels: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta property="og:description" content="Volume profile levels: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/volume-profile/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · requires forward testing</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>Volume profile levels</h1>
   <p class="lede">Trade rejections or acceptance at volume-profile levels built from sessions, consolidation boxes or the previous 4-hour candle.</p>
   <p class="meta">Markets: MNQ, MES, MGC<br>Scope: POC, VAH, VAL, high and low volume nodes · 3,456 settings</p>
@@ -42,17 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>3,456 settings, random-direction null with 1,000 seeds, walk-forward, untouched 4-month check.</li><li>Shifted fake levels as a placebo.</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>Before costs, the average result was about zero in all 40 level and trigger groups.</li>
-<li>All three picks sat inside their null, walk-forward failed 3 of 3, and the untouched check lost on all three (&minus;$12, &minus;$535, &minus;$398).</li>
-<li>Shifted fake levels did as well as the real ones.</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · requires forward testing</span></p><p>Exploratory, requires forward testing. Family closed in this scope.</p></div>
-  <h2>Lesson</h2>
-  <p>If fake levels work as well as real ones, the levels are not the reason for the result.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/box-breakouts/"><span>Previous</span>Consolidation box breakouts</a><a class="next" href="/research/backtested/amd-1h4h/"><span>Next</span>1h and 4h AMD (accumulation, manipulation, distribution)</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

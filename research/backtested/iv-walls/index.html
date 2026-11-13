@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Options open-interest walls · Badr Edge</title>
-<meta name="description" content="Options open-interest walls: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta name="description" content="Options open-interest walls: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/iv-walls/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Options open-interest walls · Badr Edge">
-<meta property="og:description" content="Options open-interest walls: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta property="og:description" content="Options open-interest walls: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/iv-walls/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · requires forward testing</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>Options open-interest walls</h1>
   <p class="lede">The strikes with the largest open interest above and below price act as walls: price rejects them or breaks through and retests.</p>
   <p class="meta">Markets: MES, MNQ<br>Scope: Quarterly and serial ES/NQ options · 5m and 15m · 72 settings per model</p>
@@ -42,16 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>Three models (wick rejection, breakout, break and retest).</li><li>Every setting run on the real walls and on placebo strikes the same distance away.</li><li>Open interest used only as it was known at the time (2 to 5 days old).</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>All six market and model cells lost after costs: &minus;0.03R to &minus;0.27R per trade.</li>
-<li>The best wall settings were no better than the best placebo settings.</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · requires forward testing</span></p><p>Exploratory, requires forward testing, in this scope. Weekly and 0DTE options were not tested.</p></div>
-  <h2>Lesson</h2>
-  <p>Placebo levels are the fair test for any level-based idea. If made-up levels do as well, the real ones carry no information.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/monday-high-low/"><span>Previous</span>Monday high and low</a><a class="next" href="/research/backtested/daily-trend/"><span>Next</span>Daily trend signals traded intraday</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

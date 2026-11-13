@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>1h and 4h AMD (accumulation, manipulation, distribution) · Badr Edge</title>
-<meta name="description" content="1h and 4h AMD (accumulation, manipulation, distribution): what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta name="description" content="1h and 4h AMD (accumulation, manipulation, distribution): what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/amd-1h4h/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="1h and 4h AMD (accumulation, manipulation, distribution) · Badr Edge">
-<meta property="og:description" content="1h and 4h AMD (accumulation, manipulation, distribution): what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta property="og:description" content="1h and 4h AMD (accumulation, manipulation, distribution): what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/amd-1h4h/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · requires forward testing</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>1h and 4h AMD (accumulation, manipulation, distribution)</h1>
   <p class="lede">The first hour or four hours build a range (accumulation), a sweep of one side is the manipulation, and the reclaim starts the real move (distribution).</p>
   <p class="meta">Markets: MNQ, MES, MGC<br>Scope: 4 session anchors × 1h/4h × 2 triggers × 4 targets × 2 deadlines</p>
@@ -42,16 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>128 settings per market, ranked on the last 6 months of a 12-month window.</li><li>200-seed random-direction null, walk-forward, untouched 4-month check.</li></ul>
-  <h2>What happened</h2>
-  <ul>
-<li>0 of 3 picks survived. Walk-forward failed on all three.</li>
-<li>Untouched check, average per trade: MNQ &minus;0.56R, MES &minus;0.45R, MGC &minus;0.14R.</li>
-</ul>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · requires forward testing</span></p><p>Exploratory on MNQ and MGC. MES is formally insufficient evidence (only 21 trades in the check).</p></div>
-  <h2>Lesson</h2>
-  <p>A popular narrative is not a mechanism. It has to be written as exact rules before it can be tested at all.</p>
+  
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research note. Results from this study are not published as a strategy. Any version of it requires forward testing before real-money use.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/volume-profile/"><span>Previous</span>Volume profile levels</a><a class="next" href="/research/backtested/short-timeframe-trend/"><span>Next</span>Short-timeframe trend following</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>

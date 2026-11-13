@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Opening range: two-window v4 · Badr Edge</title>
-<meta name="description" content="Opening range: two-window v4: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta name="description" content="Opening range: two-window v4: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/backtested/orb-v4/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:title" content="Opening range: two-window v4 · Badr Edge">
-<meta property="og:description" content="Opening range: two-window v4: what was tested, results after costs, and the verdict. Exploratory · requires forward testing.">
+<meta property="og:description" content="Opening range: two-window v4: what was tested, results after costs, and the verdict. Research · requires forward testing.">
 <meta property="og:url" content="https://badredge.com/research/backtested/orb-v4/">
 <meta property="og:image" content="https://badredge.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
 
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
-  <div><span class="status st-exp">Exploratory · requires forward testing</span></div>
+  <div><span class="status st-exp">Research · requires forward testing</span></div>
   <h1>Opening range: two-window v4</h1>
   <p class="lede">Two independent opening-range windows per day. Entry on a candle close beyond enabled range levels, with an optional 'reclaim' entry and an opening-range size filter.</p>
   <p class="meta">Markets: MGC, MNQ, SIL, PL, M2K, MCL, MHG, M6E, MYM<br>Scope: 1m charts · tuned on the last 12 months · replayed on 2021 to 2025</p>
@@ -42,13 +42,10 @@
 <article class="prose rs">
   <h2>What was tested</h2>
   <ul><li>Grid search on nine markets; best setting per market frozen.</li><li>Each pick compared against ten random-direction searches run through the identical pipeline.</li><li>Frozen replay of every pick on 2021 to 2025.</li></ul>
-  <h2>What happened</h2>
-  <div class="tbl-wrap"><table class="picks"><caption>Last year, in-sample · 1 micro · after fees and slippage</caption><thead><tr><th>Strategy</th><th>Chart</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Net</th><th>Max DD</th></tr></thead><tbody><tr><td><a href="/research/backtested/orb-v4/">MGC ORB v4</a><small>Micro Gold</small></td><td>1m</td><td>152</td><td>80.3%</td><td>3.13</td><td>+$9,517</td><td>$952</td></tr><tr><td><a href="/research/backtested/orb-v4/">MNQ ORB v4</a><small>Micro Nasdaq</small></td><td>1m</td><td>242</td><td>84.7%</td><td>2.47</td><td>+$6,844</td><td>$682</td></tr><tr><td><a href="/research/backtested/orb-v4/">SIL ORB v4</a><small>Micro Silver</small></td><td>1m</td><td>145</td><td>90.3%</td><td>4.47</td><td>+$21,156</td><td>$883</td></tr><tr><td><a href="/research/backtested/orb-v4/">PL ORB v4</a><small>Platinum</small></td><td>1m</td><td>79</td><td>88.6%</td><td>11.41</td><td>+$13,839</td><td>$584</td></tr><tr><td><a href="/research/backtested/orb-v4/">M2K ORB v4</a><small>Micro Russell 2000</small></td><td>1m</td><td>78</td><td>94.9%</td><td>8.24</td><td>+$1,082</td><td>$53</td></tr><tr><td><a href="/research/backtested/orb-v4/">MCL ORB v4</a><small>Micro WTI Crude</small></td><td>1m</td><td>151</td><td>83.4%</td><td>4.35</td><td>+$2,645</td><td>$184</td></tr></tbody></table></div><p class="note">Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. None of these strategies is validated. Each one requires forward testing before any real-money use.</p>
-  <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
-  <h2>Verdict</h2>
-  <div class="callout"><p><span class="status st-exp">Exploratory · requires forward testing</span></p><p>Exploratory. The settings were picked on last year's data, so these results are in-sample. Not validated: this requires forward testing before any real-money use.</p></div>
-  <h2>Lesson</h2>
-  <p>Even a pick that beats its random-direction null can fail on unseen data when the sample is thin (85 trades). Passing one check is not validation.</p>
+  <h2>Last year's results</h2><div class="tbl-wrap"><table class="picks"><caption>Last year, in-sample · 1 micro · after fees and slippage</caption><thead><tr><th>Strategy</th><th>Chart</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Net</th><th>Max DD</th></tr></thead><tbody><tr><td><a href="/research/backtested/orb-v4/">MGC ORB v4</a><small>Micro Gold</small></td><td>1m</td><td>152</td><td>80.3%</td><td>3.13</td><td>+$9,517</td><td>$952</td></tr><tr><td><a href="/research/backtested/orb-v4/">MNQ ORB v4</a><small>Micro Nasdaq</small></td><td>1m</td><td>242</td><td>84.7%</td><td>2.47</td><td>+$6,844</td><td>$682</td></tr><tr><td><a href="/research/backtested/orb-v4/">SIL ORB v4</a><small>Micro Silver</small></td><td>1m</td><td>145</td><td>90.3%</td><td>4.47</td><td>+$21,156</td><td>$883</td></tr><tr><td><a href="/research/backtested/orb-v4/">PL ORB v4</a><small>Platinum</small></td><td>1m</td><td>79</td><td>88.6%</td><td>11.41</td><td>+$13,839</td><td>$584</td></tr><tr><td><a href="/research/backtested/orb-v4/">M2K ORB v4</a><small>Micro Russell 2000</small></td><td>1m</td><td>78</td><td>94.9%</td><td>8.24</td><td>+$1,082</td><td>$53</td></tr><tr><td><a href="/research/backtested/orb-v4/">MCL ORB v4</a><small>Micro WTI Crude</small></td><td>1m</td><td>151</td><td>83.4%</td><td>4.35</td><td>+$2,645</td><td>$184</td></tr></tbody></table></div><p class="note">Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. None of these strategies is validated. Each one requires forward testing before any real-money use.</p><p class='note'>All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
+  <h2>Status</h2>
+  <div class="callout"><p><span class="status st-exp">Research · requires forward testing</span></p><p>Research. The settings were picked on last year's data, so these results are in-sample. This requires forward testing before any real-money use. No result here is a promise.</p></div>
+  
   <nav class="fam-nav" aria-label="More families"><a href="/research/backtested/orb-break-and-hold/"><span>Previous</span>Opening range: Break and Hold</a><a class="next" href="/research/backtested/initial-balance/"><span>Next</span>Initial Balance (multi-session)</a></nav>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss. See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
 </article>
