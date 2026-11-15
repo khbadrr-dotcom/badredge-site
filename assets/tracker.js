@@ -79,6 +79,48 @@
     requestAnimationFrame(() => requestAnimationFrame(() => row.querySelectorAll('.meter b').forEach(b => b.style.width = b.dataset.w + '%')));
   }
 
+  const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const short = v => { const a = Math.abs(v), s = v < 0 ? '−' : '+'; return s + '$' + (a >= 1000 ? (a / 1000).toFixed(a >= 10000 ? 0 : 1) + 'K' : Math.round(a)); };
+  function calendar(root) {
+    if (!root) return { set() {} };
+    const grid = root.querySelector('.cal-grid'), tip = root.querySelector('.cal-tip'), TIP = tip.textContent;
+    let map = new Map(), months = [], mi = 0, scale = 1;
+    function draw() {
+      const ym = months[mi]; if (!ym) return;
+      const [y, m] = ym.split('-').map(Number), first = new Date(Date.UTC(y, m - 1, 1)), nd = new Date(Date.UTC(y, m, 0)).getUTCDate();
+      let html = ['Mon','Tue','Wed','Thu','Fri'].map(d => `<span class="cal-dow">${d}</span>`).join(''), net = 0, g = 0, r = 0;
+      const lead = (first.getUTCDay() + 6) % 7; for (let i = 0; i < (lead > 4 ? 0 : lead); i++) html += '<span class="cal-x"></span>';
+      for (let d = 1; d <= nd; d++) {
+        const wd = new Date(Date.UTC(y, m - 1, d)).getUTCDay(); if (wd === 0 || wd === 6) continue;
+        const k = `${ym}-${String(d).padStart(2, '0')}`, x = map.get(k);
+        if (k > D.to) break;
+        if (!x) { html += `<span class="cal-d off"><i>${d}</i></span>`; continue; }
+        const p = x[1]; net += p; p > 0 ? g++ : r++;
+        const a = Math.min(1, Math.abs(p) / scale), fw = k >= FZ ? ' fw' : '';
+        html += `<button type="button" class="cal-d ${p > 0 ? 'up' : 'dn'}${fw}" style="--a:${(.18 + a * .62).toFixed(2)}" data-k="${k}" title="${d} ${MON[m - 1]}: ${usd(p)}"><i>${d}</i><b>${short(p)}</b></button>`;
+      }
+      grid.innerHTML = html;
+      root.querySelector('.cal-m').textContent = `${new Date(Date.UTC(y, m - 1, 1)).toLocaleString('en-GB', { month: 'long', timeZone: 'UTC' })} ${y}`;
+      const sum = root.querySelector('.cal-sum'); sum.textContent = `${usd(net)} · ${g} green · ${r} red`; sum.className = 'cal-sum ' + (net > 0 ? 'up' : 'dn');
+      root.querySelector('.cal-prev').disabled = mi === 0; root.querySelector('.cal-next').disabled = mi === months.length - 1;
+      tip.textContent = TIP;
+      grid.querySelectorAll('.cal-d[data-k]').forEach(b => b.onclick = () => {
+        grid.querySelectorAll('.cal-d.on').forEach(o => o.classList.remove('on')); b.classList.add('on');
+        const x = map.get(b.dataset.k), dt = new Date(b.dataset.k + 'T00:00:00Z');
+        tip.innerHTML = `<b>${DOW[dt.getUTCDay()]} ${dt.getUTCDate()} ${MON[dt.getUTCMonth()]} ${dt.getUTCFullYear()}</b> · <span class="${x[1] > 0 ? 'up' : 'dn'}">${usd(x[1])}</span> · ${x[2]} trade${x[2] === 1 ? '' : 's'}, ${x[3]} won${b.dataset.k >= FZ ? ' · new data' : ''}`;
+      });
+    }
+    root.querySelector('.cal-prev').onclick = () => { if (mi > 0) { mi--; draw(); } };
+    root.querySelector('.cal-next').onclick = () => { if (mi < months.length - 1) { mi++; draw(); } };
+    return { set(days) {
+      map = new Map(days.map(d => [d[0], d]));
+      const ms = [...new Set(days.map(d => d[0].slice(0, 7)))];
+      const keep = months[mi]; months = ms; mi = ms.includes(keep) ? ms.indexOf(keep) : ms.length - 1;
+      const v = days.map(d => Math.abs(d[1])).sort((a, b) => a - b); scale = v[Math.floor(v.length * .9)] || 1;
+      draw();
+    } };
+  }
+
   document.querySelectorAll('.trk').forEach(sec => {
     const fam = sec.dataset.family;
     const pool = D.strategies.filter(s => !fam || s.slug === fam);
@@ -88,15 +130,14 @@
     let seen = false;
     function render(k, animate) {
       const sel = k === '*' ? pool : pool.filter(s => keyOf(s) === k);
-      const days = combine(sel), ins = days.filter(d => d[0] < FZ), out = days.filter(d => d[0] >= FZ);
+      const days = combine(sel), ins = days.filter(d => d[0] < FZ);
       const box = sec.querySelector('.trk-chart'), cw = Math.max(300, box.clientWidth || 900);
       box.innerHTML = chart(days, cw, cw < 600 ? Math.round(cw * .62) : 250);
       sec.querySelector('.trk-sel').textContent = sel.length === 1 ? sel[0].name : (k === '*' ? `${sel.length} strategies combined` : `${k} · ${sel.length} strategies`);
       setRow(sec.querySelector('.isk'), stats(ins), animate);
-      const hasOut = out.length > 0;
-      sec.querySelector('.fwk').hidden = sec.querySelector('.sec-t.f').hidden = !hasOut;
-      if (hasOut) setRow(sec.querySelector('.fwk'), stats(out), animate);
+      cal.set(days);
     }
+    const cal = calendar(sec.querySelector('.cal'));
     if (chips) {
       chips.innerHTML = ['*', ...keys].map(k => `<button type="button" class="chip${k === '*' ? ' on' : ''}" data-k="${k.replace(/"/g, '&quot;')}" aria-pressed="${k === '*'}"></button>`).join('');
       chips.querySelectorAll('.chip').forEach(c => {

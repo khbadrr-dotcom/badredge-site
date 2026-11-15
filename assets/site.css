@@ -671,10 +671,14 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .hb-lab a { color: var(--text); text-decoration: none; font-weight: 500; }
 .hb-lab a:hover { color: var(--accent-2); }
 .hb-lab small { display: block; font-size: 11px; color: var(--dim); }
-.hb-track { position: relative; height: 10px; }
-.hb-bar { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 0 4px 4px 0; opacity: .9; }
-.hb-row:hover .hb-bar { opacity: 1; }
-.hb-bar.over { border-radius: 0; background: linear-gradient(90deg, var(--accent) 92%, transparent 92%, transparent 94%, var(--accent) 94%); }
+.hb-track { position: relative; height: 12px; border-radius: 99px; background: color-mix(in srgb, var(--text) 6%, transparent); box-shadow: inset 0 1px 2px color-mix(in srgb, #000 30%, transparent); }
+.hb-bar { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 99px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 45%, transparent), var(--accent) 70%, var(--accent-2)); box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 28%, transparent), inset 0 1px 0 color-mix(in srgb, #fff 28%, transparent); transform-origin: left; animation: hb-grow 1s cubic-bezier(.2,.8,.2,1) both; }
+.hb-bar::after { content: ""; position: absolute; right: 2px; top: 2px; bottom: 2px; aspect-ratio: 1; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 8px var(--accent-2); }
+.hb-row:hover .hb-bar { filter: brightness(1.12); }
+.hb-bar.over { background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 45%, transparent), var(--accent) 70%, var(--accent-2)); }
+.hb-row:first-child .hb-val { color: var(--accent-2); }
+@keyframes hb-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .hb-bar { animation: none; } }
 .hb-val { font: 500 12px/1 var(--mono); color: var(--text-2); text-align: right; font-variant-numeric: tabular-nums; }
 .hb-refm { position: absolute; top: -3px; bottom: -3px; width: 0; border-left: 1px dashed var(--text-2); }
 .viz .legend { display: flex; gap: 14px; margin-top: 6px; }
@@ -684,10 +688,10 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .pr-row { grid-template-columns: minmax(0, 150px) minmax(0, 1fr); }
 .pr-bars { display: flex; flex-direction: column; gap: 2px; }
 .pr-line { position: relative; display: flex; align-items: center; gap: 6px; height: 10px; padding-right: 64px; }
-.pr-line i { height: 8px; border-radius: 0 4px 4px 0; flex: none; }
+.pr-line i { height: 9px; border-radius: 99px; flex: none; }
 .pr-line em { font: 400 11px/1 var(--mono); font-style: normal; color: var(--muted); white-space: nowrap; }
-.pr-a { background: var(--accent); }
-.pr-b { background: var(--muted); opacity: .55; }
+.pr-a { background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 50%, transparent), var(--accent) 70%, var(--accent-2)); box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 22%, transparent); }
+.pr-b { background: linear-gradient(90deg, color-mix(in srgb, var(--t-dn, #e0917f) 35%, transparent), color-mix(in srgb, var(--t-dn, #e0917f) 80%, transparent)); }
 .split { position: relative; display: flex; justify-content: space-between; height: 26px; border-radius: 6px; background: var(--panel-2); overflow: hidden; font: 500 11.5px/26px var(--mono); }
 .split i { position: absolute; left: 0; top: 0; bottom: 0; background: color-mix(in srgb, var(--live) 30%, transparent); border-right: 2px solid var(--live); }
 .split span { position: relative; padding: 0 10px; color: var(--text); }
@@ -894,7 +898,6 @@ html[data-theme="light"] { --t-up: #1f7a64; --t-dn: #b25a48; --t-up-soft: rgba(3
 .trk .sec-t.f { color: color-mix(in srgb, var(--live) 75%, var(--dim)); }
 .trk .k { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; }
 .trk .k > div { display: grid; gap: 3px; align-content: start; position: relative; padding: 12px 14px 13px; border-radius: 14px; background: linear-gradient(180deg, color-mix(in srgb, var(--text) 3.5%, transparent), transparent 80%); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text) 6%, transparent); }
-.trk .k.fwk > div { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--live) 28%, transparent); }
 .trk .k dt { margin: 0; min-height: 2.4em; font: 500 10.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
 .trk .k dd { margin: 0; white-space: nowrap; font: 700 26px/1.1 var(--sans); letter-spacing: -.02em; color: var(--text); font-variant-numeric: tabular-nums; }
 .trk .k dd.big { font-size: clamp(22px, 2.3vw, 30px); background: linear-gradient(100deg, var(--accent-2), var(--accent) 55%, #b8913f); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -1056,3 +1059,40 @@ html[data-theme="light"] .nav .cta, html[data-theme="light"] .nav .cta:hover { c
 h3.grp { margin: 32px 0 14px; font-size: 13px; font-weight: 500; font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
 .fam-res { margin: 24px 0 8px; }
 .pine-soon { min-height: 52vh; }
+
+/* ---------- Daily results calendar (tracker.js) ---------- */
+.trk .cal { margin-top: 22px; padding-top: 4px; }
+.trk .cal-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
+.trk .cal-head .sec-t { margin: 0 0 6px; }
+.trk .cal-m { display: block; font: 700 22px/1.15 var(--sans); letter-spacing: -.02em; color: var(--text); }
+.trk .cal-sum { display: block; margin-top: 4px; font: 500 12.5px/1.3 var(--mono); color: var(--dim); }
+.trk .cal-sum.up { color: var(--t-up); } .trk .cal-sum.dn { color: var(--t-dn); }
+.trk .cal-nav { display: flex; gap: 6px; }
+.trk .cal-nav button { width: 38px; height: 38px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--panel-2); color: var(--text); font: 500 20px/1 var(--sans); cursor: pointer; transition: border-color .2s, color .2s; }
+.trk .cal-nav button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent-2); }
+.trk .cal-nav button:disabled { opacity: .35; cursor: default; }
+.trk .cal-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.trk .cal-dow { font: 500 10.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); padding: 0 2px 4px; }
+.trk .cal-d { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; min-height: 64px; padding: 8px 9px; border-radius: 12px; border: 1px solid transparent; background: color-mix(in srgb, var(--text) 3%, transparent); font: inherit; text-align: left; color: var(--text); }
+.trk button.cal-d { cursor: pointer; transition: transform .15s, border-color .15s; }
+.trk button.cal-d:hover { transform: translateY(-1px); }
+.trk .cal-d i { font: 500 11px/1 var(--mono); font-style: normal; color: var(--dim); }
+.trk .cal-d b { font: 600 14px/1 var(--mono); letter-spacing: -.02em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.trk .cal-d.up { background: color-mix(in srgb, var(--t-up) calc(var(--a) * 38%), transparent); border-color: color-mix(in srgb, var(--t-up) calc(var(--a) * 60%), transparent); }
+.trk .cal-d.dn { background: color-mix(in srgb, var(--t-dn) calc(var(--a) * 38%), transparent); border-color: color-mix(in srgb, var(--t-dn) calc(var(--a) * 60%), transparent); }
+.trk .cal-d.up b { color: var(--t-up); } .trk .cal-d.dn b { color: var(--t-dn); }
+.trk .cal-d.up i, .trk .cal-d.dn i { color: var(--text-2); }
+.trk .cal-d.fw::after { content: ""; position: absolute; top: 8px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent); }
+.trk .cal-d.off { opacity: .45; }
+.trk .cal-d.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 14px color-mix(in srgb, var(--accent) 25%, transparent); }
+.trk .cal-tip { margin: 10px 0 0; min-height: 1.5em; font-size: 13px; color: var(--muted); }
+.trk .cal-tip b { color: var(--text); font-weight: 600; }
+.trk .cal-tip .up { color: var(--t-up); } .trk .cal-tip .dn { color: var(--t-dn); }
+@media (max-width: 640px) {
+  .trk .cal-grid { gap: 4px; }
+  .trk .cal-d { min-height: 52px; padding: 6px 6px; border-radius: 10px; gap: 4px; }
+  .trk .cal-d b { font-size: 11.5px; letter-spacing: -.04em; }
+  .trk .cal-d i { font-size: 10px; }
+  .trk .cal-m { font-size: 19px; }
+  .trk .cal-d.fw::after { top: 6px; right: 6px; width: 5px; height: 5px; }
+}
