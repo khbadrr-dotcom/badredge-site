@@ -399,7 +399,7 @@ def home():
 </section>
 
 <div class="specbar"><div class="wrap"><dl>
-  <div><dt>Markets</dt><dd>MGC MES MNQ MYM <span>+6</span></dd></div>
+  <div><dt>Markets</dt><dd>Indices <span>·</span> Metals</dd></div>
   <div><dt>Sessions</dt><dd>Asia · London · New York</dd></div>
   <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> forward testing</dd></div>
   <div><dt>Tools</dt><dd>3 simulators <span>·</span> in-browser</dd></div>
@@ -408,22 +408,16 @@ def home():
 <section class="band" id="desk">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow">Inside the desk</span>
-      <h2>Everything here serves <span class="gold">one process.</span></h2>
-      <p class="lede">Plan before the session, size to what the account can take, and review what happened. Each part of Badr Edge supports one of those steps.</p>
+      <span class="eyebrow">Day trader toolkit</span>
+      <h2>Built for the <span class="gold">trading day.</span></h2>
+      <p class="lede">Tools to plan risk before the open, research to check an idea after costs, and Pine Script to put it on the chart. Free, and it runs in your browser.</p>
     </div>
-    <div class="grid-2 doors">
+    <div class="grid-3 doors">
       <a class="card reveal" href="/tools/">
         <div class="icon">{ICONS['target']}</div><span class="tagline">Live</span>
         <h3>Tools</h3>
         <p>Free simulators for risk, position size and account planning. Put in your own numbers or a TradingView trade list and see the range of outcomes.</p>
         <span class="go">Explore the tools &rarr;</span>
-      </a>
-      <a class="card reveal" href="/guides/">
-        <div class="icon">{ICONS['book']}</div><span class="tagline">Live</span>
-        <h3>Guides</h3>
-        <p>Clear breakdowns of drawdown, sizing and the maths of an attempt, with worked numbers and a tool to test each idea.</p>
-        <span class="go">Read the guides &rarr;</span>
       </a>
       <a class="card reveal" href="/research/">
         <div class="icon">{ICONS['shield']}</div><span class="tagline">Live</span>
@@ -470,19 +464,6 @@ def home():
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Latest guides</span>
-      <h2>Start with the rules <span class="gold">that end accounts.</span></h2>
-      <p class="lede">Worked numbers, no jargon. Each guide links to a tool so you can test the idea yourself.</p>
-    </div>
-    <div class="grid-3">
-      {guide_cards()}
-    </div>
-  </div>
-</section>
-
 <section class="band">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
@@ -512,8 +493,8 @@ def home():
   <div class="wrap">
     <span class="eyebrow">Start here</span>
     <h2>Start where <span class="gold">you are.</span></h2>
-    <p class="lede">Have numbers to test? Open a tool. Want the reasoning first? Read a guide.</p>
-    <div class="hero-actions" style="justify-content:center"><a class="btn primary" href="/tools/">Explore the tools</a><a class="btn" href="/guides/">Read the guides</a></div>
+    <p class="lede">Have numbers to test? Open a tool. Want the reasoning first? Start with the research.</p>
+    <div class="hero-actions" style="justify-content:center"><a class="btn primary" href="/tools/">Explore the tools</a><a class="btn" href="/research/">See the research</a></div>
   </div>
 </section>
 """
