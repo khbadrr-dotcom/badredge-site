@@ -76,6 +76,74 @@ def picks_table(slug=None):
     return f'<div class="tbl-wrap"><table class="picks"><caption>{cap}</caption>{head}<tbody>{body}</tbody></table></div><p class="note">{PICKS_NOTE}</p>'
 
 
+def _curve(name):
+    """In-sample cumulative daily net for one strategy, from the tracker data."""
+    plain = name.replace("&amp;", "&")
+    s = next((x for x in tracker.STRATS if x["name"] == plain), None)
+    if not s:
+        return [0, 0]
+    eq = [0.0]
+    for d in s["days"]:
+        if d[0] < tracker.DATA["freeze"]:
+            eq.append(eq[-1] + d[1])
+    return eq
+
+
+def _spark(eq, w, h, cls, area=False):
+    hi, lo = max(eq), min(0, min(eq))
+    n = max(len(eq) - 1, 1)
+    pts = [(i / n * w, 2 + (hi - v) / ((hi - lo) or 1) * (h - 4)) for i, v in enumerate(eq)]
+    d = "M" + "L".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+    fill = f'<path class="pk-area" d="{d}L{w},{h}L0,{h}Z"/>' if area else ""
+    return (f'<svg class="{cls}" viewBox="0 0 {w} {h}" preserveAspectRatio="none" aria-hidden="true">{fill}<path class="pk-ln" d="{d}"/>'
+            f'<circle class="pk-tip" cx="{pts[-1][0]:.1f}" cy="{pts[-1][1]:.1f}" r="2.5"/></svg>')
+
+
+PK_JS = ("<script>(()=>{const w=document.querySelector('.pk-wrap');if(!w)return;const r=w.querySelector('.pk-rows');"
+         "w.querySelectorAll('.pk-sort button').forEach(b=>b.onclick=()=>{w.querySelectorAll('.pk-sort button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});"
+         "const k=b.dataset.k;[...r.children].sort((a,c)=>c.dataset[k]-a.dataset[k]).forEach(e=>r.appendChild(e))})})();</script>")
+
+
+def picks_list():
+    """Backtested index: ranked rows (no numbering) that expand into each strategy's details."""
+    top_net = max(p[7] for p in PICKS)
+    rows = []
+    for n, mk, ch, sl, t, w, pf, net, dd, *_ in sorted(PICKS, key=lambda p: -p[7]):
+        eq = _curve(n)
+        rows.append(f'''<details class="pk" data-net="{net}" data-wr="{w}">
+  <summary>
+    <span class="pk-name"><b>{n}</b><small>{mk} &middot; {ch}<span class="pk-mwr">{w:.1f}% win rate</span></small></span>
+    {_spark(eq, 120, 32, "pk-sp")}
+    <span class="pk-wr"><i style="--w:{w}%"></i><em>{w:.1f}%</em></span>
+    <span class="pk-pf">{pf:.2f}</span>
+    <span class="pk-net" style="--n:{net / top_net:.2f}">{_usd(net)}</span>
+    <span class="pk-chev" aria-hidden="true"></span>
+  </summary>
+  <div class="pk-body">
+    <div class="pk-chart">{_spark(eq, 600, 120, "pk-big", area=True)}<span>Equity, last year &middot; in-sample &middot; after costs</span></div>
+    <dl class="pk-k">
+      <div><dt>Net after costs</dt><dd class="g">{_usd(net)}</dd></div>
+      <div><dt>Win rate</dt><dd>{w:.1f}%</dd></div>
+      <div><dt>Profit factor</dt><dd>{pf:.2f}</dd></div>
+      <div><dt>Max drawdown</dt><dd>${dd:,}</dd></div>
+      <div><dt>Trades</dt><dd>{t:,}</dd></div>
+      <div><dt>Chart</dt><dd>{ch}</dd></div>
+    </dl>
+    <a class="pk-go" href="/research/backtested/{sl}/">Full results and how it works &rarr;</a>
+  </div>
+</details>''')
+    t, w, pf, net, dd, *_ = PICKS_TOTAL
+    return f'''<div class="pk-wrap">
+  <div class="pk-top"><span class="pk-cap">Last year, in-sample &middot; 1 micro &middot; after fees and slippage</span>
+    <div class="pk-sort" role="group" aria-label="Rank by"><span>Rank by</span><button type="button" class="on" data-k="net" aria-pressed="true">Net</button><button type="button" data-k="wr" aria-pressed="false">Win rate</button></div></div>
+  <div class="pk-head" aria-hidden="true"><span>Strategy</span><span>Equity</span><span>Win rate</span><span>PF</span><span>Net</span><span></span></div>
+  <div class="pk-rows">{"".join(rows)}</div>
+  <div class="pk-tot"><span class="pk-name"><b>All 14 together</b><small>{t:,} trades &middot; max DD ${dd:,}<span class="pk-mwr">{w:.1f}% win rate</span></small></span><span></span><span class="pk-wr"><i style="--w:{w}%"></i><em>{w:.1f}%</em></span><span class="pk-pf">{pf:.2f}</span><span class="pk-net">{_usd(net)}</span><span></span></div>
+</div>
+<p class="note">{PICKS_NOTE}</p>
+{PK_JS}'''
+
+
 def badge(status):
     label, cls = STATUS[status]
     return f'<span class="status {cls}">{label}</span>'
@@ -628,7 +696,7 @@ def graveyard(page):
 </div></section>
 <section style="padding-top:12px"><div class="wrap">
   {picks_overview()}
-  {picks_table()}
+  {picks_list()}
   {tracker.card()}
   <p class="note">{COST_NOTE} {NFA}</p>
 </div></section>
