@@ -56,10 +56,16 @@
       if (b.n >= b.len) newBar(b);
       if (Math.random() < .1) b.bias = -b.bias * (.6 + Math.random() * .6);   // pullbacks and reversals
       b.c = Math.max(-1, Math.min(1, b.c + b.bias + (Math.random() - .5) * .3));
-      b.h = Math.max(b.h, b.c); b.l = Math.min(b.l, b.c); b.n++;
-      draw(b);
+      b.n++;
     });
+    // Always one green and one red: the second bar runs opposite to the first
+    if (bars.length === 2) {
+      var a = bars[0], z = bars[1], up = a.c >= a.o, d = Math.max(Math.abs(z.c - z.o), .06);
+      z.c = Math.max(-1, Math.min(1, z.o + (up ? -d : d)));
+    }
+    bars.forEach(function (b) { b.h = Math.max(b.h, b.c); b.l = Math.min(b.l, b.c); draw(b); });
   }
-  bars.forEach(function (b) { newBar(b); b.n = Math.floor(Math.random() * 8); draw(b); });
+  bars.forEach(function (b) { newBar(b); b.n = Math.floor(Math.random() * 8); });
+  tick();
   setInterval(tick, 550);
 })();
