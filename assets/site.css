@@ -525,10 +525,10 @@ html[data-theme="light"] .orbit-lines ellipse { stroke: rgba(142, 106, 34, .3); 
   75% { scale: .78; opacity: .7; }
   100% { offset-distance: 100%; z-index: 1; scale: 1; opacity: 1; }
 }
-.cdl { width: 10px; height: 30px; }
-.r2.cdl { width: 8px; height: 24px; }
-.cdl::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1.5px; margin-left: -.75px; background: currentColor; }
-.cdl::before { content: ""; position: absolute; left: 0; right: 0; top: 26%; bottom: 22%; background: currentColor; border-radius: 1px; box-shadow: 0 0 14px currentColor; }
+.cdl { width: 12px; height: 42px; --wt: 22%; --wb: 18%; --bt: 34%; --bb: 30%; transition: color .45s ease; }
+.r2.cdl { width: 10px; height: 34px; }
+.cdl::after { content: ""; position: absolute; left: 50%; top: var(--wt); bottom: var(--wb); width: 1.5px; margin-left: -.75px; background: currentColor; transition: top .5s cubic-bezier(.3,.7,.4,1), bottom .5s cubic-bezier(.3,.7,.4,1); }
+.cdl::before { content: ""; position: absolute; left: 0; right: 0; top: var(--bt); bottom: var(--bb); min-height: 2px; background: currentColor; border-radius: 1.5px; box-shadow: 0 0 14px currentColor; transition: top .5s cubic-bezier(.3,.7,.4,1), bottom .5s cubic-bezier(.3,.7,.4,1); }
 .cdl.up { color: var(--live); }
 .cdl.dn { color: var(--down); }
 /* ticker tokens */
