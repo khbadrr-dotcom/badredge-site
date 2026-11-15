@@ -30,7 +30,7 @@ NFA = ("Research notes for education only. Not financial advice, not a recommend
 
 
 # Last year's 14 picks (Khaled's write-up, Nov 2026). 1 micro, after fees and slippage, GMT+3 sessions.
-# Last year = 1 Nov 2025 to 21 Oct 2026, the 12 months the settings were chosen on (in-sample).
+# Last year = the in-sample range of the tracker trade files (see LAST_YEAR below).
 # Replay = same frozen settings on Oct 2021 to 21 Oct 2025 (MHG from May 2022).
 SHOW_REPLAY = False
 PICKS = [
@@ -51,8 +51,38 @@ PICKS = [
     ("M6E IB Multi-Session", "Micro EUR/USD", "1m", "initial-balance", 137, 73.7, 2.13, 1102, 168, -1064, 56.0, 0.88),
 ]
 PICKS_TOTAL = (2773, 75.5, 2.61, 89458, 1549, -31794, 34196)
-PICKS_NOTE = ("Last year means 1 Nov 2025 to 21 Oct 2026, the 12 months these settings were picked on. "
+
+
+def _stats(days):
+    """Trades, win %, profit factor, net and max drawdown (daily closes) from tracker day rows."""
+    eq = pk = mdd = gw = gl = 0.0
+    n = w = 0
+    for _, pnl, tr, wins, win_usd, loss_usd in days:
+        eq += pnl; pk = max(pk, eq); mdd = min(mdd, eq - pk)
+        n += tr; w += wins; gw += win_usd; gl += loss_usd
+    return n, round(100 * w / n, 1), round(gw / gl, 2), round(eq), round(-mdd)
+
+
+def _in_sample(strats):
+    by_day = {}
+    for st in strats:
+        for d in st["days"]:
+            if d[0] < tracker.DATA["freeze"]:
+                a = by_day.setdefault(d[0], [d[0], 0.0, 0, 0, 0.0, 0.0])
+                for i in range(1, 6):
+                    a[i] += d[i]
+    return [by_day[k] for k in sorted(by_day)]
+
+
+# One source: every published figure is recomputed from the tracker's trade files (in-sample part only),
+# so the table, the charts and the tracker can never disagree. The typed figures above are only a fallback.
+_BY_NAME = {x["name"]: x for x in tracker.STRATS}
+PICKS = [p[:4] + _stats(_in_sample([_BY_NAME[p[0].replace("&amp;", "&")]])) + p[9:] for p in PICKS]
+PICKS_TOTAL = _stats(_in_sample(tracker.STRATS)) + PICKS_TOTAL[5:]
+LAST_YEAR = tracker.IN_WIN.replace(" – ", " to ")
+PICKS_NOTE = (f"Last year means {LAST_YEAR}, the range the trade files cover. It sits inside the 12 months these settings were picked on. "
               "That makes every number here in-sample: the best of a very large search, flattered by that search. "
+              "Drawdown is measured on daily closes. "
               "None of these strategies is validated. Each one requires forward testing before any real-money use.")
 
 
@@ -128,6 +158,7 @@ def picks_list():
       <div><dt>Max drawdown</dt><dd>${dd:,}</dd></div>
       <div><dt>Trades</dt><dd>{t:,}</dd></div>
       <div><dt>Chart</dt><dd>{ch}</dd></div>
+      <div><dt>First trade</dt><dd>{tracker._d(_BY_NAME[n.replace("&amp;", "&")]["days"][0][0])}</dd></div>
     </dl>
     <a class="pk-go" href="/research/backtested/{sl}/">Full results and how it works &rarr;</a>
   </div>
@@ -516,7 +547,7 @@ def _plain(name):
     return name.replace("&amp;", "&")
 
 
-PICK_WINDOW = "Last year, 22 Oct 2025 to 21 Oct 2026 · in-sample · 1 contract · after costs"
+PICK_WINDOW = f"Last year, {LAST_YEAR} · in-sample · 1 contract · after costs"
 
 
 def picks_overview():
