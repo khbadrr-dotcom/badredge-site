@@ -56,8 +56,14 @@ def card(family=None):
     <div class="trk-chart" aria-label="Equity curve with drawdown underneath"></div>
     <div class="sec-t">In-sample · {IN_WIN} · <span class="trk-sel"></span></div>
     <dl class="k row isk">{_k('Net after costs','net')}{_k('Max drawdown','dd')}{_k('Profit factor','pf')}{_k('Win rate','wr')}{_k('Trades','tr')}{_k('Green days','g')}{_k('Red days','r')}{_k('Longest green streak','mg')}{_k('Longest red streak','mr')}</dl>
-    <div class="sec-t f">Since the freeze · {OUT_WIN} · new data, settings unchanged</div>
-    <dl class="k row fwk">{_k('Net after costs','net')}{_k('Win rate','wr')}{_k('Trades','tr')}{_k('Green days','g')}{_k('Red days','r')}</dl>
+    <div class="cal" aria-label="Daily results calendar">
+      <div class="cal-head">
+        <div><div class="sec-t">Daily results · hypothetical, after costs</div><b class="cal-m"></b><span class="cal-sum"></span></div>
+        <div class="cal-nav"><button type="button" class="cal-prev" aria-label="Previous month">&lsaquo;</button><button type="button" class="cal-next" aria-label="Next month">&rsaquo;</button></div>
+      </div>
+      <div class="cal-grid" role="grid"></div>
+      <p class="cal-tip" aria-live="polite">Tap a day for its trades. A teal dot marks new data since the settings were frozen.</p>
+    </div>
     <p class="foot-note">Hypothetical results for one contract per strategy, after fees and one tick of slippage on each side. The in-sample period falls inside the year the settings were picked on, so it is flattered by that search. Drawdown is measured on daily closes. {_late(ss)} Not financial advice and not a signal.</p>
   </div>
 </section>"""
