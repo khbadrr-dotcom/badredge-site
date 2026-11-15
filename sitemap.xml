@@ -14,28 +14,33 @@
   <url><loc>https://badredge.com/research/method/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/research/backtested/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/research/under-observation/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/orb-pro-max/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/research/backtested/orb-pro-max/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/orb-break-and-hold/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/research/backtested/orb-break-and-hold/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/orb-v4/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/research/backtested/orb-v4/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/initial-balance/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/research/backtested/initial-balance/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/asian-range-breakout/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/smt-divergence/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/ifvg-breaker/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/gifvg/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/key-level-retests/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/support-resistance-pivots/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/psar-ema200/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/ema-vwap-momentum/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/monday-high-low/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/iv-walls/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/daily-trend/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/intraday-momentum/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/noise-area/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/box-breakouts/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/volume-profile/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/amd-1h4h/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/short-timeframe-trend/</loc><lastmod>2026-11-15</lastmod></url>
-  <url><loc>https://badredge.com/research/backtested/microstructure-effects/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/asian-range-breakout/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/smt-divergence/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/ifvg-breaker/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/gifvg/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/key-level-retests/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/support-resistance-pivots/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/psar-ema200/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/ema-vwap-momentum/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/monday-high-low/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/iv-walls/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/daily-trend/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/intraday-momentum/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/noise-area/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/box-breakouts/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/volume-profile/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/amd-1h4h/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/short-timeframe-trend/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/microstructure-effects/</loc><lastmod>2026-11-15</lastmod></url>
+  <url><loc>https://badredge.com/research/families/cross-market-portfolio/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/research/backtested/cross-market-portfolio/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/tools/pass/</loc><lastmod>2026-11-15</lastmod></url>
   <url><loc>https://badredge.com/tools/payout/</loc><lastmod>2026-11-15</lastmod></url>

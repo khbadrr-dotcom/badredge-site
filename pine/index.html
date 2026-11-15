@@ -4,23 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
-<title>Pine Script · Badr Edge</title>
-<meta name="description" content="Pine Script v6 strategy development and validation: frozen rules, realistic costs, out-of-sample and stress testing.">
+<title>Private Pine Scripts · Badr Edge</title>
+<meta name="description" content="Private, invite-only Pine Script v6 strategies for TradingView. Opening soon: join the waitlist.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/pine/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:url" content="https://badredge.com/pine/">
-<meta property="og:title" content="Pine Script · Badr Edge">
-<meta property="og:description" content="Pine Script v6 strategy development and validation: frozen rules, realistic costs, out-of-sample and stress testing.">
+<meta property="og:title" content="Private Pine Scripts · Badr Edge">
+<meta property="og:description" content="Private, invite-only Pine Script v6 strategies for TradingView. Opening soon: join the waitlist.">
 <meta property="og:image" content="https://badredge.com/assets/og-home.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Badr Edge: a gold moon with orbiting tickers and candles">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Pine Script · Badr Edge">
-<meta name="twitter:description" content="Pine Script v6 strategy development and validation: frozen rules, realistic costs, out-of-sample and stress testing.">
+<meta name="twitter:title" content="Private Pine Scripts · Badr Edge">
+<meta name="twitter:description" content="Private, invite-only Pine Script v6 strategies for TradingView. Opening soon: join the waitlist.">
 <meta name="twitter:image" content="https://badredge.com/assets/og-home.jpg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,65 +33,20 @@
 <header class="site-head">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span class="wm">Badr <span class="word-2">Edge</span></span></a>
-    <nav class="nav" id="nav" aria-label="Main"><a href="/research/backtested/" class="nav-hl"><i class="hl-dot"></i>Backtested strategies</a><a href="/research/">Research</a><a href="/pine/" aria-current="page">Pricing<small class="nav-soon">Opening soon</small></a><a href="/about/">About</a><a class="cta" href="/tools/"><i class="hl-dot"></i>Open the tools</a></nav>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/research/backtested/" class="nav-hl"><i class="hl-dot"></i>Backtested strategies</a><a href="/research/">Research</a><a href="/pine/" aria-current="page">Private Pine Scripts<small class="nav-soon">Opening soon</small></a><a href="/about/">About</a><a class="cta" href="/tools/"><i class="hl-dot"></i>Open the tools</a></nav>
     <div class="head-actions"><button class="theme-btn" type="button" aria-label="Switch theme" title="Switch theme"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button><button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
   </div>
 </header>
 <main>
 
-<section class="page-head"><div class="wrap">
-  <span class="eyebrow">Pine Script</span>
-  <h1>Built in v6. Tested until it breaks.</h1>
-  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and where I can help.</p>
-</div></section>
-
-<section style="padding-top:24px"><div class="wrap">
-  <div class="grid-3">
-    <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></div><h3>Fixes and clean-ups</h3><p>Repainting, wrong session times, orders that don't fire, inputs that do nothing. Find the bug, fix it, and explain what was wrong.</p></div>
-    <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></div><h3>Upgrades to v6</h3><p>Move older scripts to Pine v6 with the same logic, cleaner inputs and fewer surprises, checked trade by trade against the original.</p></div>
-    <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, in one written report.</p></div>
+<section class="page-head pine-soon"><div class="wrap">
+  <span class="eyebrow">Opening soon</span>
+  <h1>Private <span class="gold">Pine Scripts.</span></h1>
+  <p class="lede">Invite-only TradingView strategies in Pine Script v6. Join the waitlist to hear first when it opens.</p>
+  <div class="hero-actions">
+    <a class="btn primary" href="mailto:hello@badredge.com?subject=Private%20Pine%20Scripts%20waitlist&amp;body=Please%20add%20me%20to%20the%20waitlist.">Join the waitlist</a>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
-</div></section>
-
-<section class="band"><div class="wrap split">
-  <div class="sec-head" style="margin:0">
-    <span class="eyebrow">How a strategy gets tested</span>
-    <h2>Most backtests are too kind. These aren't.</h2>
-    <ul class="checklist" style="margin-top:8px">
-      <li><span><b>Frozen rules.</b> Settings are fixed before the test, so the result can't be tuned after the fact.</span></li>
-      <li><span><b>Real costs.</b> Commission per contract and at least one tick of slippage on every trade.</span></li>
-      <li><span><b>Unseen data.</b> Sized and tuned on earlier months, then judged on months it never saw.</span></li>
-      <li><span><b>Stress tests.</b> Doubled slippage, losses 50% bigger, winners 10% smaller.</span></li>
-      <li><span><b>Many-tests check.</b> When many variants are tried, results are corrected so a lucky one doesn't look like an edge.</span></li>
-      <li><span><b>Independent replica.</b> The Pine logic is rebuilt outside TradingView and compared trade by trade.</span></li>
-    </ul>
-  </div>
-  <div class="figure reveal">
-    <div class="code" style="border:0;padding:4px 2px;background:transparent">VALIDATION REPORT · structure
-
-<span class="k">1</span>  Summary and verdict
-     PASS · EXPLORATORY · INSUFFICIENT EVIDENCE
-<span class="k">2</span>  Rules as tested (frozen inputs)
-<span class="k">3</span>  Costs and fill assumptions
-<span class="k">4</span>  In-sample vs out-of-sample
-<span class="k">5</span>  Year-by-year stability
-<span class="k">6</span>  Stress: 2× slippage, smaller winners
-<span class="k">7</span>  Monte Carlo drawdown range
-<span class="k">8</span>  Prop-rule fit: pass and payout odds
-<span class="k">9</span>  Code review notes</div>
-    <figcaption>The structure of a report. The verdict is often "exploratory": it requires forward testing. That's the point.</figcaption>
-  </div>
-</div></section>
-
-<section><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">What you won't get</span><h2>Clear lines</h2></div>
-  <div class="principles">
-    <div class="principle"><b>No signals</b><span>No trade calls, alerts or copy trading.</span></div>
-    <div class="principle"><b>No performance promises</b><span>A test describes the past under stated assumptions. It doesn't predict profit.</span></div>
-    <div class="principle"><b>No resold strategies</b><span>Your code stays yours and isn't shared or reused.</span></div>
-    <div class="principle"><b>No advice</b><span>Engineering and testing only. Trading decisions are yours.</span></div>
-  </div>
+  <p class="note">Opens an email to hello@badredge.com. No signals, no promised results. Not financial advice.</p>
 </div></section>
 </main>
 <footer class="site-foot">
@@ -117,7 +72,7 @@
       <div><h4>Badr Edge</h4><ul>
         <li><a href="/about/">About</a></li>
         <li><a href="/research/">Research</a></li>
-        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/pine/">Private Pine Scripts</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
         <li><a href="/legal/privacy/">Privacy</a></li>
       </ul></div>
