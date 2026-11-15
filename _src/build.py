@@ -518,6 +518,52 @@ def test_art(kind):
     return (f'<div class="door-art" aria-hidden="true"><svg viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid meet">'
             f'{grid}{body}</svg></div>')
 
+
+def research_art(kind):
+    """Small illustrations for the three Research cards. Shapes only, not results."""
+    W, H = 320, 104
+    grid = '<g class="da-grid">' + ''.join(f'<line x1="0" y1="{y}" x2="{W}" y2="{y}"/>' for y in (26, 52, 78)) + '</g>'
+    pts = lambda P: ' '.join(f'{x:.1f},{y:.1f}' for x, y in P)
+    if kind == 'method':
+        # The pipeline: explore, cheap checks, freeze, frozen test, gate
+        steps = ('explore', 'checks', 'freeze', 'test', 'gate')
+        xs = [34 + i * 63 for i in range(5)]
+        body = f'<line class="da-rail" x1="{xs[0]}" y1="52" x2="{xs[-1]}" y2="52"/>'
+        body += f'<line class="da-rail-on" x1="{xs[0]}" y1="52" x2="{xs[2]}" y2="52"/>'
+        for i, (x, t) in enumerate(zip(xs, steps)):
+            cls = 'da-node on' if i <= 2 else 'da-node'
+            body += f'<circle class="{cls}" cx="{x}" cy="52" r="{7 if i == 2 else 5}"/>'
+            body += f'<text class="da-lbl{" gold" if i == 2 else ""}" x="{x}" y="80" text-anchor="middle">{t}</text>'
+            body += f'<text class="da-lbl" x="{x}" y="30" text-anchor="middle">0{i + 1}</text>'
+        body += f'<path class="da-lock" d="M{xs[2] - 2.5},51 v-2 a2.5,2.5 0 0 1 5,0 v2 M{xs[2] - 3.5},51 h7 v4 h-7 z"/>'
+    elif kind == 'backtested':
+        # Several strategy families on one chart, each after costs
+        rnd = random.Random(17)
+        lines = []
+        for k in range(6):
+            y, P = 66 + rnd.uniform(-14, 14), []
+            slope = rnd.uniform(-.45, .55) if k else .6
+            for x in range(14, W - 10, 8):
+                P.append((x, y)); y = min(max(y - slope + rnd.gauss(0, 2.4), 22), 96)
+            lines.append(P)
+        body = ''.join(f'<polyline class="da-faint" points="{pts(P)}"/>' for P in lines[1:])
+        body += f'<polyline class="da-gold" points="{pts(lines[0])}"/>'
+        body += '<text class="da-lbl" x="14" y="16">strategy families · after costs</text>'
+    else:
+        # Forward test: settings frozen, then new data only
+        rnd = random.Random(29)
+        start, y, P = 92, 70, []
+        for x in range(start, W - 14, 7):
+            P.append((x, y)); y = y - .35 + rnd.gauss(0, 2.6)
+        body = (f'<line class="da-split" x1="{start}" y1="10" x2="{start}" y2="96"/>'
+                f'<rect class="da-shade" x="14" y="10" width="{start - 14}" height="86" rx="3"/>'
+                f'<text class="da-lbl" x="22" y="56">frozen</text>'
+                f'<polyline class="da-live" points="{pts(P)}"/>'
+                f'<circle class="da-pulse" cx="{P[-1][0]:.1f}" cy="{P[-1][1]:.1f}" r="3.2"/>'
+                f'<text class="da-lbl live" x="{start + 8}" y="16">new data · no changes</text>')
+    return (f'<div class="door-art" aria-hidden="true"><svg viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid meet">'
+            f'{grid}{body}</svg></div>')
+
 def home():
     body = f"""
 <section class="hero">
@@ -587,17 +633,15 @@ def home():
   </div>
 </section>
 
-<section class="band">
+<section class="band never-band">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Principles</span>
-      <h2>What Badr Edge is, <span class="gold">and what it isn't.</span></h2>
-    </div>
-    <div class="principles">
-      <div class="principle reveal"><b>No signals</b><span>You won't find trade calls or alerts here. You make your own decisions.</span></div>
-      <div class="principle reveal"><b>No promised returns</b><span>No win rates, no screenshots of profits, no "guaranteed" anything.</span></div>
-      <div class="principle reveal"><b>Tools over talk</b><span>Every idea comes with a way to test it on your own numbers.</span></div>
-      <div class="principle reveal"><b>Private by design</b><span>The tools run in your browser. Nothing you load is uploaded.</span></div>
+    <div class="never reveal">
+      <span class="eyebrow">Never offered</span>
+      <ul>
+        <li><b>Signals</b><span>No trade calls or alerts.</span></li>
+        <li><b>Promised returns</b><span>No win-rate or profit claims.</span></li>
+        <li><b>Uploads</b><span>Tools run in your browser.</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -607,9 +651,9 @@ def home():
     <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
       <p class="lede">A public log of a futures research desk: the method, every strategy family tested and last year's results after costs. All of it is research and requires forward testing.</p></div>
     <div class="grid-3">
-      <a class="card reveal" href="/research/method/"><div class="icon">{ICONS['scale']}</div><h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
-      <a class="card reveal" href="/research/backtested/"><div class="icon">{ICONS['shield']}</div><h3>Backtested strategies</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
-      <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICONS['book']}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
+      <a class="card reveal" href="/research/method/">{research_art('method')}<h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
+      <a class="card reveal" href="/research/backtested/">{research_art('backtested')}<h3>Backtested strategies</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
+      <a class="card reveal" href="/research/under-observation/">{research_art('forward')}<h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
     </div>
     <h3 class="tests-title">How every idea gets tested <span class="tests-tag">Illustrations, not results</span></h3>
     <div class="grid-4 tests">
