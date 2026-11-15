@@ -50,6 +50,30 @@ THEME_BTN = ('<button class="theme-btn" type="button" aria-label="Switch theme" 
              '<svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button>')
 
 
+
+OG_VERSION = "2"
+
+
+def og_image(path):
+    """Share card per section; the version query makes chat apps fetch the new image."""
+    name = "tools" if path.startswith("/tools") else "research" if path.startswith("/research") else "home"
+    return f"{SITE}/assets/og-{name}.jpg?v={OG_VERSION}"
+
+
+def og_tags(title, desc, path):
+    img = og_image(path)
+    t = "Badr Edge · Day trader toolkit" if path == "/" else title
+    return f"""<meta property="og:title" content="{t}">
+<meta property="og:description" content="{desc}">
+<meta property="og:image" content="{img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Badr Edge: a gold moon with orbiting tickers and candles">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{t}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{img}">"""
+
 def head(title, desc, path, extra=""):
     full = title if title == "Badr Edge" else f"{title} · Badr Edge"
     return f"""<!doctype html>
@@ -65,11 +89,8 @@ def head(title, desc, path, extra=""):
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Badr Edge">
-<meta property="og:title" content="{full}">
-<meta property="og:description" content="{desc}">
 <meta property="og:url" content="{SITE}{path}">
-<meta property="og:image" content="{SITE}/assets/og.png">
-<meta name="twitter:card" content="summary_large_image">
+{og_tags(full, desc, path)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -688,7 +709,7 @@ def home():
 </section>
 """
     return page("/", "Badr Edge",
-                "Badr Edge: a working futures trader's desk, opened up. Free risk tools, guides and research on how trading ideas get tested.",
+                "Free risk tools to plan the trading day, and an open record of how trading ideas get tested after costs. Built by a working futures trader.",
                 "/", body)
 
 
