@@ -58,7 +58,8 @@
   function countUp(el, v, f) {
     if (reduce || typeof v !== 'number') { el.textContent = f(v); return; }
     const t0 = performance.now(), T = 1000, dec = f === fmt.pf || f === fmt.wr;
-    const step = t => { const k = Math.max(0, Math.min(1, (t - t0) / T)), e = 1 - Math.pow(1 - k, 3); el.textContent = f(dec ? v * e : Math.round(v * e)); if (k < 1) requestAnimationFrame(step); };
+    el.textContent = f(v);
+    const step = t => { const k = Math.max(0, Math.min(1, (t - t0) / T)), e = 1 - Math.pow(1 - k, 3); if (k <= 0) { requestAnimationFrame(step); return; } el.textContent = f(dec ? v * e : Math.round(v * e)); if (k < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
     setTimeout(() => { el.textContent = f(v); }, T + 150);
   }
