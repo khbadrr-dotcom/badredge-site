@@ -106,10 +106,13 @@ def header(active):
     links = "".join(
         f'<a href="{href}"{" class=\"nav-hl\"" if href == NAV[0][0] else ""}{" aria-current=\"page\"" if href == active else ""}>'
         f'{"<i class=\"hl-dot\"></i>" if href == NAV[0][0] else ""}{label}</a>' for href, label in NAV)
+    cta = '<a class="cta" href="/tools/"><i class="hl-dot"></i>Open the tools</a>'
+    first = links.index("</a>") + 4  # menu order: Backtested strategies, Open the tools, then the rest
+    links = links[:first] + cta + links[first:]
     return f"""<header class="site-head">
   <div class="wrap">
     {BRAND}
-    <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/"><i class="hl-dot"></i>Open the tools</a></nav>
+    <nav class="nav" id="nav" aria-label="Main">{links}</nav>
     <div class="head-actions">{THEME_BTN}<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
   </div>
 </header>
