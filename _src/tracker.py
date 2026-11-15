@@ -66,3 +66,49 @@ def card(family=None):
 def data_tag():
     return ('<script type="application/json" id="trk-data">' + json.dumps(DATA, separators=(",", ":")) + "</script>"
             '<script src="/assets/tracker.js" defer></script>')
+
+
+def two_ways():
+    """Homepage section: the toolkit and the strategies, side by side."""
+    from collections import defaultdict
+    D = DATA
+    day = defaultdict(float)
+    for s in D["strategies"]:
+        for x in s["days"]: day[x[0]] += x[1]
+    ks = sorted(day); eq = [0]
+    for k in ks: eq.append(eq[-1] + day[k])
+    nIn = sum(1 for k in ks if k < D["freeze"])
+    W, H = 520, 120
+    hi, lo = max(eq), min(eq)
+    X = lambda i: i / (len(eq) - 1) * W
+    Y = lambda v: 8 + (hi - v) / (hi - lo) * (H - 16)
+    pin = "".join(f"{'M' if i == 0 else 'L'}{X(i):.1f},{Y(v):.1f}" for i, v in enumerate(eq[:nIn + 1]))
+    pout = "".join(f"{'M' if i == 0 else 'L'}{X(i + nIn):.1f},{Y(v):.1f}" for i, v in enumerate(eq[nIn:]))
+    spark = f'''<svg class="tw-spark" viewBox="0 0 {W} {H}" preserveAspectRatio="none"><defs><linearGradient id="twg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".28"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+    <rect x="{X(nIn):.1f}" y="2" width="{W - X(nIn):.1f}" height="{H - 4}" rx="6" class="tw-fz"/>
+    <path d="{pin}L{X(nIn):.1f},{H}L0,{H}Z" fill="url(#twg)"/><path d="{pin}" class="tw-eq"/><path d="{pout}" class="tw-fw"/>
+    <circle cx="{W}" cy="{Y(eq[-1]):.1f}" r="3.5" class="tw-tip"/></svg>'''
+    tools = [("Prop Pass Simulator", "Odds of passing an evaluation"), ("Payout Simulator", "What a funded account can pay"), ("Contract Sizing", "Size against your drawdown")]
+    tl = "".join(f'<li><b>{a}</b><span>{b}</span><i>&rarr;</i></li>' for a, b in tools)
+    return f'''
+    <section class="tw" id="two-ways"><div class="wrap">
+      <div class="tw-head"><span class="eyebrow">Two ways in</span><h2>Use the tools. <span class="gold">Study the strategies.</span></h2></div>
+      <div class="tw-grid">
+        <a class="tw-card" href="/tools/">
+          <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Live</span><span class="tw-kind">The toolkit</span></div>
+          <h3>Plan the risk before the open.</h3>
+          <p>Browser tools built around prop-firm rules. Free, no sign-up.</p>
+          <ul class="tw-list">{tl}</ul>
+          <span class="tw-cta gold-btn">Open the tools <i>&rarr;</i></span>
+        </a>
+        <a class="tw-card" href="/research/backtested/">
+          <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Live</span><span class="tw-kind">The strategies</span></div>
+          <h3>14 strategies, tested after costs.</h3>
+          <p>Every rule, every result, one ledger. Gold is in-sample; teal is new data since the freeze.</p>
+          <div class="tw-chart">{spark}<div class="tw-axis"><span>Nov 2025</span><span>Nov 2026</span></div></div>
+          <dl class="tw-k"><div><dt>Strategies</dt><dd>14</dd></div><div><dt>Markets</dt><dd>10</dd></div><div><dt>Status</dt><dd class="tw-st">Exploratory</dd></div></dl>
+          <span class="tw-cta">See backtested strategies <i>&rarr;</i></span>
+        </a>
+      </div>
+      <p class="tw-note">Research only. Every strategy requires forward testing before any real-money use.</p>
+    </div></section>'''

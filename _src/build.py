@@ -8,6 +8,7 @@ standalone pages and are not touched, except /tools/index.html, which is built h
 import os, random, datetime, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import research
+import tracker
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://badredge.com"
@@ -404,7 +405,7 @@ def home():
   <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> forward testing</dd></div>
   <div><dt>Tools</dt><dd>3 simulators <span>·</span> in-browser</dd></div>
 </dl></div></div>
-
+{tracker.two_ways()}
 <section class="band" id="desk">
   <div class="wrap">
     <div class="sec-head">

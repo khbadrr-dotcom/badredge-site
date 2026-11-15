@@ -932,3 +932,32 @@ html[data-theme="light"] .trk .k dd.big { background: linear-gradient(100deg, #b
 .nav .cta .hl-dot::after { background: #2fc49f; }
 @keyframes hl-live { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .hl-dot::after { animation: none; display: none; } }
+
+/* ───────── Homepage: Two ways in ───────── */
+.tw{padding-top:24px}.tw-head{margin-bottom:22px}.tw-head h2{margin:8px 0 0}
+.tw-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.tw-card{position:relative;display:flex;flex-direction:column;gap:14px;padding:26px;border-radius:22px;text-decoration:none;color:inherit;background:var(--glass);box-shadow:0 0 0 1px var(--tbl-ring),var(--glass-shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.tw-card::before{content:"";position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.7}
+.tw-card::after{content:"";position:absolute;width:320px;height:320px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%);pointer-events:none}
+.tw-card:nth-child(2)::after{background:radial-gradient(circle,color-mix(in srgb,var(--live) 16%,transparent),transparent 70%)}
+.tw-card:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--accent-line),var(--glass-shadow)}
+.tw-top{display:flex;justify-content:space-between;align-items:center}
+.tw-live{display:inline-flex;align-items:center;gap:8px;font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--live);padding:7px 11px;border-radius:999px;box-shadow:0 0 0 1px color-mix(in srgb,var(--live) 35%,transparent);background:color-mix(in srgb,var(--live) 8%,transparent)}
+.tw-kind{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.tw-card h3{margin:4px 0 0;font:700 clamp(22px,2.2vw,28px)/1.15 var(--sans);letter-spacing:-.02em}
+.tw-card p{margin:0;color:var(--muted)}
+.tw-list{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.tw-list li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--text) 3%,transparent);box-shadow:inset 0 1px 0 color-mix(in srgb,var(--text) 6%,transparent)}
+.tw-list b{font:600 14.5px var(--sans);color:var(--text)}.tw-list span{grid-column:1;font-size:13px;color:var(--dim)}.tw-list i{grid-row:1/span 2;grid-column:2;align-self:center;font-style:normal;color:var(--accent)}
+.tw-chart{margin-top:4px;padding:12px 12px 8px;border-radius:14px;background:color-mix(in srgb,var(--text) 3%,transparent)}
+.tw-spark{width:100%;height:120px;display:block;overflow:visible}.tw-eq{fill:none;stroke:var(--accent);stroke-width:1.8;vector-effect:non-scaling-stroke}
+.tw-fw{fill:none;stroke:var(--live);stroke-width:1.8;vector-effect:non-scaling-stroke}.tw-fz{fill:color-mix(in srgb,var(--live) 8%,transparent);stroke:color-mix(in srgb,var(--live) 45%,transparent);stroke-dasharray:3 4;vector-effect:non-scaling-stroke}
+.tw-tip{fill:var(--live);filter:drop-shadow(0 0 6px var(--live))}
+.tw-axis{display:flex;justify-content:space-between;font:400 10px var(--mono);color:var(--dim);margin-top:6px}
+.tw-k{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0}.tw-k div{padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--text) 3%,transparent)}
+.tw-k dt{font:500 10px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}.tw-k dd{margin:4px 0 0;font:700 20px var(--sans)}.tw-k dd.tw-st{font-size:14px;color:var(--live);padding-top:5px}
+.tw-cta{margin-top:auto;align-self:flex-start;display:inline-flex;gap:8px;align-items:center;height:42px;padding:0 18px;border-radius:12px;font-weight:600;box-shadow:0 0 0 1px var(--accent-line);color:var(--text)}
+.tw-cta.gold-btn{background:linear-gradient(180deg,#f1d9a6 0%,#d9b46c 55%,#c49c52 100%);color:#17120a;box-shadow:none}
+.tw-cta i{font-style:normal}
+.tw-note{font-size:12.5px;color:var(--dim);margin-top:14px}
+@media(max-width:760px){.tw-grid{grid-template-columns:1fr}.tw-card{padding:20px}}
