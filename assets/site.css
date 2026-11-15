@@ -961,3 +961,30 @@ html[data-theme="light"] .trk .k dd.big { background: linear-gradient(100deg, #b
 .tw-cta i{font-style:normal}
 .tw-note{font-size:12.5px;color:var(--dim);margin-top:14px}
 @media(max-width:760px){.tw-grid{grid-template-columns:1fr}.tw-card{padding:20px}}
+
+/* ---------- Toolkit card illustrations ---------- */
+.door-art { margin: -6px -8px 8px; height: 120px; border: 1px solid var(--line); border-radius: var(--r); background: color-mix(in srgb, var(--bg-2) 55%, transparent); overflow: hidden; }
+.door-art svg { display: block; width: 100%; height: 100%; padding: 4px 6px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.door-art .da-grid line { stroke: var(--line); stroke-width: 1; }
+.door-art .da-faint { stroke: var(--line-3); stroke-width: 1.1; }
+.door-art .da-gold { stroke: var(--accent); stroke-width: 2; }
+.door-art .da-live { stroke: var(--live); stroke-width: 2; }
+.door-art .da-down { stroke: var(--down); stroke-width: 1.6; opacity: .85; }
+.door-art .da-target { stroke: var(--live); stroke-width: 1.2; stroke-dasharray: 4 4; opacity: .8; }
+.door-art .da-floor { stroke: var(--down); stroke-width: 1.2; stroke-dasharray: 4 4; opacity: .75; }
+.door-art .da-entry { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 2 3; }
+.door-art .da-split { stroke: var(--line-3); stroke-width: 1.2; stroke-dasharray: 3 4; }
+.door-art .da-area { fill: var(--accent); opacity: .08; stroke: none; }
+.door-art .da-dot-gold { fill: var(--accent); }
+.door-art .da-dot-down { fill: var(--down); }
+.door-art .da-start { fill: var(--text-2, var(--muted)); }
+.door-art .da-up line, .door-art .da-up rect { stroke: var(--live); fill: var(--live); }
+.door-art .da-dn line, .door-art .da-dn rect { stroke: var(--dim); fill: var(--dim); }
+.door-art .da-up line, .door-art .da-dn line { stroke-width: 1.2; }
+.door-art .da-up rect, .door-art .da-dn rect { stroke-width: 0; }
+.door-art .da-mark { fill: var(--live); }
+.door-art .da-lbl { font: 500 9.5px var(--mono); letter-spacing: .06em; fill: var(--dim); stroke: none; }
+.door-art .da-lbl.live { fill: var(--live); }
+.door-art .da-lbl.code { fill: var(--accent); opacity: .75; }
+.doors .tagline { position: static; align-self: flex-start; margin: 2px 0 -6px; }
+.door-art .da-lbl.down { fill: var(--down); opacity: .85; }

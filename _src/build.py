@@ -367,6 +367,83 @@ if(next){{var m=Math.round((next-now)/60000),dd=Math.floor(m/1440),h=Math.floor(
 '''
 
 
+
+def door_art(kind):
+    """Small illustrations for the three toolkit cards on the homepage."""
+    W, H = 320, 104
+    grid = ''.join(f'<line x1="0" y1="{y}" x2="{W}" y2="{y}"/>' for y in (26, 52, 78))
+    grid = f'<g class="da-grid">{grid}</g>'
+    pts = lambda P: ' '.join(f'{x:.1f},{y:.1f}' for x, y in P)
+    if kind == 'tools':
+        # Monte Carlo fan: many attempts from one start, a target above, the max loss below
+        rnd = random.Random(7)
+        top, floor, x0, y0 = 18, 88, 14, 58
+        paths = []
+        for i in range(9):
+            y, P = y0, [(x0, y0)]
+            drift = (-0.55, 0.5, -0.25, 0.1, -0.4, 0.35, -0.15, 0.2, -0.7)[i]
+            for x in range(x0 + 12, W - 10, 12):
+                y = min(max(y + drift + rnd.uniform(-5.5, 5.5), top - 4), floor + 2)
+                P.append((x, y))
+                if y <= top or y >= floor: break
+            paths.append(P)
+        win = [(x0, y0)]; y = y0
+        for k, x in enumerate(range(x0 + 12, 238, 12)):
+            y = max(y - 2.3 + (4.5 if k % 3 == 1 else -1.2), top); win.append((x, y))
+        win.append((238, top))
+        lose = [(x0, y0)]; y = y0
+        for k, x in enumerate(range(x0 + 12, 170, 12)):
+            y = min(y + 2.2 + (-4 if k % 3 == 2 else 1), floor); lose.append((x, y))
+        lose.append((170, floor))
+        body = (f'<line class="da-target" x1="{x0}" y1="{top}" x2="{W - 8}" y2="{top}"/>'
+                f'<line class="da-floor" x1="{x0}" y1="{floor}" x2="{W - 8}" y2="{floor}"/>'
+                + ''.join(f'<polyline class="da-faint" points="{pts(P)}"/>' for P in paths)
+                + f'<polyline class="da-down" points="{pts(lose)}"/><circle class="da-dot-down" cx="170" cy="{floor}" r="2.6"/>'
+                + f'<polyline class="da-gold" points="{pts(win)}"/><circle class="da-dot-gold" cx="238" cy="{top}" r="3"/>'
+                + f'<circle class="da-start" cx="{x0}" cy="{y0}" r="2.6"/>'
+                + f'<text class="da-lbl live" x="{x0}" y="{top - 6}">target</text>'
+                + f'<text class="da-lbl down" x="{x0}" y="{floor + 12}">max loss</text>')
+    elif kind == 'research':
+        # Equity curve: in-sample in gold, then a dashed split and the forward test in teal
+        rnd = random.Random(3)
+        split, y, P = 214, 84, []
+        for x in range(12, split + 1, 6):
+            y = y - 1.55 + rnd.uniform(-3.4, 3.4); P.append((x, y))
+        F = [P[-1]]; y = P[-1][1]
+        for x in range(split + 6, W - 8, 6):
+            y = y - 0.55 + rnd.uniform(-3.6, 3.6); F.append((x, y))
+        area = pts(P) + f' {split},{H - 6} 12,{H - 6}'
+        body = (f'<polygon class="da-area" points="{area}"/>'
+                f'<line class="da-split" x1="{split}" y1="6" x2="{split}" y2="{H - 6}"/>'
+                f'<polyline class="da-gold" points="{pts(P)}"/>'
+                f'<polyline class="da-live" points="{pts(F)}"/>'
+                f'<circle class="da-dot-gold" cx="{split}" cy="{P[-1][1]:.1f}" r="3"/>'
+                f'<text class="da-lbl" x="18" y="16">in-sample</text>'
+                f'<text class="da-lbl live" x="{split + 8}" y="16">forward</text>')
+    else:
+        # Pine Script: a strategy on the chart, with entry, stop and target levels
+        # Pullback, a tight base, then a breakout that the strategy enters
+        oc = [(40, 48), (48, 44), (44, 56), (56, 64), (64, 60), (60, 70), (70, 66), (66, 72),
+              (72, 64), (64, 70), (70, 58), (58, 50), (50, 40), (40, 34)]
+        cs, x = [], 26
+        for k, (o, c) in enumerate(oc):
+            hi = min(o, c) - (3 + (k * 7) % 4); lo = max(o, c) + (3 + (k * 5) % 4)
+            cs.append((x, o, c, hi, lo)); x += 21
+        cs[10] = (cs[10][0], 70, 58, 55, 72)
+        entry_x, entry_y = cs[10][0], 62
+        bars = ''.join(
+            f'<g class="{"da-up" if c < o else "da-dn"}"><line x1="{x}" y1="{hi:.1f}" x2="{x}" y2="{lo:.1f}"/>'
+            f'<rect x="{x - 5}" y="{min(o, c):.1f}" width="10" height="{max(abs(c - o), 1.5):.1f}" rx="1.5"/></g>'
+            for x, o, c, hi, lo in cs)
+        body = (f'<line class="da-target" x1="{entry_x}" y1="{entry_y - 36:.1f}" x2="{W - 8}" y2="{entry_y - 36:.1f}"/>'
+                f'<line class="da-entry" x1="{entry_x}" y1="{entry_y:.1f}" x2="{W - 8}" y2="{entry_y:.1f}"/>'
+                f'<line class="da-floor" x1="{entry_x}" y1="{entry_y + 18:.1f}" x2="{W - 8}" y2="{entry_y + 18:.1f}"/>'
+                + bars
+                + f'<path class="da-mark" d="M{entry_x - 5},{entry_y + 30:.1f} l5,-7 l5,7z"/>'
+                + f'<text class="da-lbl code" x="12" y="16">//@version=6</text>')
+    return (f'<div class="door-art" aria-hidden="true"><svg viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid meet">'
+            f'{grid}{body}</svg></div>')
+
 def home():
     body = f"""
 <section class="hero">
@@ -415,37 +492,23 @@ def home():
     </div>
     <div class="grid-3 doors">
       <a class="card reveal" href="/tools/">
-        <div class="icon">{ICONS['target']}</div><span class="tagline">Live</span>
+        {door_art('tools')}<span class="tagline">Live</span>
         <h3>Tools</h3>
         <p>Free simulators for risk, position size and account planning. Put in your own numbers or a TradingView trade list and see the range of outcomes.</p>
         <span class="go">Explore the tools &rarr;</span>
       </a>
       <a class="card reveal" href="/research/">
-        <div class="icon">{ICONS['shield']}</div><span class="tagline">Live</span>
+        {door_art('research')}<span class="tagline">Live</span>
         <h3>Research</h3>
         <p>A public log of how trading ideas are built, frozen and stress-tested, with last year's results after costs.</p>
         <span class="go">Open the research &rarr;</span>
       </a>
       <a class="card reveal" href="/pine/">
-        <div class="icon">{ICONS['code']}</div><span class="tagline">Soon</span>
+        {door_art('pine')}<span class="tagline">Soon</span>
         <h3>Pine Script</h3>
         <p>How TradingView strategies get written in Pine Script v6 and validated with realistic costs and out-of-sample tests.</p>
         <span class="go">Opening soon &rarr;</span>
       </a>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">The process</span>
-      <h2>Plan, size, review. <span class="gold">Every session.</span></h2>
-    </div>
-    <div class="steps">
-      <div class="step reveal"><h3>Plan the risk</h3><p>Decide what a bad day costs before the session starts. Know your loss limit, your stop and the point where you walk away.</p></div>
-      <div class="step reveal"><h3>Size to the account</h3><p>Trade the size the account can survive, not the size you hope for. Add size only when the cushion has grown to carry it.</p></div>
-      <div class="step reveal"><h3>Review the evidence</h3><p>Look at what you did, not what you remember. Check if your edge still looks like the one you planned with.</p></div>
     </div>
   </div>
 </section>
