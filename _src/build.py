@@ -390,7 +390,7 @@ def home():
       <span class="rider r1 tk" style="--d:-66.6"><b>NQ</b></span>
       <span class="rider r2 cdl dn" style="--d:-16"></span>
       <span class="rider r2 tk" style="--d:-50"><b>ES</b></span>
-      <span class="rider r2 tk" style="--d:-83"><b>MYM</b></span>
+      <span class="rider r2 tk" style="--d:-83"><b>YM</b></span>
     </div>
 {market_board()}
     </div>
