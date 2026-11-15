@@ -179,25 +179,20 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
       <section>
         <h2>Account rules</h2>
         <div class="tabs" role="tablist" aria-label="Run for">
-          <button type="button" role="tab" id="tabOne" aria-selected="true">One firm</button>
-          <button type="button" role="tab" id="tabAll" aria-selected="false">All firms</button>
+          <button type="button" role="tab" id="tabOne" aria-selected="true">One account</button>
+          <button type="button" role="tab" id="tabAll" aria-selected="false">Compare all</button>
         </div>
-        <p class="hint" id="allHint" hidden>Comparing every firm preset with the same trades. Each firm's target, max loss, best-day rule, min days and contract limit come from its preset. Drawdown type, daily loss limit, give-up sessions and cost per attempt below apply to all firms.</p>
-        <label class="f"><span>Preset</span>
+        <p class="hint" id="allHint" hidden>Comparing all three accounts with the same trades. Each account's balance, target, max loss and contract limit come from its preset. Every other rule below applies to all three.</p>
+        <label class="f"><span>Account</span>
           <select id="preset">
-            <option value="mine">Default 100K · +$3,000 / −$2,000</option>
-            <option value="s50">Topstep-style 50K · +$3,000 / −$2,000</option>
-            <option value="s100">Topstep-style 100K · +$6,000 / −$3,000</option>
-            <option value="s150">Topstep-style 150K · +$9,000 / −$4,500</option>
-            <option value="tpt">Take Profit Trader-style 50K · best day 50% · 3 days</option>
-            <option value="tfy">Tradeify-style 50K · best day 40% · 3 days</option>
-            <option value="mffu">My Funded Futures-style 50K · best day 30% · 3 days</option>
-            <option value="fn">FundedNext-style 50K · best day 40% · 3 days</option>
+            <option value="a50">50K · +$3,000 / −$2,000</option>
+            <option value="a100">100K · +$6,000 / −$4,000</option>
+            <option value="a150">150K · +$9,000 / −$4,500</option>
             <option value="custom">Custom</option>
           </select>
         </label>
         <div class="grid2">
-          <label class="f"><span>Starting balance $</span><input id="start" type="number" min="1000" step="1000" value="100000"></label>
+          <label class="f"><span>Starting balance $</span><input id="start" type="number" min="1000" step="1000" value="50000"></label>
           <label class="f"><span>Profit target $</span><input id="target" type="number" min="0" step="100" value="3000"></label>
           <label class="f"><span>Max loss limit $</span><input id="mll" type="number" min="0" step="100" value="2000"></label>
           <label class="f"><span>Drawdown type</span>
@@ -219,11 +214,11 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
           </label>
           <label class="f"><span>Best day max % of profit</span><input id="cons" type="number" min="0" max="100" step="5" value="50"></label>
           <label class="f"><span>Min trading days</span><input id="minDays" type="number" min="0" step="1" value="2"></label>
-          <label class="f"><span>Max contracts allowed</span><input id="maxC" type="number" min="1" step="1" value="100"></label>
+          <label class="f"><span>Max contracts allowed</span><input id="maxC" type="number" min="1" step="1" value="50"></label>
           <label class="f"><span>Give up after (sessions)</span><input id="maxDays" type="number" min="5" max="250" step="5" value="60"></label>
           <label class="f"><span>Cost per attempt $</span><input id="cost" type="number" min="0" step="5" value="150"></label>
         </div>
-        <p class="hint">Daily loss limit 0 = off. Best-day rule 0 = off. Presets approximate published rules; check your firm's current rules before relying on them.</p>
+        <p class="hint">Daily loss limit 0 = off. Best-day rule 0 = off. Check your firm's current rules before relying on the results.</p>
       </section>
 
       <section>
@@ -354,17 +349,12 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
   // Micros first so "MGC" is not read as "GC"
   const INST_ORDER = ['MGC', 'MES', 'MNQ', 'MYM', 'MCL', 'GC', 'ES', 'NQ', 'YM', 'CL'];
   const PRESETS = {
-    mine: { name: 'Default 100K',               start: 100000, target: 3000, mll: 2000, maxC: 100, cons: 50, minDays: 2 },
-    s50:  { name: 'Topstep-style 50K',            start: 50000,  target: 3000, mll: 2000, maxC: 50,  cons: 50, minDays: 2 },
-    s100: { name: 'Topstep-style 100K',           start: 100000, target: 6000, mll: 3000, maxC: 100, cons: 50, minDays: 2 },
-    s150: { name: 'Topstep-style 150K',           start: 150000, target: 9000, mll: 4500, maxC: 150, cons: 50, minDays: 2 },
-    tpt:  { name: 'Take Profit Trader-style 50K', start: 50000,  target: 3000, mll: 2000, maxC: 50,  cons: 50, minDays: 3 },
-    tfy:  { name: 'Tradeify-style 50K',           start: 50000,  target: 3000, mll: 2000, maxC: 50,  cons: 40, minDays: 3 },
-    mffu: { name: 'My Funded Futures-style 50K',  start: 50000,  target: 3000, mll: 2000, maxC: 50,  cons: 30, minDays: 3 },
-    fn:   { name: 'FundedNext-style 50K',         start: 50000,  target: 3000, mll: 2000, maxC: 50,  cons: 40, minDays: 3 }
+    a50:  { name: '50K account',  start: 50000,  target: 3000, mll: 2000, maxC: 50 },
+    a100: { name: '100K account', start: 100000, target: 6000, mll: 4000, maxC: 100 },
+    a150: { name: '150K account', start: 150000, target: 9000, mll: 4500, maxC: 150 }
   };
-  const FIRM_IDS = ['s50', 's100', 's150', 'tpt', 'tfy', 'mffu', 'fn'];
-  const rulesOf = id => { const p = PRESETS[id]; return { start: p.start, target: p.target, mll: p.mll, maxC: p.maxC, cons: p.cons, minDays: p.minDays }; };
+  const FIRM_IDS = ['a50', 'a100', 'a150'];
+  const rulesOf = id => { const p = PRESETS[id]; return { start: p.start, target: p.target, mll: p.mll, maxC: p.maxC }; };
   const FIELDS = ['preset','start','target','mll','dd','lock','dll','dllAction','cons','minDays','maxC','maxDays','cost','inst','pv','tick','comm','slip','wr','tpd','aw','al','setup','cFrom','cTo','runs','tpdList','weighting','sampleBy','fastTol','boostMax'];
   const STORE = 'prop-pass-sim-v1';
   const STORE_FILES = 'prop-pass-sim-files-v1';
@@ -996,7 +986,7 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
         skipped = targets.filter(t => m > t.c.maxC).map(t => t.name);
         targets = targets.filter(t => m <= t.c.maxC);
         if (!targets.length) {
-          R.innerHTML = `<div class="card"><div class="err-box">The files' Min contracts add up to ${m}, over every firm's contract limit. Lower some Min values.</div></div>`;
+          R.innerHTML = `<div class="card"><div class="err-box">The files' Min contracts add up to ${m}, over every account's contract limit. Lower some Min values.</div></div>`;
           $('runBtn').disabled = false; $('runBtn').textContent = 'Run simulation';
           return;
         }
@@ -1057,8 +1047,6 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
       return `<tr data-f="${fm.id}" tabindex="0" class="${fm === cur ? 'sel' : ''}">
         <td>${fm.name}${i === 0 ? '<span class="best">BEST ODDS</span>' : ''}</td>
         <td>${fmt$(r.target)} / ${fmt$(-r.mll)}</td>
-        <td>${r.cons > 0 ? r.cons + '%' : 'off'}</td>
-        <td>${r.minDays}</td>
         ${portfolio ? '' : `<td style="color:var(--pass)">${at ? pct(at.pPass, 1) : '—'}</td>`}
         <td class="alloc">${vecLabel(last.pool, b.vec)}</td>
         <td style="color:var(--pass)">${pct(b.pPass, 1)}</td>
@@ -1067,10 +1055,10 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
       </tr>`;
     }).join('');
     return `<div class="card">
-      <h3>Prop firm comparison</h3>
-      <p class="sub">Same trades and the same random sessions for every firm, ${cur.c.runs.toLocaleString()} attempts per ${portfolio ? 'allocation' : 'size'}. Select a firm to see its detail below.</p>
+      <h3>Account comparison</h3>
+      <p class="sub">Same trades and the same random sessions for every account, ${cur.c.runs.toLocaleString()} attempts per ${portfolio ? 'allocation' : 'size'}. Select an account to see its detail below.</p>
       <div class="scroll"><table>
-        <thead><tr><th>Firm</th><th>Target / max loss</th><th>Best day</th><th>Min days</th>${portfolio ? '' : '<th>Pass at ' + selKey + '</th>'}<th>${portfolio ? 'Best allocation' : 'Best size'}</th><th>Pass at best</th><th>Fail at best</th><th>Median days</th></tr></thead>
+        <thead><tr><th>Account</th><th>Target / max loss</th>${portfolio ? '' : '<th>Pass at ' + selKey + '</th>'}<th>${portfolio ? 'Best allocation' : 'Best size'}</th><th>Pass at best</th><th>Fail at best</th><th>Median days</th></tr></thead>
         <tbody id="firmRows" class="pick">${rows}</tbody>
       </table></div>
     </div>`;
@@ -1543,8 +1531,7 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
     const p = PRESETS[$('preset').value];
     if (!p) return;
     $('start').value = p.start; $('target').value = p.target; $('mll').value = p.mll; $('maxC').value = p.maxC;
-    $('dd').value = 'eod'; $('lock').checked = true; $('dll').value = 0; $('cons').value = p.cons; $('minDays').value = p.minDays;
-  }
+      }
   function applyInst() {
     const i = INST[$('inst').value];
     $('pv').value = i.pv; $('tick').value = i.tick; $('comm').value = i.comm;
@@ -1617,6 +1604,8 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
   $('form').addEventListener('submit', e => { e.preventDefault(); clearTimeout(timer); run(); });
 
   load();
+  // Saves from before the generic accounts point at a firm preset that no longer exists
+  if (!$('preset').value) { $('preset').value = 'a50'; applyPreset(); save(); }
   renderFiles();
   run();
 })();
