@@ -24,7 +24,7 @@ SHOW_PAYOUT_FIGURE = False
 PAYOUT_FIGURE = "$250,000+"
 PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
-NAV = [("/research/backtested/", "Backtested strategies"), ("/research/", "Research"), ("/pine/", 'Pricing<small class="nav-soon">Opening soon</small>'), ("/about/", "About")]
+NAV = [("/research/backtested/", "Backtested strategies"), ("/research/", "Research"), ("/pine/", 'Private Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "About")]
 
 ICONS = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
@@ -142,7 +142,7 @@ def footer():
       <div><h4>Badr Edge</h4><ul>
         <li><a href="/about/">About</a></li>
         <li><a href="/research/">Research</a></li>
-        <li><a href="/pine/">Pine Script</a></li>
+        <li><a href="/pine/">Private Pine Scripts</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
         <li><a href="/legal/privacy/">Privacy</a></li>
       </ul></div>
@@ -629,7 +629,7 @@ def home():
     <div class="sec-head">
       <span class="eyebrow">Day trader toolkit</span>
       <h2>Built for the <span class="gold">trading day.</span></h2>
-      <p class="lede">Tools to plan risk before the open, research to check an idea after costs, and Pine Script to put it on the chart. Free, and it runs in your browser.</p>
+      <p class="lede">Tools to plan risk before the open, research to check an idea after costs, and private Pine Scripts for TradingView. Free, and it runs in your browser.</p>
     </div>
     <div class="grid-3 doors">
       <a class="card reveal" href="/tools/">
@@ -646,9 +646,9 @@ def home():
       </a>
       <a class="card reveal" href="/pine/">
         {door_art('pine')}<span class="tagline">Soon</span>
-        <h3>Pine Script</h3>
-        <p>How TradingView strategies get written in Pine Script v6 and validated with realistic costs and out-of-sample tests.</p>
-        <span class="go">Opening soon &rarr;</span>
+        <h3>Private Pine Scripts</h3>
+        <p>Invite-only TradingView strategies in Pine Script v6. Opening soon.</p>
+        <span class="go">Join the waitlist &rarr;</span>
       </a>
     </div>
   </div>
@@ -693,7 +693,7 @@ def home():
       <details><summary>What is Badr Edge?</summary><p>The public side of a working futures trader's desk: the tools, guides and testing habits used to plan and review trading, shared for free. It isn't a signal service, a course or a fund.</p></details>
       <details><summary>Is it free?</summary><p>Yes. The tools and guides need no account, no paywall and no trial.</p></details>
       <details><summary>Is my data uploaded anywhere?</summary><p>No. The tools run in your browser. Files you load are read on your device, and settings are saved only in your own browser's storage.</p></details>
-      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Pine Script work is described on the <a href="/pine/" >Pine Script page</a>.</p></details>
+      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Private Pine Scripts are <a href="/pine/">opening soon</a>.</p></details>
       <details><summary>Is any of this financial advice?</summary><p>No. Everything here is educational. Simulations are hypothetical and rely on the inputs you give them. Your trading decisions are your own.</p></details>
     </div>
   </div>
@@ -897,62 +897,17 @@ ARTICLE_SIZE = """
 
 def pine():
     body = """
-<section class="page-head"><div class="wrap">
-  <span class="eyebrow">Pine Script</span>
-  <h1>Built in v6. Tested until it breaks.</h1>
-  <p class="lede">I build TradingView strategies in Pine Script v6 for my own systematic research. This page shows how I write and validate them, and where I can help.</p>
-</div></section>
-
-<section style="padding-top:24px"><div class="wrap">
-  <div class="grid-3">
-    <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Fixes and clean-ups</h3><p>Repainting, wrong session times, orders that don't fire, inputs that do nothing. Find the bug, fix it, and explain what was wrong.</p></div>
-    <div class="card reveal"><div class="icon">""" + ICONS["code"] + """</div><h3>Upgrades to v6</h3><p>Move older scripts to Pine v6 with the same logic, cleaner inputs and fewer surprises, checked trade by trade against the original.</p></div>
-    <div class="card reveal"><div class="icon">""" + ICONS["shield"] + """</div><h3>Validation reports</h3><p>An independent stress test of a strategy you already have: costs, slippage, unseen data and Monte Carlo, in one written report.</p></div>
+<section class="page-head pine-soon"><div class="wrap">
+  <span class="eyebrow">Opening soon</span>
+  <h1>Private <span class="gold">Pine Scripts.</span></h1>
+  <p class="lede">Invite-only TradingView strategies in Pine Script v6. Join the waitlist to hear first when it opens.</p>
+  <div class="hero-actions">
+    <a class="btn primary" href="mailto:hello@badredge.com?subject=Private%20Pine%20Scripts%20waitlist&amp;body=Please%20add%20me%20to%20the%20waitlist.">Join the waitlist</a>
   </div>
-  <div class="callout" style="margin-top:28px;max-width:820px"><p><strong>Opening soon.</strong> Services aren't open for orders yet. Questions are welcome at <a href="mailto:hello@badredge.com" style="color:var(--gold)">hello@badredge.com</a>.</p></div>
-</div></section>
-
-<section class="band"><div class="wrap split">
-  <div class="sec-head" style="margin:0">
-    <span class="eyebrow">How a strategy gets tested</span>
-    <h2>Most backtests are too kind. These aren't.</h2>
-    <ul class="checklist" style="margin-top:8px">
-      <li><span><b>Frozen rules.</b> Settings are fixed before the test, so the result can't be tuned after the fact.</span></li>
-      <li><span><b>Real costs.</b> Commission per contract and at least one tick of slippage on every trade.</span></li>
-      <li><span><b>Unseen data.</b> Sized and tuned on earlier months, then judged on months it never saw.</span></li>
-      <li><span><b>Stress tests.</b> Doubled slippage, losses 50% bigger, winners 10% smaller.</span></li>
-      <li><span><b>Many-tests check.</b> When many variants are tried, results are corrected so a lucky one doesn't look like an edge.</span></li>
-      <li><span><b>Independent replica.</b> The Pine logic is rebuilt outside TradingView and compared trade by trade.</span></li>
-    </ul>
-  </div>
-  <div class="figure reveal">
-    <div class="code" style="border:0;padding:4px 2px;background:transparent">VALIDATION REPORT · structure
-
-<span class="k">1</span>  Summary and verdict
-     PASS · EXPLORATORY · INSUFFICIENT EVIDENCE
-<span class="k">2</span>  Rules as tested (frozen inputs)
-<span class="k">3</span>  Costs and fill assumptions
-<span class="k">4</span>  In-sample vs out-of-sample
-<span class="k">5</span>  Year-by-year stability
-<span class="k">6</span>  Stress: 2× slippage, smaller winners
-<span class="k">7</span>  Monte Carlo drawdown range
-<span class="k">8</span>  Prop-rule fit: pass and payout odds
-<span class="k">9</span>  Code review notes</div>
-    <figcaption>The structure of a report. The verdict is often "exploratory": it requires forward testing. That's the point.</figcaption>
-  </div>
-</div></section>
-
-<section><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">What you won't get</span><h2>Clear lines</h2></div>
-  <div class="principles">
-    <div class="principle"><b>No signals</b><span>No trade calls, alerts or copy trading.</span></div>
-    <div class="principle"><b>No performance promises</b><span>A test describes the past under stated assumptions. It doesn't predict profit.</span></div>
-    <div class="principle"><b>No resold strategies</b><span>Your code stays yours and isn't shared or reused.</span></div>
-    <div class="principle"><b>No advice</b><span>Engineering and testing only. Trading decisions are yours.</span></div>
-  </div>
+  <p class="note">Opens an email to hello@badredge.com. No signals, no promised results. Not financial advice.</p>
 </div></section>
 """
-    return page("/pine/", "Pine Script", "Pine Script v6 strategy development and validation: frozen rules, realistic costs, out-of-sample and stress testing.", "/pine/", body)
+    return page("/pine/", "Private Pine Scripts", "Private, invite-only Pine Script v6 strategies for TradingView. Opening soon: join the waitlist.", "/pine/", body)
 
 
 def about():
@@ -1079,8 +1034,12 @@ def statics(paths):
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
     # Old /research/graveyard/ URLs: server-side 301s, plus stub pages in case _redirects is not applied.
     open(os.path.join(ROOT, "_redirects"), "w").write(
-        "/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n/research/lessons /research/ 301\n/research/lessons/ /research/ 301\n")
-    stubs = [("graveyard/" + sub, f"/research/backtested/{sub}") for sub in [""] + [f["slug"] + "/" for f in research.FAMILIES]]
+        "/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n/research/lessons /research/ 301\n/research/lessons/ /research/ 301\n"
+        + "".join(f"/research/backtested/{f['slug']}/ {research.family_url(f['slug'])} 301\n" for f in research.FAMILIES if not research.has_results(f["slug"])))
+    fam_new = lambda sl: f"/research/backtested/{sl}/" if research.has_results(sl) else research.family_url(sl)
+    stubs = [("graveyard/", "/research/backtested/")] + [("graveyard/" + f["slug"] + "/", fam_new(f["slug"])) for f in research.FAMILIES]
+    # Families without results moved from Backtested to Research
+    stubs += [("backtested/" + f["slug"] + "/", research.family_url(f["slug"])) for f in research.FAMILIES if not research.has_results(f["slug"])]
     stubs.append(("lessons/", "/research/"))
     for old_sub, new in stubs:
         d = os.path.join(ROOT, "research", old_sub)

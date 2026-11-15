@@ -435,6 +435,15 @@ LOSS = re.compile(r"&minus;|\blost\b|\blose\b|\bloses\b|\bloss|negative|fail|los
 PICK_SLUGS = {p[3] for p in PICKS}
 
 
+def has_results(slug):
+    return slug in PICK_SLUGS or slug == "cross-market-portfolio" or any(x["slug"] == slug for x in tracker.STRATS)
+
+
+def family_url(slug):
+    """Explanations live in Research; results live in Backtested strategies."""
+    return f"/research/families/{slug}/"
+
+
 def _plain(name):
     return name.replace("&amp;", "&")
 
@@ -504,20 +513,19 @@ def family_view(f):
 
 
 def family_page(page, f, prev_f, next_f):
-    results, verdict, lesson = family_view(f)
-    trk = tracker.card(f["slug"])
+    """Research side: the idea, what was tested, where it stands. No numbers."""
     tested = "".join(f"<li>{t}</li>" for t in f["tested"] if not LOSS.search(t))
+    _, verdict, lesson = family_view(f)
     nav = '<nav class="fam-nav" aria-label="More families">'
-    if prev_f:
-        nav += f'<a href="/research/backtested/{prev_f["slug"]}/"><span>Previous</span>{prev_f["name"]}</a>'
-    else:
-        nav += "<span></span>"
+    nav += f'<a href="{family_url(prev_f["slug"])}"><span>Previous</span>{prev_f["name"]}</a>' if prev_f else "<span></span>"
     if next_f:
-        nav += f'<a class="next" href="/research/backtested/{next_f["slug"]}/"><span>Next</span>{next_f["name"]}</a>'
+        nav += f'<a class="next" href="{family_url(next_f["slug"])}"><span>Next</span>{next_f["name"]}</a>'
     nav += "</nav>"
+    res = (f'<a class="card fam-res reveal" href="/research/backtested/{f["slug"]}/"><h3>Last year\'s results</h3>'
+           f'<p>Win rate, profit factor, net after costs and the results tracker.</p><span class="go">See the backtest</span></a>') if has_results(f["slug"]) else ""
     body = f"""
 <header class="article-head"><div class="wrap">
-  <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
+  <a class="eyebrow" href="/research/#families" style="text-decoration:none">&larr; Strategy families</a>
   <div>{badge(f['status'])}</div>
   <h1>{f['name']}</h1>
   <p class="lede">{f['idea']}</p>
@@ -528,17 +536,56 @@ def family_page(page, f, prev_f, next_f):
   {stepper(stage_of(f['slug']))}
   <h2>What was tested</h2>
   <ul>{tested}</ul>
-  {f"<h2>Last year's results</h2>{pick_cards(f['slug'])}{results}<p class='note'>{COST_NOTE}</p>" if results else ""}
-  {trk}
+  {res}
   <h2>Status</h2>
   <div class="callout"><p>{badge(f['status'])}</p><p>{verdict}</p></div>
   {f"<h2>Lesson</h2><p>{lesson}</p>" if lesson else ""}
   {nav}
   <p class="note">{NFA} See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
+</article>
+"""
+    desc = f"{f['name']}: the idea, the markets and what was tested. {STATUS[f['status']][0]}."
+    return page(family_url(f["slug"]), f["name"], desc, "/research/", body)
+
+
+def result_page(page, f):
+    """Backtested side: results, charts and tracker only. Explanations link back to Research."""
+    results, _, _ = family_view(f)
+    trk = tracker.card(f["slug"])
+    body = f"""
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
+  <h1>{f['name']}</h1>
+  <p class="meta">Markets: {f['markets']} · <a href="{family_url(f['slug'])}">How it works</a></p>
+</div></header>
+<article class="prose rs">
+  {f"<h2>Last year's results</h2>{pick_cards(f['slug'])}{results}<p class='note'>{COST_NOTE}</p>" if results else ""}
+  {trk}
+  <div class="callout"><p>{NEUTRAL_VERDICT}</p></div>
+  <p class="note">{NFA}</p>
 </article>{tracker.data_tag() if trk else ""}
 """
-    desc = f"{f['name']}: what was tested, results after costs, and the verdict. {STATUS[f['status']][0]}."
+    desc = f"{f['name']}: last year's backtest results after costs, in-sample. Research only; requires forward testing."
     return page(f"/research/backtested/{f['slug']}/", f["name"], desc, "/research/backtested/", body)
+
+
+def families_block():
+    groups = []
+    for g in ["Opening range and session", "Price action and levels", "Trend and momentum", "Real but untradeable", "Portfolio"]:
+        cards = "".join(f"""<a class="card fam reveal" href="{family_url(f['slug'])}">
+  {badge(f['status'])}
+  <h3>{f['name']}</h3>
+  <p>{f['idea'].split('. ')[0].rstrip('.')}.</p>
+  <span class="fam-mk">{f['markets']}</span>
+</a>""" for f in FAMILIES if f["group"] == g)
+        if cards:
+            groups.append(f'<h3 class="grp">{g}</h3><div class="grid-3">{cards}</div>')
+    also = "".join(f"<li>{a}</li>" for a in ALSO_TESTED)
+    return f"""<h2 class="grp" id="families">Strategy families</h2>
+  <p class="lede" style="max-width:760px">Every family the desk has researched: the idea, the markets and what was tested.</p>
+  {"".join(groups)}
+  <h2 class="grp">Also researched</h2>
+  <div class="prose" style="margin:0;padding:0;max-width:860px"><ul>{also}</ul></div>"""
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -563,9 +610,10 @@ def research_index(page):
 <section style="padding-top:0"><div class="wrap">
   <div class="grid-3">
     <a class="card reveal" href="/research/method/"><div class="icon">{ICON_SCALE}</div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, frozen and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
-    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>Last year's results for 14 strategies, plus one page per family: the idea, the markets and what was run.</p><span class="go">See the backtests</span></a>
+    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>Last year's results for 14 strategies after costs, with charts and the results tracker.</p><span class="go">See the backtests</span></a>
     <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICON_BOOK}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes to the rules.</p><span class="go">Read the note</span></a>
   </div>
+  {families_block()}
   <p class="note" style="margin-top:28px;max-width:860px">{NFA} Market data comes from a licensed 1-minute futures feed and is not redistributed here; only rules, methods and summary results are published.</p>
 </div></section>
 """
@@ -573,38 +621,21 @@ def research_index(page):
 
 
 def graveyard(page):
-    groups = []
-    for g in ["Opening range and session", "Price action and levels", "Trend and momentum", "Real but untradeable", "Portfolio"]:
-        fs = [f for f in FAMILIES if f["group"] == g]
-        cards = []
-        for f in fs:
-            cards.append(f"""<a class="card fam reveal" href="/research/backtested/{f['slug']}/">
-  {badge(f['status'])}
-  <h3>{f['name']}</h3>
-  <p>{f['idea'].split('. ')[0].rstrip('.')}.</p>
-  <span class="fam-mk">{f['markets']}</span>
-</a>""")
-        groups.append(f'<h2 class="grp">{g}</h2><div class="grid-3">{"".join(cards)}</div>')
-    also = "".join(f"<li>{a}</li>" for a in ALSO_TESTED)
     body = f"""
 <section class="page-head"><div class="wrap">
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
   <h1>Backtested <span class="gold">strategies.</span></h1>
-  <p class="lede">Every family the desk has researched, one page each: the idea, the markets and what was run. Last year's numbers are after costs and labelled in-sample. All of it is research and requires forward testing.</p>
+  <p class="lede">Last year's results after costs, labelled in-sample. Research only; every strategy requires forward testing. How each one works is in <a href="/research/#families">Research</a>.</p>
 </div></section>
 <section style="padding-top:12px"><div class="wrap">
-  <h2 class="grp">Last year's 14 picks</h2>
   {picks_overview()}
   {picks_table()}
-  {"".join(groups)}
   {tracker.card()}
-  <h2 class="grp">Also researched</h2>
-  <div class="prose" style="margin:0;padding:0;max-width:860px"><ul>{also}</ul>
-  <p class="note">{COST_NOTE} {NFA}</p></div>
+  <p class="note">{COST_NOTE} {NFA}</p>
 </div></section>
 {tracker.data_tag()}
 """
-    return page("/research/backtested/", "Backtested strategies", "Every futures strategy family tested by the Badr Edge research desk, with results after costs and a research status for each.", "/research/backtested/", body)
+    return page("/research/backtested/", "Backtested strategies", "Last year's backtest results after costs for 14 futures strategies, with charts and a results tracker. In-sample research; requires forward testing.", "/research/backtested/", body)
 
 
 def method(page):
@@ -799,4 +830,6 @@ def build_all(page, icons):
     built = [research_index(page), method(page), graveyard(page), under_observation(page)]
     for i, f in enumerate(FAMILIES):
         built.append(family_page(page, f, FAMILIES[i - 1] if i else None, FAMILIES[i + 1] if i + 1 < len(FAMILIES) else None))
+        if has_results(f["slug"]):
+            built.append(result_page(page, f))
     return built
