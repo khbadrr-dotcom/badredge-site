@@ -87,7 +87,7 @@ def header(active):
     return f"""<header class="site-head">
   <div class="wrap">
     {BRAND}
-    <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/">Open the tools</a></nav>
+    <nav class="nav" id="nav" aria-label="Main">{links}<a class="cta" href="/tools/"><i class="hl-dot"></i>Open the tools</a></nav>
     <div class="head-actions">{THEME_BTN}<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
   </div>
 </header>
