@@ -685,6 +685,49 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .lg-ref { width: 0 !important; height: 12px !important; border-left: 1px dashed var(--text-2); border-radius: 0 !important; }
 .lg { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
 .lg i { width: 10px; height: 10px; border-radius: 2px; }
+/* Guide diagrams (inline SVG, _src/guide_viz.py). Colours are tokens only. */
+.gv { display: block; width: 100%; height: auto; overflow: visible; }
+.gv-fig figcaption .legend { flex-wrap: wrap; }
+.prose .gv-fig { margin: 26px 0; }
+.gv text { font-family: var(--sans); }
+.gv .gv-t { font-size: 13.5px; font-weight: 600; fill: var(--text-2); }
+.gv .gv-s { font: 500 11.5px var(--mono); fill: var(--dim); }
+.gv .gv-gt { fill: var(--accent); }
+.gv .gv-lt { fill: var(--live); }
+.gv .gv-dt { fill: var(--down); }
+.gv-grid { stroke: var(--line); stroke-width: 1; }
+.gv-axis { stroke: var(--line-2); stroke-width: 1; }
+.gv-sep { stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 3 4; }
+.gv-bal { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.gv-floor { fill: none; stroke: var(--live); stroke-width: 2.2; stroke-dasharray: 6 5; stroke-linejoin: round; }
+.gv-floor-eod { stroke: var(--dim); stroke-width: 1.5; stroke-dasharray: 2 4; }
+.gv-band { fill: var(--accent-soft); }
+.gv-area { fill: var(--accent-soft); }
+.gv-dot { fill: var(--panel); stroke: var(--accent); stroke-width: 2; }
+.gv-lock { fill: var(--live); stroke: var(--panel); stroke-width: 2; }
+.gv-mark { fill: none; stroke: var(--live); stroke-width: 2; }
+.gv-lead { stroke: var(--live-line); stroke-width: 1.2; }
+.gv-zone { fill: var(--accent-soft); stroke: var(--accent-line); stroke-width: 1; }
+.gv-zone-t { fill: var(--live-soft); stroke: var(--live-line); stroke-width: 1; }
+.gv-panel { fill: var(--bg-2); stroke: var(--line); stroke-width: 1; }
+.gv-lvl { stroke: var(--accent-line); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.gv-lvl-t { stroke: var(--live-line); stroke-width: 1.4; stroke-dasharray: 2 4; }
+.gv-brk { stroke: var(--text-2); stroke-width: 1.2; marker-start: none; }
+.gv-wick { stroke-width: 1.3; }
+.gv-up .gv-wick { stroke: var(--up); } .gv-up .gv-body { fill: var(--up); }
+.gv-dn .gv-wick { stroke: var(--down); } .gv-dn .gv-body { fill: var(--down); }
+.gv-up.gv-hi .gv-body, .gv-dn.gv-hi .gv-body { stroke: var(--text); stroke-width: 1.2; }
+.gv-track { fill: var(--bg-2); stroke: var(--line-2); stroke-width: 1; }
+.gv-seg { fill: var(--accent-line); }
+.gv-seg-1 { fill: var(--accent); }
+.gv-trk-d { fill: var(--down-soft); stroke: var(--line-2); stroke-width: 1; }
+.gv-trk-u { fill: var(--live-soft); stroke: var(--line-2); stroke-width: 1; }
+.gv-tick-d { stroke: var(--down); stroke-width: 1.6; }
+.gv-tick-u { stroke: var(--live); stroke-width: 1.6; }
+.gv-zero { stroke: var(--text); stroke-width: 2; }
+.lg i.lg-bal { height: 3px; border-radius: 2px; background: var(--accent); }
+.lg i.lg-floor { height: 0; border-top: 2px dashed var(--live); border-radius: 0; }
+@media (max-width: 560px) { .gv .gv-t { font-size: 15px; } .gv .gv-s { font-size: 13px; } }
 .pr-row { grid-template-columns: minmax(0, 150px) minmax(0, 1fr); }
 .pr-bars { display: flex; flex-direction: column; gap: 2px; }
 .pr-line { position: relative; display: flex; align-items: center; gap: 6px; height: 10px; padding-right: 64px; }
@@ -1155,3 +1198,37 @@ h3.grp { margin: 32px 0 14px; font-size: 13px; font-weight: 500; font-family: va
   .pk-chart { grid-row: auto; }
   .pk-k dd { font-size: 16px; }
 }
+/* ---------- Nav order: "Open the tools" sits second, right after Backtested strategies ---------- */
+.nav .cta { margin-left: 2px; margin-right: 10px; }
+@media (max-width: 1040px) { .nav .cta { margin: 12px 0 4px; } }
+
+/* ---------- Nav icons: lab flask (bubbling teal liquid) and function curve (live teal point) ---------- */
+.nav-ico { width: 18px; height: 18px; flex: none; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.nav a.nav-hl, .nav .cta { gap: 8px; }
+.nav-ico .gl { stroke: var(--accent-2); stroke-width: 1.6; }
+.nav-ico .ax { stroke: color-mix(in srgb, var(--accent-2) 55%, transparent); stroke-width: 1.3; }
+.ico-lab .liq { fill: var(--live); opacity: .9; }
+.ico-lab .bub { fill: var(--live); transform-box: fill-box; transform-origin: center; animation: lab-bub 2.4s ease-in infinite; opacity: 0; }
+.ico-lab .b2 { animation-delay: .8s; }
+.ico-lab .b3 { animation-delay: 1.6s; }
+@keyframes lab-bub {
+  0% { transform: translateY(0) scale(.6); opacity: 0; }
+  15% { opacity: .95; }
+  70% { opacity: .8; }
+  100% { transform: translateY(-9px) scale(1.05); opacity: 0; }
+}
+.ico-fx .pt { fill: var(--live); filter: drop-shadow(0 0 2.5px var(--live)); transform-box: fill-box; transform-origin: center; animation: fx-pt 2.4s ease-in-out infinite; }
+@keyframes fx-pt { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.7); opacity: .75; } }
+html[data-theme="light"] .nav-ico .gl { stroke: var(--accent); }
+html[data-theme="light"] .nav-ico .ax { stroke: color-mix(in srgb, var(--accent) 55%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .ico-lab .bub, .ico-fx .pt { animation: none; }
+  .ico-lab .bub { opacity: .85; }
+}
+@media (max-width: 1040px) { .nav-ico { width: 19px; height: 19px; } .nav a.nav-hl { gap: 10px; } }
+/* Plain menu icons (Research, Private Pine Scripts, About) follow the link colour; teal detail inside */
+.nav a { gap: 7px; }
+.nav-ico.ico-plain { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.6; opacity: .9; }
+.nav-ico.ico-plain .tl { stroke: var(--live); }
+.nav-ico.ico-plain .tl-fill { fill: var(--live); stroke: none; }
+@media (max-width: 1040px) { .nav-ico.ico-plain { width: 18px; height: 18px; } .nav a { gap: 10px; } }

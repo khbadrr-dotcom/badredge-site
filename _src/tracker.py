@@ -113,7 +113,7 @@ def two_ways():
           <p>Every rule, every result, one ledger. Gold is in-sample; teal is new data since the freeze.</p>
           <div class="tw-chart">{spark}<div class="tw-axis"><span>Nov 2025</span><span>Nov 2026</span></div></div>
           <dl class="tw-k"><div><dt>Strategies</dt><dd>14</dd></div><div><dt>Markets</dt><dd>10</dd></div><div><dt>Status</dt><dd class="tw-st">Exploratory</dd></div></dl>
-          <span class="tw-cta">See backtested strategies <i>&rarr;</i></span>
+          <span class="tw-cta">See the Strategy Lab <i>&rarr;</i></span>
         </a>
       </div>
       <p class="tw-note">Research only. Every strategy requires forward testing before any real-money use.</p>

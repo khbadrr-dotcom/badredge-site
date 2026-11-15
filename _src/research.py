@@ -508,7 +508,7 @@ def has_results(slug):
 
 
 def family_url(slug):
-    """Explanations live in Research; results live in Backtested strategies."""
+    """Explanations live in Research; results live in the Strategy Lab."""
     return f"/research/families/{slug}/"
 
 
@@ -622,7 +622,7 @@ def result_page(page, f):
     trk = tracker.card(f["slug"])
     body = f"""
 <header class="article-head"><div class="wrap">
-  <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Backtested strategies</a>
+  <a class="eyebrow" href="/research/backtested/" style="text-decoration:none">&larr; Strategy Lab</a>
   <h1>{f['name']}</h1>
   <p class="meta">Markets: {f['markets']} · <a href="{family_url(f['slug'])}">How it works</a></p>
 </div></header>
@@ -691,7 +691,7 @@ def graveyard(page):
     body = f"""
 <section class="page-head"><div class="wrap">
   <a class="eyebrow" href="/research/" style="text-decoration:none">&larr; Research</a>
-  <h1>Backtested <span class="gold">strategies.</span></h1>
+  <h1>Strategy <span class="gold">Lab.</span></h1>
   <p class="lede">Last year's results after costs, labelled in-sample. Research only; every strategy requires forward testing. How each one works is in <a href="/research/#families">Research</a>.</p>
 </div></section>
 <section style="padding-top:12px"><div class="wrap">
@@ -702,7 +702,7 @@ def graveyard(page):
 </div></section>
 {tracker.data_tag()}
 """
-    return page("/research/backtested/", "Backtested strategies", "Last year's backtest results after costs for 14 futures strategies, with charts and a results tracker. In-sample research; requires forward testing.", "/research/backtested/", body)
+    return page("/research/backtested/", "Strategy Lab", "Last year's backtest results after costs for 14 futures strategies, with charts and a results tracker. In-sample research; requires forward testing.", "/research/backtested/", body)
 
 
 def method(page):

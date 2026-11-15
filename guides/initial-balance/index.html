@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
+<title>The initial balance (IB), for beginners · Badr Edge</title>
+<meta name="description" content="The first hour's high and low, range extensions, and how traders use the IB as a map for the rest of the day.">
+<meta name="theme-color" content="#07080a">
+<link rel="canonical" href="https://badredge.com/guides/initial-balance/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Badr Edge">
+<meta property="og:url" content="https://badredge.com/guides/initial-balance/">
+<meta property="og:title" content="The initial balance (IB), for beginners · Badr Edge">
+<meta property="og:description" content="The first hour's high and low, range extensions, and how traders use the IB as a map for the rest of the day.">
+<meta property="og:image" content="https://badredge.com/assets/og-home.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Badr Edge: a gold moon with orbiting tickers and candles">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The initial balance (IB), for beginners · Badr Edge">
+<meta name="twitter:description" content="The first hour's high and low, range extensions, and how traders use the IB as a map for the rest of the day.">
+<meta name="twitter:image" content="https://badredge.com/assets/og-home.jpg?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/theme.js" defer></script>
+</head>
+<body>
+<div class="sky" aria-hidden="true"><i class="sky-stars"></i><i class="sky-stars s2"></i><i class="sky-aurora a1"></i><i class="sky-aurora a2"></i><i class="sky-aurora a3"></i><svg class="sky-orbits" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice"><g><ellipse cx="600" cy="600" rx="560" ry="170" transform="rotate(-14 600 600)"/><ellipse cx="600" cy="600" rx="430" ry="128" transform="rotate(20 600 600)"/><ellipse cx="600" cy="600" rx="720" ry="230" transform="rotate(4 600 600)"/></g></svg><svg class="sky-chart" viewBox="0 0 800 800"><g><circle cx="400" cy="400" r="380" class="c1"/><circle cx="400" cy="400" r="372" class="tk"/><circle cx="400" cy="400" r="300" class="c2"/><circle cx="400" cy="400" r="210" class="c2"/><line x1="400" y1="10" x2="400" y2="790"/><line x1="10" y1="400" x2="790" y2="400"/></g></svg></div>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span class="wm">Badr <span class="word-2">Edge</span></span></a>
+    <nav class="nav" id="nav" aria-label="Main"><a href="/research/backtested/" class="nav-hl"><svg class="nav-ico ico-lab" viewBox="0 0 24 24" aria-hidden="true"><path class="liq" d="M6.6 14.5h10.8l1.8 3.1a2 2 0 0 1-1.7 3H6.5a2 2 0 0 1-1.7-3z"/><circle class="bub b1" cx="10.2" cy="17.4" r="1"/><circle class="bub b2" cx="13.6" cy="18" r=".8"/><circle class="bub b3" cx="12" cy="17" r=".65"/><path class="gl" d="M9 3h6M10 3v5.5L4.8 17.6a2 2 0 0 0 1.7 3h11a2 2 0 0 0 1.7-3L14 8.5V3"/></svg>Strategy Lab</a><a class="cta" href="/tools/"><svg class="nav-ico ico-fx" viewBox="0 0 24 24" aria-hidden="true"><path class="ax" d="M4 3.5v16.5h16.5"/><path class="gl" d="M5.5 17.5C9 17.5 9.5 6 13 6s3.6 7.5 6.5 7.5"/><circle class="pt" cx="13" cy="6.2" r="2.2"/></svg>Open the tools</a><a href="/research/"><svg class="nav-ico ico-plain" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 20 20"/><path class="tl" d="M7.4 12.4l2-2.2 1.8 1.4 2.6-3.2"/></svg>Research</a><a href="/pine/"><svg class="nav-ico ico-plain" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7 3 12l4.5 5M16.5 7 21 12l-4.5 5"/><path d="M12 5.5v13"/><rect class="tl-fill" x="10.2" y="8.8" width="3.6" height="6.2" rx=".8"/></svg>Private Pine Scripts<small class="nav-soon">Opening soon</small></a><a href="/about/"><svg class="nav-ico ico-plain" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20c.9-3.7 3.7-5.6 7.2-5.6s6.3 1.9 7.2 5.6"/></svg>About</a></nav>
+    <div class="head-actions"><button class="theme-btn" type="button" aria-label="Switch theme" title="Switch theme"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button><button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button></div>
+  </div>
+</header>
+<main>
+
+<header class="article-head"><div class="wrap">
+  <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
+  <h1>The initial balance (IB), for beginners</h1>
+  <p class="lede">The first hour's high and low, range extensions, and how traders use the IB as a map for the rest of the day.</p>
+  <p class="meta">6 min read</p>
+</div></header>
+<article class="prose">
+
+<p>The <strong>initial balance</strong>, or IB, is the price range of the <strong>first hour</strong> of the main trading session. It comes from market-profile trading and is one of the simplest ways to get a map of the day.</p>
+
+<h2>How to mark it</h2>
+<ol>
+  <li>Pick the session. For US index futures this is usually 9:30 to 10:30 ET.</li>
+  <li>When the hour ends, mark the <strong>IB high</strong> and <strong>IB low</strong>.</li>
+  <li>The distance between them is the <strong>IB range</strong>.</li>
+</ol>
+<figure class="viz gv-fig"><figcaption><b>The initial balance and a range extension</b><span>15-minute gold candles. The first four set the IB; the day then extends above it. An illustration, not a real session.</span></figcaption><svg class="gv" viewBox="0 0 560 300" role="img" aria-label="Candle chart: the first hour sets an 18-point initial balance; later candles move above the IB high toward the 1x extension line."><rect x="20.0" y="153.5" width="173.3" height="76.8" rx="6" class="gv-zone"/><line x1="20.0" y1="153.5" x2="540.0" y2="153.5" class="gv-lvl"/><line x1="20.0" y1="230.4" x2="540.0" y2="230.4" class="gv-lvl"/><text x="24.0" y="131.5" class="gv-t gv-gt" text-anchor="start">Initial balance: first hour</text><text x="199.3" y="147.5" class="gv-s gv-gt" text-anchor="start">IB high</text><text x="199.3" y="245.4" class="gv-s gv-gt" text-anchor="start">IB low</text><line x1="20.0" y1="76.7" x2="540.0" y2="76.7" class="gv-lvl-t"/><text x="24.0" y="70.7" class="gv-s gv-lt" text-anchor="start">IB high + 1× IB range</text><line x1="193.3" y1="30.0" x2="193.3" y2="256.0" class="gv-sep"/><g class="gv-up"><line x1="41.7" y1="170.6" x2="41.7" y2="221.8" class="gv-wick"/><rect x="29.5" y="179.2" width="24.3" height="25.6" rx="1.5" class="gv-body"/></g><g class="gv-dn"><line x1="85.0" y1="153.5" x2="85.0" y2="196.2" class="gv-wick"/><rect x="72.9" y="179.2" width="24.3" height="8.5" rx="1.5" class="gv-body"/></g><g class="gv-dn"><line x1="128.3" y1="174.9" x2="128.3" y2="230.4" class="gv-wick"/><rect x="116.2" y="187.7" width="24.3" height="29.9" rx="1.5" class="gv-body"/></g><g class="gv-up"><line x1="171.7" y1="183.4" x2="171.7" y2="226.1" class="gv-wick"/><rect x="159.5" y="192.0" width="24.3" height="25.6" rx="1.5" class="gv-body"/></g><g class="gv-up"><line x1="215.0" y1="166.3" x2="215.0" y2="204.8" class="gv-wick"/><rect x="202.9" y="174.9" width="24.3" height="17.1" rx="1.5" class="gv-body"/></g><g class="gv-dn"><line x1="258.3" y1="157.8" x2="258.3" y2="196.2" class="gv-wick"/><rect x="246.2" y="174.9" width="24.3" height="8.5" rx="1.5" class="gv-body"/></g><g class="gv-up"><line x1="301.7" y1="140.7" x2="301.7" y2="187.7" class="gv-wick"/><rect x="289.5" y="145.0" width="24.3" height="38.4" rx="1.5" class="gv-body"/></g><g class="gv-up"><line x1="345.0" y1="110.8" x2="345.0" y2="153.5" class="gv-wick"/><rect x="332.9" y="119.4" width="24.3" height="25.6" rx="1.5" class="gv-body"/></g><g class="gv-dn"><line x1="388.3" y1="93.8" x2="388.3" y2="136.5" class="gv-wick"/><rect x="376.2" y="119.4" width="24.3" height="8.5" rx="1.5" class="gv-body"/></g><g class="gv-up"><line x1="431.7" y1="85.2" x2="431.7" y2="132.2" class="gv-wick"/><rect x="419.5" y="93.8" width="24.3" height="34.2" rx="1.5" class="gv-body"/></g><g class="gv-dn"><line x1="475.0" y1="68.2" x2="475.0" y2="115.1" class="gv-wick"/><rect x="462.9" y="93.8" width="24.3" height="8.5" rx="1.5" class="gv-body"/></g><g class="gv-up"><line x1="518.3" y1="81.0" x2="518.3" y2="123.7" class="gv-wick"/><rect x="506.2" y="89.5" width="24.3" height="12.8" rx="1.5" class="gv-body"/></g><line x1="20.0" y1="260.0" x2="540.0" y2="260.0" class="gv-axis"/><text x="20.0" y="278.0" class="gv-s" text-anchor="middle">Open</text><text x="193.3" y="278.0" class="gv-s" text-anchor="middle">+1h</text><text x="366.7" y="278.0" class="gv-s" text-anchor="middle">+2h</text><text x="410.0" y="55.3" class="gv-t gv-lt" text-anchor="middle">Range extension above the IB</text><line x1="236.7" y1="153.5" x2="236.7" y2="230.4" class="gv-brk"/><line x1="231.7" y1="153.5" x2="241.7" y2="153.5" class="gv-brk"/><line x1="231.7" y1="230.4" x2="241.7" y2="230.4" class="gv-brk"/><text x="243.7" y="223.6" class="gv-s" text-anchor="start">IB range 18 pts</text></svg></figure>
+
+<h2>Range extension</h2>
+<p>When price trades beyond the IB high or low after the first hour, that is a <strong>range extension</strong>. Some traders also draw lines at <strong>1× or 2× the IB range</strong> beyond the high and low, as reference points for how far the day has stretched. They are reference points, not targets.</p>
+
+<h2>Narrow and wide IBs</h2>
+<p>Traders compare today's IB with recent days:</p>
+<ul>
+  <li><strong>Narrow IB:</strong> the first hour was quiet. Many traders watch these days for an extension later, because little of a normal day's range has been used.</li>
+  <li><strong>Wide IB:</strong> the first hour already moved a lot. The stop for a breakout is wider, and a lot of the day's usual range may be spent.</li>
+</ul>
+<p>Neither one tells you direction. They only describe how much room the day has used.</p>
+
+<h2>Three ways a day can treat the IB</h2>
+<figure class="viz gv-fig"><figcaption><b>Three ways a day can treat the IB</b><span>Simplified price paths, for reading the idea only.</span></figcaption><svg class="gv" viewBox="0 0 560 214" role="img" aria-label="Three small panels: price staying inside the initial balance, extending above it, and extending below then above it."><rect x="10" y="32" width="170" height="146" rx="10" class="gv-panel"/><rect x="16" y="94.2" width="45.0" height="32.5" rx="4" class="gv-zone"/><line x1="16.0" y1="94.2" x2="174.0" y2="94.2" class="gv-lvl"/><line x1="16.0" y1="126.7" x2="174.0" y2="126.7" class="gv-lvl"/><path d="M20.0,110.4 L36.7,126.7 L53.3,94.2 L70.0,118.5 L86.7,110.4 L103.3,121.2 L120.0,99.6 L136.7,113.1 L153.3,105.0 L170.0,115.8" class="gv-bal"/><text x="95.0" y="204.0" class="gv-t" text-anchor="middle">Stays inside</text><rect x="195" y="32" width="170" height="146" rx="10" class="gv-panel"/><rect x="201" y="94.2" width="45.0" height="32.5" rx="4" class="gv-zone"/><line x1="201.0" y1="94.2" x2="359.0" y2="94.2" class="gv-lvl"/><line x1="201.0" y1="126.7" x2="359.0" y2="126.7" class="gv-lvl"/><path d="M205.0,110.4 L221.7,126.7 L238.3,94.2 L255.0,118.5 L271.7,105.0 L288.3,91.5 L305.0,77.9 L321.7,69.8 L338.3,56.2 L355.0,59.0" class="gv-bal"/><text x="280.0" y="204.0" class="gv-t" text-anchor="middle">Extends one side</text><rect x="380" y="32" width="170" height="146" rx="10" class="gv-panel"/><rect x="386" y="94.2" width="45.0" height="32.5" rx="4" class="gv-zone"/><line x1="386.0" y1="94.2" x2="544.0" y2="94.2" class="gv-lvl"/><line x1="386.0" y1="126.7" x2="544.0" y2="126.7" class="gv-lvl"/><path d="M390.0,110.4 L406.7,126.7 L423.3,94.2 L440.0,118.5 L456.7,110.4 L473.3,145.6 L490.0,153.8 L506.7,115.8 L523.3,77.9 L540.0,67.1" class="gv-bal"/><text x="465.0" y="204.0" class="gv-t" text-anchor="middle">Extends both sides</text><text x="10.0" y="22.0" class="gv-s" text-anchor="start">Shaded box = first hour. Lines = IB high and low.</text></svg></figure>
+<p>Some days never leave the IB. Some extend in one direction and keep going. Others break one side, fail and run to the other. Seeing these three shapes makes it easier to read a chart without forcing a trade.</p>
+
+<h2>IB and ORB, side by side</h2>
+<table>
+  <thead><tr><th></th><th>Opening range (ORB)</th><th>Initial balance (IB)</th></tr></thead>
+  <tbody>
+    <tr><td>Window</td><td>First 5 to 30 min</td><td>First 60 min</td></tr>
+    <tr><td>Range size</td><td>Smaller</td><td>Larger</td></tr>
+    <tr><td>Stop to the other side</td><td>Tighter</td><td>Wider</td></tr>
+    <tr><td>Trades per day</td><td>Earlier, more often</td><td>Later, fewer</td></tr>
+  </tbody>
+</table>
+<p>Both mark early levels and watch for price to leave them. The IB simply waits longer, so its levels hold more of the session's early trading.</p>
+<div class="callout"><p>The IB is a way to read the day, not a signal. Any rule built on it needs to be written down, tested after costs and forward tested. The desk's IB research is in <a href="/research/families/initial-balance/">Research</a>.</p></div>
+
+<div class="callout"><p><strong>Test it on your numbers.</strong> A wide IB means a wide stop. The <a href="/tools/sizing/">Contract Sizing tool</a> shows how many contracts that stop allows under your max loss.</p></div>
+<p class="note">Educational content only, not investment advice. Rules differ by firm and change often, so always check your firm's current rules. Examples use round numbers for clarity.</p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/" aria-label="Badr Edge home"><span class="moon" aria-hidden="true"></span><span class="wm">Badr <span class="word-2">Edge</span></span></a>
+        <p class="foot-about">An independent futures research desk. Free tools, guides and a public research record.</p>
+        <a class="foot-mail" href="mailto:hello@badredge.com">hello@badredge.com</a>
+      </div>
+      <div><h4>Tools</h4><ul>
+        <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
+        <li><a href="/tools/payout/">Payout Simulator</a></li>
+        <li><a href="/tools/sizing/">Contract Sizing</a></li>
+        <li><a href="/tools/">All tools</a></li>
+      </ul></div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
+        <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
+        <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/opening-range-breakout/">Opening range breakout</a></li>
+        <li><a href="/guides/initial-balance/">Initial balance</a></li>
+        <li><a href="/guides/">All guides</a></li>
+      </ul></div>
+      <div><h4>Badr Edge</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/research/backtested/">Strategy Lab</a></li>
+        <li><a href="/research/">Research</a></li>
+        <li><a href="/pine/">Private Pine Scripts</a></li>
+        <li><a href="/legal/disclaimer/">Disclaimer</a></li>
+        <li><a href="/legal/privacy/">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-legal">
+      <p><strong>Educational only.</strong> Badr Edge publishes educational tools and articles only. Nothing on this site is investment advice, a recommendation to buy or sell any instrument, or an offer of any financial service. Simulations are hypothetical, rely on the inputs you provide and do not predict future results. Trading futures and leveraged products involves substantial risk of loss and is not suitable for everyone.</p>
+      <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
+    </div>
+    <div class="foot-bar">
+      <div>&copy; 2026 Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
+  if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(el => io.observe(el));
+  } else els.forEach(el => el.classList.add('in'));
+})();
+</script>
+</body>
+</html>
