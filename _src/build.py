@@ -444,6 +444,80 @@ def door_art(kind):
     return (f'<div class="door-art" aria-hidden="true"><svg viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid meet">'
             f'{grid}{body}</svg></div>')
 
+
+def test_art(kind):
+    """Illustrations of the tests behind the research. Shapes only, not results."""
+    W, H = 320, 104
+    grid = '<g class="da-grid">' + ''.join(f'<line x1="0" y1="{y}" x2="{W}" y2="{y}"/>' for y in (26, 52, 78)) + '</g>'
+    pts = lambda P: ' '.join(f'{x:.1f},{y:.1f}' for x, y in P)
+    xs = list(range(14, W - 12, 8))
+    if kind == 'mc':
+        # Many reshuffled trade orders: faint paths, a 5-95% band and the median
+        rnd = random.Random(21)
+        paths = []
+        for _ in range(40):
+            y, P = 84.0, []
+            for x in xs:
+                P.append((x, y)); y += -1.15 + rnd.gauss(0, 3.4)
+            paths.append(P)
+        q = lambda col, f: sorted(col)[int(f * (len(col) - 1))]
+        cols = [[P[i][1] for P in paths] for i in range(len(xs))]
+        lo = [(xs[i], q(c, .95)) for i, c in enumerate(cols)]
+        hi = [(xs[i], q(c, .05)) for i, c in enumerate(cols)]
+        med = [(xs[i], q(c, .5)) for i, c in enumerate(cols)]
+        band = pts(hi) + ' ' + pts(lo[::-1])
+        body = (f'<polygon class="da-band" points="{band}"/>'
+                + ''.join(f'<polyline class="da-faint thin" points="{pts(P)}"/>' for P in paths[:14])
+                + f'<polyline class="da-gold" points="{pts(med)}"/>'
+                + f'<text class="da-lbl" x="14" y="16">5–95% range</text>'
+                + f'<text class="da-lbl gold" x="{W - 12}" y="{med[-1][1] - 8:.1f}" text-anchor="end">median</text>')
+    elif kind == 'null':
+        # Random-direction null: the real pick must sit beyond 95% of random picks
+        import math
+        n, x0, bw = 22, 18, 10
+        bars = ''
+        for i in range(n):
+            h = 66 * math.exp(-((i - 8.5) ** 2) / 22) + 3
+            bars += f'<rect class="da-hist" x="{x0 + i * bw:.1f}" y="{92 - h:.1f}" width="{bw - 2}" height="{h:.1f}" rx="1.5"/>'
+        p95 = x0 + 14.5 * bw
+        real = W - 34
+        body = (bars
+                + f'<line class="da-split" x1="{p95}" y1="14" x2="{p95}" y2="96"/>'
+                + f'<text class="da-lbl" x="{p95 - 6}" y="16" text-anchor="end">95%</text>'
+                + f'<line class="da-real" x1="{real}" y1="30" x2="{real}" y2="92"/><circle class="da-dot-gold" cx="{real}" cy="30" r="3.4"/>'
+                + f'<text class="da-lbl gold" x="{real}" y="18" text-anchor="middle">real pick</text>'
+                + f'<text class="da-lbl" x="{x0}" y="16">random picks</text>')
+    elif kind == 'stress':
+        # Same trades at 1x, 2x and 3x slippage
+        rnd = random.Random(5)
+        noise = [rnd.gauss(0, 2.2) for _ in xs]
+        curves = []
+        for slope in (-1.75, -0.85, 0.05):
+            y, P = 82.0, []
+            for i, x in enumerate(xs):
+                P.append((x, y)); y += slope + noise[i]
+            curves.append(P)
+        body = (f'<polyline class="da-down" points="{pts(curves[2])}"/>'
+                f'<polyline class="da-muted" points="{pts(curves[1])}"/>'
+                f'<polyline class="da-gold" points="{pts(curves[0])}"/>'
+                + ''.join(f'<text class="da-lbl {c}" x="{W - 4}" y="{P[-1][1] + 3:.1f}" text-anchor="end">{t}</text>'
+                          for P, t, c in zip(curves, ('1x', '2x', '3x'), ('gold', '', 'down')))
+                + f'<text class="da-lbl" x="14" y="16">slippage</text>')
+    else:
+        # Frozen rules, run once on four unseen years, after a year of exploring
+        hs = (34, 22, 46, 28, 58)
+        bars, bw, x0 = '', 44, 26
+        for i, h in enumerate(hs):
+            cls = 'da-yr-live' if i < 4 else 'da-yr-gold'
+            bars += f'<rect class="{cls}" x="{x0 + i * (bw + 12)}" y="{88 - h}" width="{bw}" height="{h}" rx="3"/>'
+        split = x0 + 4 * (bw + 12) - 6
+        body = (f'<line class="da-split" x1="{split}" y1="8" x2="{split}" y2="96"/>' + bars
+                + f'<line class="da-base" x1="14" y1="88" x2="{W - 10}" y2="88"/>'
+                + f'<text class="da-lbl live" x="{x0}" y="16">unseen years · run once</text>'
+                + f'<text class="da-lbl gold" x="{split + 8}" y="16">explore</text>')
+    return (f'<div class="door-art" aria-hidden="true"><svg viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid meet">'
+            f'{grid}{body}</svg></div>')
+
 def home():
     body = f"""
 <section class="hero">
@@ -536,6 +610,13 @@ def home():
       <a class="card reveal" href="/research/method/"><div class="icon">{ICONS['scale']}</div><h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
       <a class="card reveal" href="/research/backtested/"><div class="icon">{ICONS['shield']}</div><h3>Backtested strategies</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
       <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICONS['book']}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
+    </div>
+    <h3 class="tests-title">How every idea gets tested <span class="tests-tag">Illustrations, not results</span></h3>
+    <div class="grid-4 tests">
+      <div class="card test reveal">{test_art('mc')}<h3>Monte Carlo</h3><p>Thousands of reshuffled trade orders show the range of drawdowns, not only the path you got.</p></div>
+      <div class="card test reveal">{test_art('null')}<h3>Random-direction null</h3><p>The search is rerun with random trade directions. The real pick has to beat 95% of them.</p></div>
+      <div class="card test reveal">{test_art('stress')}<h3>Cost stress</h3><p>Slippage doubled and tripled, fees raised 50%. The idea has to hold up at higher costs.</p></div>
+      <div class="card test reveal">{test_art('years')}<h3>Unseen years</h3><p>Rules are frozen, then run once on four earlier years they were never tuned on.</p></div>
     </div>
   </div>
 </section>

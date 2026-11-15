@@ -988,3 +988,21 @@ html[data-theme="light"] .trk .k dd.big { background: linear-gradient(100deg, #b
 .door-art .da-lbl.code { fill: var(--accent); opacity: .75; }
 .doors .tagline { position: static; align-self: flex-start; margin: 2px 0 -6px; }
 .door-art .da-lbl.down { fill: var(--down); opacity: .85; }
+
+/* ---------- Test illustrations (home, Research) ---------- */
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1100px) { .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .grid-4 { grid-template-columns: minmax(0, 1fr); } }
+.tests-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 40px 0 16px; font-size: 18px; }
+.tests-tag { font: 500 10.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.card.test h3 { font-size: 16px; }
+.card.test p { font-size: 13.5px; }
+.door-art .da-faint.thin { stroke-width: .8; opacity: .7; }
+.door-art .da-band { fill: var(--accent); opacity: .1; stroke: none; }
+.door-art .da-muted { stroke: var(--dim); stroke-width: 1.6; }
+.door-art .da-hist { fill: var(--line-3); stroke: none; }
+.door-art .da-real { stroke: var(--accent); stroke-width: 2.4; }
+.door-art .da-base { stroke: var(--line-3); stroke-width: 1; }
+.door-art .da-yr-live { fill: var(--live); opacity: .75; stroke: none; }
+.door-art .da-yr-gold { fill: var(--accent); opacity: .8; stroke: none; }
+.door-art .da-lbl.gold { fill: var(--accent); }
