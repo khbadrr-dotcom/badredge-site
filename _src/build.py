@@ -5,10 +5,11 @@ Run:  python3 _src/build.py
 It writes the HTML files at their published paths. The tools under /tools/<name>/ are
 standalone pages and are not touched, except /tools/index.html, which is built here.
 """
-import os, random, datetime, sys
+import os, re, random, datetime, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import research
 import tracker
+import guide_viz
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://badredge.com"
@@ -27,6 +28,11 @@ PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", 'Private Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "About")]
 
 ICONS = {
+    "trail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14l4-4 3 2 4-5 7-3"/><path d="M3 20h5v-3h5v-3h8" stroke-dasharray="2.2 2.6"/></svg>',
+    "flag": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V3.5"/><path d="M5 4h13l-2.5 4L18 12H5"/><path d="M9 4v8M13 4v8" stroke-width="1.2" opacity=".6"/></svg>',
+    "ladder": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-4h4v4M10 20v-8h4v8M15 20V8h4v12"/></svg>',
+    "breakout": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="10" height="8" rx="1.5" stroke-dasharray="2.2 2.2"/><path d="M6 17v-4M10 16v-3"/><path d="M12 12l8-8M15 4h5v5"/></svg>',
+    "ib": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 18h18" stroke-dasharray="2.2 2.6"/><path d="M8 4v16M16 8v10"/><rect x="6" y="8" width="4" height="7" rx="1"/><rect x="14" y="10" width="4" height="5" rx="1"/></svg>',
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
     "coins": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg>',
     "scale": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M6 7h12M6 7l-3 7a3 3 0 0 0 6 0L6 7zm12 0l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>',
@@ -160,6 +166,8 @@ def footer():
         <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
         <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
         <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/opening-range-breakout/">Opening range breakout</a></li>
+        <li><a href="/guides/initial-balance/">Initial balance</a></li>
         <li><a href="/guides/">All guides</a></li>
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
@@ -319,6 +327,10 @@ GUIDES = [
      "Why the target-to-max-loss ratio, your loss per trade and your give-up date decide the outcome more than win rate.", "9 min read"),
     ("/guides/contract-sizing/", "Sizing contracts against a trailing max loss",
      "Micros vs minis, dollars per point, and a simple buffer ladder that grows size only when the account can afford it.", "8 min read"),
+    ("/guides/opening-range-breakout/", "Opening range breakout (ORB), for beginners",
+     "What the opening range is, what counts as a breakout, where the risk sits and why many breakouts fail.", "6 min read"),
+    ("/guides/initial-balance/", "The initial balance (IB), for beginners",
+     "The first hour's high and low, range extensions, and how traders use the IB as a map for the rest of the day.", "6 min read"),
 ]
 
 
@@ -337,9 +349,13 @@ def tool_cards():
     return "\n      ".join(out)
 
 
+GUIDE_ICONS = {"/guides/trailing-drawdown/": "trail", "/guides/prop-evaluation-math/": "flag", "/guides/contract-sizing/": "ladder",
+               "/guides/opening-range-breakout/": "breakout", "/guides/initial-balance/": "ib"}
+
+
 def guide_cards():
     return "\n      ".join(f"""<a class="card reveal" href="{h}">
-        <div class="icon">{ICONS['book']}</div>
+        <div class="icon">{ICONS[GUIDE_ICONS.get(h, 'book')]}</div>
         <h3>{t}</h3>
         <p>{d}</p>
         <span class="go">{m} &rarr;</span>
@@ -759,16 +775,18 @@ def guides_index():
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Guides</span>
   <h1>Learn the rules that decide the account</h1>
-  <p class="lede">Worked examples. Each guide ends with a tool to test the idea on your own numbers.</p>
+  <p class="lede">Worked examples with diagrams. Each guide ends with a tool to test the idea on your own numbers.</p>
 </div></section>
 <section style="padding-top:24px"><div class="wrap"><div class="grid-3">
   {guide_cards()}
 </div></div></section>
 """
-    return page("/guides/", "Guides", "Guides to trailing drawdown, prop evaluation math and contract sizing for futures traders, with worked numbers.", "/guides/", body)
+    return page("/guides/", "Guides", "Beginner guides for futures traders: trailing drawdown, prop evaluation math, contract sizing, opening range breakouts and the initial balance.", "/guides/", body)
 
 
-def article(path, title, desc, minutes, body_html, tool_href, tool_name):
+def article(path, title, desc, minutes, body_html, tool_href, tool_name, cta=None):
+    body_html = re.sub(r"<!--V:(\w+)-->", lambda m: getattr(guide_viz, m.group(1))(), body_html)
+    cta = cta or f'The <a href="{tool_href}">{tool_name}</a> runs this on your own win rate, averages or TradingView trade list.'
     body = f"""
 <header class="article-head"><div class="wrap">
   <a class="eyebrow" href="/guides/" style="text-decoration:none">&larr; Guides</a>
@@ -778,7 +796,7 @@ def article(path, title, desc, minutes, body_html, tool_href, tool_name):
 </div></header>
 <article class="prose">
 {body_html}
-<div class="callout"><p><strong>Test it on your numbers.</strong> The <a href="{tool_href}">{tool_name}</a> runs this on your own win rate, averages or TradingView trade list.</p></div>
+<div class="callout"><p><strong>Test it on your numbers.</strong> {cta}</p></div>
 <p class="note">Educational content only, not investment advice. Rules differ by firm and change often, so always check your firm's current rules. Examples use round numbers for clarity.</p>
 </article>
 """
@@ -805,9 +823,11 @@ ARTICLE_DD = """
   </tbody>
 </table>
 <p>Notice that on day 2 the cushion shrank to $1,600 even though the account is still up $200. <strong>Your cushion is measured from your best close, not from where you started.</strong></p>
+<!--V:dd_trailing-->
 
 <h3>3. Trailing, intraday</h3>
 <p>The floor follows your highest balance at any moment, including open profit. If a trade runs +$800 and comes back to breakeven, the floor already moved up $800 and stays there. This is the strictest type: letting winners breathe can shrink your cushion even on trades you don't lose.</p>
+<!--V:dd_intraday-->
 
 <h2>When the floor stops: the lock</h2>
 <p>Most trailing rules stop trailing once the floor reaches a set level, usually the starting balance (sometimes start plus a small amount). In the table above, the floor hit $50,000 on day 4 and <strong>locks there</strong>. From that point on, every dollar of profit above the max loss is real cushion, and the account behaves like a static one.</p>
@@ -848,6 +868,7 @@ ARTICLE_MATH = """
   </tbody>
 </table>
 <p>At 1 contract the account almost never fails, but it also needs about 17 net winning trades, which can take months. At 6 contracts, three losses in a row (common for any 50% strategy) is enough to end the attempt.</p>
+<!--V:math_race-->
 
 <h2>Two ways to fail</h2>
 <ul>
@@ -855,6 +876,7 @@ ARTICLE_MATH = """
   <li><strong>Too small:</strong> the attempt runs out of time or patience. You reset, pay again, or start forcing trades.</li>
 </ul>
 <p>The best size is usually in the middle, and it's narrower than people expect. That is exactly what a Monte Carlo simulation finds: it replays thousands of attempts at each size and counts how many pass, fail or stall.</p>
+<!--V:math_sweet_spot-->
 
 <h2>Losing streaks are normal, not bad luck</h2>
 <p>A strategy that wins 50% of the time will produce a run of <strong>six or more losses in a row</strong> fairly often over a few hundred trades. If six average losses fit inside your cushion, you survive it. If they don't, the streak is the end of the attempt, not a rough patch.</p>
@@ -874,6 +896,7 @@ ARTICLE_MATH = """
 
 ARTICLE_SIZE = """
 <p>Choosing between a micro and a mini contract isn't a style preference. It's a risk decision. The same 5-point move on gold is $50 on a micro and $500 on a full contract. Under a $2,000 trailing max loss, that difference is the whole game.</p>
+<!--V:size_same_move-->
 
 <h2>Dollars per point</h2>
 <table>
@@ -911,11 +934,88 @@ ARTICLE_SIZE = """
     <tr><td>$3,500</td><td>5</td><td>7</td></tr>
   </tbody>
 </table>
+<!--V:size_ladder-->
 <p>The ladder does what discipline often doesn't: it cuts size after losses and only adds it when the account has earned the room.</p>
 <div class="callout"><p>The block size is the key number. Too small and a normal losing streak breaches the floor. Too large and the account grows slowly. The Contract Sizing tool searches for the smallest block that keeps your breach chance under a limit you choose.</p></div>
 
 <h2>Don't forget costs</h2>
 <p>Commission and slippage are charged per contract, so they scale with size. One tick of slippage on MNQ is $0.50, but over hundreds of trades and several contracts it adds up. Always test your size with costs included.</p>
+"""
+
+ARTICLE_ORB = """
+<p>The first minutes after a market opens are often the busiest of the session. An <strong>opening range breakout</strong>, or ORB, uses that burst of activity as a map: mark where price traded early, then watch what happens when it leaves that area.</p>
+
+<h2>The opening range</h2>
+<p>The opening range is simply the <strong>highest and lowest price of the first few minutes</strong> after a session opens. Common choices are the first 5, 15 or 30 minutes. For US index futures, many traders use the New York stock market open at 9:30 ET.</p>
+<p>Once that time is up, the two levels are fixed for the day. Everything after is measured against them.</p>
+<!--V:orb_breakout-->
+
+<h2>What counts as a breakout</h2>
+<p>A breakout is price moving <strong>outside</strong> the range. Traders define it in one of two ways, and the choice matters:</p>
+<ul>
+  <li><strong>Touch:</strong> price trades one tick beyond the high or low. Earlier, but it catches more false moves.</li>
+  <li><strong>Close:</strong> a candle closes beyond the level. Slower, but it filters some quick spikes.</li>
+</ul>
+<p>A break above the high is read as buyers in control for now. A break below the low is the mirror image.</p>
+
+<h2>Where the risk sits</h2>
+<p>The range also gives a natural place for a stop. Two common references are <strong>the other side of the range</strong> or <strong>its midpoint</strong>.</p>
+<p>That makes the range height your risk per contract. In the chart, the range is 40 points. On Micro Nasdaq (MNQ, $2 a point) a stop at the other side costs $80 per contract before costs. On the full contract (NQ, $20 a point) the same stop costs $800. A wide opening range means a wide stop, so size goes down, not up.</p>
+
+<h2>Most of the work is in the false breaks</h2>
+<!--V:orb_false-->
+<p>Price often pokes out of the range and comes straight back. No rule removes this. What separates one ORB plan from another is how it handles these moments: where the stop sits, whether it trades a second break, and when it stops for the day.</p>
+
+<h2>Decide these before you test</h2>
+<ol>
+  <li><strong>Market and session.</strong> Gold, Nasdaq and the Dow behave differently, and so do the Asia, London and New York opens.</li>
+  <li><strong>Range length.</strong> 5, 15 or 30 minutes.</li>
+  <li><strong>Entry trigger.</strong> Touch or close, and which side or both.</li>
+  <li><strong>Stop.</strong> Other side, midpoint or a fixed number of points.</li>
+  <li><strong>Exit.</strong> A target, a trailing stop or a time of day.</li>
+  <li><strong>Cut-off.</strong> The latest time a new trade is allowed.</li>
+</ol>
+<div class="callout"><p>ORB is a framework, not an edge. Whether any version works depends on the market, the exact rules and costs, and it changes over time. Write the rules down, test them after costs, and forward test before risking money. The desk's own ORB research is in <a href="/research/#families">Research</a>.</p></div>
+"""
+
+ARTICLE_IB = """
+<p>The <strong>initial balance</strong>, or IB, is the price range of the <strong>first hour</strong> of the main trading session. It comes from market-profile trading and is one of the simplest ways to get a map of the day.</p>
+
+<h2>How to mark it</h2>
+<ol>
+  <li>Pick the session. For US index futures this is usually 9:30 to 10:30 ET.</li>
+  <li>When the hour ends, mark the <strong>IB high</strong> and <strong>IB low</strong>.</li>
+  <li>The distance between them is the <strong>IB range</strong>.</li>
+</ol>
+<!--V:ib_chart-->
+
+<h2>Range extension</h2>
+<p>When price trades beyond the IB high or low after the first hour, that is a <strong>range extension</strong>. Some traders also draw lines at <strong>1× or 2× the IB range</strong> beyond the high and low, as reference points for how far the day has stretched. They are reference points, not targets.</p>
+
+<h2>Narrow and wide IBs</h2>
+<p>Traders compare today's IB with recent days:</p>
+<ul>
+  <li><strong>Narrow IB:</strong> the first hour was quiet. Many traders watch these days for an extension later, because little of a normal day's range has been used.</li>
+  <li><strong>Wide IB:</strong> the first hour already moved a lot. The stop for a breakout is wider, and a lot of the day's usual range may be spent.</li>
+</ul>
+<p>Neither one tells you direction. They only describe how much room the day has used.</p>
+
+<h2>Three ways a day can treat the IB</h2>
+<!--V:ib_day_types-->
+<p>Some days never leave the IB. Some extend in one direction and keep going. Others break one side, fail and run to the other. Seeing these three shapes makes it easier to read a chart without forcing a trade.</p>
+
+<h2>IB and ORB, side by side</h2>
+<table>
+  <thead><tr><th></th><th>Opening range (ORB)</th><th>Initial balance (IB)</th></tr></thead>
+  <tbody>
+    <tr><td>Window</td><td>First 5 to 30 min</td><td>First 60 min</td></tr>
+    <tr><td>Range size</td><td>Smaller</td><td>Larger</td></tr>
+    <tr><td>Stop to the other side</td><td>Tighter</td><td>Wider</td></tr>
+    <tr><td>Trades per day</td><td>Earlier, more often</td><td>Later, fewer</td></tr>
+  </tbody>
+</table>
+<p>Both mark early levels and watch for price to leave them. The IB simply waits longer, so its levels hold more of the session's early trading.</p>
+<div class="callout"><p>The IB is a way to read the day, not a signal. Any rule built on it needs to be written down, tested after costs and forward tested. The desk's IB research is in <a href="/research/families/initial-balance/">Research</a>.</p></div>
 """
 
 
@@ -1086,6 +1186,10 @@ if __name__ == "__main__":
         article("/guides/trailing-drawdown/", "Trailing drawdown, explained with numbers", GUIDES[0][2], GUIDES[0][3], ARTICLE_DD, "/tools/sizing/", "Contract Sizing tool"),
         article("/guides/prop-evaluation-math/", "The math of passing a prop evaluation", GUIDES[1][2], GUIDES[1][3], ARTICLE_MATH, "/tools/pass/", "Prop Pass Simulator"),
         article("/guides/contract-sizing/", "Sizing contracts against a trailing max loss", GUIDES[2][2], GUIDES[2][3], ARTICLE_SIZE, "/tools/sizing/", "Contract Sizing tool"),
+        article("/guides/opening-range-breakout/", GUIDES[3][1], GUIDES[3][2], GUIDES[3][3], ARTICLE_ORB, "/tools/sizing/", "Contract Sizing tool",
+                cta='The range height is your risk. The <a href="/tools/sizing/">Contract Sizing tool</a> turns a stop in points into a contract size your cushion can carry.'),
+        article("/guides/initial-balance/", GUIDES[4][1], GUIDES[4][2], GUIDES[4][3], ARTICLE_IB, "/tools/sizing/", "Contract Sizing tool",
+                cta='A wide IB means a wide stop. The <a href="/tools/sizing/">Contract Sizing tool</a> shows how many contracts that stop allows under your max loss.'),
         pine(), about(), legal_disclaimer(), legal_privacy(),
     ] + research.build_all(page, ICONS)
     not_found()

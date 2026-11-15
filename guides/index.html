@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)})();</script>
 <title>Guides · Badr Edge</title>
-<meta name="description" content="Guides to trailing drawdown, prop evaluation math and contract sizing for futures traders, with worked numbers.">
+<meta name="description" content="Beginner guides for futures traders: trailing drawdown, prop evaluation math, contract sizing, opening range breakouts and the initial balance.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/guides/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:url" content="https://badredge.com/guides/">
 <meta property="og:title" content="Guides · Badr Edge">
-<meta property="og:description" content="Guides to trailing drawdown, prop evaluation math and contract sizing for futures traders, with worked numbers.">
+<meta property="og:description" content="Beginner guides for futures traders: trailing drawdown, prop evaluation math, contract sizing, opening range breakouts and the initial balance.">
 <meta property="og:image" content="https://badredge.com/assets/og-home.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Badr Edge: a gold moon with orbiting tickers and candles">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Guides · Badr Edge">
-<meta name="twitter:description" content="Guides to trailing drawdown, prop evaluation math and contract sizing for futures traders, with worked numbers.">
+<meta name="twitter:description" content="Beginner guides for futures traders: trailing drawdown, prop evaluation math, contract sizing, opening range breakouts and the initial balance.">
 <meta name="twitter:image" content="https://badredge.com/assets/og-home.jpg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,26 +42,38 @@
 <section class="page-head"><div class="wrap">
   <span class="eyebrow">Guides</span>
   <h1>Learn the rules that decide the account</h1>
-  <p class="lede">Worked examples. Each guide ends with a tool to test the idea on your own numbers.</p>
+  <p class="lede">Worked examples with diagrams. Each guide ends with a tool to test the idea on your own numbers.</p>
 </div></section>
 <section style="padding-top:24px"><div class="wrap"><div class="grid-3">
   <a class="card reveal" href="/guides/trailing-drawdown/">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14l4-4 3 2 4-5 7-3"/><path d="M3 20h5v-3h5v-3h8" stroke-dasharray="2.2 2.6"/></svg></div>
         <h3>Trailing drawdown, explained with numbers</h3>
         <p>End-of-day, intraday and static drawdown, when the floor locks, and the mistakes that end accounts.</p>
         <span class="go">8 min read &rarr;</span>
       </a>
       <a class="card reveal" href="/guides/prop-evaluation-math/">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V3.5"/><path d="M5 4h13l-2.5 4L18 12H5"/><path d="M9 4v8M13 4v8" stroke-width="1.2" opacity=".6"/></svg></div>
         <h3>The math of passing a prop evaluation</h3>
         <p>Why the target-to-max-loss ratio, your loss per trade and your give-up date decide the outcome more than win rate.</p>
         <span class="go">9 min read &rarr;</span>
       </a>
       <a class="card reveal" href="/guides/contract-sizing/">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></div>
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-4h4v4M10 20v-8h4v8M15 20V8h4v12"/></svg></div>
         <h3>Sizing contracts against a trailing max loss</h3>
         <p>Micros vs minis, dollars per point, and a simple buffer ladder that grows size only when the account can afford it.</p>
         <span class="go">8 min read &rarr;</span>
+      </a>
+      <a class="card reveal" href="/guides/opening-range-breakout/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="10" height="8" rx="1.5" stroke-dasharray="2.2 2.2"/><path d="M6 17v-4M10 16v-3"/><path d="M12 12l8-8M15 4h5v5"/></svg></div>
+        <h3>Opening range breakout (ORB), for beginners</h3>
+        <p>What the opening range is, what counts as a breakout, where the risk sits and why many breakouts fail.</p>
+        <span class="go">6 min read &rarr;</span>
+      </a>
+      <a class="card reveal" href="/guides/initial-balance/">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 18h18" stroke-dasharray="2.2 2.6"/><path d="M8 4v16M16 8v10"/><rect x="6" y="8" width="4" height="7" rx="1"/><rect x="14" y="10" width="4" height="5" rx="1"/></svg></div>
+        <h3>The initial balance (IB), for beginners</h3>
+        <p>The first hour's high and low, range extensions, and how traders use the IB as a map for the rest of the day.</p>
+        <span class="go">6 min read &rarr;</span>
       </a>
 </div></div></section>
 </main>
@@ -83,6 +95,8 @@
         <li><a href="/guides/trailing-drawdown/">Trailing drawdown</a></li>
         <li><a href="/guides/prop-evaluation-math/">Evaluation math</a></li>
         <li><a href="/guides/contract-sizing/">Contract sizing</a></li>
+        <li><a href="/guides/opening-range-breakout/">Opening range breakout</a></li>
+        <li><a href="/guides/initial-balance/">Initial balance</a></li>
         <li><a href="/guides/">All guides</a></li>
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
