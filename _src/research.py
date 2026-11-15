@@ -9,6 +9,7 @@ Imported by build.py. Content rules (from Khaled, 2026-11-12):
 
 import re
 
+import tracker
 from viz import hbars, paired, split_bar, stepper, timeline, pipeline, gauge
 
 RESEARCH_UPDATED = "12 November 2026"
@@ -504,6 +505,7 @@ def family_view(f):
 
 def family_page(page, f, prev_f, next_f):
     results, verdict, lesson = family_view(f)
+    trk = tracker.card(f["slug"])
     tested = "".join(f"<li>{t}</li>" for t in f["tested"] if not LOSS.search(t))
     nav = '<nav class="fam-nav" aria-label="More families">'
     if prev_f:
@@ -527,12 +529,13 @@ def family_page(page, f, prev_f, next_f):
   <h2>What was tested</h2>
   <ul>{tested}</ul>
   {f"<h2>Last year's results</h2>{pick_cards(f['slug'])}{results}<p class='note'>{COST_NOTE}</p>" if results else ""}
+  {trk}
   <h2>Status</h2>
   <div class="callout"><p>{badge(f['status'])}</p><p>{verdict}</p></div>
   {f"<h2>Lesson</h2><p>{lesson}</p>" if lesson else ""}
   {nav}
   <p class="note">{NFA} See the <a href="/research/method/">method</a> for how every test is run and judged.</p>
-</article>
+</article>{tracker.data_tag() if trk else ""}
 """
     desc = f"{f['name']}: what was tested, results after costs, and the verdict. {STATUS[f['status']][0]}."
     return page(f"/research/backtested/{f['slug']}/", f["name"], desc, "/research/backtested/", body)
@@ -594,10 +597,12 @@ def graveyard(page):
   {picks_overview()}
   {picks_table()}
   {"".join(groups)}
+  {tracker.card()}
   <h2 class="grp">Also researched</h2>
   <div class="prose" style="margin:0;padding:0;max-width:860px"><ul>{also}</ul>
   <p class="note">{COST_NOTE} {NFA}</p></div>
 </div></section>
+{tracker.data_tag()}
 """
     return page("/research/backtested/", "Backtested strategies", "Every futures strategy family tested by the Badr Edge research desk, with results after costs and a research status for each.", "/research/backtested/", body)
 
