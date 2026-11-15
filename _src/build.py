@@ -24,7 +24,7 @@ SHOW_PAYOUT_FIGURE = False
 PAYOUT_FIGURE = "$250,000+"
 PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
-NAV = [("/research/backtested/", "Backtested strategies"), ("/research/", "Research"), ("/pine/", 'Private Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "About")]
+NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", 'Private Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "About")]
 
 ICONS = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
@@ -101,13 +101,33 @@ def head(title, desc, path, extra=""):
 <div class="sky" aria-hidden="true"><i class="sky-stars"></i><i class="sky-stars s2"></i><i class="sky-aurora a1"></i><i class="sky-aurora a2"></i><i class="sky-aurora a3"></i><svg class="sky-orbits" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice"><g><ellipse cx="600" cy="600" rx="560" ry="170" transform="rotate(-14 600 600)"/><ellipse cx="600" cy="600" rx="430" ry="128" transform="rotate(20 600 600)"/><ellipse cx="600" cy="600" rx="720" ry="230" transform="rotate(4 600 600)"/></g></svg><svg class="sky-chart" viewBox="0 0 800 800"><g><circle cx="400" cy="400" r="380" class="c1"/><circle cx="400" cy="400" r="372" class="tk"/><circle cx="400" cy="400" r="300" class="c2"/><circle cx="400" cy="400" r="210" class="c2"/><line x1="400" y1="10" x2="400" y2="790"/><line x1="10" y1="400" x2="790" y2="400"/></g></svg></div>
 """
 
+# Nav icons (fine-line, scale cleanly at any resolution). The teal parts are the "live" signal.
+ICON_LAB = ('<svg class="nav-ico ico-lab" viewBox="0 0 24 24" aria-hidden="true">'
+            '<path class="liq" d="M6.6 14.5h10.8l1.8 3.1a2 2 0 0 1-1.7 3H6.5a2 2 0 0 1-1.7-3z"/>'
+            '<circle class="bub b1" cx="10.2" cy="17.4" r="1"/><circle class="bub b2" cx="13.6" cy="18" r=".8"/><circle class="bub b3" cx="12" cy="17" r=".65"/>'
+            '<path class="gl" d="M9 3h6M10 3v5.5L4.8 17.6a2 2 0 0 0 1.7 3h11a2 2 0 0 0 1.7-3L14 8.5V3"/></svg>')
+ICON_TOOLS = ('<svg class="nav-ico ico-fx" viewBox="0 0 24 24" aria-hidden="true">'
+              '<path class="ax" d="M4 3.5v16.5h16.5"/>'
+              '<path class="gl" d="M5.5 17.5C9 17.5 9.5 6 13 6s3.6 7.5 6.5 7.5"/>'
+              '<circle class="pt" cx="13" cy="6.2" r="2.2"/></svg>')
+
+ICON_RESEARCH = ('<svg class="nav-ico ico-plain" viewBox="0 0 24 24" aria-hidden="true">'
+                 '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 20 20"/>'
+                 '<path class="tl" d="M7.4 12.4l2-2.2 1.8 1.4 2.6-3.2"/></svg>')
+ICON_PINE = ('<svg class="nav-ico ico-plain" viewBox="0 0 24 24" aria-hidden="true">'
+             '<path d="M7.5 7 3 12l4.5 5M16.5 7 21 12l-4.5 5"/>'
+             '<path d="M12 5.5v13"/><rect class="tl-fill" x="10.2" y="8.8" width="3.6" height="6.2" rx=".8"/></svg>')
+ICON_ABOUT = ('<svg class="nav-ico ico-plain" viewBox="0 0 24 24" aria-hidden="true">'
+              '<circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20c.9-3.7 3.7-5.6 7.2-5.6s6.3 1.9 7.2 5.6"/></svg>')
+NAV_ICONS = {"/research/": ICON_RESEARCH, "/pine/": ICON_PINE, "/about/": ICON_ABOUT}
+
 
 def header(active):
     links = "".join(
         f'<a href="{href}"{" class=\"nav-hl\"" if href == NAV[0][0] else ""}{" aria-current=\"page\"" if href == active else ""}>'
-        f'{"<i class=\"hl-dot\"></i>" if href == NAV[0][0] else ""}{label}</a>' for href, label in NAV)
-    cta = '<a class="cta" href="/tools/"><i class="hl-dot"></i>Open the tools</a>'
-    first = links.index("</a>") + 4  # menu order: Backtested strategies, Open the tools, then the rest
+        f'{ICON_LAB if href == NAV[0][0] else NAV_ICONS.get(href, "")}{label}</a>' for href, label in NAV)
+    cta = f'<a class="cta" href="/tools/">{ICON_TOOLS}Open the tools</a>'
+    first = links.index("</a>") + 4  # menu order: Strategy Lab, Open the tools, then the rest
     links = links[:first] + cta + links[first:]
     return f"""<header class="site-head">
   <div class="wrap">
@@ -144,6 +164,7 @@ def footer():
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
         <li><a href="/about/">About</a></li>
+        <li><a href="/research/backtested/">Strategy Lab</a></li>
         <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Private Pine Scripts</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
@@ -676,7 +697,7 @@ def home():
       <p class="lede">A public log of a futures research desk: the method, every strategy family tested and last year's results after costs. All of it is research and requires forward testing.</p></div>
     <div class="grid-3">
       <a class="card reveal" href="/research/method/">{research_art('method')}<h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
-      <a class="card reveal" href="/research/backtested/">{research_art('backtested')}<h3>Backtested strategies</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
+      <a class="card reveal" href="/research/backtested/">{research_art('backtested')}<h3>Strategy Lab</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
       <a class="card reveal" href="/research/under-observation/">{research_art('forward')}<h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
     </div>
     <h3 class="tests-title">How every idea gets tested <span class="tests-tag">Illustrations, not results</span></h3>
