@@ -348,9 +348,9 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
   // Funded-account presets, from the rules the user gave for each firm.
   const FIRMS = {
     mine:   { name: 'Default 100K',               start: 100000, mll: 2000, dd: 'eod',      maxC: 100, minDays: 5, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 3000, minPay: 250 },
-    s50:    { name: 'Topstep-style 50K',            start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 6000, minPay: 125 },
-    s100:   { name: 'Topstep-style 100K',           start: 100000, mll: 3000, dd: 'eod',      maxC: 100, minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 6000, minPay: 125 },
-    s150:   { name: 'Topstep-style 150K',           start: 150000, mll: 4500, dd: 'eod',      maxC: 150, minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 6000, minPay: 125 },
+    s50:    { name: 'Topstep-style 50K',            start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 0,    minPay: 125 },
+    s100:   { name: 'Topstep-style 100K',           start: 100000, mll: 3000, dd: 'eod',      maxC: 100, minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 0,    minPay: 125 },
+    s150:   { name: 'Topstep-style 150K',           start: 150000, mll: 4500, dd: 'eod',      maxC: 150, minDays: 0, winDays: 0, winMin: 0,   buffer: 0,    cons: 40, wPct: 50,  cap: 0,    minPay: 125 },
     tpt:    { name: 'Take Profit Trader-style 50K', start: 50000,  mll: 2000, dd: 'intraday', maxC: 50,  minDays: 0, winDays: 0, winMin: 0,   buffer: 2000, cons: 0,  wPct: 100, cap: 0,    minPay: 1 },
     tfy:    { name: 'Tradeify-style 50K',           start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 2000, minPay: 1 },
     mffu:   { name: 'My Funded Futures-style 50K',  start: 50000,  mll: 2000, dd: 'eod',      maxC: 50,  minDays: 0, winDays: 5, winMin: 150, buffer: 0,    cons: 0,  wPct: 50,  cap: 2000, minPay: 1 },
@@ -361,7 +361,8 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
   const RULE_FIELDS = ['start', 'mll', 'maxC', 'minDays', 'winDays', 'winMin', 'buffer', 'cons', 'wPct', 'cap', 'minPay'];
   const FIELDS = ['firm','lock','dll','dllAction','maxDays','rankBy','inst','pv','tick','comm','slip','wr','tpd','aw','al','setup','cFrom','cTo','runs','tpdList','sampleBy','fastTol'];
   const STORE = 'prop-payout-sim-v1';
-  const STORE_RULES = 'prop-payout-rules-v2';
+  const STORE_RULES = 'prop-payout-rules-v3';
+  const STORE_RULES_OLD = 'prop-payout-rules-v2';
   const STORE_FILES = 'prop-payout-files-v1';
   const BYNAME = { week: 'whole weeks', day: 'single days' };
   const MAX_COMBOS = 16000;  // allocation search limit (6 strategies up to 4 each)
@@ -398,7 +399,12 @@ svg text { fill: var(--muted); font: 11px var(--font-mono); }
   }
   function load() {
     try {
-      const r = JSON.parse(localStorage.getItem(STORE_RULES) || 'null');
+      let r = JSON.parse(localStorage.getItem(STORE_RULES) || 'null');
+      if (!r) {
+        // Earlier saves carried the old Topstep cap of $6,000; Topstep presets now have no cap
+        r = JSON.parse(localStorage.getItem(STORE_RULES_OLD) || 'null');
+        if (r) ['s50', 's100', 's150'].forEach(id => { if (r[id] && +r[id].cap === 6000) r[id].cap = 0; });
+      }
       if (r) Object.keys(FIRMS).forEach(id => { if (!r[id]) return; RULE_FIELDS.forEach(k => { if (isFinite(r[id][k])) rules[id][k] = +r[id][k]; }); if (['eod', 'intraday', 'static'].includes(r[id].dd)) rules[id].dd = r[id].dd; });
     } catch (e) {}
     try {
