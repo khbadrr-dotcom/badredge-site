@@ -802,7 +802,8 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 @media (max-width: 400px) { .moon-stage { zoom: .56; } .hero { overflow-x: clip; } }
 .mb-tabs button { white-space: nowrap; }
 @media (max-width: 380px) { .board .ss-tz { display: none; } }
-.nav a .nav-soon { margin-left: 6px; font: 500 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--amber); opacity: .85; white-space: nowrap; }
+.nav a .nav-soon { margin-left: 6px; padding: 3px 6px; border-radius: 4px; font: 600 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #ff7a6b; background: rgba(255, 122, 107, .12); white-space: nowrap; }
+html[data-theme="light"] .nav a .nav-soon { color: #b42318; background: rgba(180, 35, 24, .08); }
 
 /* ---------- Night sky: one fixed background behind every page; content floats on glass ---------- */
 :root { --glass: color-mix(in srgb, var(--panel) 66%, transparent); --glass-2: color-mix(in srgb, var(--panel-2) 74%, transparent); --glass-line: rgba(255, 255, 255, .10); --glass-shadow: 0 18px 50px -24px rgba(0, 0, 0, .8); --sky-a: .55; --star: rgba(255, 244, 220, .75); --orbit: rgba(217, 180, 108, .16); }
