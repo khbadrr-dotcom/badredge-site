@@ -75,3 +75,16 @@ html[data-theme="light"] .be-moon { box-shadow: 0 0 0 1px rgba(120, 90, 40, .25)
 html[data-theme="light"] .be-mini-foot { border-top-color: rgba(40, 30, 12, .1); color: #7a746a; }
 html[data-theme="light"] .be-mini-foot a { color: #5d5850; } html[data-theme="light"] .be-mini-foot a:hover { color: #74561a; }
 @media print { .be-bar, .be-mini-foot { display: none !important; } }
+/* Smooth tables in the simulators (Nov 15): softer separators, tinted header, rounded hover rows */
+html.be-tool table { border-collapse: separate; border-spacing: 0; }
+html.be-tool th { border-bottom: 0 !important; background: rgba(255, 255, 255, .025); }
+html.be-tool th:first-child { border-radius: 10px 0 0 10px; } html.be-tool th:last-child { border-radius: 0 10px 10px 0; }
+html.be-tool td { border-bottom-color: rgba(255, 255, 255, .045) !important; }
+html.be-tool[data-theme="light"] th { background: rgba(140, 104, 40, .05); }
+html.be-tool[data-theme="light"] td { border-bottom-color: rgba(60, 40, 10, .06) !important; }
+html.be-tool tbody tr:last-child td { border-bottom: 0; }
+html.be-tool tbody tr:hover td:first-child, html.be-tool tr.sel td:first-child { border-radius: 8px 0 0 8px; }
+html.be-tool tbody tr:hover td:last-child, html.be-tool tr.sel td:last-child { border-radius: 0 8px 8px 0; }
+html.be-tool tbody.pick tr:hover, html.be-tool tbody tr.sel { background: transparent; }
+html.be-tool tbody.pick tr:hover td { background: var(--sunken); }
+html.be-tool tbody tr.sel td { background: var(--accent-soft); }

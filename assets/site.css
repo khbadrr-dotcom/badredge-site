@@ -838,3 +838,24 @@ html[data-theme="light"] .sky-chart { display: block; position: absolute; right:
 .sky-chart .c2 { stroke-dasharray: 2 6; }
 .sky-chart line { stroke-dasharray: 1 7; }
 @media (prefers-reduced-motion: reduce) { .sky-chart g { animation: none !important; } }
+
+/* ---------- Smooth tables (Nov 15): no hard frame, soft rows, rounded glass ---------- */
+:root { --tbl-sep: rgba(255, 255, 255, .045); --tbl-head: rgba(255, 255, 255, .025); --tbl-hover: rgba(217, 180, 108, .055); --tbl-ring: rgba(255, 255, 255, .055); }
+html[data-theme="light"] { --tbl-sep: rgba(60, 40, 10, .06); --tbl-head: rgba(140, 104, 40, .045); --tbl-hover: rgba(140, 104, 40, .06); --tbl-ring: rgba(60, 40, 10, .07); }
+.prose table, .tbl-wrap { border: 0; border-radius: 18px; box-shadow: 0 0 0 1px var(--tbl-ring), var(--glass-shadow); padding: 6px; }
+.prose table { border-collapse: separate; border-spacing: 0; }
+.prose .tbl-wrap table.picks { padding: 0; box-shadow: none; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; border-collapse: separate; border-spacing: 0; }
+.prose th, table.picks th { background: var(--tbl-head); border: 0; padding: 13px 16px; font-weight: 500; letter-spacing: .08em; color: var(--dim); }
+.prose th:first-child, table.picks th:first-child { border-radius: 12px 0 0 12px; }
+.prose th:last-child, table.picks th:last-child { border-radius: 0 12px 12px 0; }
+.prose td, table.picks td { border: 0; border-bottom: 1px solid var(--tbl-sep); padding: 13px 16px; transition: background .2s ease; }
+.prose tr:last-child td, table.picks tr:last-child td { border-bottom: 0; }
+.prose tbody tr:hover td, table.picks tbody tr:hover td { background: var(--tbl-hover); }
+.prose tbody tr:hover td:first-child, table.picks tbody tr:hover td:first-child { border-radius: 10px 0 0 10px; }
+.prose tbody tr:hover td:last-child, table.picks tbody tr:hover td:last-child { border-radius: 0 10px 10px 0; }
+table.picks caption { border: 0; padding: 12px 16px 10px; }
+table.picks tr.tot td { background: var(--tbl-head); border-bottom: 0; }
+table.picks tr.tot td:first-child { border-radius: 10px 0 0 10px; }
+table.picks tr.tot td:last-child { border-radius: 0 10px 10px 0; }
+@media (max-width: 640px) { .prose th, .prose td, table.picks th, table.picks td { padding: 11px 12px; } .prose table, .tbl-wrap { border-radius: 14px; padding: 4px; } }
+.callout { border: 0; border-radius: 18px; box-shadow: 0 0 0 1px var(--tbl-ring), var(--glass-shadow); }
