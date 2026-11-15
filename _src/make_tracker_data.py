@@ -27,6 +27,7 @@ MAP = [
     (r"ORB_PRO_1_COMEX_MINI_MGC", ("MGC ORB Pro Max", "MGC", "orb-pro-max")),
 ]
 FREEZE = "2026-10-22"  # first day after the settings were frozen
+END = "2026-11-06"  # common last day across the exports
 
 
 def ident(path):
@@ -48,6 +49,8 @@ for path in sys.argv[1:]:
             q = float(r["Size (qty)"])
             pnl = float(r["Net PnL USD"]) / q - float(r["Commission USD"] or 0) / q - COST[mkt]
             d = r["Date and time"][:10]
+            if d > END:
+                continue
             a = days[d]
             a[0] += pnl; a[1] += 1; a[2] += pnl > 0
             a[3 if pnl > 0 else 4] += abs(pnl)
