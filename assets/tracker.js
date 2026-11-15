@@ -51,7 +51,7 @@
     const f = outEq.length > 1 ? ' f' : '', tx = X(N), ty = Y(eq[N]);
     s += `<circle class="tipring${f}" cx="${tx}" cy="${ty}" r="4"/><circle class="tip${f}" cx="${tx}" cy="${ty}" r="3.5"/>`;
     let lastM = '';
-    days.forEach((d, i) => { const m = d[0].slice(0, 7); if (m !== lastM) { lastM = m; const x = X(i + 1); if (x < w - 30) s += `<text x="${x}" y="${h + 13}">${MON[+d[0].slice(5, 7) - 1]}</text>`; } });
+    days.forEach((d, i) => { const m = d[0].slice(0, 7); if (m !== lastM) { lastM = m; const x = X(i + 1), mi = +d[0].slice(5, 7); if (x < w - 30 && (w >= 600 || mi % 2)) s += `<text x="${x}" y="${h + 13}">${MON[+d[0].slice(5, 7) - 1]}</text>`; } });
     return s + '</svg>';
   }
 

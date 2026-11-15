@@ -19,6 +19,13 @@ IN_WIN = f"{_d(DATA['from'])} – {_d(_last_before_freeze())}"
 OUT_WIN = f"{_d(DATA['freeze'])} – {_d(DATA['to'])}"
 
 
+def _late(ss):
+    """Strategies whose trade list starts well after the window opens (only a shorter export was available)."""
+    start = date.fromisoformat(DATA["from"])
+    late = [s for s in ss if (date.fromisoformat(s["days"][0][0]) - start).days > 60]
+    return "".join(f" {s['name']} starts on {_d(s['days'][0][0])} because only a shorter trade list was available." for s in late)
+
+
 def _k(label, key):
     return f'<div><dt>{label}</dt><dd data-s="{key}">–</dd></div>'
 
@@ -51,7 +58,7 @@ def card(family=None):
     <dl class="k row isk">{_k('Net after costs','net')}{_k('Max drawdown','dd')}{_k('Profit factor','pf')}{_k('Win rate','wr')}{_k('Trades','tr')}{_k('Green days','g')}{_k('Red days','r')}{_k('Longest green streak','mg')}{_k('Longest red streak','mr')}</dl>
     <div class="sec-t f">Since the freeze · {OUT_WIN} · new data, settings unchanged</div>
     <dl class="k row fwk">{_k('Net after costs','net')}{_k('Win rate','wr')}{_k('Trades','tr')}{_k('Green days','g')}{_k('Red days','r')}</dl>
-    <p class="foot-note">Hypothetical results for one contract per strategy, after fees and one tick of slippage on each side. The in-sample period falls inside the year the settings were picked on, so it is flattered by that search. Drawdown is measured on daily closes. A short window says little on its own. Not financial advice and not a signal.</p>
+    <p class="foot-note">Hypothetical results for one contract per strategy, after fees and one tick of slippage on each side. The in-sample period falls inside the year the settings were picked on, so it is flattered by that search. Drawdown is measured on daily closes. {_late(ss)} Not financial advice and not a signal.</p>
   </div>
 </section>"""
 

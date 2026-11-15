@@ -23,6 +23,8 @@ MAP = [
     (r"PL_ORB_v4", ("PL ORB v4", "PL", "orb-v4")),
     (r"PRO_1_CBOT_MINI_MYM", ("MYM ORB Pro Max", "MYM", "orb-pro-max")),
     (r"SIL_ORB_v4", ("SIL ORB v4", "SIL", "orb-v4")),
+    (r"ORB_v4_MGC", ("MGC ORB v4", "MGC", "orb-v4")),
+    (r"ORB_PRO_1_COMEX_MINI_MGC", ("MGC ORB Pro Max", "MGC", "orb-pro-max")),
 ]
 FREEZE = "2026-10-22"  # first day after the settings were frozen
 
@@ -39,7 +41,7 @@ out, first, last = [], None, None
 for path in sys.argv[1:]:
     name, mkt, slug = ident(path)
     days, trades = defaultdict(lambda: [0.0, 0, 0, 0.0, 0.0]), []
-    with open(path, newline="") as fh:
+    with open(path, newline="", encoding="utf-8-sig") as fh:
         for r in csv.DictReader(fh):
             if not r["Type"].startswith("Exit"):
                 continue
