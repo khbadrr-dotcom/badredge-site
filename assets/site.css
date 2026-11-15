@@ -149,8 +149,8 @@ html[data-theme="light"] .moon { box-shadow: inset 0 0 0 1px rgba(110, 80, 32, .
 html[data-theme="light"] .theme-btn .i-sun { display: block; }
 html[data-theme="light"] .theme-btn .i-moon { display: none; }
 .menu-btn { display: none; padding: 0 12px; font: 500 13px/1 var(--sans); color: var(--text); }
-@media (min-width: 1041px) { .head-actions { order: 3; } .nav { margin-left: auto; } }
-@media (max-width: 1040px) {
+@media (min-width: 1081px) { .head-actions { order: 3; } .nav { margin-left: auto; } }
+@media (max-width: 1080px) {
   .menu-btn { display: grid; }
   .nav { display: none; position: absolute; top: 64px; left: 0; right: 0; height: auto; flex-direction: column; align-items: stretch;
     background: var(--bg); border-bottom: 1px solid var(--line-2); padding: 6px 16px 18px; }
@@ -570,6 +570,8 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .record-cell b { font-size: 20px; font-weight: 700; color: var(--text); }
 .record-cell span:last-child { color: var(--muted); font-size: 14px; line-height: 1.55; }
 @media (max-width: 640px) { .record { grid-template-columns: minmax(0, 1fr); } }
+.record-cell.record-hero { grid-column: 1 / -1; padding: 26px 24px; background: radial-gradient(420px 160px at 0% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%), var(--panel); }
+.record-cell.record-hero b { font: 700 clamp(40px, 6vw, 58px)/1.05 var(--sans); letter-spacing: -.03em; background: linear-gradient(100deg, var(--accent-2), var(--accent) 55%, #b8913f); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 /* ---------- Market board (hero) ---------- */
 .board .term-bar { height: 44px; }
@@ -1064,7 +1066,7 @@ html[data-theme="light"] .trk .k dd.big { background: linear-gradient(100deg, #b
 .nav .cta .hl-dot { background: var(--live); box-shadow: 0 0 6px color-mix(in srgb, var(--live) 70%, transparent); }
 .nav .cta .hl-dot::after { background: var(--live); }
 html[data-theme="light"] .nav .cta, html[data-theme="light"] .nav .cta:hover { color: var(--accent); }
-@media (max-width: 1040px) { .nav .cta { height: 44px; margin: 14px 0 0; justify-content: center; } }
+@media (max-width: 1080px) { .nav .cta { height: 44px; margin: 14px 0 0; justify-content: center; } }
 
 /* ---------- Research card art ---------- */
 .door-art .da-rail { stroke: var(--line-3); stroke-width: 1.5; stroke-dasharray: 3 4; }
@@ -1200,7 +1202,7 @@ h3.grp { margin: 32px 0 14px; font-size: 13px; font-weight: 500; font-family: va
 }
 /* ---------- Nav order: "Open the tools" sits second, right after Backtested strategies ---------- */
 .nav .cta { margin-left: 2px; margin-right: 10px; }
-@media (max-width: 1040px) { .nav .cta { margin: 12px 0 4px; } }
+@media (max-width: 1080px) { .nav .cta { margin: 12px 0 4px; } }
 
 /* ---------- Nav icons: lab flask (bubbling teal liquid) and function curve (live teal point) ---------- */
 .nav-ico { width: 18px; height: 18px; flex: none; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -1225,10 +1227,11 @@ html[data-theme="light"] .nav-ico .ax { stroke: color-mix(in srgb, var(--accent)
   .ico-lab .bub, .ico-fx .pt { animation: none; }
   .ico-lab .bub { opacity: .85; }
 }
-@media (max-width: 1040px) { .nav-ico { width: 19px; height: 19px; } .nav a.nav-hl { gap: 10px; } }
+@media (max-width: 1080px) { .nav-ico { width: 19px; height: 19px; } .nav a.nav-hl { gap: 10px; } }
 /* Plain menu icons (Research, Private Pine Scripts, About) follow the link colour; teal detail inside */
 .nav a { gap: 7px; }
 .nav-ico.ico-plain { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.6; opacity: .9; }
 .nav-ico.ico-plain .tl { stroke: var(--live); }
 .nav-ico.ico-plain .tl-fill { fill: var(--live); stroke: none; }
-@media (max-width: 1040px) { .nav-ico.ico-plain { width: 18px; height: 18px; } .nav a { gap: 10px; } }
+@media (max-width: 1080px) { .nav-ico.ico-plain { width: 18px; height: 18px; } .nav a { gap: 10px; } }
+@media (min-width: 1081px) { .nav a { white-space: nowrap; } }

@@ -25,7 +25,7 @@ SHOW_PAYOUT_FIGURE = False
 PAYOUT_FIGURE = "$250,000+"
 PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
-NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", 'Private Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "About")]
+NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", 'Private Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "Who is Badr")]
 
 ICONS = {
     "trail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14l4-4 3 2 4-5 7-3"/><path d="M3 20h5v-3h5v-3h8" stroke-dasharray="2.2 2.6"/></svg>',
@@ -171,7 +171,7 @@ def footer():
         <li><a href="/guides/">All guides</a></li>
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
-        <li><a href="/about/">About</a></li>
+        <li><a href="/about/">Who is Badr</a></li>
         <li><a href="/research/backtested/">Strategy Lab</a></li>
         <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Private Pine Scripts</a></li>
@@ -1035,29 +1035,29 @@ def pine():
 
 
 def about():
-    payouts = (f", with more than {PAYOUT_FIGURE.rstrip('+')} in payouts from four firms" if SHOW_PAYOUT_FIGURE else "")
     body = f"""
 <section class="page-head"><div class="wrap">
-  <span class="eyebrow">About</span>
-  <h1>Built from real trading. <span class="gold">Refined through research.</span></h1>
-  <p class="lede">Badr Edge is an independent futures research desk, built on more than three years of active trading and shaped by data, testing and disciplined execution.</p>
+  <span class="eyebrow">Who is Badr</span>
+  <h1>Who is <span class="gold">Badr.</span></h1>
+  <p class="lede">Badr Edge is the independent research desk of Badr, a futures trader with more than three years of live experience across prop firms and personal brokerage accounts.</p>
 </div></section>
 
 
 <article class="prose" style="max-width:820px;padding-top:56px;padding-bottom:0">
   <h2>Experience</h2>
-  <p>I've traded futures actively for more than three years, mostly through prop firms{payouts}. That has meant passing evaluations, trading funded accounts under each firm's drawdown rules and moving up to the live funded stage at three firms, with the work now progressing toward live trading at size. Alongside the prop accounts, I trade personal CFD brokerage accounts.</p>
+  <p>The work pairs real-market execution with systematic strategy building, quantitative testing and strict risk control. Most of the trading runs through prop firms: passing evaluations, trading funded accounts under each firm's drawdown rules and moving up to live funded accounts at three firms, with selection for a live-capital trading program. Alongside the prop accounts, Badr trades personal CFD brokerage accounts.</p>
   <p>Execution is a discretionary candlestick price-action process, built over two years and traded mostly in gold and US index futures across the Asia, London and New York sessions.</p>
 
   <h2>The record</h2>
-  <p>No P&amp;L screenshots here. What I can show is that the process has been checked by the people with the most reason to doubt it: the firms that pay out on it.</p>
+  <p>No P&amp;L screenshots here. The process has been checked by the people with the most reason to doubt it: the firms that pay out on it.</p>
   <div class="record">
-    <div class="record-cell"><span class="record-k">Live-funded</span><b>3 firms</b><span>Promoted to live accounts at MyFundedFutures, Lucid and Topstep in 2026.</span></div>
-    <div class="record-cell"><span class="record-k">Payouts received</span><b>4 firms</b><span>Topstep, Lucid, Take Profit Trader and MyFundedFutures, since 2025.</span></div>
+    <div class="record-cell record-hero"><span class="record-k">Documented prop-firm payouts</span><b>$250K+</b><span>Paid out by four firms since 2025, passing $250,000 in November 2026. Firm-issued certificates are on file.</span></div>
+    <div class="record-cell"><span class="record-k">Live-funded</span><b>3 firms</b><span>Promoted to live accounts at MyFundedFutures, Lucid and Topstep in 2026, and selected for a live-capital program.</span></div>
+    <div class="record-cell"><span class="record-k">Payouts received</span><b>4 firms</b><span>Topstep, Lucid, Take Profit Trader and MyFundedFutures.</span></div>
     <div class="record-cell"><span class="record-k">Evaluations passed</span><b>6 firms</b><span>The four above, plus FundedNext and Tradeify.</span></div>
     <div class="record-cell"><span class="record-k">Verification</span><b>Originals on file</b><span>Firm-issued certificates, with personal and account details removed.</span></div>
   </div>
-  <p class="note">Prop-firm payouts are paid under each firm's own rules, often from simulated accounts. They are not investment returns, they are not an offer, and they don't predict anyone's future results, including mine.</p>
+  <p class="note">Prop-firm payouts are paid under each firm's own rules, often from simulated accounts. They are not investment returns, they are not an offer, and they don't predict anyone's future results.</p>
 
   <h2>Focus</h2>
 </article>
@@ -1074,7 +1074,7 @@ def about():
 <article class="prose" style="max-width:820px;padding-top:32px">
   <h2>Why it exists</h2>
   <p>The prop-firm world is loud: screenshots of wins, promises of fast funding, strategies sold on perfect backtests. Little of it answers the questions that decide whether an account survives. How big is my real cushion today? How many losses in a row can this size take? Does my edge still look like the one I planned with?</p>
-  <p>Every tool here started as something I built for my own accounts. The research is published in the open, and all of it requires forward testing.</p>
+  <p>Every tool here started as something built for real accounts. The research is published in the open, and all of it requires forward testing.</p>
 
   <h2>The name</h2>
   <p>Badr is Arabic for the full moon: the night you can see the whole picture. The edge is the process, not a promise of results.</p>
@@ -1084,7 +1084,7 @@ def about():
   <p class="note">Past payouts and trading results do not predict future results. Badr Edge does not manage money, offer signals or give investment advice. See the <a href="/legal/disclaimer/">disclaimer</a>.</p>
 </article>
 """
-    return page("/about/", "About", "About Badr Edge: an independent futures research desk built on more than three years of active trading, mostly through prop firms.", "/about/", body)
+    return page("/about/", "Who is Badr", "Who is Badr: the independent futures research desk behind Badr Edge, built on more than three years of live trading and $250K+ in documented prop-firm payouts.", "/about/", body)
 
 
 def legal_disclaimer():
