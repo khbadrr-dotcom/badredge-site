@@ -608,9 +608,8 @@ def research_index(page):
 </div></section>
 
 <section style="padding-top:0"><div class="wrap">
-  <div class="grid-3">
+  <div class="grid-2">
     <a class="card reveal" href="/research/method/"><div class="icon">{ICON_SCALE}</div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, frozen and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
-    <a class="card reveal" href="/research/backtested/"><div class="icon">{ICON_STONE}</div><h3>Backtested strategies</h3><p>Last year's results for 14 strategies after costs, with charts and the results tracker.</p><span class="go">See the backtests</span></a>
     <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICON_BOOK}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes to the rules.</p><span class="go">Read the note</span></a>
   </div>
   {families_block()}
