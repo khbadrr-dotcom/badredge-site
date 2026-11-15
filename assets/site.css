@@ -1096,3 +1096,38 @@ h3.grp { margin: 32px 0 14px; font-size: 13px; font-weight: 500; font-family: va
   .trk .cal-m { font-size: 19px; }
   .trk .cal-d.fw::after { top: 6px; right: 6px; width: 5px; height: 5px; }
 }
+
+/* ---------- Nav order: "Open the tools" sits second, right after Backtested strategies ---------- */
+.nav .cta { margin-left: 2px; margin-right: 10px; }
+@media (max-width: 1040px) { .nav .cta { margin: 12px 0 4px; } }
+
+/* ---------- Nav icons: lab flask (bubbling teal liquid) and function curve (live teal point) ---------- */
+.nav-ico { width: 18px; height: 18px; flex: none; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.nav a.nav-hl, .nav .cta { gap: 8px; }
+.nav-ico .gl { stroke: var(--accent-2); stroke-width: 1.6; }
+.nav-ico .ax { stroke: color-mix(in srgb, var(--accent-2) 55%, transparent); stroke-width: 1.3; }
+.ico-lab .liq { fill: var(--live); opacity: .9; }
+.ico-lab .bub { fill: var(--live); transform-box: fill-box; transform-origin: center; animation: lab-bub 2.4s ease-in infinite; opacity: 0; }
+.ico-lab .b2 { animation-delay: .8s; }
+.ico-lab .b3 { animation-delay: 1.6s; }
+@keyframes lab-bub {
+  0% { transform: translateY(0) scale(.6); opacity: 0; }
+  15% { opacity: .95; }
+  70% { opacity: .8; }
+  100% { transform: translateY(-9px) scale(1.05); opacity: 0; }
+}
+.ico-fx .pt { fill: var(--live); filter: drop-shadow(0 0 2.5px var(--live)); transform-box: fill-box; transform-origin: center; animation: fx-pt 2.4s ease-in-out infinite; }
+@keyframes fx-pt { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.7); opacity: .75; } }
+html[data-theme="light"] .nav-ico .gl { stroke: var(--accent); }
+html[data-theme="light"] .nav-ico .ax { stroke: color-mix(in srgb, var(--accent) 55%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .ico-lab .bub, .ico-fx .pt { animation: none; }
+  .ico-lab .bub { opacity: .85; }
+}
+@media (max-width: 1040px) { .nav-ico { width: 19px; height: 19px; } .nav a.nav-hl { gap: 10px; } }
+/* Plain menu icons (Research, Private Pine Scripts, About) follow the link colour; teal detail inside */
+.nav a { gap: 7px; }
+.nav-ico.ico-plain { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.6; opacity: .9; }
+.nav-ico.ico-plain .tl { stroke: var(--live); }
+.nav-ico.ico-plain .tl-fill { fill: var(--live); stroke: none; }
+@media (max-width: 1040px) { .nav-ico.ico-plain { width: 18px; height: 18px; } .nav a { gap: 10px; } }
