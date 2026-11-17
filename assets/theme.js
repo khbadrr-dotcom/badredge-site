@@ -44,8 +44,10 @@
   }
   function draw(b) {
     var top = Math.max(b.o, b.c), bot = Math.min(b.o, b.c);
+    var m = (top + bot) / 2, half = .3;                               // keep the body tall enough to read
+    if (top - bot < half * 2) { top = Math.min(1, m + half); bot = Math.max(-1, m - half); }
     var s = b.el.style;
-    var wh = Math.min(1, b.h + .14), wl = Math.max(-1, b.l - .14);   // a short tail beyond the extremes
+    var wh = Math.min(1, Math.max(b.h, top) + .24), wl = Math.max(-1, Math.min(b.l, bot) - .24);   // a short tail beyond the extremes
     s.setProperty('--wt', pct(wh)); s.setProperty('--wb', (100 - parseFloat(pct(wl))).toFixed(1) + '%');
     s.setProperty('--bt', pct(top)); s.setProperty('--bb', (100 - parseFloat(pct(bot))).toFixed(1) + '%');
     b.el.classList.toggle('up', b.c >= b.o); b.el.classList.toggle('dn', b.c < b.o);
