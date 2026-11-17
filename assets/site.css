@@ -933,6 +933,7 @@ html[data-theme="light"] { --t-up: #1f7a64; --t-dn: #b25a48; --t-up-soft: rgba(3
 .trk .lbl { display: inline-flex; align-items: center; gap: 7px; font: 500 10.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; color: var(--muted); box-shadow: 0 0 0 1px var(--tbl-ring); }
 .trk .lbl i { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 .trk .lbl.f i { background: transparent; box-shadow: 0 0 0 1.5px var(--live); }
+.trk .lbl.f { line-height: 1.45; padding-block: 4px; }
 .trk .ch { width: 100%; height: auto; display: block; overflow: visible; }
 .trk .ch .eq { fill: none; stroke: var(--accent); stroke-width: 1.8; vector-effect: non-scaling-stroke; }
 .trk .ch .fw { fill: none; stroke: var(--live); stroke-width: 1.8; vector-effect: non-scaling-stroke; }

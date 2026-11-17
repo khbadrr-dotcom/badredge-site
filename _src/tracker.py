@@ -39,20 +39,20 @@ def card(family=None):
     if family is None:
         head = f"""<div class="trk-head">
     <div><span class="eyebrow">Results tracker</span><h2>All strategies, <span class="gold">one ledger.</span></h2>
-    <p>{n} strategies added together, or one market at a time. One contract each, after fees and slippage. Gold is the in-sample backtest; teal is new data since the settings were frozen.</p></div>
+    <p>{n} strategies added together, or one market at a time. One contract each, after fees and slippage. Gold is the in-sample backtest; teal is forward data on unchanged settings, latest through {_d(DATA['to'])}.</p></div>
     <div class="chips" role="group" aria-label="Filter by market"></div>
   </div>"""
     else:
         head = f"""<div class="trk-head">
     <div><h2>Results tracker</h2>
-    <p>{'The ' + str(n) + ' strategies in this family added together, or one at a time.' if n > 1 else 'Day by day.'} One contract, after fees and slippage. Gold is the in-sample backtest; teal is new data since the settings were frozen.</p></div>
+    <p>{'The ' + str(n) + ' strategies in this family added together, or one at a time.' if n > 1 else 'Day by day.'} One contract, after fees and slippage. Gold is the in-sample backtest; teal is forward data on unchanged settings, latest through {_d(DATA['to'])}.</p></div>
     {'<div class="chips" role="group" aria-label="Filter by strategy"></div>' if n > 1 else ''}
   </div>"""
     return f"""
 <section class="trk" data-family="{family or ''}">
   {head}
   <div class="trk-card">
-    <div class="lbls"><span class="lbl"><i></i>Hypothetical backtest · after costs</span><span class="lbl">Exploratory · requires forward testing</span><span class="lbl f"><i></i>New data · settings frozen 21 Oct 2026</span></div>
+    <div class="lbls"><span class="lbl"><i></i>Hypothetical backtest · after costs</span><span class="lbl">Exploratory · requires forward testing</span><span class="lbl f"><i></i>Forward data · updated every Saturday · settings unchanged since 21 Oct 2026</span></div>
     <div class="trk-chart" aria-label="Equity curve with drawdown underneath"></div>
     <div class="sec-t">In-sample · {IN_WIN} · <span class="trk-sel"></span></div>
     <dl class="k row isk">{_k('Net after costs','net')}{_k('Max drawdown','dd')}{_k('Profit factor','pf')}{_k('Win rate','wr')}{_k('Trades','tr')}{_k('Green days','g')}{_k('Red days','r')}{_k('Longest green streak','mg')}{_k('Longest red streak','mr')}</dl>
@@ -62,7 +62,7 @@ def card(family=None):
         <div class="cal-nav"><button type="button" class="cal-prev" aria-label="Previous month">&lsaquo;</button><button type="button" class="cal-next" aria-label="Next month">&rsaquo;</button></div>
       </div>
       <div class="cal-grid" role="grid"></div>
-      <p class="cal-tip" aria-live="polite">Tap a day for its trades. A teal dot marks new data since the settings were frozen.</p>
+      <p class="cal-tip" aria-live="polite">Tap a day for its trades. A teal dot marks forward data on unchanged settings.</p>
     </div>
     <p class="foot-note">Hypothetical results for one contract per strategy, after fees and one tick of slippage on each side. The in-sample period falls inside the year the settings were picked on, so it is flattered by that search. Drawdown is measured on daily closes. {_late(ss)} Not financial advice and not a signal.</p>
   </div>
@@ -110,7 +110,7 @@ def two_ways():
         <a class="tw-card" href="/research/backtested/">
           <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Live</span><span class="tw-kind">The strategies</span></div>
           <h3>14 strategies, tested after costs.</h3>
-          <p>Every rule, every result, one ledger. Gold is in-sample; teal is new data since the freeze.</p>
+          <p>Every rule, every result, one ledger. Gold is in-sample; teal is forward data, updated weekly.</p>
           <div class="tw-chart">{spark}<div class="tw-axis"><span>Nov 2025</span><span>Nov 2026</span></div></div>
           <dl class="tw-k"><div><dt>Strategies</dt><dd>14</dd></div><div><dt>Markets</dt><dd>10</dd></div><div><dt>Status</dt><dd class="tw-st">Exploratory</dd></div></dl>
           <span class="tw-cta">See the Strategy Lab <i>&rarr;</i></span>
