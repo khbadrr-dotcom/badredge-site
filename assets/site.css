@@ -925,6 +925,7 @@ html[data-theme="light"] { --t-up: #1f7a64; --t-dn: #b25a48; --t-up-soft: rgba(3
 .trk-head p { margin: 0; color: var(--muted); max-width: 62ch; }
 .trk .chips { display: flex; gap: 6px; flex-wrap: wrap; max-width: 520px; justify-content: flex-end; }
 .trk .chip { font: 500 12.5px/1 var(--sans); padding: 8px 13px; border: 0; border-radius: 999px; color: var(--muted); background: var(--glass); box-shadow: 0 0 0 1px var(--tbl-ring); cursor: pointer; transition: color .2s, background .2s, box-shadow .2s; }
+.trk[data-family=""] .chip { white-space: nowrap; }
 .trk .chip:hover { color: var(--text); }
 .trk .chip.on { color: var(--text); box-shadow: 0 0 0 1px var(--accent-line); background: var(--accent-soft); }
 .trk .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -1101,7 +1102,7 @@ html[data-theme="light"] .nav .cta, html[data-theme="light"] .nav .cta:hover { c
 @media (max-width: 640px) {
   .trk-head { gap: 12px; margin-bottom: 14px; }
   .trk-head p { font-size: 14.5px; line-height: 1.55; }
-  .trk .chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: none; width: 100%; }
+  .trk .chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: none; width: 100%; }
   .trk .chip { height: 40px; padding: 0 6px; font-size: 13px; display: grid; place-items: center; }
   .trk-card { padding: 16px; }
 }

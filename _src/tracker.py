@@ -52,7 +52,7 @@ def card(family=None):
 <section class="trk" data-family="{family or ''}">
   {head}
   <div class="trk-card">
-    <div class="lbls"><span class="lbl"><i></i>Hypothetical backtest · after costs</span><span class="lbl">Exploratory · requires forward testing</span><span class="lbl f"><i></i>Forward data · updated every Saturday · settings unchanged since 21 Oct 2026</span></div>
+    <div class="lbls"><span class="lbl"><i></i>Hypothetical backtest · after costs</span><span class="lbl">Exploratory · in forward testing</span><span class="lbl f"><i></i>Forward data · updated every Saturday · settings unchanged since 21 Oct 2026</span></div>
     <div class="trk-chart" aria-label="Equity curve with drawdown underneath"></div>
     <div class="sec-t">In-sample · {IN_WIN} · <span class="trk-sel"></span></div>
     <dl class="k row isk">{_k('Net after costs','net')}{_k('Max drawdown','dd')}{_k('Profit factor','pf')}{_k('Win rate','wr')}{_k('Trades','tr')}{_k('Green days','g')}{_k('Red days','r')}{_k('Longest green streak','mg')}{_k('Longest red streak','mr')}</dl>
