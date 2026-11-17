@@ -125,7 +125,11 @@
     const fam = sec.dataset.family;
     const pool = D.strategies.filter(s => !fam || s.slug === fam);
     const keyOf = s => fam ? s.name : s.mkt;
+    const NAMES = { MNQ: 'Nasdaq 100', MES: 'S&P 500', MYM: 'Dow Jones', M2K: 'Russell 2000', MGC: 'Gold', SIL: 'Silver', PL: 'Platinum', MHG: 'Copper', MCL: 'Crude Oil', M6E: 'Euro' };
+    const ORDER = Object.keys(NAMES);
+    const nameOf = k => (!fam && NAMES[k]) || k;
     const keys = [...new Set(pool.map(keyOf))];
+    if (!fam) keys.sort((x, y) => (ORDER.indexOf(x) + 1 || 99) - (ORDER.indexOf(y) + 1 || 99));
     const chips = sec.querySelector('.chips');
     let seen = false;
     function render(k, animate) {
@@ -133,7 +137,7 @@
       const days = combine(sel), ins = days.filter(d => d[0] < FZ);
       const box = sec.querySelector('.trk-chart'), cw = Math.max(300, box.clientWidth || 900);
       box.innerHTML = chart(days, cw, cw < 600 ? Math.round(cw * .62) : 250);
-      sec.querySelector('.trk-sel').textContent = sel.length === 1 ? sel[0].name : (k === '*' ? `${sel.length} strategies combined` : `${k} · ${sel.length} strategies`);
+      sec.querySelector('.trk-sel').textContent = sel.length === 1 ? sel[0].name : (k === '*' ? `${sel.length} strategies combined` : `${nameOf(k)} · ${sel.length} ${sel.length === 1 ? 'strategy' : 'strategies'}`);
       setRow(sec.querySelector('.isk'), stats(ins), animate);
       cal.set(days);
     }
@@ -142,7 +146,8 @@
       chips.innerHTML = ['*', ...keys].map(k => `<button type="button" class="chip${k === '*' ? ' on' : ''}" data-k="${k.replace(/"/g, '&quot;')}" aria-pressed="${k === '*'}"></button>`).join('');
       chips.querySelectorAll('.chip').forEach(c => {
         const k = c.dataset.k;
-        c.textContent = k === '*' ? `All ${pool.length}` : k;
+        c.textContent = k === '*' ? `All ${pool.length}` : nameOf(k);
+        if (k !== '*' && nameOf(k) !== k) c.title = k;
         c.onclick = () => { chips.querySelectorAll('.chip').forEach(x => { x.classList.toggle('on', x === c); x.setAttribute('aria-pressed', x === c); }); render(k, true); };
       });
     }
