@@ -715,19 +715,6 @@ def home():
   </div>
 </section>
 
-<section class="band never-band">
-  <div class="wrap">
-    <div class="never reveal">
-      <span class="eyebrow">Never offered</span>
-      <ul>
-        <li><b>Signals</b><span>No trade calls or alerts.</span></li>
-        <li><b>Promised returns</b><span>No win-rate or profit claims.</span></li>
-        <li><b>Uploads</b><span>Tools run in your browser.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 <section class="band">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
