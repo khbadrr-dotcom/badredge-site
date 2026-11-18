@@ -25,7 +25,7 @@ SHOW_PAYOUT_FIGURE = False
 PAYOUT_FIGURE = "$250,000+"
 PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
-NAV = [("/research/backtested/", "Strategy Lab"), ("/indicators/", "Indicators"), ("/research/", "Research"), ("/pine/", '<svg class="nav-lock" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5.2a3 3 0 0 1 6 0V7"/><rect x="3.2" y="7" width="9.6" height="7" rx="1.6"/></svg>Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "Who is Badr")]
+NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", '<svg class="nav-lock" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5.2a3 3 0 0 1 6 0V7"/><rect x="3.2" y="7" width="9.6" height="7" rx="1.6"/></svg>Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "Who is Badr")]
 
 TV_PROFILE = "https://www.tradingview.com/u/kh_badrr/"
 BUILD_DATE = datetime.date.today().strftime("%-d %b %Y")
@@ -167,7 +167,7 @@ def footer():
         <li><a href="/tools/pass/">Prop Pass Simulator</a></li>
         <li><a href="/tools/payout/">Payout Simulator</a></li>
         <li><a href="/tools/sizing/">Contract Sizing</a></li>
-        <li><a href="/indicators/">Free indicators</a></li>
+        <li><a href="/tools/indicators/">Free indicators</a></li>
         <li><a href="/tools/">All tools</a></li>
       </ul></div>
       <div><h4>Learn</h4><ul>
@@ -656,7 +656,7 @@ def home():
       <p class="lede">Free tools and TradingView indicators for futures day traders.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/tools/">Explore the tools</a>
-        <a class="hero-link" href="/indicators/">Free indicators <i>&rarr;</i></a>
+        <a class="hero-link" href="/tools/indicators/">Free indicators <i>&rarr;</i></a>
       </div>
       <dl class="hero-proof">
         <div><dd>$250K+</dd><dt>Documented prop-firm payouts</dt></div>
@@ -724,7 +724,7 @@ def indicators():
         <div class="ind-body"><span class="ind-tag">Publishing soon</span><h3>{name}</h3><p>{line}</p></div></div>""")
     body = f"""
 <section class="page-head"><div class="wrap">
-  <span class="eyebrow">Free on TradingView</span>
+  <span class="eyebrow"><a href="/tools/">&larr; Tools</a> &middot; Free on TradingView</span>
   <h1>Free <span class="gold">indicators.</span></h1>
   <p class="lede">{len(INDICATORS)} open-source Pine Script v6 indicators built from the research families. {live} are live now; the rest publish over the coming days.</p>
   <div class="hero-actions"><a class="btn primary" href="{TV_PROFILE}" target="_blank" rel="noopener">Follow on TradingView</a></div>
@@ -737,7 +737,7 @@ def indicators():
 </div></section>
 {launch_list()}
 """
-    return page("/indicators/", "Free TradingView indicators", f"{len(INDICATORS)} free, open-source Pine Script v6 indicators for futures traders on TradingView: opening ranges, Initial Balance, key levels and more.", "/indicators/", body)
+    return page("/tools/indicators/", "Free TradingView indicators", f"{len(INDICATORS)} free, open-source Pine Script v6 indicators for futures traders on TradingView: opening ranges, Initial Balance, key levels and more.", "/tools/", body)
 
 
 def changelog():
@@ -772,6 +772,15 @@ def tools_index():
     {tool_cards()}
   </div>
   <div class="callout" style="margin-top:32px;max-width:820px"><p><strong>Tip:</strong> export your strategy's "List of trades" from the TradingView Strategy Tester and load the CSV. Real trades with real dates keep losing streaks and bad weeks intact, which is where most accounts fail.</p></div>
+</div></section>
+<section class="band" id="indicators"><div class="wrap">
+  <a class="ind-feature reveal" href="/tools/indicators/">
+    <div><span class="eyebrow">Free on TradingView</span>
+      <h2>{len(INDICATORS)} free <span class="gold">indicators.</span></h2>
+      <p>Open-source Pine Script v6 indicators for TradingView: opening ranges, Initial Balance, key levels and more.</p>
+      <span class="btn primary">See the indicators</span></div>
+    <img src="/assets/ind/session-opening-range.webp" alt="Session Opening Range indicator on a gold futures chart" width="960" height="492" loading="lazy" decoding="async">
+  </a>
 </div></section>
 """
     return page("/tools/", "Free tools", "Free Monte Carlo simulators for prop futures traders: pass odds, payout timing and contract sizing.", "/tools/", body)
@@ -1034,7 +1043,7 @@ def pine():
   <p class="lede">Invite-only TradingView strategies in Pine Script v6. Join the launch list to hear first when it opens.</p>
   <div class="hero-actions">
     <a class="btn primary" href="mailto:hello@badredge.com?subject=Private%20Pine%20Scripts%20waitlist&amp;body=Please%20add%20me%20to%20the%20waitlist.">Join the launch list</a>
-    <a class="hero-link" href="/indicators/">Free indicators <i>&rarr;</i></a>
+    <a class="hero-link" href="/tools/indicators/">Free indicators <i>&rarr;</i></a>
   </div>
   <p class="note">Opens an email to hello@badredge.com. No signals, no promised results. Not financial advice.</p>
 </div></section>
@@ -1177,7 +1186,7 @@ def statics(paths):
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
     # Old /research/graveyard/ URLs: server-side 301s, plus stub pages in case _redirects is not applied.
     open(os.path.join(ROOT, "_redirects"), "w").write(
-        "/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n/research/lessons /research/ 301\n/research/lessons/ /research/ 301\n"
+        "/indicators /tools/indicators/ 301\n/indicators/ /tools/indicators/ 301\n/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n/research/lessons /research/ 301\n/research/lessons/ /research/ 301\n"
         + "".join(f"/research/backtested/{f['slug']}/ {research.family_url(f['slug'])} 301\n" for f in research.FAMILIES if not research.has_results(f["slug"])))
     fam_new = lambda sl: f"/research/backtested/{sl}/" if research.has_results(sl) else research.family_url(sl)
     stubs = [("graveyard/", "/research/backtested/")] + [("graveyard/" + f["slug"] + "/", fam_new(f["slug"])) for f in research.FAMILIES]

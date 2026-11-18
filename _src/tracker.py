@@ -107,7 +107,7 @@ def two_ways(n_ind=14):
           <ul class="tw-list">{tl}</ul>
           <span class="tw-cta gold-btn">Open the tools <i>&rarr;</i></span>
         </a>
-        <a class="tw-card tw-ind" href="/indicators/">
+        <a class="tw-card tw-ind" href="/tools/indicators/">
           <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Free</span><span class="tw-kind">The indicators</span></div>
           <h3>{n_ind} free indicators for TradingView.</h3>
           <p>Open source. Opening ranges, Initial Balance, key levels and more.</p>
