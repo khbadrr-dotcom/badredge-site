@@ -653,17 +653,12 @@ def home():
     <div class="hero-copy">
       <span class="eyebrow">Independent futures research desk</span>
       <h1>Patience is <span class="gold">a position.</span></h1>
-      <p class="lede">Free tools and TradingView indicators for futures day traders.</p>
+      <p class="lede">A day trader toolkit: free tools to plan risk before the open, and an open record of how trading ideas get tested after costs. Built by a working futures trader.</p>
       <div class="hero-actions">
         <a class="btn primary" href="/tools/">Explore the tools</a>
-        <a class="hero-link" href="/tools/indicators/">Free indicators <i>&rarr;</i></a>
+        <a class="btn" href="/research/">See the research</a>
       </div>
-      <dl class="hero-proof">
-        <div><dd>$250K+</dd><dt>Documented prop-firm payouts</dt></div>
-        <div><dd>4 firms</dd><dt>Live-funded</dt></div>
-        <div><dd>{len(INDICATORS)}</dd><dt>Free indicators</dt></div>
-        <div><dd>3</dd><dt>Free tools</dt></div>
-      </dl>
+      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Live-funded</dt><dd>At 4 prop firms</dd></div><div><dt>Signals</dt><dd>Never offered</dd></div></dl>
     </div>
     <div class="hero-visual">
     <div class="moon-stage" aria-hidden="true">
@@ -679,34 +674,104 @@ def home():
     </div>
 {market_board()}
     </div>
+    </div>
   </div>
 </section>
-{tracker.two_ways(len(INDICATORS))}
-<section class="band who-band">
+
+<div class="specbar"><div class="wrap"><dl>
+  <div><dt>Markets</dt><dd>Indices <span>·</span> Metals</dd></div>
+  <div><dt>Sessions</dt><dd>Asia · London · New York</dd></div>
+  <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> forward testing</dd></div>
+  <div><dt>Tools</dt><dd>3 simulators <span>·</span> in-browser</dd></div>
+</dl></div></div>
+{tracker.two_ways()}
+<section class="band" id="desk">
   <div class="wrap">
-    <a class="who reveal" href="/about/">
-      {MARK}
-      <p><b>Who runs this.</b> Badr Edge is the research desk of Badr, a futures trader live-funded at four prop firms, with $250K+ in documented prop-firm payouts.</p>
-      <span class="go">Who is Badr &rarr;</span>
-    </a>
+    <div class="sec-head">
+      <span class="eyebrow">Day trader toolkit</span>
+      <h2>Built for the <span class="gold">trading day.</span></h2>
+      <p class="lede">Tools to plan risk before the open, research to check an idea after costs, and private Pine Scripts for TradingView. Free, and it runs in your browser.</p>
+    </div>
+    <div class="grid-3 doors">
+      <a class="card reveal" href="/tools/">
+        {door_art('tools')}<span class="tagline">Live</span>
+        <h3>Tools</h3>
+        <p>Free simulators for risk, position size and account planning. Put in your own numbers or a TradingView trade list and see the range of outcomes.</p>
+        <span class="go">Explore the tools &rarr;</span>
+      </a>
+      <a class="card reveal" href="/research/">
+        {door_art('research')}<span class="tagline">Live</span>
+        <h3>Research</h3>
+        <p>A public log of how trading ideas are built, frozen and stress-tested, with last year's results after costs.</p>
+        <span class="go">Open the research &rarr;</span>
+      </a>
+      <a class="card reveal" href="/pine/">
+        {door_art('pine')}<span class="tagline">Soon</span>
+        <h3>Private Pine Scripts</h3>
+        <p>Invite-only TradingView strategies in Pine Script v6. Opening soon.</p>
+        <span class="go">Join the waitlist &rarr;</span>
+      </a>
+    </div>
   </div>
 </section>
-{launch_list()}
+
+<section class="band never-band">
+  <div class="wrap">
+    <div class="never reveal">
+      <span class="eyebrow">Never offered</span>
+      <ul>
+        <li><b>Signals</b><span>No trade calls or alerts.</span></li>
+        <li><b>Promised returns</b><span>No win-rate or profit claims.</span></li>
+        <li><b>Uploads</b><span>Tools run in your browser.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
+      <p class="lede">A public log of a futures research desk: the method, every strategy family tested and last year's results after costs. All of it is research and requires forward testing.</p></div>
+    <div class="grid-3">
+      <a class="card reveal" href="/research/method/">{research_art('method')}<h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
+      <a class="card reveal" href="/research/backtested/">{research_art('backtested')}<h3>Strategy Lab</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
+      <a class="card reveal" href="/research/under-observation/">{research_art('forward')}<h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
+    </div>
+    <h3 class="tests-title">How every idea gets tested <span class="tests-tag">Illustrations, not results</span></h3>
+    <div class="grid-4 tests">
+      <div class="card test reveal">{test_art('mc')}<h3>Monte Carlo</h3><p>Thousands of reshuffled trade orders show the range of drawdowns, not only the path you got.</p></div>
+      <div class="card test reveal">{test_art('null')}<h3>Random-direction null</h3><p>The search is rerun with random trade directions. The real pick has to beat 95% of them.</p></div>
+      <div class="card test reveal">{test_art('stress')}<h3>Cost stress</h3><p>Slippage doubled and tripled, fees raised 50%. The idea has to hold up at higher costs.</p></div>
+      <div class="card test reveal">{test_art('years')}<h3>Unseen years</h3><p>Rules are frozen, then run once on four earlier years they were never tuned on.</p></div>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions traders ask</h2></div>
     <div class="faq">
-      <details><summary>What is Badr Edge?</summary><p>The public side of a working futures trader's desk: the tools, indicators and testing habits used to plan and review trading, shared for free. It isn't a signal service, a course or a fund.</p></details>
-      <details><summary>Is it free?</summary><p>Yes. The tools need no account, no paywall and no trial. The indicators are free and open source on TradingView.</p></details>
+      <details><summary>What is Badr Edge?</summary><p>The public side of a working futures trader's desk: the tools, guides and testing habits used to plan and review trading, shared for free. It isn't a signal service, a course or a fund.</p></details>
+      <details><summary>Is it free?</summary><p>Yes. The tools and guides need no account, no paywall and no trial.</p></details>
       <details><summary>Is my data uploaded anywhere?</summary><p>No. The tools run in your browser. Files you load are read on your device, and settings are saved only in your own browser's storage.</p></details>
-      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here, and no win-rate or profit promises. Private Pine Scripts are <a href="/pine/">opening soon</a>.</p></details>
+      <details><summary>Do you sell signals or courses?</summary><p>No. There are no signals, alerts or courses here. Private Pine Scripts are <a href="/pine/">opening soon</a>.</p></details>
       <details><summary>Is any of this financial advice?</summary><p>No. Everything here is educational. Simulations are hypothetical and rely on the inputs you give them. Your trading decisions are your own.</p></details>
     </div>
   </div>
 </section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <span class="eyebrow">Start here</span>
+    <h2>Start where <span class="gold">you are.</span></h2>
+    <p class="lede">Have numbers to test? Open a tool. Want the reasoning first? Start with the research.</p>
+    <div class="hero-actions" style="justify-content:center"><a class="btn primary" href="/tools/">Explore the tools</a><a class="btn" href="/research/">See the research</a></div>
+  </div>
+</section>
+{launch_list()}
 """
     return page("/", "Free prop-firm tools and TradingView indicators for futures traders",
-                "Free risk tools and TradingView indicators for futures day traders, and an open record of how trading ideas get tested after costs.",
+                "Free risk tools to plan the trading day, and an open record of how trading ideas get tested after costs. Built by a working futures trader.",
                 "/", body)
 
 
@@ -742,7 +807,7 @@ def indicators():
 
 def changelog():
     rows = [
-        ("18 Nov 2026", "Free indicators page", "The first five open-source TradingView indicators are live. A shorter homepage with three ways in."),
+        ("18 Nov 2026", "Free indicators page", "The first five open-source TradingView indicators are live, inside Tools."),
         ("17 Nov 2026", "Strategy Lab labels", "Forward data is labelled in forward testing, and market chips show full names."),
         ("15 Nov 2026", "Strategy tracker", "Full-year trade files for 14 strategies, a monthly calendar and a weekly update every Saturday."),
         ("13 Nov 2026", "Research and redesign", "Research section opened with the method and every strategy family. New design in dark and light."),
