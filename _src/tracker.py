@@ -74,7 +74,7 @@ def data_tag():
             '<script src="/assets/tracker.js" defer></script>')
 
 
-def two_ways():
+def two_ways(n_ind=14):
     """Homepage section: the toolkit and the strategies, side by side."""
     from collections import defaultdict
     D = DATA
@@ -98,14 +98,21 @@ def two_ways():
     tl = "".join(f'<li><b>{a}</b><span>{b}</span><i>&rarr;</i></li>' for a, b in tools)
     return f'''
     <section class="tw" id="two-ways"><div class="wrap">
-      <div class="tw-head"><span class="eyebrow">Two ways in</span><h2>Use the tools. <span class="gold">Study the strategies.</span></h2></div>
-      <div class="tw-grid">
+      <div class="tw-head"><span class="eyebrow">Three ways in</span><h2>Use the tools. Add the indicators. <span class="gold">Study the strategies.</span></h2></div>
+      <div class="tw-grid tw-3">
         <a class="tw-card" href="/tools/">
           <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Live</span><span class="tw-kind">The toolkit</span></div>
           <h3>Plan the risk before the open.</h3>
           <p>Browser tools built around prop-firm rules. Free, no sign-up.</p>
           <ul class="tw-list">{tl}</ul>
           <span class="tw-cta gold-btn">Open the tools <i>&rarr;</i></span>
+        </a>
+        <a class="tw-card tw-ind" href="/indicators/">
+          <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Free</span><span class="tw-kind">The indicators</span></div>
+          <h3>{n_ind} free indicators for TradingView.</h3>
+          <p>Open source. Opening ranges, Initial Balance, key levels and more.</p>
+          <img class="tw-shot" src="/assets/ind/session-opening-range.webp" alt="Session Opening Range indicator on a gold futures chart" width="960" height="492" loading="lazy" decoding="async">
+          <span class="tw-cta">See the indicators <i>&rarr;</i></span>
         </a>
         <a class="tw-card" href="/research/backtested/">
           <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Live</span><span class="tw-kind">The strategies</span></div>
