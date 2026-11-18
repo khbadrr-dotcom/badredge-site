@@ -1,48 +1,68 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Manrope:wght@500..700&display=swap");
 /* Badr Edge chrome for the standalone simulators. Loaded only on /tools/<name>/ pages. */
 /* ==========================================================================
-   Simulators: re-skin in the house palette. Their own logic and layout stay
-   untouched; only colour and type tokens are overridden in dark mode.
+   Simulators: re-skin in the house palette and type (Manrope + IBM Plex Mono,
+   the same as the main site). Their own logic and layout stay untouched.
+   The header block is written by _src/tool_bar.py from the site's NAV.
    ========================================================================== */
 .be-bar {
-  position: sticky; top: 0; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  height: 56px; padding: 0 max(16px, env(safe-area-inset-left, 0px));
-  background: rgba(7, 8, 10, .78); backdrop-filter: saturate(160%) blur(16px); -webkit-backdrop-filter: saturate(160%) blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, .075); font: 500 13px/1.2 "Inter Tight", system-ui, sans-serif;
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(7, 8, 10, .88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, .075); font: 500 13.5px/1.2 "Manrope", system-ui, sans-serif;
 }
-.be-bar::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent 5%, rgba(217, 180, 108, .5), transparent 95%); opacity: .5; }
+.be-bar--inset { margin: -24px calc(-1 * max(16px, env(safe-area-inset-right, 0px))) 24px calc(-1 * max(16px, env(safe-area-inset-left, 0px))); }
+.be-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; max-width: 1320px; margin: 0 auto;
+  padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); }
+.be-bar--inset .be-in { max-width: 1272px; }
 .be-bar a { color: #ece8df; text-decoration: none; }
 .be-bar .be-word { color: #ece8df; }
-.be-bar .be-back { color: #8f939b; } .be-bar .be-back:hover { color: #f3deb0; }
-.be-actions { display: inline-flex; align-items: center; gap: 12px; }
-.be-bar .be-brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Manrope", system-ui, sans-serif; font-weight: 600; font-size: 13.5px; letter-spacing: .32em; text-transform: uppercase; }
+.be-actions { display: inline-flex; align-items: center; gap: 8px; }
+.be-bar .be-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; letter-spacing: .32em; text-transform: uppercase; line-height: 1; white-space: nowrap; }
 .be-bar .be-brand span span { color: #d9b46c; font-weight: 600; }
-.be-moon { width: 20px; height: 20px; border-radius: 50%; flex: none;
-  background: radial-gradient(circle at 63% 60%, rgba(110,80,32,.34) 0 9%, transparent 10%), radial-gradient(circle at 40% 70%, rgba(110,80,32,.24) 0 6%, transparent 7%), radial-gradient(circle at 34% 30%, #fff3d6 0%, #ecd09a 22%, #d9b46c 52%, #9c7a3c 100%);
-  box-shadow: 0 0 0 1px rgba(255,236,196,.16) inset, 0 0 16px rgba(217,180,108,.45); }
-.be-bar .crumb { color: #5e636c; display: inline-flex; align-items: center; gap: 8px; }
-.be-bar .crumb a { color: #8f939b; } .be-bar .crumb a:hover { color: #f3deb0; }
-.be-bar .crumb b { color: #ece8df; font-weight: 500; }
-@media (max-width: 560px) { .be-bar .crumb { display: none; } }
+.be-moon { width: 24px; height: 24px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 63% 60%, rgba(100,74,34,.32) 0 9%, transparent 10%), radial-gradient(circle at 40% 70%, rgba(100,74,34,.24) 0 6%, transparent 7%), radial-gradient(circle at 70% 32%, rgba(100,74,34,.2) 0 5%, transparent 6%), radial-gradient(circle at 34% 30%, #f6e6c2 0%, #e2c58c 24%, #c8a15c 55%, #8a6a32 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,236,196,.14), 0 0 14px rgba(200,161,92,.28); }
+.be-nav { display: flex; align-items: center; height: 100%; margin-left: auto; }
+.be-bar .be-nav a { position: relative; display: inline-flex; align-items: center; gap: 7px; height: 100%; padding: 0 14px; color: #8f939b; white-space: nowrap; transition: color .15s; }
+.be-bar .be-nav a:hover { color: #ece8df; }
+.be-bar .be-nav a.be-hl { color: #ece8df; padding: 0 16px; margin-right: 6px; isolation: isolate; }
+.be-nav a.be-hl::before { content: ""; position: absolute; inset: 15px 4px; border: 1px solid rgba(217, 180, 108, .45); border-radius: 999px; background: rgba(217, 180, 108, .08); z-index: -1; transition: background .25s, border-color .25s; }
+.be-nav a.be-hl:hover::before { background: rgba(217, 180, 108, .16); border-color: #d9b46c; }
+.be-bar .be-nav a.be-cta { height: 34px; gap: 9px; margin: 0 10px 0 2px; padding: 0 15px 0 13px; border-radius: 999px; color: #f3deb0; background: rgba(217, 180, 108, .09); border: 1px solid rgba(217, 180, 108, .34); transition: background .25s, border-color .25s; }
+.be-bar .be-nav a.be-cta:hover { color: #f3deb0; background: rgba(217, 180, 108, .16); border-color: rgba(217, 180, 108, .55); }
+.be-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; background: #4fb8a0; box-shadow: 0 0 6px rgba(79, 184, 160, .7); }
+.be-nav .nav-lock { width: 13px; height: 13px; flex: none; margin-right: -2px; fill: none; stroke: #e0897f; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+.be-nav .nav-lock rect { fill: rgba(224, 137, 127, .18); }
+.be-nav .nav-soon { margin-left: 2px; padding: 2px 4px; border-radius: 3px; font: 500 7.5px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; color: #d9958c; background: rgba(217, 149, 140, .07); box-shadow: inset 0 0 0 1px rgba(217, 149, 140, .16); white-space: nowrap; }
+.be-menu { display: none; height: 34px; place-items: center; padding: 0 12px; cursor: pointer; font: 500 13px/1 "Manrope", system-ui, sans-serif; color: #ece8df; border-radius: 6px; border: 1px solid rgba(255, 255, 255, .13); background: transparent; }
+@media (min-width: 1081px) { .be-actions { order: 3; } }
+@media (max-width: 1080px) {
+  .be-menu { display: grid; }
+  .be-nav { display: none; position: absolute; top: 64px; left: 0; right: 0; height: auto; flex-direction: column; align-items: stretch; margin: 0;
+    background: #07080a; border-bottom: 1px solid rgba(255, 255, 255, .13); padding: 6px 16px 18px; }
+  .be-nav.open { display: flex; }
+  .be-bar .be-nav a, .be-bar .be-nav a.be-hl { height: auto; margin: 0; padding: 14px 2px; font-size: 15px; border-bottom: 1px solid rgba(255, 255, 255, .075); }
+  .be-bar .be-nav a.be-hl { color: #f3deb0; } .be-nav a.be-hl::before { display: none; }
+  .be-bar .be-nav a.be-cta { margin: 12px 0 4px; justify-content: center; height: 44px; padding: 0 15px; border: 1px solid rgba(217, 180, 108, .34); }
+}
+@media (max-width: 400px) { .be-bar .be-brand { letter-spacing: .24em; font-size: 13px; } }
 .be-mini-foot { max-width: 1320px; margin: 0 auto; padding: 22px max(16px, env(safe-area-inset-left, 0px)) 36px; border-top: 1px solid rgba(255, 255, 255, .075);
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font: 400 12px/1.6 "Inter Tight", system-ui, sans-serif; color: #5e636c; }
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font: 400 12px/1.6 "Manrope", system-ui, sans-serif; color: #5e636c; }
 .be-mini-foot a { color: #8f939b; text-decoration: none; } .be-mini-foot a:hover { color: #f3deb0; }
 html.be-tool[data-theme="dark"]:root {
   --bg: #07080a; --surface: #0f1013; --sunken: #0b0c0f; --sunk: #0b0c0f;
   --ink: #ece8df; --muted: #8f939b; --line: #1f2228;
   --accent: #d9b46c; --accent-soft: rgba(217, 180, 108, .13);
   --gold: #d9b46c; --gold-line: #c9a35c; --gold-soft: rgba(217, 180, 108, .14);
-  --font-display: "Inter Tight", "Archivo", system-ui, sans-serif;
-  --font-body: "Inter Tight", "IBM Plex Sans", system-ui, sans-serif;
-  --f-display: "Inter Tight", "Archivo", system-ui, sans-serif;
-  --f-body: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --font-display: "Manrope", system-ui, sans-serif; --font-body: "Manrope", system-ui, sans-serif;
+  --f-display: "Manrope", system-ui, sans-serif; --f-body: "Manrope", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; --f-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 html.be-tool[data-theme="dark"] body { background: #07080a; }
 
 /* ---------- Theme toggle (shared with the main site) ---------- */
 .be-bar .theme-btn {
   width: 34px; height: 34px; flex: none; display: grid; place-items: center; cursor: pointer; padding: 0;
-  border-radius: 10px; border: 1px solid rgba(255, 255, 255, .13); background: transparent; color: #8f939b;
+  border-radius: 6px; border: 1px solid rgba(255, 255, 255, .13); background: transparent; color: #8f939b;
   transition: color .2s, border-color .2s, background .2s;
 }
 .be-bar .theme-btn:hover { color: #f3deb0; border-color: rgba(217, 180, 108, .28); background: rgba(217, 180, 108, .1); }
@@ -57,18 +77,28 @@ html.be-tool[data-theme="light"]:root {
   --ink: #16130e; --muted: #5d5850; --line: #e2dbcd;
   --accent: #8e6a22; --accent-soft: rgba(176, 134, 58, .14);
   --gold: #8e6a22; --gold-line: #a8823a; --gold-soft: rgba(176, 134, 58, .15);
-  --font-display: "Inter Tight", "Archivo", system-ui, sans-serif;
-  --font-body: "Inter Tight", "IBM Plex Sans", system-ui, sans-serif;
-  --f-display: "Inter Tight", "Archivo", system-ui, sans-serif;
-  --f-body: "Inter Tight", "Archivo", system-ui, sans-serif;
+  --font-display: "Manrope", system-ui, sans-serif; --font-body: "Manrope", system-ui, sans-serif;
+  --f-display: "Manrope", system-ui, sans-serif; --f-body: "Manrope", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; --f-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: light;
 }
 html.be-tool[data-theme="light"] body { background: #f7f4ee; }
-html[data-theme="light"] .be-bar { background: rgba(247, 244, 238, .82); border-bottom-color: rgba(40, 30, 12, .1); }
-html[data-theme="light"] .be-bar a, html[data-theme="light"] .be-bar .be-word, html[data-theme="light"] .be-bar .crumb b { color: #16130e; }
+html[data-theme="light"] .be-bar { background: rgba(247, 244, 238, .88); border-bottom-color: rgba(40, 30, 12, .1); }
+html[data-theme="light"] .be-bar a, html[data-theme="light"] .be-bar .be-word { color: #16130e; }
 html[data-theme="light"] .be-bar .be-brand span span { color: #8e6a22; }
-html[data-theme="light"] .be-bar .crumb, html[data-theme="light"] .be-bar .crumb a, html[data-theme="light"] .be-bar .be-back { color: #7a746a; }
-html[data-theme="light"] .be-bar .crumb a:hover, html[data-theme="light"] .be-bar .be-back:hover { color: #74561a; }
+html[data-theme="light"] .be-bar .be-nav a { color: #5d5850; }
+html[data-theme="light"] .be-bar .be-nav a:hover, html[data-theme="light"] .be-bar .be-nav a.be-hl { color: #16130e; }
+html[data-theme="light"] .be-nav a.be-hl::before { border-color: rgba(142, 106, 34, .45); background: rgba(142, 106, 34, .08); }
+html[data-theme="light"] .be-bar .be-nav a.be-cta, html[data-theme="light"] .be-bar .be-nav a.be-cta:hover { color: #8e6a22; background: rgba(142, 106, 34, .09); border-color: rgba(142, 106, 34, .34); }
+html[data-theme="light"] .be-dot { background: #1d6b5c; box-shadow: 0 0 6px rgba(29, 107, 92, .5); }
+html[data-theme="light"] .be-nav .nav-lock { stroke: #c0594d; opacity: .9; } html[data-theme="light"] .be-nav .nav-lock rect { fill: rgba(192, 89, 77, .12); }
+html[data-theme="light"] .be-nav .nav-soon { color: #a8574d; background: rgba(168, 87, 77, .05); box-shadow: inset 0 0 0 1px rgba(168, 87, 77, .16); }
+html[data-theme="light"] .be-menu { color: #16130e; border-color: rgba(40, 30, 12, .18); }
+@media (max-width: 1080px) {
+  html[data-theme="light"] .be-nav { background: #f7f4ee; border-bottom-color: rgba(40, 30, 12, .18); }
+  html[data-theme="light"] .be-bar .be-nav a { border-bottom-color: rgba(40, 30, 12, .1); }
+  html[data-theme="light"] .be-bar .be-nav a.be-hl { color: #74561a; }
+}
 html[data-theme="light"] .be-bar .theme-btn { border-color: rgba(40, 30, 12, .18); color: #5d5850; }
 html[data-theme="light"] .be-bar .theme-btn:hover { color: #74561a; border-color: rgba(142, 106, 34, .32); background: rgba(176, 134, 58, .1); }
 html[data-theme="light"] .be-moon { box-shadow: 0 0 0 1px rgba(120, 90, 40, .25) inset, 0 0 12px rgba(196, 156, 82, .45); }
@@ -88,3 +118,14 @@ html.be-tool tbody tr:hover td:last-child, html.be-tool tr.sel td:last-child { b
 html.be-tool tbody.pick tr:hover, html.be-tool tbody tr.sel { background: transparent; }
 html.be-tool tbody.pick tr:hover td { background: var(--sunken); }
 html.be-tool tbody tr.sel td { background: var(--accent-soft); }
+
+/* ---------- Site type on the simulators' own headings and figures (Nov 18) ---------- */
+html.be-tool h1 { font-weight: 700; font-stretch: normal; letter-spacing: -.035em; line-height: 1.05; }
+html.be-tool h2, html.be-tool h3 { font-stretch: normal; font-weight: 600; }
+html.be-tool .big, html.be-tool .verdict .vk { font-weight: 700; font-stretch: normal; letter-spacing: -.04em; }
+html.be-tool .run { font-weight: 600; letter-spacing: 0; }
+/* Contract Sizing "Size today": an inverted panel in the tool's own light design; in dark it turned cream. Keep it dark glass with a gold edge. */
+html.be-tool[data-theme="dark"] .today { background: #14161a; color: #ece8df; border-color: rgba(217, 180, 108, .3); }
+html.be-tool[data-theme="dark"] .today .lbl, html.be-tool[data-theme="dark"] .today label, html.be-tool[data-theme="dark"] .today .hint, html.be-tool[data-theme="dark"] .today .eyebrow { color: #8f939b; }
+html.be-tool[data-theme="dark"] .today input[type=number] { background: #0b0c0f; color: #ece8df; border-color: rgba(255, 255, 255, .13); }
+html.be-tool[data-theme="dark"] .today button { color: #ece8df; border-color: rgba(255, 255, 255, .22); }
