@@ -525,7 +525,7 @@ html[data-theme="light"] .orbit-lines ellipse { stroke: rgba(142, 106, 34, .3); 
 /* candles get their own brighter pair so they read at a glance against the sky and the gold moon */
 .cdl { --c-up: #34e0b0; --c-dn: #ff6a58; --c-ring: transparent;
   width: 14px; height: 60px; --wt: 18%; --wb: 14%; --bt: 30%; --bb: 26%; transition: color .45s ease; }
-html[data-theme="light"] .cdl { --c-up: #0a8f6c; --c-dn: #d3301f; --c-ring: rgba(255, 253, 249, .95); }
+html[data-theme="light"] .cdl { --c-up: #0a8f6c; --c-dn: #d3301f; }
 .r2.cdl { width: 12px; height: 52px; }
 .cdl::after { content: ""; position: absolute; left: 50%; top: var(--wt); bottom: var(--wb); width: 2px; margin-left: -1px; border-radius: 1px; background: currentColor; box-shadow: 0 0 0 1px var(--c-ring); transition: top .5s cubic-bezier(.3,.7,.4,1), bottom .5s cubic-bezier(.3,.7,.4,1); }
 .cdl::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: var(--bt); bottom: var(--bb); min-height: 6px; background: currentColor; border-radius: 2px; box-shadow: 0 0 0 1.5px var(--c-ring), 0 0 12px currentColor, 0 0 26px color-mix(in srgb, currentColor 55%, transparent); transition: top .5s cubic-bezier(.3,.7,.4,1), bottom .5s cubic-bezier(.3,.7,.4,1); }
