@@ -71,3 +71,44 @@
   tick();
   setInterval(tick, 550);
 })();
+
+// Rise-in order and the Strategy Lab table entrance (visual review, Nov 18).
+// Panels that appear together rise one after another; table rows rise in,
+// their bars fill and the net figure counts up once, when first seen.
+(function () {
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    var i = 0, p = el.previousElementSibling;
+    while (p && i < 5) { if (p.classList.contains('reveal')) i++; p = p.previousElementSibling; }
+    if (i) el.style.setProperty('--ri', i);
+  });
+  var wrap = document.querySelector('.pk-wrap');
+  if (!wrap) return;
+  wrap.addEventListener('pointermove', function (e) {
+    var row = e.target.closest && e.target.closest('.pk'); if (!row) return;
+    var r = row.getBoundingClientRect();
+    row.style.setProperty('--mx', (e.clientX - r.left) + 'px'); row.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+  if (still || !('IntersectionObserver' in window)) return;
+  function play() {
+    wrap.querySelectorAll('.pk').forEach(function (row, i) {
+      row.style.setProperty('--i', i);
+      var el = row.querySelector('summary .pk-net'); if (!el) return;
+      var txt = el.textContent, m = txt.match(/^([^0-9]*)([0-9][0-9,]*)(.*)$/); if (!m) return;
+      var end = +m[2].replace(/,/g, ''), t0 = null, delay = i * 55 + 150;
+      el.style.minWidth = el.offsetWidth + 'px'; el.style.textAlign = 'right';
+      function step(t) {
+        if (t0 === null) t0 = t;
+        var k = Math.min(1, Math.max(0, (t - t0 - delay) / 900));
+        el.textContent = k < 1 ? m[1] + Math.round(end * (1 - Math.pow(1 - k, 3))).toLocaleString('en-US') + m[3] : txt;
+        if (k < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+    wrap.classList.add('play');
+  }
+  var io = new IntersectionObserver(function (es) {
+    if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); play(); }
+  }, { rootMargin: '0px 0px -10% 0px' });
+  io.observe(wrap);
+})();
