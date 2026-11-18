@@ -523,7 +523,7 @@ html[data-theme="light"] .orbit-lines ellipse { stroke: rgba(142, 106, 34, .3); 
   100% { offset-distance: 100%; z-index: 1; scale: 1; opacity: 1; }
 }
 /* candles get their own brighter pair so they read at a glance against the sky and the gold moon */
-.cdl { --c-up: #34e0b0; --c-dn: #ff6a58; --c-ring: rgba(8, 9, 12, .7);
+.cdl { --c-up: #34e0b0; --c-dn: #ff6a58; --c-ring: transparent;
   width: 14px; height: 60px; --wt: 18%; --wb: 14%; --bt: 30%; --bb: 26%; transition: color .45s ease; }
 html[data-theme="light"] .cdl { --c-up: #0a8f6c; --c-dn: #d3301f; --c-ring: rgba(255, 253, 249, .95); }
 .r2.cdl { width: 12px; height: 52px; }
