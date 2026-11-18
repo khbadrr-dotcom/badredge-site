@@ -1245,6 +1245,16 @@ a.card { transition: transform .28s var(--ease), box-shadow .28s var(--ease), bo
   .pk-wrap.play .pk-wr i::after { transform-origin: left; animation: be-grow .9s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 55ms + 200ms); }
   .pk-wrap.play summary .pk-sp { animation: be-wipe 1s ease-out backwards; animation-delay: calc(var(--i, 0) * 55ms + 150ms); }
 }
+/* ---------- Hero facts: one glass card under the hero buttons ---------- */
+.hero-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 10px 0 0; border: 1px solid var(--glass-line); border-radius: var(--r-lg); background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--glass-shadow); overflow: hidden; }
+.hero-facts > div { display: flex; flex-direction: column; gap: 9px; min-width: 0; padding: 16px 18px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); margin: -1px 0 0 -1px; }
+.hero-facts dt { display: flex; align-items: center; gap: 8px; font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.hero-facts dt::before { content: ""; width: 5px; height: 5px; border-radius: 50%; flex: none; background: var(--accent); }
+.hero-facts > div:nth-child(n+4) dt::before { background: var(--live); }
+.hero-facts dd { margin: 0; font-size: 14px; line-height: 1.35; color: var(--text); }
+.hero-facts dd span { color: var(--dim); }
+@media (max-width: 560px) { .hero-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-facts > div { padding: 14px; } }
+
 /* ---------- Nav order: "Open the tools" sits second, right after Backtested strategies ---------- */
 .nav .cta { margin-left: 2px; margin-right: 10px; }
 @media (max-width: 1080px) { .nav .cta { margin: 12px 0 4px; } }

@@ -658,7 +658,14 @@ def home():
         <a class="btn primary" href="/tools/">Explore the tools</a>
         <a class="btn" href="/research/">See the research</a>
       </div>
-      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Live-funded</dt><dd>At 4 prop firms</dd></div><div><dt>Signals</dt><dd>Never offered</dd></div></dl>
+      <dl class="hero-facts">
+        <div><dt>Access</dt><dd>Free, no sign-up</dd></div>
+        <div><dt>Live-funded</dt><dd>At 4 prop firms</dd></div>
+        <div><dt>Signals</dt><dd>Never offered</dd></div>
+        <div><dt>Markets</dt><dd>Indices <span>·</span> Metals</dd></div>
+        <div><dt>Sessions</dt><dd>Asia <span>·</span> London <span>·</span> New&nbsp;York</dd></div>
+        <div><dt>Tools</dt><dd>3&nbsp;simulators <span>·</span> in&#8209;browser</dd></div>
+      </dl>
     </div>
     <div class="hero-visual">
     <div class="moon-stage" aria-hidden="true">
@@ -678,12 +685,6 @@ def home():
   </div>
 </section>
 
-<div class="specbar"><div class="wrap"><dl>
-  <div><dt>Markets</dt><dd>Indices <span>·</span> Metals</dd></div>
-  <div><dt>Sessions</dt><dd>Asia · London · New York</dd></div>
-  <div><dt>Research</dt><dd>{len(research.FAMILIES)} families <span>·</span> forward testing</dd></div>
-  <div><dt>Tools</dt><dd>3 simulators <span>·</span> in-browser</dd></div>
-</dl></div></div>
 {tracker.two_ways()}
 <section class="band" id="desk">
   <div class="wrap">
