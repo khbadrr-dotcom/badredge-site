@@ -747,6 +747,7 @@ def home():
   </div>
 </section>
 
+{launch_list()}
 <section>
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions traders ask</h2></div>
@@ -759,16 +760,6 @@ def home():
     </div>
   </div>
 </section>
-
-<section class="cta-band">
-  <div class="wrap">
-    <span class="eyebrow">Start here</span>
-    <h2>Start where <span class="gold">you are.</span></h2>
-    <p class="lede">Have numbers to test? Open a tool. Want the reasoning first? Start with the research.</p>
-    <div class="hero-actions" style="justify-content:center"><a class="btn primary" href="/tools/">Explore the tools</a><a class="btn" href="/research/">See the research</a></div>
-  </div>
-</section>
-{launch_list()}
 """
     return page("/", "Free prop-firm tools and TradingView indicators for futures traders",
                 "Free risk tools to plan the trading day, and an open record of how trading ideas get tested after costs. Built by a working futures trader.",
