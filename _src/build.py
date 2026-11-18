@@ -623,7 +623,7 @@ def home():
         <a class="btn primary" href="/tools/">Explore the tools</a>
         <a class="btn" href="/research/">See the research</a>
       </div>
-      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Built by</dt><dd>Moves freight by day, trades the open</dd></div><div><dt>Signals</dt><dd>Never offered</dd></div></dl>
+      <dl class="hero-meta"><div><dt>Access</dt><dd>Free, no sign-up</dd></div><div><dt>Live-funded</dt><dd>At 4 prop firms</dd></div><div><dt>Signals</dt><dd>Never offered</dd></div></dl>
     </div>
     <div class="hero-visual">
     <div class="moon-stage" aria-hidden="true">
