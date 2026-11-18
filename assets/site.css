@@ -1292,14 +1292,6 @@ html[data-theme="light"] .nav-ico .ax { stroke: color-mix(in srgb, var(--accent)
 .hero-proof dd { margin: 0 0 7px; font: 700 22px/1 var(--sans); letter-spacing: -.02em; color: var(--text); font-variant-numeric: tabular-nums; }
 .hero-proof > div:first-child dd { background: linear-gradient(100deg, var(--accent-2), var(--accent) 55%, #b8913f); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-proof dt { font: 500 12px/1.45 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); max-width: 17ch; }
-@media (max-width: 1000px) {
-  .hero { padding: 8px 0 56px; }
-  .hero .wrap { gap: 0; }
-  .hero-visual { display: contents; }
-  .hero .moon-stage { order: -1; justify-self: center; zoom: .46; margin: -70px 0 -95px; }
-  .hero-copy { gap: 18px; }
-  .hero-visual .term { margin: 44px auto 0; }
-}
 @media (max-width: 560px) {
   .hero-proof { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 0; }
   .hero-proof > div { padding-right: 12px; }
