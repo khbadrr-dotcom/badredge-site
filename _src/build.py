@@ -25,7 +25,7 @@ SHOW_PAYOUT_FIGURE = False
 PAYOUT_FIGURE = "$250,000+"
 PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
-NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", '<svg class="nav-lock" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5.2a3 3 0 0 1 6 0V7"/><rect x="3.2" y="7" width="9.6" height="7" rx="1.6"/></svg>Pine Scripts<small class="nav-soon">Opening soon</small>'), ("/about/", "Who is Badr")]
+NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", '<svg class="nav-lock" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5.2a3 3 0 0 1 6 0V7"/><rect x="3.2" y="7" width="9.6" height="7" rx="1.6"/></svg>Pine Scripts<small class="nav-soon">Opening soon</small>')]
 
 TV_PROFILE = "https://www.tradingview.com/u/kh_badrr/"
 BUILD_DATE = datetime.date.today().strftime("%-d %b %Y")
