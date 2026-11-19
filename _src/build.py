@@ -5,7 +5,7 @@ Run:  python3 _src/build.py
 It writes the HTML files at their published paths. The tools under /tools/<name>/ are
 standalone pages and are not touched, except /tools/index.html, which is built here.
 """
-import os, re, random, datetime, sys
+import os, re, random, datetime, sys, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import research
 import tracker
@@ -81,8 +81,47 @@ THEME_BTN = ('<button class="theme-btn" type="button" aria-label="Switch theme" 
 OG_VERSION = "2"
 
 
+def og_cards():
+    """One share card per page: path -> (white part, gold part, eyebrow, footer). Rendered by _src/og/render.js."""
+    free, edu = "FREE · NO SIGN-UP", "EDUCATIONAL · NOT ADVICE"
+    cards = {
+        "/tools/pass/": ("Prop Pass", "Simulator", "Free tool · pass odds", free),
+        "/tools/payout/": ("Payout", "Simulator", "Free tool · payout timing", free),
+        "/tools/sizing/": ("Contract", "Sizing", "Free tool · size against the max loss", free),
+        "/tools/indicators/": ("Free", "indicators.", f"{len(INDICATORS)} open-source · TradingView", free),
+        "/guides/": ("Guides for", "prop traders.", "Free guides", free),
+        "/guides/trailing-drawdown/": ("Trailing", "drawdown", "Guide · 8 min read", free),
+        "/guides/prop-evaluation-math/": ("Evaluation", "math", "Guide · 9 min read", free),
+        "/guides/contract-sizing/": ("Sizing against", "the max loss", "Guide · 8 min read", free),
+        "/guides/opening-range-breakout/": ("Opening range", "breakout", "Guide · 6 min read", free),
+        "/guides/initial-balance/": ("Initial", "Balance", "Guide · 6 min read", free),
+        "/research/method/": ("Two tracks,", "one gate.", "Research method", edu),
+        "/research/backtested/": ("Strategy", "Lab.", "Exploratory · in forward testing", edu),
+        "/research/under-observation/": ("Noise-area momentum", "on MNQ", "In forward testing", edu),
+        "/pine/": ("Private", "Pine Scripts", "Opening soon", "LAUNCH LIST OPEN"),
+        "/about/": ("Who is", "Badr", "The desk behind the tools", free),
+        "/changelog/": ("What", "changed.", "Changelog", free),
+    }
+    for f in research.FAMILIES:
+        name = re.sub(r"\s*\(.*?\)", "", f["name"])
+        if ":" in name:
+            h, g = name.split(":", 1); h += ":"; g = g.strip()
+        else:
+            h, _, g = name.rpartition(" ")
+        cards[research.family_url(f["slug"])] = (h, g, "Research family", edu)
+        if research.has_results(f["slug"]):
+            cards[f"/research/backtested/{f['slug']}/"] = (h, g, "Strategy Lab · exploratory", edu)
+    return cards
+
+
+def og_slug(path):
+    return path.strip("/").replace("/", "-")
+
+
 def og_image(path):
-    """Share card per section; the version query makes chat apps fetch the new image."""
+    """Share card per page, falling back to the section card; the version query makes chat apps fetch the new image."""
+    if path in og_cards():
+        return f"{SITE}/assets/og/{og_slug(path)}.jpg?v={OG_VERSION}"
     name = "tools" if path.startswith("/tools") else "research" if path.startswith("/research") else "home"
     return f"{SITE}/assets/og-{name}.jpg?v={OG_VERSION}"
 
@@ -754,29 +793,36 @@ def home():
                 "/", body)
 
 
+# Touch screens have no hover, so each chart replays once when it scrolls into view.
+IND_REPLAY_JS = '''<script>(function(){if(!('IntersectionObserver' in window)||matchMedia('(hover:hover)').matches)return;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('play');io.unobserve(e.target)}})},{threshold:.8});
+document.querySelectorAll('.ind-shot').forEach(function(el){io.observe(el)})})();</script>'''
+
+
 def indicators():
     live = sum(1 for i in INDICATORS if i[3])
     cards = []
     for slug, name, line, tv in INDICATORS:
         if tv:
             cards.append(f"""<a class="ind-card reveal" href="https://www.tradingview.com/script/{tv}/" target="_blank" rel="noopener">
-        <img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async">
+        <span class="ind-shot"><img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async"><i class="ind-wipe" aria-hidden="true"></i></span>
         <div class="ind-body"><span class="ind-tag live"><i class="hl-dot"></i>Live</span><h3>{name}</h3><p>{line}</p><span class="go">Open on TradingView &#8599;</span></div></a>""")
         else:
             cards.append(f"""<div class="ind-card soon reveal">
-        <img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async">
+        <span class="ind-shot"><img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async"><i class="ind-wipe" aria-hidden="true"></i></span>
         <div class="ind-body"><span class="ind-tag">Publishing soon</span><h3>{name}</h3><p>{line}</p></div></div>""")
     body = f"""
 <section class="page-head"><div class="wrap">
   <span class="eyebrow"><a href="/tools/">&larr; Tools</a> &middot; Free on TradingView</span>
   <h1>Free <span class="gold">indicators.</span></h1>
-  <p class="lede">{len(INDICATORS)} open-source Pine Script v6 indicators built from the research families. {live} are live now; the rest publish over the coming days.</p>
+  <p class="lede">{len(INDICATORS)} open-source Pine Script v6 indicators built from the research families. {live} are live now; the rest publish over the coming days. <span class="ind-hint">Hover a chart to replay it.</span></p>
   <div class="hero-actions"><a class="btn primary" href="{TV_PROFILE}" target="_blank" rel="noopener">Follow on TradingView</a></div>
 </div></section>
 <section><div class="wrap">
   <div class="ind-grid">
     {"".join(cards)}
   </div>
+  {IND_REPLAY_JS}
   <p class="note" style="margin-top:28px;max-width:820px">Markers show what happened on a closed bar. They are not signals, and nothing here is financial advice. Charts are illustrations drawn from each script's own values on real bars.</p>
 </div></section>
 {launch_list()}
@@ -786,6 +832,7 @@ def indicators():
 
 def changelog():
     rows = [
+        ("19 Nov 2026", "Clips, replays and share cards", "Each simulator has a 27-second clip, indicator charts replay in the gallery, and every page has its own share card."),
         ("18 Nov 2026", "Free indicators page", "The first five open-source TradingView indicators are live, inside Tools."),
         ("17 Nov 2026", "Strategy Lab labels", "Forward data is labelled in forward testing, and market chips show full names."),
         ("15 Nov 2026", "Strategy tracker", "Full-year trade files for 14 strategies, a monthly calendar and a weekly update every Saturday."),
@@ -1243,6 +1290,8 @@ def statics(paths):
         open(os.path.join(d, "index.html"), "w").write(
             f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{SITE}{new}">'
             f'<meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={new}"><a href="{new}">This page has moved.</a>\n')
+    json.dump([{"file": og_slug(p) + ".jpg", "h": c[0], "g": c[1], "e": c[2], "f": c[3]} for p, c in og_cards().items()],
+              open(os.path.join(ROOT, "_src", "og", "cards.json"), "w"), indent=1, ensure_ascii=False)
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
     open(os.path.join(ROOT, "assets", "favicon.svg"), "w").write(

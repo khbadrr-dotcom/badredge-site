@@ -7,8 +7,9 @@ markers) so the menu matches the main site's NAV. Run it after changing NAV:
     PYTHONDONTWRITEBYTECODE=1 python3 _src/tool_bar.py
 """
 import os, re
-from build import NAV, THEME_BTN, ROOT
+from build import NAV, THEME_BTN, ROOT, og_image
 
+CLIP_SECS = {"pass": 27, "payout": 27, "sizing": 28}   # length of assets/clips/<tool>.mp4, from _src/clips/record.js
 TOOLS = {"pass": "", "payout": "", "sizing": " be-bar--inset"}   # sizing pads <body>, so its bar bleeds out to the edges
 FONTS = "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
 MENU_JS = ("<script>(function(){var b=document.querySelector('.be-menu'),n=document.getElementById('be-nav');"
@@ -36,5 +37,12 @@ for name, extra in TOOLS.items():
     s, n = re.subn(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2\?family=Inter\+Tight[^"]*">', f'<link rel="stylesheet" href="{FONTS}">', s)
     s = re.sub(r'<link rel="preconnect" href="https://fonts\.googleapis\.com">\n<link rel="preconnect" href="https://fonts\.gstatic\.com" crossorigin>\n'
                r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2\?family=Archivo[^"]*">\n', "", s)
+    # "See it run" clip button
+    clip = f'<!-- be:clip --><script defer src="/assets/tool-clip.js?v=1" data-clip="{name}" data-secs="{CLIP_SECS[name]}"></script><!-- /be:clip -->\n'
+    s = re.sub(r'<!-- be:clip -->.*?<!-- /be:clip -->\n', '', s, flags=re.S)
+    assert "<!-- be:foot -->" in s, f"no footer marker in {p}"
+    s = s.replace("<!-- be:foot -->", clip + "<!-- be:foot -->", 1)
+    # each simulator shares its own card
+    s = re.sub(r'https://badredge\.com/assets/og[-/][a-z-]+\.jpg\?v=\d+', og_image(f"/tools/{name}/"), s)
     open(p, "w", encoding="utf-8").write(s)
     print("header synced:", p)
