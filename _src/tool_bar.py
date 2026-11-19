@@ -7,7 +7,7 @@ markers) so the menu matches the main site's NAV. Run it after changing NAV:
     PYTHONDONTWRITEBYTECODE=1 python3 _src/tool_bar.py
 """
 import os, re
-from build import NAV, THEME_BTN, ROOT
+from build import NAV, THEME_BTN, ROOT, og_image
 
 TOOLS = {"pass": "", "payout": "", "sizing": " be-bar--inset"}   # sizing pads <body>, so its bar bleeds out to the edges
 FONTS = "https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
@@ -36,5 +36,7 @@ for name, extra in TOOLS.items():
     s, n = re.subn(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2\?family=Inter\+Tight[^"]*">', f'<link rel="stylesheet" href="{FONTS}">', s)
     s = re.sub(r'<link rel="preconnect" href="https://fonts\.googleapis\.com">\n<link rel="preconnect" href="https://fonts\.gstatic\.com" crossorigin>\n'
                r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2\?family=Archivo[^"]*">\n', "", s)
+    # each simulator shares its own card
+    s = re.sub(r'https://badredge\.com/assets/og[-/][a-z-]+\.jpg\?v=\d+', og_image(f"/tools/{name}/"), s)
     open(p, "w", encoding="utf-8").write(s)
     print("header synced:", p)

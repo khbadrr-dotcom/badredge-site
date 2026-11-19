@@ -1,0 +1,310 @@
+[
+ {
+  "file": "tools-pass.jpg",
+  "h": "Prop Pass",
+  "g": "Simulator",
+  "e": "Free tool · pass odds",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "tools-payout.jpg",
+  "h": "Payout",
+  "g": "Simulator",
+  "e": "Free tool · payout timing",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "tools-sizing.jpg",
+  "h": "Contract",
+  "g": "Sizing",
+  "e": "Free tool · size against the max loss",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "tools-indicators.jpg",
+  "h": "Free",
+  "g": "indicators.",
+  "e": "14 open-source · TradingView",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "guides.jpg",
+  "h": "Guides for",
+  "g": "prop traders.",
+  "e": "Free guides",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "guides-trailing-drawdown.jpg",
+  "h": "Trailing",
+  "g": "drawdown",
+  "e": "Guide · 8 min read",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "guides-prop-evaluation-math.jpg",
+  "h": "Evaluation",
+  "g": "math",
+  "e": "Guide · 9 min read",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "guides-contract-sizing.jpg",
+  "h": "Sizing against",
+  "g": "the max loss",
+  "e": "Guide · 8 min read",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "guides-opening-range-breakout.jpg",
+  "h": "Opening range",
+  "g": "breakout",
+  "e": "Guide · 6 min read",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "guides-initial-balance.jpg",
+  "h": "Initial",
+  "g": "Balance",
+  "e": "Guide · 6 min read",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "research-method.jpg",
+  "h": "Two tracks,",
+  "g": "one gate.",
+  "e": "Research method",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-backtested.jpg",
+  "h": "Strategy",
+  "g": "Lab.",
+  "e": "Exploratory · in forward testing",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-under-observation.jpg",
+  "h": "Noise-area momentum",
+  "g": "on MNQ",
+  "e": "In forward testing",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "pine.jpg",
+  "h": "Private",
+  "g": "Pine Scripts",
+  "e": "Opening soon",
+  "f": "LAUNCH LIST OPEN"
+ },
+ {
+  "file": "about.jpg",
+  "h": "Who is",
+  "g": "Badr",
+  "e": "The desk behind the tools",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "changelog.jpg",
+  "h": "What",
+  "g": "changed.",
+  "e": "Changelog",
+  "f": "FREE · NO SIGN-UP"
+ },
+ {
+  "file": "research-families-orb-pro-max.jpg",
+  "h": "Opening range breakout:",
+  "g": "Pro Max",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-backtested-orb-pro-max.jpg",
+  "h": "Opening range breakout:",
+  "g": "Pro Max",
+  "e": "Strategy Lab · exploratory",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-orb-break-and-hold.jpg",
+  "h": "Opening range:",
+  "g": "Break and Hold",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-backtested-orb-break-and-hold.jpg",
+  "h": "Opening range:",
+  "g": "Break and Hold",
+  "e": "Strategy Lab · exploratory",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-orb-v4.jpg",
+  "h": "Opening range:",
+  "g": "two-window v4",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-backtested-orb-v4.jpg",
+  "h": "Opening range:",
+  "g": "two-window v4",
+  "e": "Strategy Lab · exploratory",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-initial-balance.jpg",
+  "h": "Initial",
+  "g": "Balance",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-backtested-initial-balance.jpg",
+  "h": "Initial",
+  "g": "Balance",
+  "e": "Strategy Lab · exploratory",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-asian-range-breakout.jpg",
+  "h": "Asian range",
+  "g": "breakout",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-smt-divergence.jpg",
+  "h": "SMT",
+  "g": "divergence",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-ifvg-breaker.jpg",
+  "h": "iFVG and breaker",
+  "g": "blocks",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-gifvg.jpg",
+  "h": "GIFVG",
+  "g": "checklist",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-key-level-retests.jpg",
+  "h": "Key-level break and",
+  "g": "retest",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-support-resistance-pivots.jpg",
+  "h": "Support and resistance with",
+  "g": "pivots",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-psar-ema200.jpg",
+  "h": "Parabolic SAR with 200",
+  "g": "EMA",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-ema-vwap-momentum.jpg",
+  "h": "EMA and VWAP",
+  "g": "momentum",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-monday-high-low.jpg",
+  "h": "Monday high and",
+  "g": "low",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-iv-walls.jpg",
+  "h": "Options open-interest",
+  "g": "walls",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-daily-trend.jpg",
+  "h": "Daily trend signals traded",
+  "g": "intraday",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-intraday-momentum.jpg",
+  "h": "Market intraday",
+  "g": "momentum",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-noise-area.jpg",
+  "h": "Noise-area",
+  "g": "momentum",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-box-breakouts.jpg",
+  "h": "Consolidation box",
+  "g": "breakouts",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-volume-profile.jpg",
+  "h": "Volume profile",
+  "g": "levels",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-amd-1h4h.jpg",
+  "h": "1h and 4h",
+  "g": "AMD",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-short-timeframe-trend.jpg",
+  "h": "Short-timeframe trend",
+  "g": "following",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-microstructure-effects.jpg",
+  "h": "Volume shocks and 1-minute",
+  "g": "reversals",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-families-cross-market-portfolio.jpg",
+  "h": "14-strategy cross-market",
+  "g": "portfolio",
+  "e": "Research family",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ },
+ {
+  "file": "research-backtested-cross-market-portfolio.jpg",
+  "h": "14-strategy cross-market",
+  "g": "portfolio",
+  "e": "Strategy Lab · exploratory",
+  "f": "EDUCATIONAL · NOT ADVICE"
+ }
+]
