@@ -101,14 +101,14 @@ def two_ways():
       <div class="tw-head"><span class="eyebrow">Two ways in</span><h2>Use the tools. <span class="gold">Study the strategies.</span></h2></div>
       <div class="tw-grid">
         <a class="tw-card" href="/tools/">
-          <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Live</span><span class="tw-kind">The toolkit</span></div>
+          <div class="tw-top"><span class="tw-live">Free</span><span class="tw-kind">The toolkit</span></div>
           <h3>Plan the risk before the open.</h3>
           <p>Browser tools built around prop-firm rules. Free, no sign-up.</p>
           <ul class="tw-list">{tl}</ul>
           <span class="tw-cta gold-btn">Open the tools <i>&rarr;</i></span>
         </a>
         <a class="tw-card" href="/research/backtested/">
-          <div class="tw-top"><span class="tw-live"><i class="hl-dot"></i>Live</span><span class="tw-kind">The strategies</span></div>
+          <div class="tw-top"><span class="tw-live">Updated weekly</span><span class="tw-kind">The strategies</span></div>
           <h3>14 strategies, tested after costs.</h3>
           <p>Every rule, every result, one ledger. Gold is in-sample; teal is forward data, updated weekly.</p>
           <div class="tw-chart">{spark}<div class="tw-axis"><span>Nov 2025</span><span>Nov 2026</span></div></div>

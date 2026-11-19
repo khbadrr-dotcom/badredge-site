@@ -259,7 +259,6 @@ a.desk-row:hover .desk-name { color: var(--accent-2); }
 .desk-name small { display: block; font-weight: 400; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .desk-state { font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--dim); white-space: nowrap; }
 .desk-state.live { color: var(--live-2); }
-.desk-state.live::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; box-shadow: 0 0 8px var(--live); background: var(--live); margin-right: 8px; vertical-align: 0; }
 
 /* ---------- Spec bar (replaces the marquee) ---------- */
 .specbar { border-bottom: 1px solid var(--line); background: var(--bg-2); }
@@ -655,7 +654,6 @@ table.picks tr.tot td { color: var(--text); font-weight: 600; background: var(--
 .nav a.nav-hl::before { content: ""; position: absolute; inset: 15px 4px; border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--accent) 8%, transparent); z-index: -1; transition: background .15s, border-color .15s; }
 .nav a.nav-hl:hover::before { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: var(--accent); }
 .nav a.nav-hl { margin-right: 6px; padding: 0 16px; isolation: isolate; }
-.hl-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent); }
 .nav a.nav-hl[aria-current="page"]::after { display: none; }
 .nav a.nav-hl[aria-current="page"]::before { background: color-mix(in srgb, var(--accent) 18%, transparent); border-color: var(--accent); }
 @media (max-width: 900px) { .nav a.nav-hl::before { display: none; } .nav a.nav-hl { margin: 0; padding: 14px 2px; color: var(--accent-2); } }
@@ -941,7 +939,9 @@ table.picks tr.tot td:last-child { border-radius: 0 10px 10px 0; }
 .trk .ch text { font: 400 10px var(--mono); fill: var(--dim); }
 .trk .ch .tip { fill: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
 .trk .ch .tip.f { fill: var(--live); filter: drop-shadow(0 0 6px var(--live)); }
-.trk .ch .tipring { fill: none; stroke: var(--accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; animation: trk-ping 2.4s ease-out infinite; }
+.trk .ch .tipring { fill: none; stroke: var(--accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; }
+.trk .ch .tipring:not(.f) { display: none; }
+.trk .ch .tipring.f { animation: trk-ping 2.4s ease-out infinite; }
 .trk .ch .tipring.f { stroke: var(--live); }
 @keyframes trk-ping { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(3.2); } }
 .trk .sec-t { font: 500 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin: 18px 0 8px; }
@@ -977,14 +977,7 @@ html[data-theme="light"] .trk .k dd.big { background: linear-gradient(100deg, #b
 .prose .trk .k > div { padding: 11px 12px 12px; }
 .prose .trk .k dd, .prose .trk .k dd.big { font-size: clamp(19px, 1.9vw, 23px); }
 
-/* Two live entry points: Backtested strategies + Open the tools */
 .nav .cta { gap: 9px; }
-.nav .cta .hl-dot { background: #1f9e80; box-shadow: 0 0 0 2px rgba(23, 18, 10, .85), 0 0 8px rgba(79, 184, 160, .9); }
-.hl-dot { position: relative; flex: none; }
-.hl-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--live); animation: hl-live 2.4s ease-out infinite; }
-.nav .cta .hl-dot::after { background: #2fc49f; }
-@keyframes hl-live { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .hl-dot::after { animation: none; display: none; } }
 
 /* ───────── Homepage: Two ways in ───────── */
 .tw{padding-top:24px}.tw-head{margin-bottom:22px}.tw-head h2{margin:8px 0 0}
@@ -1068,8 +1061,6 @@ html[data-theme="light"] .trk .k dd.big { background: linear-gradient(100deg, #b
   transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
 }
 .nav .cta:hover { color: var(--accent-2); background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
-.nav .cta .hl-dot { background: var(--live); box-shadow: 0 0 6px color-mix(in srgb, var(--live) 70%, transparent); }
-.nav .cta .hl-dot::after { background: var(--live); }
 html[data-theme="light"] .nav .cta, html[data-theme="light"] .nav .cta:hover { color: var(--accent); }
 @media (max-width: 1080px) { .nav .cta { height: 44px; margin: 14px 0 0; justify-content: center; } }
 
@@ -1274,8 +1265,6 @@ a.card { transition: transform .28s var(--ease), box-shadow .28s var(--ease), bo
   70% { opacity: .8; }
   100% { transform: translateY(-9px) scale(1.05); opacity: 0; }
 }
-.ico-fx .pt { fill: var(--live); filter: drop-shadow(0 0 2.5px var(--live)); transform-box: fill-box; transform-origin: center; animation: fx-pt 2.4s ease-in-out infinite; }
-@keyframes fx-pt { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.7); opacity: .75; } }
 html[data-theme="light"] .nav-ico .gl { stroke: var(--accent); }
 html[data-theme="light"] .nav-ico .ax { stroke: color-mix(in srgb, var(--accent) 55%, transparent); }
 @media (prefers-reduced-motion: reduce) {
@@ -1340,6 +1329,7 @@ a.ind-card:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--acce
 .ind-body p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .ind-body .go { margin-top: auto; padding-top: 6px; color: var(--accent-2); font-weight: 600; font-size: 14px; }
 .ind-tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); padding: 6px 10px; border-radius: 999px; box-shadow: 0 0 0 1px var(--line-2); }
+.ind-tag.live i { font-style: normal; }
 .ind-tag.live { color: var(--live); box-shadow: 0 0 0 1px color-mix(in srgb, var(--live) 35%, transparent); background: color-mix(in srgb, var(--live) 8%, transparent); }
 .pine-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
 @media (max-width: 860px) { .pine-grid { grid-template-columns: minmax(0, 1fr); } }

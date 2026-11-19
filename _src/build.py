@@ -220,7 +220,7 @@ def header(active):
     links = "".join(
         f'<a href="{href}"{" class=\"nav-hl\"" if href == NAV[0][0] else ""}{" aria-current=\"page\"" if href == active else ""}>'
         f'{ICON_LAB if href == NAV[0][0] else ""}{label}</a>' for href, label in NAV)
-    cta = '<a class="cta" href="/tools/"><i class="hl-dot"></i>Open the tools</a>'  # only Strategy Lab keeps an icon
+    cta = '<a class="cta" href="/tools/">Open the tools</a>'  # only Strategy Lab keeps an icon
     first = links.index("</a>") + 4  # menu order: Strategy Lab, Open the tools, then the rest
     links = links[:first] + cta + links[first:]
     return f"""<header class="site-head">
@@ -860,7 +860,7 @@ def indicators():
         if tv:
             cards.append(f"""<a class="ind-card" data-fam="{fam_id(fam)}" href="https://www.tradingview.com/script/{tv}/" target="_blank" rel="noopener">
         {shot}
-        <div class="ind-body"><span class="ind-tag live"><i class="hl-dot"></i>Live</span><h3>{name}</h3><p>{line}</p><span class="go">Open on TradingView &#8599;</span></div></a>""")
+        <div class="ind-body"><span class="ind-tag live"><i aria-hidden="true">&#10003;</i>Published</span><h3>{name}</h3><p>{line}</p><span class="go">Open on TradingView &#8599;</span></div></a>""")
         else:
             cards.append(f"""<div class="ind-card soon" data-fam="{fam_id(fam)}">
         {shot}
