@@ -88,7 +88,7 @@ def og_cards():
         "/tools/pass/": ("Prop Pass", "Simulator", "Free tool · pass odds", free),
         "/tools/payout/": ("Payout", "Simulator", "Free tool · payout timing", free),
         "/tools/sizing/": ("Contract", "Sizing", "Free tool · size against the max loss", free),
-        "/tools/indicators/": ("Free", "indicators.", f"{len(INDICATORS)} open-source · TradingView", free),
+        "/tools/indicators/": ("Free", "indicators.", "Open-source · TradingView", free),
         "/guides/": ("Guides for", "prop traders.", "Free guides", free),
         "/guides/trailing-drawdown/": ("Trailing", "drawdown", "Guide · 8 min read", free),
         "/guides/prop-evaluation-math/": ("Evaluation", "math", "Guide · 9 min read", free),
@@ -815,7 +815,7 @@ def indicators():
 <section class="page-head"><div class="wrap">
   <span class="eyebrow"><a href="/tools/">&larr; Tools</a> &middot; Free on TradingView</span>
   <h1>Free <span class="gold">indicators.</span></h1>
-  <p class="lede">{len(INDICATORS)} open-source Pine Script v6 indicators built from the research families. {live} are live now; the rest publish over the coming days. <span class="ind-hint">Hover a chart to replay it.</span></p>
+  <p class="lede">Open-source Pine Script v6 indicators built from the research families. {live} are live now, and the library keeps growing. <span class="ind-hint">Hover a chart to replay it.</span></p>
   <div class="hero-actions"><a class="btn primary" href="{TV_PROFILE}" target="_blank" rel="noopener">Follow on TradingView</a></div>
 </div></section>
 <section><div class="wrap">
@@ -827,7 +827,7 @@ def indicators():
 </div></section>
 {launch_list()}
 """
-    return page("/tools/indicators/", "Free TradingView indicators", f"{len(INDICATORS)} free, open-source Pine Script v6 indicators for futures traders on TradingView: opening ranges, Initial Balance, key levels and more.", "/tools/", body)
+    return page("/tools/indicators/", "Free TradingView indicators", "Free, open-source Pine Script v6 indicators for futures traders on TradingView: opening ranges, Initial Balance, key levels and more.", "/tools/", body)
 
 
 def changelog():
@@ -867,7 +867,7 @@ def tools_index():
 <section class="band" id="indicators"><div class="wrap">
   <a class="ind-feature reveal" href="/tools/indicators/">
     <div><span class="eyebrow">Free on TradingView</span>
-      <h2>{len(INDICATORS)} free <span class="gold">indicators.</span></h2>
+      <h2>Free <span class="gold">indicators.</span></h2>
       <p>Open-source Pine Script v6 indicators for TradingView: opening ranges, Initial Balance, key levels and more.</p>
       <span class="btn primary">See the indicators</span></div>
     <img src="/assets/ind/session-opening-range.webp" alt="Session Opening Range indicator on a gold futures chart" width="960" height="492" loading="lazy" decoding="async">
