@@ -46,7 +46,49 @@ INDICATORS = [
     ("trend-desk", "Trend Desk", "Four common trend tools in one small table, and the bar where they first agree.", ""),
     ("first-half-hour-bias", "First Half-Hour Bias", "Compares the first and last 30 minutes of the New York session and counts how often they moved the same way.", ""),
     ("volume-shock", "Volume Shock", "Marks bars with volume far above normal and counts what the next bar did.", ""),
+    ("structure-breaks", "Structure Breaks", "Marks each break of structure and each change of character on confirmed swing points.", ""),
+    ("swing-map", "Swing Map", "Labels every confirmed swing as a higher high, higher low, lower high or lower low.", ""),
+    ("premium-discount-range", "Premium and Discount Range", "Splits the current swing range into premium, midpoint and discount.", ""),
+    ("structure-table", "Structure Table", "A small table showing the swing direction on four timeframes and where they agree.", ""),
+    ("liquidity-sweeps", "Liquidity Sweeps", "A wick through a prior swing high or low that closes back inside.", ""),
+    ("equal-highs-lows", "Equal Highs and Lows", "Two or more swings at nearly the same price, held as a line until price takes it.", ""),
+    ("liquidity-pools", "Liquidity Pools", "Clusters of untouched swing levels drawn as zones and removed once traded through.", ""),
+    ("round-number-levels", "Round Number Levels", "Round-number prices near the market and how price behaved at each touch.", ""),
+    ("order-blocks", "Order Blocks", "The last opposite candle before a move that broke structure, kept until price closes through it.", ""),
+    ("breaker-blocks", "Breaker Blocks", "Order blocks that failed and now sit on the other side of price.", ""),
+    ("wick-rejection-zones", "Wick Rejection Zones", "Long-wick candles at swing extremes, and whether a later retest held.", ""),
+    ("supply-demand-zones", "Supply and Demand Zones", "The small base before a strong move away, kept until price closes through it.", ""),
+    ("auto-trendlines", "Auto Trendlines", "Lines through confirmed swing points and the first close beyond each one.", ""),
+    ("support-resistance-flip", "Support and Resistance Flip", "Swing levels, the close through them, and whether the level held from the other side.", ""),
+    ("regression-channel", "Regression Channel", "A straight-line fit with deviation bands that never redraws past bars.", ""),
+    ("auto-fibonacci-levels", "Auto Fibonacci Levels", "Retracement levels drawn on the latest confirmed swing, with the level price reacted at.", ""),
+    ("session-vwap-bands", "Session VWAP Bands", "VWAP for each session with deviation bands and a count of touches and returns.", ""),
+    ("anchored-vwap-set", "Anchored VWAP Set", "VWAP from the day, week and month open on one chart.", ""),
+    ("kernel-envelope", "Kernel Envelope", "A smoothed average with bands, calculated on closed bars only.", ""),
+    ("stretch-from-vwap", "Stretch from VWAP", "How far price sits from VWAP, measured in average ranges, with the session extremes marked.", ""),
+    ("squeeze-and-release", "Squeeze and Release", "Shades periods of compressed volatility and marks the bar where it expands.", ""),
+    ("rsi-divergence-map", "RSI Divergence Map", "Places where a price swing and an RSI swing disagree, on confirmed swings.", ""),
+    ("daily-range-meter", "Daily Range Meter", "How much of the average daily range is used, with projected high and low levels.", ""),
+    ("volatility-regime", "Volatility Regime", "Labels the market as quiet, normal or active against its own recent history.", ""),
+    ("session-map", "Session Map", "Asia, London and New York as boxes, each with its range against its average.", ""),
+    ("opening-gap-levels", "Opening Gap Levels", "New-day and new-week opening gaps as zones, marked filled or open.", ""),
+    ("relative-volume-by-time", "Relative Volume by Time", "Each bar's volume against the usual volume for that time of day.", ""),
+    ("volume-delta-candles", "Volume Delta Candles", "Estimated buying against selling volume inside each bar, built from lower-timeframe data.", ""),
 ]
+
+# Gallery filter: family name -> indicator slugs, in display order.
+IND_FAMILIES = [
+    ("Sessions and Ranges", ["session-opening-range", "session-initial-balance", "asian-range-breakout", "consolidation-box", "amd-range"]),
+    ("Market Structure", ["structure-breaks", "swing-map", "premium-discount-range", "structure-table"]),
+    ("Liquidity", ["liquidity-sweeps", "equal-highs-lows", "liquidity-pools", "round-number-levels"]),
+    ("Zones", ["fvg-inversion-zones", "order-blocks", "breaker-blocks", "wick-rejection-zones", "supply-demand-zones"]),
+    ("Levels and Channels", ["key-level-break-retest", "pivots-swing-zones", "auto-trendlines", "support-resistance-flip", "regression-channel", "auto-fibonacci-levels"]),
+    ("Fair Value and Bands", ["noise-area-bands", "session-vwap-bands", "anchored-vwap-set", "kernel-envelope", "stretch-from-vwap"]),
+    ("Momentum and Volatility", ["smt-divergence", "trend-desk", "squeeze-and-release", "rsi-divergence-map", "daily-range-meter", "volatility-regime"]),
+    ("Time and Volume", ["session-volume-profile", "first-half-hour-bias", "volume-shock", "session-map", "opening-gap-levels", "relative-volume-by-time", "volume-delta-candles"]),
+]
+IND_FAMILY = {slug: fam for fam, slugs in IND_FAMILIES for slug in slugs}
+assert set(IND_FAMILY) == {i[0] for i in INDICATORS}, "every indicator needs exactly one family"
 
 ICONS = {
     "trail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14l4-4 3 2 4-5 7-3"/><path d="M3 20h5v-3h5v-3h8" stroke-dasharray="2.2 2.6"/></svg>',
@@ -793,36 +835,52 @@ def home():
                 "/", body)
 
 
-# Touch screens have no hover, so each chart replays once when it scrolls into view.
-IND_REPLAY_JS = '''<script>(function(){if(!('IntersectionObserver' in window)||matchMedia('(hover:hover)').matches)return;
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('play');io.unobserve(e.target)}})},{threshold:.8});
-document.querySelectorAll('.ind-shot').forEach(function(el){io.observe(el)})})();</script>'''
+# Family filter for the indicator gallery. Without JavaScript every card simply stays visible.
+IND_FILTER_JS = '''<script>(function(){var bar=document.querySelector('.ind-filter');if(!bar)return;
+var cards=document.querySelectorAll('.ind-card'),empty=document.querySelector('.ind-empty');
+function show(f){var n=0;cards.forEach(function(c){var on=f==='all'||c.getAttribute('data-fam')===f;c.hidden=!on;if(on)n++});
+bar.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-fam')===f?'true':'false')});if(empty)empty.hidden=n>0}
+bar.addEventListener('click',function(e){var b=e.target.closest('button');if(b)show(b.getAttribute('data-fam'))})})();</script>'''
+
+
+def fam_id(fam):
+    return fam.lower().replace(" ", "-")
 
 
 def indicators():
     live = sum(1 for i in INDICATORS if i[3])
+    have_img = {f[:-5] for f in os.listdir(os.path.join(ROOT, "assets", "ind")) if f.endswith(".webp")}
     cards = []
-    for slug, name, line, tv in INDICATORS:
+    for slug, name, line, tv in sorted(INDICATORS, key=lambda i: not i[3]):  # live first, original order kept
+        fam = IND_FAMILY[slug]
+        if slug in have_img:
+            shot = f'<span class="ind-shot"><img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async"></span>'
+        else:
+            shot = f'<span class="ind-shot ph" aria-hidden="true"><b>{fam}</b></span>'
         if tv:
-            cards.append(f"""<a class="ind-card reveal" href="https://www.tradingview.com/script/{tv}/" target="_blank" rel="noopener">
-        <span class="ind-shot"><img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async"><i class="ind-wipe" aria-hidden="true"></i></span>
+            cards.append(f"""<a class="ind-card" data-fam="{fam_id(fam)}" href="https://www.tradingview.com/script/{tv}/" target="_blank" rel="noopener">
+        {shot}
         <div class="ind-body"><span class="ind-tag live"><i class="hl-dot"></i>Live</span><h3>{name}</h3><p>{line}</p><span class="go">Open on TradingView &#8599;</span></div></a>""")
         else:
-            cards.append(f"""<div class="ind-card soon reveal">
-        <span class="ind-shot"><img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async"><i class="ind-wipe" aria-hidden="true"></i></span>
+            cards.append(f"""<div class="ind-card soon" data-fam="{fam_id(fam)}">
+        {shot}
         <div class="ind-body"><span class="ind-tag">Publishing soon</span><h3>{name}</h3><p>{line}</p></div></div>""")
+    chips = ['<button type="button" data-fam="all" aria-pressed="true">All</button>'] + [
+        f'<button type="button" data-fam="{fam_id(fam)}" aria-pressed="false">{fam}</button>' for fam, _ in IND_FAMILIES]
     body = f"""
 <section class="page-head"><div class="wrap">
   <span class="eyebrow"><a href="/tools/">&larr; Tools</a> &middot; Free on TradingView</span>
   <h1>Free <span class="gold">indicators.</span></h1>
-  <p class="lede">Open-source Pine Script v6 indicators built from the research families. {live} are live now, and the library keeps growing. <span class="ind-hint">Hover a chart to replay it.</span></p>
+  <p class="lede">Open-source Pine Script v6 indicators built from the research families. {live} are live now, and new ones publish every day.</p>
   <div class="hero-actions"><a class="btn primary" href="{TV_PROFILE}" target="_blank" rel="noopener">Follow on TradingView</a></div>
 </div></section>
 <section><div class="wrap">
+  <div class="ind-filter" role="group" aria-label="Filter indicators by family">{"".join(chips)}</div>
   <div class="ind-grid">
     {"".join(cards)}
   </div>
-  {IND_REPLAY_JS}
+  <p class="ind-empty note" hidden>No indicators in this family yet.</p>
+  {IND_FILTER_JS}
   <p class="note" style="margin-top:28px;max-width:820px">Markers show what happened on a closed bar. They are not signals, and nothing here is financial advice. Charts are illustrations drawn from each script's own values on real bars.</p>
 </div></section>
 {launch_list()}
@@ -832,7 +890,7 @@ def indicators():
 
 def changelog():
     rows = [
-        ("19 Nov 2026", "Clips, replays and share cards", "Each simulator has a 27-second clip, indicator charts replay in the gallery, and every page has its own share card."),
+        ("19 Nov 2026", "Clips, replays and share cards", "Each simulator has a 27-second clip, and every page has its own share card."),
         ("18 Nov 2026", "Free indicators page", "The first five open-source TradingView indicators are live, inside Tools."),
         ("17 Nov 2026", "Strategy Lab labels", "Forward data is labelled in forward testing, and market chips show full names."),
         ("15 Nov 2026", "Strategy tracker", "Full-year trade files for 14 strategies, a monthly calendar and a weekly update every Saturday."),
