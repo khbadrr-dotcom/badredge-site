@@ -1383,13 +1383,16 @@ a.ind-card:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--acce
 .sky-stars, .sky-orbits g, .sky-chart g { animation: none; }
 .sky-aurora, html[data-theme="light"] .sky-aurora { animation: none; filter: none; mix-blend-mode: normal; will-change: auto; }
 
-/* ---------- Indicator gallery: chart replay (Nov 19). A cover slides off the plot area, left to right. ---------- */
+/* ---------- Indicator gallery: still cards and a family filter (Nov 19). No motion on the cards. ---------- */
 .ind-shot { position: relative; display: block; overflow: hidden; background: #07090a; border-bottom: 1px solid var(--line); }
 .ind-card .ind-shot img { border-bottom: 0; }
-.ind-wipe { position: absolute; top: 11.4%; bottom: 8.1%; right: 5.7%; width: 0; background: #07090a; border-left: 2px solid #d9b46c; opacity: 0; pointer-events: none; }
-@keyframes ind-replay { 0% { width: 93%; opacity: 1; } 84% { width: 0; opacity: 1; } 100% { width: 0; opacity: 0; } }
-.ind-hint { display: none; color: var(--dim); }
-@media (prefers-reduced-motion: no-preference) {
-  @media (hover: hover) { .ind-card:hover .ind-wipe { animation: ind-replay 7s linear infinite; } .ind-hint { display: inline; } }
-  .ind-shot.play .ind-wipe { animation: ind-replay 6s linear 1 both; }
-}
+.ind-shot.ph { aspect-ratio: 960 / 492; display: flex; align-items: center; justify-content: center; background: color-mix(in srgb, var(--panel) 60%, var(--bg)); }
+.ind-shot.ph b { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.ind-card, a.ind-card:hover { transition: none; transform: none; }
+a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
+.ind-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.ind-filter button { font: 500 13px/1 var(--sans); color: var(--muted); background: transparent; border: 0; border-radius: 999px; padding: 9px 14px; box-shadow: 0 0 0 1px var(--line-2); cursor: pointer; }
+.ind-filter button:hover { color: var(--text); }
+.ind-filter button[aria-pressed="true"] { color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-line); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.ind-filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ind-card[hidden] { display: none; }
