@@ -793,29 +793,36 @@ def home():
                 "/", body)
 
 
+# Touch screens have no hover, so each chart replays once when it scrolls into view.
+IND_REPLAY_JS = '''<script>(function(){if(!('IntersectionObserver' in window)||matchMedia('(hover:hover)').matches)return;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('play');io.unobserve(e.target)}})},{threshold:.8});
+document.querySelectorAll('.ind-shot').forEach(function(el){io.observe(el)})})();</script>'''
+
+
 def indicators():
     live = sum(1 for i in INDICATORS if i[3])
     cards = []
     for slug, name, line, tv in INDICATORS:
         if tv:
             cards.append(f"""<a class="ind-card reveal" href="https://www.tradingview.com/script/{tv}/" target="_blank" rel="noopener">
-        <img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async">
+        <span class="ind-shot"><img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async"><i class="ind-wipe" aria-hidden="true"></i></span>
         <div class="ind-body"><span class="ind-tag live"><i class="hl-dot"></i>Live</span><h3>{name}</h3><p>{line}</p><span class="go">Open on TradingView &#8599;</span></div></a>""")
         else:
             cards.append(f"""<div class="ind-card soon reveal">
-        <img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async">
+        <span class="ind-shot"><img src="/assets/ind/{slug}.webp" alt="{name} on a futures chart" width="960" height="492" loading="lazy" decoding="async"><i class="ind-wipe" aria-hidden="true"></i></span>
         <div class="ind-body"><span class="ind-tag">Publishing soon</span><h3>{name}</h3><p>{line}</p></div></div>""")
     body = f"""
 <section class="page-head"><div class="wrap">
   <span class="eyebrow"><a href="/tools/">&larr; Tools</a> &middot; Free on TradingView</span>
   <h1>Free <span class="gold">indicators.</span></h1>
-  <p class="lede">{len(INDICATORS)} open-source Pine Script v6 indicators built from the research families. {live} are live now; the rest publish over the coming days.</p>
+  <p class="lede">{len(INDICATORS)} open-source Pine Script v6 indicators built from the research families. {live} are live now; the rest publish over the coming days. <span class="ind-hint">Hover a chart to replay it.</span></p>
   <div class="hero-actions"><a class="btn primary" href="{TV_PROFILE}" target="_blank" rel="noopener">Follow on TradingView</a></div>
 </div></section>
 <section><div class="wrap">
   <div class="ind-grid">
     {"".join(cards)}
   </div>
+  {IND_REPLAY_JS}
   <p class="note" style="margin-top:28px;max-width:820px">Markers show what happened on a closed bar. They are not signals, and nothing here is financial advice. Charts are illustrations drawn from each script's own values on real bars.</p>
 </div></section>
 {launch_list()}
@@ -825,6 +832,7 @@ def indicators():
 
 def changelog():
     rows = [
+        ("19 Nov 2026", "Clips, replays and share cards", "Each simulator has a 27-second clip, indicator charts replay in the gallery, and every page has its own share card."),
         ("18 Nov 2026", "Free indicators page", "The first five open-source TradingView indicators are live, inside Tools."),
         ("17 Nov 2026", "Strategy Lab labels", "Forward data is labelled in forward testing, and market chips show full names."),
         ("15 Nov 2026", "Strategy tracker", "Full-year trade files for 14 strategies, a monthly calendar and a weekly update every Saturday."),

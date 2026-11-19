@@ -1382,3 +1382,14 @@ a.ind-card:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--acce
    per-frame cost. Hero orbit, candles and section entrances keep their motion. */
 .sky-stars, .sky-orbits g, .sky-chart g { animation: none; }
 .sky-aurora, html[data-theme="light"] .sky-aurora { animation: none; filter: none; mix-blend-mode: normal; will-change: auto; }
+
+/* ---------- Indicator gallery: chart replay (Nov 19). A cover slides off the plot area, left to right. ---------- */
+.ind-shot { position: relative; display: block; overflow: hidden; background: #07090a; border-bottom: 1px solid var(--line); }
+.ind-card .ind-shot img { border-bottom: 0; }
+.ind-wipe { position: absolute; top: 11.4%; bottom: 8.1%; right: 5.7%; width: 0; background: #07090a; border-left: 2px solid #d9b46c; opacity: 0; pointer-events: none; }
+@keyframes ind-replay { 0% { width: 93%; opacity: 1; } 84% { width: 0; opacity: 1; } 100% { width: 0; opacity: 0; } }
+.ind-hint { display: none; color: var(--dim); }
+@media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) { .ind-card:hover .ind-wipe { animation: ind-replay 7s linear infinite; } .ind-hint { display: inline; } }
+  .ind-shot.play .ind-wipe { animation: ind-replay 6s linear 1 both; }
+}
