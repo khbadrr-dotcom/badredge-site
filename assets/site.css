@@ -1253,7 +1253,7 @@ a.card { transition: transform .28s var(--ease), box-shadow .28s var(--ease), bo
 .hero-facts > div:nth-child(n+4) dt::before { background: var(--live); }
 .hero-facts dd { margin: 0; font-size: 14px; line-height: 1.35; color: var(--text); }
 .hero-facts dd span { color: var(--dim); }
-@media (max-width: 560px) { .hero-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-facts > div { padding: 14px; } }
+@media (max-width: 560px) { .hero-facts > div { padding: 13px 12px; gap: 8px; } .hero-facts dt { font-size: 11px; letter-spacing: .1em; } .hero-facts dd { font-size: 13px; } }
 
 /* ---------- Nav order: "Open the tools" sits second, right after Backtested strategies ---------- */
 .nav .cta { margin-left: 2px; margin-right: 10px; }
@@ -1396,3 +1396,26 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .ind-filter button[aria-pressed="true"] { color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-line); background: color-mix(in srgb, var(--accent) 10%, transparent); }
 .ind-filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .ind-card[hidden] { display: none; }
+
+/* ---------- One trading lesson (home hero, under the facts card). Static: no motion. ---------- */
+.tlesson { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 22px 24px 20px; border: 1px solid var(--glass-line); border-radius: var(--r-lg); background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--glass-shadow); }
+.lsn-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.lsn-top h2 { display: flex; align-items: center; gap: 8px; margin: 0; font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.lsn-top h2::before { content: ""; width: 5px; height: 5px; border-radius: 50%; flex: none; background: var(--live); }
+.lsn-meta { font: 500 12px/1 var(--mono); letter-spacing: .06em; color: var(--accent); }
+.lsn-meta i, .lsn-foot i { font-style: normal; color: var(--dim); padding: 0 2px; }
+.tlesson .lsn-head { margin: 6px 0 0; font-size: 27px; font-weight: 600; font-stretch: 106%; line-height: 1.2; letter-spacing: -.02em; color: var(--text); text-wrap: balance; }
+.tlesson .lsn-body { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--text-2); max-width: 54ch; }
+.lsn-dots { display: grid; grid-template-columns: repeat(15, 1fr); gap: 5px; margin-top: auto; padding-top: 10px; max-width: 300px; }
+.lsn-dots span { height: 6px; border-radius: 2px; background: var(--line-2); }
+.lsn-dots span.past { background: color-mix(in srgb, var(--accent) 35%, var(--line-2)); }
+.lsn-dots span.on { background: var(--accent); }
+.tlesson .lsn-foot { margin: 0; padding-top: 14px; border-top: 1px solid var(--line); font: 500 11.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--dim); }
+@media (min-width: 1001px) {
+  .hero .wrap { align-items: stretch; }
+  .hero-visual { align-self: center; }
+  .hero-copy { padding-top: 24px; }
+  .hero-copy .tlesson { flex: 1 1 auto; }
+}
+@media (max-width: 1000px) { .lsn-dots { margin-top: 6px; } }
+@media (max-width: 560px) { .tlesson { padding: 18px 18px 16px; } .tlesson .lsn-head { font-size: 22px; } .tlesson .lsn-body { font-size: 15px; } }
