@@ -99,6 +99,16 @@ LESSONS = [
      "Knowing how one or two markets move in each session beats scanning ten. Depth shows up in the details: open, lunch, close."),
     ("Journal", "Count rule breaks, not only losses.",
      "A week with three losses and zero rule breaks is better work than a green week with five. The rule-break count is the number to bring down."),
+    ("Process", "Reshuffle your trades before trusting the size.",
+     "The same trades in a different order give a different drawdown. Run them in thousands of random orders: if a normal reshuffle breaks the max loss, the size is too big."),
+    ("Risk", "Test with losses 50% bigger.",
+     "Live losses run larger than the backtest: slippage, late exits, news. If the plan survives only with the backtest's average loss, it is sized for conditions that will not last."),
+    ("Prop rules", "Pass rate beats best case.",
+     "Run the same trades through thousands of simulated evaluations. The question is not whether it can pass, but how often, at what size and in how many days."),
+    ("Risk", "Put your worst ten days first.",
+     "A bad week on day one lands before any buffer exists. Check whether your worst ten days, placed at the start, would end the account."),
+    ("Prop rules", "Simulate the funded account too.",
+     "The evaluation ends at the target. The funded account has no target, the same max loss and its own payout rules, so the chance of reaching a first payout is a separate number."),
 ]
 
 EPOCH = (2026, 1, 1)  # day 0 of the rotation
@@ -107,3 +117,12 @@ EPOCH = (2026, 1, 1)  # day 0 of the rotation
 def index_for(date):
     import datetime
     return (date - datetime.date(*EPOCH)).days % len(LESSONS)
+
+# Lessons that come from a test in one of the site's simulators link to it.
+TOOLS = {
+    45: ("/tools/sizing/", "Run this test in the Contract Sizing Simulator"),
+    46: ("/tools/sizing/", "Run this test in the Contract Sizing Simulator"),
+    47: ("/tools/pass/", "Try it in the Prop Pass Simulator"),
+    48: ("/tools/sizing/", "Run this check in the Contract Sizing Simulator"),
+    49: ("/tools/payout/", "Try it in the Prop Payout Simulator"),
+}

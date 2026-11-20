@@ -1397,7 +1397,7 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .tlesson .lsn-head { margin: 6px 0 0; font-size: 27px; font-weight: 600; font-stretch: 106%; line-height: 1.2; letter-spacing: -.02em; color: var(--text); text-wrap: balance; }
 .tlesson .lsn-body { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--text-2); max-width: 54ch; }
 .lsn-figure { margin-top: auto; padding-top: 6px; }
-.lsn-art { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; overflow: visible; }
+.lsn-art { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto; overflow: visible; }
 .lsn-art line, .lsn-art polyline, .lsn-art path, .lsn-art circle[fill="none"] { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .lsn-art .la-f { stroke: var(--line-2); stroke-width: 1.2; }
 .lsn-art .la-q { stroke: var(--line-2); stroke-width: 1.2; }
@@ -1411,6 +1411,9 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .lsn-art .la-qf, .lsn-art .la-qd { fill: color-mix(in srgb, var(--dim) 22%, transparent); }
 .lsn-art text { font: 500 10px/1 var(--mono); letter-spacing: .02em; fill: var(--dim); stroke: none; }
 .lsn-art .la-lg { fill: var(--accent); } .lsn-art .la-lt { fill: var(--up); } .lsn-art .la-lr { fill: var(--down); }
+.lsn-try { align-self: flex-start; font: 500 13px/1.3 var(--sans); color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+.lsn-try:hover { color: var(--text); }
+.lsn-try[hidden] { display: none; }
 .tlesson .lsn-foot { margin: 0; padding-top: 14px; border-top: 1px solid var(--line); font: 500 11.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--dim); }
 @media (min-width: 1001px) {
   .hero .wrap { align-items: stretch; }

@@ -468,6 +468,58 @@ def tally():
     return s
 
 
+def reshuffle():
+    s = line(20, 100, 340, 100, "r", dash=True) + txt(340, 114, "max loss", "lr", "end")
+    for k in range(12):
+        s += poly(walk(90 + k, 21, 20, 330, 40, -.4, 4.5, 8, 96), "q")
+    P = [(x, min(y + (x - 20) * .18, 100)) for x, y in walk(140, 21, 20, 330, 40, -.4, 4.5, 8, 96)]
+    s += poly(P, "r") + txt(20, 114, "same trades, 1,000 orders")
+    return s
+
+
+def bigger_losses():
+    s = line(16, 40, 344, 40)
+    x = 30
+    for k, (w, l) in enumerate([(1.6, 0), (0, 1), (1.4, 0), (0, 1), (1.8, 0), (0, 1), (1.5, 0), (0, 1)]):
+        if w:
+            s += rect(x, 40, 22, -w * 16, "t")
+        else:
+            s += rect(x, 40, 22, l * 30, "r") + rect(x, 70, 22, 15, "rr")
+        x += 38
+    return s + txt(30, 104, "each loss +50%", "lr")
+
+
+def pass_rate():
+    rnd, s = random.Random(9), ""
+    for k in range(60):
+        x, y = 24 + (k % 20) * 16, 26 + (k // 20) * 18
+        s += dot(x, y, "t" if rnd.random() < .6 else "q", 4.5)
+    return s + txt(24, 98, "every dot is one simulated attempt") + txt(24, 112, "count the teal ones", "lt")
+
+
+def worst_first():
+    s = line(16, 100, 344, 100, "r", dash=True) + txt(344, 114, "max loss", "lr", "end")
+    vals = [-3, -2.6, -2.2, -2, -1.8, -1.6, -1.5, -1.3, -1.2, -1, 1, 1.5, -.5, 2, 1, .8, 1.6, -.4, 1.2, 1]
+    y, P = 26, [(20, 26)]
+    for k, v in enumerate(vals):
+        y -= v * 3.6
+        P.append((20 + (k + 1) * 16, y))
+    s += poly(P[:11], "r") + poly(P[10:], "q") + dot(*P[10], c="r", r=3)
+    return s + txt(20, 16, "worst ten days placed first", "lr") + txt(P[10][0] + 8, P[10][1] + 4, "still above?", "l")
+
+
+def funded():
+    s = line(20, 100, 340, 100, "r", dash=True)
+    P = walk(77, 14, 20, 160, 80, 2.4, 3, 30, 98)
+    s += poly(P, "g") + line(20, 34, 160, 34, "g", dash=True) + txt(22, 26, "target", "lg")
+    s += line(170, 14, 170, 112, "f") + txt(178, 22, "funded: no target", "lt")
+    Q = walk(78, 14, 170, 340, P[-1][1] + 10, .9, 3.5, 30, 98)
+    s += poly(Q, "t")
+    for x, y in Q[5::4]:
+        s += dot(x, y, "g", 4)
+    return s + txt(178, 38, "gold dots: payouts", "lg")
+
+
 ART = [
     lambda: winloss([1, 1, 1], [4], "+$100 ×3", "−$400 ×1"),
     recover,
@@ -514,6 +566,11 @@ ART = [
     ruin,
     focus,
     tally,
+    reshuffle,
+    bigger_losses,
+    pass_rate,
+    worst_first,
+    funded,
 ]
 
 
