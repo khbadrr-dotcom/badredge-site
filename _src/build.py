@@ -144,7 +144,7 @@ def og_cards():
         "/research/backtested/": ("Strategy", "Lab.", "Exploratory · in forward testing", edu),
         "/research/under-observation/": ("Noise-area momentum", "on MNQ", "In forward testing", edu),
         "/pine/": ("Private", "Pine Scripts", "Opening soon", "LAUNCH LIST OPEN"),
-        "/about/": ("Who is", "Badr", "The desk behind the tools", free),
+        "/about/": ("Who is behind", "Badr Edge", "The desk behind the tools", free),
         "/changelog/": ("What", "changed.", "Changelog", free),
     }
     for f in research.FAMILIES:
@@ -263,7 +263,7 @@ def footer():
         <li><a href="/guides/">All guides</a></li>
       </ul></div>
       <div><h4>Badr Edge</h4><ul>
-        <li><a href="/about/">Who is Badr</a></li>
+        <li><a href="/about/">Who is behind Badr Edge</a></li>
         <li><a href="/research/backtested/">Strategy Lab</a></li>
         <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Private Pine Scripts</a></li>
@@ -1243,10 +1243,12 @@ def pine():
 
 def about():
     body = f"""
-<section class="page-head"><div class="wrap">
-  <span class="eyebrow">Who is Badr</span>
-  <h1>Who is <span class="gold">Badr.</span></h1>
-  <p class="lede">Badr Edge is the independent research desk of Badr, a futures trader who has traded live for more than three years, across prop firms and personal brokerage accounts.</p>
+<section class="page-head about-head"><div class="wrap">
+  <div class="about-intro">
+    <h1>Who is behind <span class="gold">Badr Edge.</span></h1>
+    <p class="lede">Badr Edge is the independent research desk of Badr, a futures trader who has traded live for more than three years, across prop firms and personal brokerage accounts.</p>
+  </div>
+  <figure class="about-portrait"><img src="/assets/profile.webp" width="640" height="640" alt="Badr Edge profile picture: Badr's portrait, half photo and half gold mesh, with the gold moon in the corner" decoding="async" fetchpriority="high"></figure>
 </div></section>
 
 
@@ -1292,7 +1294,7 @@ def about():
   <p class="note">Past payouts and trading results do not predict future results. Badr Edge does not manage money, offer signals or give investment advice. See the <a href="/legal/disclaimer/">disclaimer</a>.</p>
 </article>
 """
-    return page("/about/", "Who is Badr", "Who is Badr: the independent futures research desk behind Badr Edge, built on more than three years of live trading and $250K+ in documented prop-firm payouts.", "/about/", body)
+    return page("/about/", "Who is behind Badr Edge", "Who is behind Badr Edge: the independent futures research desk behind Badr Edge, built on more than three years of live trading and $250K+ in documented prop-firm payouts.", "/about/", body)
 
 
 def legal_disclaimer():
