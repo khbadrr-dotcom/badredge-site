@@ -17,7 +17,7 @@ from html import escape as esc
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://badredge.com"
 YEAR = datetime.date.today().year
-UPDATED = "November 2026"  # legal pages only; not shown on the homepage or footer
+UPDATED = "November 2026"  # legal pages only. Khaled (Nov 21): NEVER show an "Updated <date>" in the footer or on the homepage.
 
 # The Badr Edge logo: the full moon (badr), drawn in CSS (.moon in assets/site.css).
 MARK = '<span class="moon" aria-hidden="true"></span>'
@@ -278,7 +278,7 @@ def footer():
       <p>Prop firm names are used only to describe rule styles. Badr Edge is not affiliated with or endorsed by any firm, broker or exchange.</p>
     </div>
     <div class="foot-bar">
-      <div>&copy; {YEAR} Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a><span class="sep"></span><a href="/changelog/">Updated {BUILD_DATE}</a></div>
+      <div>&copy; {YEAR} Badr Edge<span class="sep"></span>All rights reserved<span class="sep"></span><a href="/legal/disclaimer/">Disclaimer</a><span class="sep"></span><a href="/legal/privacy/">Privacy</a></div>
     </div>
   </div>
 </footer>
