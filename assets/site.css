@@ -1396,10 +1396,21 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .lsn-meta i, .lsn-foot i { font-style: normal; color: var(--dim); padding: 0 2px; }
 .tlesson .lsn-head { margin: 6px 0 0; font-size: 27px; font-weight: 600; font-stretch: 106%; line-height: 1.2; letter-spacing: -.02em; color: var(--text); text-wrap: balance; }
 .tlesson .lsn-body { margin: 0; font-size: 15.5px; line-height: 1.65; color: var(--text-2); max-width: 54ch; }
-.lsn-dots { display: grid; grid-template-columns: repeat(15, 1fr); gap: 5px; margin-top: auto; padding-top: 10px; max-width: 300px; }
-.lsn-dots span { height: 6px; border-radius: 2px; background: var(--line-2); }
-.lsn-dots span.past { background: color-mix(in srgb, var(--accent) 35%, var(--line-2)); }
-.lsn-dots span.on { background: var(--accent); }
+.lsn-figure { margin-top: auto; padding-top: 6px; }
+.lsn-art { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; overflow: visible; }
+.lsn-art line, .lsn-art polyline, .lsn-art path, .lsn-art circle[fill="none"] { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.lsn-art .la-f { stroke: var(--line-2); stroke-width: 1.2; }
+.lsn-art .la-q { stroke: var(--line-2); stroke-width: 1.2; }
+.lsn-art .la-g { stroke: var(--accent); }
+.lsn-art .la-t { stroke: var(--up); }
+.lsn-art .la-r { stroke: var(--down); }
+.lsn-art .la-gf, .lsn-art .la-gd { fill: color-mix(in srgb, var(--accent) 70%, transparent); }
+.lsn-art .la-tf, .lsn-art .la-td { fill: color-mix(in srgb, var(--up) 62%, transparent); }
+.lsn-art .la-rf, .lsn-art .la-rd { fill: color-mix(in srgb, var(--down) 66%, transparent); }
+.lsn-art .la-rrf { fill: color-mix(in srgb, var(--down) 26%, transparent); }
+.lsn-art .la-qf, .lsn-art .la-qd { fill: color-mix(in srgb, var(--dim) 22%, transparent); }
+.lsn-art text { font: 500 10px/1 var(--mono); letter-spacing: .02em; fill: var(--dim); stroke: none; }
+.lsn-art .la-lg { fill: var(--accent); } .lsn-art .la-lt { fill: var(--up); } .lsn-art .la-lr { fill: var(--down); }
 .tlesson .lsn-foot { margin: 0; padding-top: 14px; border-top: 1px solid var(--line); font: 500 11.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--dim); }
 @media (min-width: 1001px) {
   .hero .wrap { align-items: stretch; }
@@ -1407,5 +1418,5 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
   .hero-copy { padding-top: 24px; }
   .hero-copy .tlesson { flex: 1 1 auto; }
 }
-@media (max-width: 1000px) { .lsn-dots { margin-top: 6px; } }
+@media (max-width: 1000px) { .lsn-figure { margin-top: 4px; } }
 @media (max-width: 560px) { .tlesson { padding: 18px 18px 16px; } .tlesson .lsn-head { font-size: 22px; } .tlesson .lsn-body { font-size: 15px; } }
