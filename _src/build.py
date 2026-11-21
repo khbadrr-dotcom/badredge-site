@@ -681,7 +681,7 @@ def research_art(kind):
     pts = lambda P: ' '.join(f'{x:.1f},{y:.1f}' for x, y in P)
     if kind == 'method':
         # The pipeline: explore, cheap checks, freeze, frozen test, gate
-        steps = ('explore', 'checks', 'freeze', 'test', 'gate')
+        steps = ('explore', 'checks', 'lock', 'test', 'gate')
         xs = [34 + i * 63 for i in range(5)]
         body = f'<line class="da-rail" x1="{xs[0]}" y1="52" x2="{xs[-1]}" y2="52"/>'
         body += f'<line class="da-rail-on" x1="{xs[0]}" y1="52" x2="{xs[2]}" y2="52"/>'
@@ -712,7 +712,7 @@ def research_art(kind):
             P.append((x, y)); y = y - .35 + rnd.gauss(0, 2.6)
         body = (f'<line class="da-split" x1="{start}" y1="10" x2="{start}" y2="96"/>'
                 f'<rect class="da-shade" x="14" y="10" width="{start - 14}" height="86" rx="3"/>'
-                f'<text class="da-lbl" x="22" y="56">frozen</text>'
+                f'<text class="da-lbl" x="22" y="56">fixed</text>'
                 f'<polyline class="da-live" points="{pts(P)}"/>'
                 f'<circle class="da-pulse" cx="{P[-1][0]:.1f}" cy="{P[-1][1]:.1f}" r="3.2"/>'
                 f'<text class="da-lbl live" x="{start + 8}" y="16">new data · no changes</text>')
@@ -815,7 +815,7 @@ def home():
       <a class="card reveal" href="/research/">
         {door_art('research')}<span class="tagline">Live</span>
         <h3>Research</h3>
-        <p>A public log of how trading ideas are built, frozen and stress-tested, with last year's results after costs.</p>
+        <p>A public log of how trading ideas are built and stress-tested, with last year's results after costs.</p>
         <span class="go">Open the research &rarr;</span>
       </a>
       <a class="card reveal" href="/pine/">
@@ -833,7 +833,7 @@ def home():
     <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
       <p class="lede">A public log of a futures research desk: the method, every strategy family tested and last year's results after costs. All of it is research and requires forward testing.</p></div>
     <div class="grid-3">
-      <a class="card reveal" href="/research/method/">{research_art('method')}<h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
+      <a class="card reveal" href="/research/method/">{research_art('method')}<h3>Method</h3><p>Explore, lock, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
       <a class="card reveal" href="/research/backtested/">{research_art('backtested')}<h3>Strategy Lab</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
       <a class="card reveal" href="/research/under-observation/">{research_art('forward')}<h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
     </div>
@@ -842,7 +842,7 @@ def home():
       <div class="card test reveal">{test_art('mc')}<h3>Monte Carlo</h3><p>Thousands of reshuffled trade orders show the range of drawdowns, not only the path you got.</p></div>
       <div class="card test reveal">{test_art('null')}<h3>Random-direction null</h3><p>The search is rerun with random trade directions. The real pick has to beat 95% of them.</p></div>
       <div class="card test reveal">{test_art('stress')}<h3>Cost stress</h3><p>Slippage doubled and tripled, fees raised 50%. The idea has to hold up at higher costs.</p></div>
-      <div class="card test reveal">{test_art('years')}<h3>Unseen years</h3><p>Rules are frozen, then run once on four earlier years they were never tuned on.</p></div>
+      <div class="card test reveal">{test_art('years')}<h3>Unseen years</h3><p>One set of settings, run once on four earlier years it was never tuned on.</p></div>
     </div>
   </div>
 </section>

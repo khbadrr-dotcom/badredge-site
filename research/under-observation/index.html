@@ -48,8 +48,8 @@
 </div></header>
 <article class="prose rs">
   <h2>Where it stands</h2>
-  <ol class="stepper" aria-label="Research stage: Forward testing"><li class="done"><b>Idea</b><small>Rule written down</small></li><li class="done"><b>Backtested</b><small>Run after costs</small></li><li class="done"><b>Last-year pick</b><small>Settings picked in-sample</small></li><li class="now"><b>Forward testing</b><small>Logged on new data, rules frozen</small></li></ol>
-  <figure class="viz tl"><figcaption><b>Test windows</b><span>The forward log runs on new data only. Around a year of it is needed before it is judged again.</span></figcaption><div class="tl-body"><div class="tl-lane"><span class="tl-span frozen" style="left:0.00%;width:76.47%" title="Frozen test · Jul 2023 to Oct 2026"><em>Frozen test · Jul 2023 to Oct 2026</em></span><span class="tl-span forward" style="left:76.47%;width:23.53%" title="Forward log"><em>Forward log</em></span><span class="tl-mark" style="left:76.47%"><em>Forward log starts 22 Oct 2026</em></span></div><div class="tl-axis"><span class="tl-tick" style="left:11.76%">2024</span><span class="tl-tick" style="left:35.29%">2025</span><span class="tl-tick" style="left:58.82%">2026</span><span class="tl-tick" style="left:82.35%">2027</span></div></div></figure>
+  <ol class="stepper" aria-label="Research stage: Forward testing"><li class="done"><b>Idea</b><small>Rule written down</small></li><li class="done"><b>Backtested</b><small>Run after costs</small></li><li class="done"><b>Last-year pick</b><small>Settings picked in-sample</small></li><li class="now"><b>Forward testing</b><small>Logged on new data, rules unchanged</small></li></ol>
+  <figure class="viz tl"><figcaption><b>Test windows</b><span>The forward log runs on new data only. Around a year of it is needed before it is judged again.</span></figcaption><div class="tl-body"><div class="tl-lane"><span class="tl-span frozen" style="left:0.00%;width:76.47%" title="Out-of-sample test · Jul 2023 to Oct 2026"><em>Out-of-sample test · Jul 2023 to Oct 2026</em></span><span class="tl-span forward" style="left:76.47%;width:23.53%" title="Forward log"><em>Forward log</em></span><span class="tl-mark" style="left:76.47%"><em>Forward log starts 22 Oct 2026</em></span></div><div class="tl-axis"><span class="tl-tick" style="left:11.76%">2024</span><span class="tl-tick" style="left:35.29%">2025</span><span class="tl-tick" style="left:58.82%">2026</span><span class="tl-tick" style="left:82.35%">2027</span></div></div></figure>
   <h2>The rule</h2>
   <p>This is the published rule from Zarattini, Aziz and Barbon (2024), tested exactly as written with nothing tuned:</p>
   <ul>
@@ -58,7 +58,7 @@
     <li>Flat by 22:00 GMT+3 at the latest. One micro contract, no leverage scaling.</li>
   </ul>
 
-  <h2>The frozen test</h2>
+  <h2>The out-of-sample test</h2>
   <p>Rules were written and hashed before the run. It was run once on July 2023 to October 2026, a window never used for this rule.</p>
   <table><thead><tr><th>Measure</th><th>MNQ</th></tr></thead><tbody>
     <tr><td>Trades</td><td>590</td></tr>
@@ -83,7 +83,7 @@
   <div class="callout"><p><strong>Status: in forward testing.</strong> This is research, not a recommendation and not a signal. No result here is a promise.</p></div>
 
   <h2>What happens next</h2>
-  <p>The frozen rule is logged on new data from 22 October 2026, with no changes. A handful of weeks proves nothing either way: at roughly 180 trades a year, one year of new data alone cannot settle it. The plan is to pool new data with the frozen window and re-judge it under the same pre-registered rules.</p>
+  <p>The same rule is logged on new data from 22 October 2026, with no changes. A handful of weeks proves nothing either way: at roughly 180 trades a year, one year of new data alone cannot settle it. The plan is to pool new data with the out-of-sample window and re-judge it under the same pre-registered rules.</p>
 
   <p class="note">All dollar figures are hypothetical backtest results for one contract, after exchange and broker fees and one tick of slippage on each side of every market or stop order. They describe the past under stated assumptions and do not predict future results.</p>
   <p class="note">Research notes for education only. Not financial advice, not a recommendation and not a signal. No strategy on this site has passed final validation. Futures trading involves substantial risk of loss.</p>

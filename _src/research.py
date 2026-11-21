@@ -191,8 +191,8 @@ FAMILIES = [
         idea="Mark the high and low of a fixed 30-minute window. Trade the first close beyond that range, or the first fair-value gap that forms after it, with the stop on the other side of the range.",
         tested=[
             "Hundreds of thousands of setting combinations per market (window start, entry type, stop, target, filters), searched on the most recent 12 months.",
-            "The best setting per market was frozen and replayed unchanged on four earlier years it had never seen.",
-            "One market (MYM) also got a pre-registered frozen test, written down before it was run.",
+            "The best setting per market was replayed unchanged on four earlier years it had never seen.",
+            "One market (MYM) also got a pre-registered out-of-sample test, written down before it was run.",
             "15 trader-designed filters (trend, volatility, session, day-of-week and more) were added to the best gold version, each compared against a random placebo filter.",
         ],
         results="""<table><thead><tr><th>Pick</th><th>12 months, in-sample (picked here)</th><th>2021 to 2025, unseen</th></tr></thead><tbody>
@@ -202,7 +202,7 @@ FAMILIES = [
 <tr><td>MGC #2 (pre-registered)</td><td>90 trades · 84% WR · +$2,412</td><td>294 trades · 66% WR · &minus;$323</td></tr>
 </tbody></table>
 <p>The in-sample column is the best result out of a very large search on the same data, so it is expected to look good. The added trader filters: 0 of 15 beat a random placebo filter, and all 15 made the base version worse.</p>""",
-        verdict="Exploratory, requires forward testing. The results sit within what a random search produces. The picked settings sit inside what a random-direction search produces, and both pre-registered frozen tests failed.",
+        verdict="Exploratory, requires forward testing. The results sit within what a random search produces. The picked settings sit inside what a random-direction search produces, and both pre-registered out-of-sample tests failed.",
         lesson="A 70 to 80% win rate on the year you optimised on is the normal output of a big search, not a sign of an edge. Random-direction picks from the same pipeline also showed 77 to 92% win rates.",
     ),
     dict(
@@ -212,7 +212,7 @@ FAMILIES = [
         tested=[
             "Full grid of windows, levels, filters and exits on four markets, ranked on the last 12 months.",
             "Walk-forward check: choose the best setting on the first half of the year, then trade it on the second half.",
-            "The best MYM setting was frozen and replayed on 2021 to 2025.",
+            "The best MYM setting was replayed unchanged on 2021 to 2025.",
         ],
         results="""<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody>
 <tr><td>MGC walk-forward</td><td>first half, picked there: +$10,889 · second half, unseen: &minus;$955</td></tr>
@@ -227,9 +227,9 @@ FAMILIES = [
         markets="MGC, MNQ, SIL, PL, M2K, MCL, MHG, M6E, MYM", scope="1m charts · tuned on the last 12 months · replayed on 2021 to 2025",
         idea="Two independent opening-range windows per day. Entry on a candle close beyond enabled range levels, with an optional 'reclaim' entry and an opening-range size filter.",
         tested=[
-            "Grid search on nine markets; best setting per market frozen.",
+            "Grid search on nine markets; best setting per market locked.",
             "Each pick compared against ten random-direction searches run through the identical pipeline.",
-            "Frozen replay of every pick on 2021 to 2025.",
+            "Out-of-sample replay of every pick on 2021 to 2025.",
         ],
         results="""<table><thead><tr><th>Pick</th><th>12 months, in-sample</th><th>2021 to 2025, unseen</th></tr></thead><tbody>
 <tr><td>SIL #1</td><td>145 trades · 90% WR · +$21,156</td><td>541 trades · 75% WR · &minus;$2,657</td></tr>
@@ -238,7 +238,7 @@ FAMILIES = [
 <tr><td>MCL #1</td><td>151 trades · 83% WR · +$2,645</td><td>601 trades · 66% WR · &minus;$2,193</td></tr>
 </tbody></table>
 <p>PL was the only pick that beat all ten random-direction searches and passed its walk-forward check. It still lost on the four unseen years, so it stays exploratory, not promising.</p>""",
-        verdict="Exploratory, requires forward testing. Every frozen pick lost money on the unseen years.",
+        verdict="Exploratory, requires forward testing. Every pick lost money on the unseen years.",
         lesson="Even a pick that beats its random-direction null can fail on unseen data when the sample is thin (85 trades). Passing one check is not validation.",
     ),
     dict(
@@ -247,7 +247,7 @@ FAMILIES = [
         idea="The first hour of a session sets the Initial Balance. Trade rejections of its edges, immediate breakouts, or breakouts followed by a retest, with targets at the midpoint and 0.5x to 2x extensions.",
         tested=[
             "Up to three independent one-hour engines per day, three entry models and a range of extensions, searched per market.",
-            "Frozen replay of the best settings on 2021 to 2025.",
+            "Out-of-sample replay of the best settings on 2021 to 2025.",
             "A separate study of breakout continuation and fades in Tokyo and London.",
         ],
         results="""<table><thead><tr><th>Pick</th><th>12 months, in-sample</th><th>2021 to 2025, unseen</th></tr></thead><tbody>
@@ -293,17 +293,17 @@ FAMILIES = [
     ),
     dict(
         slug="ifvg-breaker", name="iFVG and breaker blocks", status="no-edge", group="Price action and levels",
-        markets="10 markets: MNQ, MES, MYM, M2K, MGC, SIL, PL, MCL, MHG, M6E", scope="5m and 15m · 360 settings · frozen test 2021 to 2025",
+        markets="10 markets: MNQ, MES, MYM, M2K, MGC, SIL, PL, MCL, MHG, M6E", scope="5m and 15m · 360 settings · out-of-sample test 2021 to 2025",
         idea="After a liquidity sweep and a market-structure shift, an inverted fair-value gap that overlaps a breaker block marks a zone. Enter with a limit order in the zone, stop beyond the sweep.",
         tested=[
             "360 settings per market, plus versions with only the iFVG or only the breaker.",
             "Random-direction null and walk-forward on the last 12 months.",
-            "Pre-registered frozen test on 2021 to 2025 for one primary setting per market.",
+            "Pre-registered out-of-sample test on 2021 to 2025 for one primary setting per market.",
         ],
         results="""<ul>
 <li>The best 12-month setting sat inside the random-direction null on 9 of 10 markets.</li>
 <li>Walk-forward second half was zero or negative on 9 of 10.</li>
-<li>Frozen test: 0 of 10 primaries passed. Average result per trade ranged from &minus;0.23R to +0.03R after costs.</li>
+<li>Out-of-sample test: 0 of 10 primaries passed. Average result per trade ranged from &minus;0.23R to +0.03R after costs.</li>
 </ul>""",
         verdict="Exploratory, requires forward testing, in this scope.",
         lesson="A confluence of two concepts needs a placebo test (fake zones of the same size), not just a test of each part on its own.",
@@ -335,11 +335,11 @@ FAMILIES = [
     ),
     dict(
         slug="support-resistance-pivots", name="Support and resistance with pivots", status="no-edge", group="Price action and levels",
-        markets="10 markets", scope="5m and 15m · 1,440 settings · frozen test 2021 to 2025",
+        markets="10 markets", scope="5m and 15m · 1,440 settings · out-of-sample test 2021 to 2025",
         idea="Swing-based support and resistance zones that line up with daily floor pivots or Camarilla levels. Trade the bounce, the break, or the break and retest.",
-        tested=["1,440 settings across ten markets.", "Pre-registered frozen test on 2021 to 2025, Holm-corrected across 20 primaries."],
+        tested=["1,440 settings across ten markets.", "Pre-registered out-of-sample test on 2021 to 2025, Holm-corrected across 20 primaries."],
         results="""<ul>
-<li>Frozen pooled primary (15m bounce at confluence): &minus;0.095R per trade, 95% interval &minus;0.115R to &minus;0.074R, with full statistical power.</li>
+<li>Out-of-sample pooled primary (15m bounce at confluence): &minus;0.095R per trade, 95% interval &minus;0.115R to &minus;0.074R, with full statistical power.</li>
 <li>0 of 20 primaries passed after Holm correction.</li>
 </ul>""",
         verdict="Exploratory, requires forward testing. Family closed in this scope.",
@@ -347,25 +347,25 @@ FAMILIES = [
     ),
     dict(
         slug="psar-ema200", name="Parabolic SAR with 200 EMA", status="no-edge", group="Trend and momentum",
-        markets="MGC, SIL, PL, MHG, M2K", scope="5m to 60m · volume and delta filters · frozen test on MGC 30m",
+        markets="MGC, SIL, PL, MHG, M2K", scope="5m to 60m · volume and delta filters · out-of-sample test on MGC 30m",
         idea="Take Parabolic SAR flips only in the direction of the 200 EMA, with volume above average.",
-        tested=["Timeframe scan from 5 to 60 minutes and filter tuning on the last 12 months.", "Frozen replay of the gold 30m version on 2021 to 2025."],
+        tested=["Timeframe scan from 5 to 60 minutes and filter tuning on the last 12 months.", "Out-of-sample replay of the gold 30m version on 2021 to 2025."],
         results="""<ul>
 <li>Best 12-month picks sat inside the random-direction null (MGC 0.885, SIL 0.495 percentile; 0.95 needed).</li>
 <li>Walk-forward second half was negative or broke the $2,000 drawdown limit in 9 of 15 cases.</li>
-<li>MGC 30m frozen replay: profit factor 0.75, &minus;$8,012.</li>
+<li>MGC 30m out-of-sample replay: profit factor 0.75, &minus;$8,012.</li>
 </ul>""",
         verdict="Exploratory, requires forward testing.",
         lesson="Classic indicator combinations are already in every chart package. Expect them to be priced in, and test them like anything else.",
     ),
     dict(
         slug="ema-vwap-momentum", name="EMA and VWAP momentum", status="no-edge", group="Trend and momentum",
-        markets="MES, MNQ, MYM, MGC", scope="5m · 720 settings · 2021 to 2026 · frozen test",
+        markets="MES, MNQ, MYM, MGC", scope="5m · 720 settings · 2021 to 2026 · out-of-sample test",
         idea="Enter when a fast EMA crosses the session VWAP (or a slower EMA), with a volume filter and a daily trend bias.",
-        tested=["EMA12 x VWAP crosses on MES and MYM.", "720 momentum settings with volume and daily bias, with a frozen test on 2021 to 2025."],
+        tested=["EMA12 x VWAP crosses on MES and MYM.", "720 momentum settings with volume and daily bias, with an out-of-sample test on 2021 to 2025."],
         results="""<ul>
 <li>Gross edge was about $0.10 to $1 per trade against a $2 to $4 round-trip cost.</li>
-<li>Frozen test: 0 of 12 passed. The best one made +$224 over four years (t = &minus;0.22, so indistinguishable from zero).</li>
+<li>Out-of-sample test: 0 of 12 passed. The best one made +$224 over four years (t = &minus;0.22, so indistinguishable from zero).</li>
 <li>12-month to 6-month walk-forward was negative on all four markets.</li>
 </ul>""",
         verdict="Exploratory, requires forward testing.",
@@ -373,12 +373,12 @@ FAMILIES = [
     ),
     dict(
         slug="monday-high-low", name="Monday high and low", status="no-edge", group="Price action and levels",
-        markets="MNQ, MES, MYM", scope="9,120 settings · 12m search · frozen test 2021 to 2025",
+        markets="MNQ, MES, MYM", scope="9,120 settings · 12m search · out-of-sample test 2021 to 2025",
         idea="Monday's high and low act as weekly reference levels. Trade the reaction at the next session open, or a sweep and reclaim during the week.",
-        tested=["9,120 settings on the last 12 months.", "Pre-registered frozen test of the best four on 2021 to 2025."],
+        tested=["9,120 settings on the last 12 months.", "Pre-registered out-of-sample test of the best four on 2021 to 2025."],
         results="""<ul>
 <li>12-month picks beat the selection null only weakly, and walk-forward failed on all three markets.</li>
-<li>Frozen: 4 of 4 not validated. MNQ primary &minus;0.056R per trade.</li>
+<li>Out-of-sample: 4 of 4 not validated. MNQ primary &minus;0.056R per trade.</li>
 </ul>""",
         verdict="Exploratory, requires forward testing, in this scope.",
         lesson="A weak pass on correlated markets (three US indices) counts as one result, not three.",
@@ -397,9 +397,9 @@ FAMILIES = [
     ),
     dict(
         slug="daily-trend", name="Daily trend signals traded intraday", status="no-edge", group="Trend and momentum",
-        markets="10 markets", scope="EWMAC and TSMOM signals · entries at 01:00, 10:00 or 16:30 GMT+3 · frozen test 2022 to 2025",
+        markets="10 markets", scope="EWMAC and TSMOM signals · entries at 01:00, 10:00 or 16:30 GMT+3 · out-of-sample test 2022 to 2025",
         idea="Use a classic daily trend signal (moving-average crossover or 12-month momentum) to choose the direction, then hold only inside the trading day.",
-        tested=["Four literature-fixed variants, about 8,850 trades each.", "Pre-registered frozen test with Holm correction and power calculated in advance."],
+        tested=["Four literature-fixed variants, about 8,850 trades each.", "Pre-registered out-of-sample test with Holm correction and power calculated in advance."],
         results="""<ul>
 <li>All four were negative after costs: &minus;0.031R to &minus;0.043R per trade.</li>
 <li>Gross results before costs were also slightly negative.</li>
@@ -410,7 +410,7 @@ FAMILIES = [
     ),
     dict(
         slug="intraday-momentum", name="Market intraday momentum", status="no-edge", group="Trend and momentum",
-        markets="MES, MNQ, MYM, M2K", scope="Gao et al. (2018) and Baltussen et al. (2021) rules · frozen test 2021 to 2025",
+        markets="MES, MNQ, MYM, M2K", scope="Gao et al. (2018) and Baltussen et al. (2021) rules · out-of-sample test 2021 to 2025",
         idea="Published research found that the first half hour of the day predicts the direction of the last half hour.",
         tested=["Five pre-registered versions, including the papers' own last-half-hour trade.", "No parameters were fitted."],
         results="""<ul>
@@ -423,7 +423,7 @@ FAMILIES = [
     ),
     dict(
         slug="noise-area", name="Noise-area momentum", status="observe", group="Trend and momentum",
-        markets="MNQ (lead), MES, MYM, M2K, MGC and 7 more", scope="Zarattini, Aziz and Barbon (2024) rule · frozen tests 2021 to 2026",
+        markets="MNQ (lead), MES, MYM, M2K, MGC and 7 more", scope="Zarattini, Aziz and Barbon (2024) rule · out-of-sample tests 2021 to 2026",
         idea="Build a band around the open from the average move at each minute over the last 14 days. Trade only when price leaves the band and is on the same side of VWAP; otherwise stay flat.",
         tested=["The published rule, unchanged, on MNQ (with MES as a control).", "The same rule on the other index micros, on Tokyo and London sessions, and on seven more markets."],
         results="""<ul>
@@ -439,7 +439,7 @@ FAMILIES = [
         slug="box-breakouts", name="Consolidation box breakouts", status="no-edge", group="Price action and levels",
         markets="MNQ, MES, MGC", scope="1m and 5m · 12m search · 4-month untouched check",
         idea="Detect a tight consolidation box, then trade the breakout or the failed breakout back into the box.",
-        tested=["Grid search on the last 12 months, random-direction null, walk-forward.", "One run of the frozen picks on an untouched 4-month window."],
+        tested=["Grid search on the last 12 months, random-direction null, walk-forward.", "One run of the unchanged picks on an untouched 4-month window."],
         results="""<table><thead><tr><th>Market</th><th>Null percentile (0.95 needed)</th><th>Untouched 4 months</th></tr></thead><tbody>
 <tr><td>MNQ</td><td>0.27</td><td>161 trades · &minus;$180</td></tr>
 <tr><td>MES</td><td>0.21</td><td>133 trades · &minus;$559</td></tr>
@@ -504,7 +504,7 @@ FAMILIES = [
         slug="cross-market-portfolio", name="14-strategy cross-market portfolio", status="no-edge", group="Portfolio",
         markets="MGC, MES, MYM, MNQ, SIL, PL, M2K, MCL, MHG, M6E", scope="The 14 best opening range and Initial Balance picks, run together · 1 micro each",
         idea="Individually weak strategies on different markets, combined with risk managed at portfolio level, might add up to something steady.",
-        tested=["The 14 frozen picks combined, settings never changed.", "Replay on 2021 to 2025, data none of them was chosen on.", "Also: a 'best 5 of 14' subset and a cross-market gap fade held for hours."],
+        tested=["The 14 picks combined, settings never changed.", "Replay on 2021 to 2025, data none of them was chosen on.", "Also: a 'best 5 of 14' subset and a cross-market gap fade held for hours."],
         results="""<table><thead><tr><th></th><th>Last 12 months (where picks were chosen)</th><th>2021 to 2025 (unseen)</th></tr></thead><tbody>
 <tr><td>Net, after costs</td><td>+$89,458</td><td>&minus;$31,794</td></tr>
 <tr><td>Max drawdown</td><td>$1,549</td><td>$34,196</td></tr>
@@ -708,7 +708,7 @@ def research_index(page):
 
 <section style="padding-top:0"><div class="wrap">
   <div class="grid-2">
-    <a class="card reveal" href="/research/method/"><div class="icon">{ICON_SCALE}</div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, frozen and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
+    <a class="card reveal" href="/research/method/"><div class="icon">{ICON_SCALE}</div><h3>Method</h3><p>Two tracks, one gate. How ideas are explored, locked and judged, and why a 75% win rate is never the goal.</p><span class="go">Read the method</span></a>
     <a class="card reveal" href="/research/under-observation/"><div class="icon">{ICON_BOOK}</div><h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes to the rules.</p><span class="go">Read the note</span></a>
   </div>
   {families_block()}
@@ -749,10 +749,10 @@ def method(page):
   {pipeline([("Explore", "Last 12 months. Grid searches allowed. Labelled in-sample."),
              ("Three cheap checks", "Gross both ways, random-direction null, walk-forward."),
              ("Pre-register", "Rules written, hashed and committed before the test."),
-             ("Frozen test", "Run once on four earlier years it was never tuned on."),
+             ("Out-of-sample test", "Run once on four earlier years it was never tuned on."),
              ("Validator gate", "A separate reviewer decides the status."),
              ("Forward test", "Logged on new data with the rules unchanged.")])}
-  {timeline([("Frozen test window · 4 years", (2021, 10), (2025, 10), "frozen"),
+  {timeline([("Out-of-sample window · 4 years", (2021, 10), (2025, 10), "frozen"),
              ("Explore · 12 months", (2025, 10), (2026, 10), "explore"),
              ("Forward", (2026, 10), (2027, 4), "forward")],
             (2021, 10), (2027, 4), marks=[("22 Oct 2025", (2025, 10)), ("22 Oct 2026", (2026, 10))],
@@ -766,7 +766,7 @@ def method(page):
     <li><strong>Walk-forward.</strong> Pick the best setting on the first half of the window, then trade it unchanged on the second half.</li>
   </ul>
 
-  <h2>Track 2: confirm on frozen data</h2>
+  <h2>Track 2: confirm on unseen data</h2>
   <p>The rules are written down, hashed and committed before the test (pre-registration). They are then run <strong>once</strong> on four earlier years, 22 Oct 2021 to 21 Oct 2025, that the idea was never tuned on. Nothing is changed after the result. If it fails, that window is spent for that idea.</p>
 
   <h2>The Validator gate</h2>
@@ -820,7 +820,7 @@ def method(page):
   <p class="note">{NFA}</p>
 </article>
 """
-    return page("/research/method/", "Research method", "How the Badr Edge research desk tests futures strategies: explore, pre-register, freeze, validate. Costs, nulls, Holm correction and acceptance rules.", "/research/", body)
+    return page("/research/method/", "Research method", "How the Badr Edge research desk tests futures strategies: explore, pre-register, test, validate. Costs, nulls, Holm correction and acceptance rules.", "/research/", body)
 
 
 def lessons(page):
@@ -870,7 +870,7 @@ def under_observation(page):
 <article class="prose rs">
   <h2>Where it stands</h2>
   {stepper(4)}
-  {timeline([("Frozen test · Jul 2023 to Oct 2026", (2023, 7), (2026, 10), "frozen"),
+  {timeline([("Out-of-sample test · Jul 2023 to Oct 2026", (2023, 7), (2026, 10), "frozen"),
              ("Forward log", (2026, 10), (2027, 10), "forward")],
             (2023, 7), (2027, 10), marks=[("Forward log starts 22 Oct 2026", (2026, 10))],
             title="Test windows", sub="The forward log runs on new data only. Around a year of it is needed before it is judged again.")}
@@ -882,7 +882,7 @@ def under_observation(page):
     <li>Flat by 22:00 GMT+3 at the latest. One micro contract, no leverage scaling.</li>
   </ul>
 
-  <h2>The frozen test</h2>
+  <h2>The out-of-sample test</h2>
   <p>Rules were written and hashed before the run. It was run once on July 2023 to October 2026, a window never used for this rule.</p>
   <table><thead><tr><th>Measure</th><th>MNQ</th></tr></thead><tbody>
     <tr><td>Trades</td><td>590</td></tr>
@@ -907,7 +907,7 @@ def under_observation(page):
   <div class="callout"><p><strong>Status: in forward testing.</strong> This is research, not a recommendation and not a signal. No result here is a promise.</p></div>
 
   <h2>What happens next</h2>
-  <p>The frozen rule is logged on new data from 22 October 2026, with no changes. A handful of weeks proves nothing either way: at roughly 180 trades a year, one year of new data alone cannot settle it. The plan is to pool new data with the frozen window and re-judge it under the same pre-registered rules.</p>
+  <p>The same rule is logged on new data from 22 October 2026, with no changes. A handful of weeks proves nothing either way: at roughly 180 trades a year, one year of new data alone cannot settle it. The plan is to pool new data with the out-of-sample window and re-judge it under the same pre-registered rules.</p>
 
   <p class="note">{COST_NOTE}</p>
   <p class="note">{NFA}</p>

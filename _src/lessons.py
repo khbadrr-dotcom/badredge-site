@@ -82,7 +82,7 @@ LESSONS = [
     ("Discipline", "Judge the execution, not the outcome.",
      "A planned −1R loss is a good trade. An unplanned +3R win is not repeatable. Grade each trade on whether it followed the plan."),
     ("Process", "In-sample results flatter.",
-     "Settings tuned on past data fit that data. Freeze them and judge them on data they have not seen before trusting them."),
+     "Settings tuned on past data fit that data. Lock them and judge them on data they have not seen before trusting them."),
     ("Risk", "Plan the news or be flat for it.",
      "CPI, payrolls and FOMC can jump price and widen spreads in seconds. Either the plan covers the release or the position is closed before it."),
     ("Prop rules", "Read the payout rules before the first trade.",
