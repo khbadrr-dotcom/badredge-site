@@ -1,0 +1,165 @@
+Passing a challenge feels like the finish line. It is the starting line.
+
+Ask anyone who has tried to stay funded at three firms with three different rule books.
+
+In this video, I want to show you why, with numbers you can check. What the rule books really do to the same trader, how narrow the climb gets after the pass, and what a prop firm can and cannot give you.
+
+One thing first. Any trader in this video who is not me is made up, and the numbers on screen are examples. The rules are real types, read from the firms' own pages this week. No firm is named.
+
+Every firm writes its own rules.
+
+A different daily loss limit. A different kind of drawdown, one that follows your balance up, or one that only moves at the end of the day.
+
+A different cap on what you can withdraw. A different consistency rule. And a different number of winning days before they will even talk about a payout.
+
+So the same trader, with the same strategy, is playing three different games at once. A day that is fine at one firm breaks a rule at another.
+
+Same dice. Different board. And most traders only read the board after they lose on it.
+
+Here is one ordinary day to show you. You open up fourteen hundred dollars by mid morning. By the close, you give most of it back and finish six hundred up.
+
+At one firm, that is a good day. Your floor did not move during the day, and you banked six hundred.
+
+At another, your floor climbed fourteen hundred dollars while you were up, and it stays there. You made six hundred, and lost eight hundred dollars of room.
+
+Same trades, same result on the statement. A very different account the next morning.
+
+The biggest difference between rule books is the floor. The maximum loss.
+
+On a fifty thousand dollar account, that floor is usually two thousand dollars below where you start. The amount is similar across firms. How it moves is not.
+
+The first kind is static. The floor is poured in concrete. It never moves, no matter how much you make.
+
+The second kind trails at the end of the day. When you close the day higher, the floor comes up behind you. During the day, it stays still.
+
+The third kind trails during the day. The floor follows your best open profit, minute by minute. A trade that was up five hundred dollars and closed flat has still lifted your floor by five hundred.
+
+Some firms stop the floor once you have banked enough. It settles at your starting balance plus about a hundred dollars, and stays there.
+
+On paper, it is the same two thousand dollars. In practice, the third floor gives you a lot less room than the first.
+
+So I built one example trader, and ran that trader through all three floors.
+
+This trader makes money on average. About sixty dollars a day. A normal day swings about four hundred and fifty dollars either way. And when a trade goes well, the open profit often runs a couple of hundred dollars further before the close.
+
+The target is three thousand dollars. The floor is two thousand. I ran twenty thousand versions of the same trader under each rule book.
+
+Under the static floor, about sixty five percent passed.
+
+Under the end of day floor, about fifty two percent.
+
+Under the floor that trails during the day, about forty three percent.
+
+Same trader. Same edge. Same target. The pass chance fell from about two in three to about four in ten, only because of how one rule moves.
+
+That is what I mean by three different games. Before you ask whether you are good enough, ask which game you are playing.
+
+Now the one setting you control yourself. Size.
+
+I ran the same trader at double the size. Every win and every loss twice as big.
+
+Under the static floor, about fifty eight percent still passed. Under the end of day floor, about forty one.
+
+Under the floor that trails during the day, about six percent. Six. The bigger swings lift the floor so fast that almost nobody survives the climb.
+
+Then at half the size. Here something different happens. Almost nobody hits the floor. But the trader is slow. Within sixty trading days, only about a third reach the target.
+
+Given a full year, about seven in ten pass, even under the strictest floor. But it takes about three months on a typical run, and most evaluations charge every month.
+
+So size is a trade off you have to choose on purpose. Big size fails fast. Small size passes slowly and pays more fees on the way. Neither is free.
+
+Then I added the other rules one at a time.
+
+A daily loss limit of about eleven hundred dollars. For this trader, the pass chance barely moved.
+
+A consistency rule, where your best day can be at most half of your profit. Again, almost nothing, because this trader has no giant days.
+
+That is the useful part. A rule only hurts you if it touches the way you trade.
+
+A trader who makes most of the month in one big day lives or dies by the consistency rule. A trader who has one terrible morning a month lives or dies by the daily limit.
+
+So the right question is not which firm is best. It is which rule meets my worst habit.
+
+And there are smaller rules you only meet in the fine print. A cap on how many contracts you can hold. A plan that lets you add size only after you build a cushion. Limits on holding a trade through big news. Minimum days before a pass counts.
+
+None of them sounds like much. But each one is a place where a normal trading day can turn into a broken rule, and a broken rule usually means starting again and paying again.
+
+The profit split gets most of the attention, eighty or ninety percent. For most traders, it matters far less than the floor and the payout rules, because a split only counts on money you actually reach.
+
+Now let us follow the same trader after the pass.
+
+The funded account has its own floor and its own payout rules. In this example, a payout needs five winning days of at least a hundred and fifty dollars, and half of the profit comes out each time.
+
+Out of a hundred starts, about fifty two pass.
+
+About thirty nine reach a first payout.
+
+And about eighteen reach three payouts.
+
+This is a trader who makes money on average. And still, more than four out of five starts never reach a third payout.
+
+Part of that is the money coming out. Every withdrawal makes the cushion above the floor thinner, so the account gets more fragile the more you are paid.
+
+That is why a pass proves very little. The challenge proves you can follow rules for a few weeks. Payouts that repeat prove you can do it for months, with less and less room.
+
+And time. On a typical run, this trader needed about a month of trading days to pass, and then about two more weeks to reach a first payout. That is six weeks before the first dollar comes out, if nothing goes wrong.
+
+I have climbed that road at more than one firm. It took a long time, not one good week.
+
+And the live accounts at the end of it are the step that matters most. Someone else putting real money behind the way you trade.
+
+Many evaluations passed. Many accounts lost on the way. That is the normal shape of it, and the example you just saw says the same thing in numbers.
+
+Most of what I learned came from the accounts I lost, not the ones I passed.
+
+So what is a prop firm, really?
+
+It gives you two things. A lever, and a fence.
+
+The lever is size. Contracts you could not afford on your own account. A small edge in your process suddenly matters in real dollars.
+
+The fence is the rules. A daily limit, a floor, a consistency rule. Rules you would never have written for yourself, and the ones most traders need most.
+
+Used together, they are a real tool. The size makes the work worth it, and the fence stops one bad day from ending the year.
+
+And the fence protects you in one more way. Your worst case is the fee, not your savings. For a trader still learning, that is a much cheaper place to make the expensive mistakes.
+
+But it does not build the trader.
+
+The reading of the chart, the patience to skip a day, the risk you take when you are angry. None of that comes with the account.
+
+If anything, the rule book makes those habits visible faster. The floor finds your worst day for you.
+
+So treat the challenge fee as tuition for one lesson. Not as the price of a job.
+
+The traders who last are not the ones with the best entries. They are the ones who know their own numbers. Their average day, their worst day, and how often the worst day comes.
+
+If you do not know those three numbers yet, that is the work. The prop firm will not do it for you, but it will charge you every month until you do.
+
+Before you buy any evaluation, find five lines in the rules.
+
+One. What kind of floor is it, and when does it stop moving?
+
+Two. Is there a daily loss limit, and is it hard or soft?
+
+Three. Is there a consistency rule, and what share is it?
+
+Four. How many winning days, and of what size, before a payout?
+
+Five. How much can you take out, and what happens to the floor when you do?
+
+Then hold those five lines next to your own last month of trading. Not the month you wish you had. The real one.
+
+Three honest limits.
+
+One. The trader in the simulation is made up. Your own numbers will give different answers.
+
+Two. Rules change. Read your firm's page on the day you buy, not a video.
+
+Three. Fees are not in this math, and none of this is a recommendation of any firm.
+
+If you want to see what your own numbers do under a rule book before you pay for one, the pass and payout simulators are free on Badr... Edge dot com.
+
+Tell me in the comments which rule caught you the first time.
+
+Research, not advice. I will see you on the next chart.

@@ -1,0 +1,161 @@
+One hour, one gap, one entry. It is one of the most shared setups in trading. The Silver Bullet.
+
+Between ten and eleven in the morning, New York time, you wait for a fair value gap, and you trade the first one back.
+
+I did not change it, and I did not tune it. I wrote the published idea down as one rule and ran it on the Nasdaq.
+
+Then I did what most videos skip. I ran the same rule in the other two hours people use, on a second market, and with other targets, to see whether the first answer survives.
+
+If you have seen a video with ten winning examples of this setup in a row, this is the other side of it. Every session, the ones that worked and the ones that did not.
+
+Here is the rule, exactly.
+
+Five minute candles. The first fair value gap that forms completely inside the ten o'clock hour.
+
+A fair value gap is three candles where the first and the third do not overlap. The space between them is the gap. The idea is that price comes back to fill it, and then moves away again.
+
+A limit order at the edge of the gap. If price does not come back before eleven, there is no trade that day.
+
+The stop goes one tick beyond the first candle of the gap. The target is twice the risk. And if neither is hit, the trade closes at four.
+
+One trade a day, at most. After commission and slippage. Where the order of two fills was unclear, I counted the loss.
+
+One more thing, and it matters. The five minute data I could get goes back to August. That is seventy three sessions. A small sample, and I will keep saying so.
+
+Seventy three sessions. On six of them, no gap formed in the window at all.
+
+On thirty more, a gap formed, but price never came back to it before eleven. No trade.
+
+So in about half of the sessions, the Silver Bullet simply did not fire. That is the first thing nobody shows you. A lot of waiting.
+
+And when it did fire, it fired quickly. The typical fill came about ten minutes after the gap formed. If price did not come back fast, it usually did not come back at all.
+
+And the stops were wide. A typical trade risked about sixty four Nasdaq points, because the first candle of a ten o'clock gap is often a big one. In the other two hours, the typical stop was about half that.
+
+That left thirty seven trades. Thirteen reached the target. Twenty one hit the stop. Three were closed at four.
+
+A win rate of about forty percent, with a target twice the size of the stop.
+
+The three that closed at four were trades that never reached either line. They drifted all afternoon, and the close decided them. One ended up close to one times the risk, one near zero, and one about half a loss.
+
+Here is a detail inside that. About half of all trades got to one times the risk in profit at some point. Only about a third went on to reach two.
+
+And nearly half were stopped out before they ever showed one times the risk. They went wrong straight away.
+
+Now put it on the scale.
+
+I measure results in R, the risk of one trade. A win at the target is plus two. A stop is minus one. Then I take the costs off every trade.
+
+After costs, the average trade came out slightly above zero, about an eighth of the risk.
+
+Over thirty seven trades, that adds up to a little under five times the risk. Close to balance, tipped just a little to one side.
+
+There is a simple way to see how thin that margin is.
+
+With a target of twice the risk, you break even if you win about one trade in three. The costs here were tiny, about a hundredth of the risk per trade, because the Nasdaq stops were wide. So break-even sits at about thirty four percent.
+
+The rule won about forty and a half.
+
+On thirty seven trades, that gap is about two and a half trades. Two or three days going the other way, and the whole result sits on the line.
+
+That is how small the difference is between a setup that looks good and one that looks like nothing.
+
+And the worst part of the road.
+
+The worst run of losses was four in a row.
+
+The deepest drop was close to five times the risk on one trade.
+
+If you risk one percent of an account per trade, that is close to five percent down before it turned. Small, if you knew it was coming. Hard, if you did not.
+
+The Silver Bullet is often taught in three hours, not one. Three to four in the morning, ten to eleven, and two to three in the afternoon, New York time.
+
+The idea behind the three hours is that each one sits near a busy moment. The London morning, the first hour after the New York stock open, and the afternoon before the close. Fresh orders, fresh gaps.
+
+So I ran the exact same rule in the other two hours. And from here on, every comparison is something I found after looking, so treat it as a question, not a result.
+
+The three in the morning hour gave thirty seven trades, about a third of them winners, and an average just under zero after costs.
+
+The two in the afternoon hour gave forty three trades, a bit more than a quarter winners, and an average of about minus a quarter of the risk. Its worst run was nine losses in a row.
+
+So on Nasdaq, in these seventy three sessions, the ten o'clock hour was the only one above zero. And the margins are small everywhere.
+
+Then the same rule, same dates, on gold futures.
+
+And the picture turned around.
+
+On gold, the ten o'clock hour came out below zero. About a quarter of the risk lost per trade, with a worst run of nine.
+
+The three in the morning hour on gold came out above zero, about a sixth of the risk per trade. And the two in the afternoon hour, about a tenth.
+
+Look at the board. Six tiles, three above zero and three below, and the good ones are not in the same place on the two markets.
+
+That is what a small sample of noise looks like. If the setup had a strong, simple advantage, you would expect the same tiles to light up on both markets. They did not.
+
+What about the target? Maybe two times the risk is the wrong number.
+
+With a target of one times the risk, about fifty four percent won, and the average was a little above zero.
+
+With one and a half, about forty three percent won, again just above zero.
+
+With three times the risk, about thirty five percent won, and the average was close to the original.
+
+Every target landed in roughly the same place. Slightly above zero, and never by much.
+
+That is useful to know. It means there is no magic target hiding in this sample. Picking the best one after looking would only fit the noise.
+
+So how much of this result could be luck?
+
+I took the same thirty seven trades and drew them again at random, twenty thousand times, as if the same days had come in a different mix.
+
+The middle of those averages ran from about minus a quarter of the risk to about plus a half.
+
+And about three in ten of them landed below zero.
+
+In plain words, the same setup, with the same kind of days, could easily have shown you a small loss instead of a small gain. Thirty seven trades cannot tell those two worlds apart.
+
+And that is true of every short backtest you will see online, mine included. The question is never only how good the number is. It is how many trades stand behind it.
+
+Then how many trades would it take?
+
+If the true average really were an eighth of the risk, you would need about four hundred and seventy trades before the result stood clearly above the noise.
+
+This rule fires about one day in two. At that pace, that is close to four years of trading days.
+
+That is the honest problem with most setups shared online. They are judged on a few weeks of examples, when the answer needs years.
+
+One last split, and then I will stop slicing.
+
+Twenty four trades were long, and about thirty seven percent of them won. Thirteen were short, and about forty six percent won.
+
+It is tempting to say shorts work better. But thirteen trades is nothing. One or two days would change that number completely.
+
+This is exactly where most backtests go wrong. Every slice makes the sample smaller, and the smaller it gets, the better a lucky slice looks.
+
+So what now? I keep counting.
+
+Every new session goes into the same log, with the same rule, nothing changed. No new filters, no better target picked after the fact.
+
+If the ten o'clock hour on Nasdaq is still above zero after a few hundred trades, that will mean something. If it drifts back to zero, that will mean something too.
+
+Either way, you will see the update here, with the same honest limits, and the old numbers left in.
+
+Because a test you only report when it looks good is not a test. It is an advert.
+
+So here is the honest reading.
+
+Thirty seven trades is not enough to call anything. A handful of different days could flip that small number below zero.
+
+The other hours and gold did not back it up. They scattered on both sides of zero.
+
+This is not a verdict, for or against. It is the first page of a test, and it needs months more data.
+
+What I can say is simpler. The rule waits a lot. It loses more often than it wins. And it needs the two to one target to stay alive.
+
+Three honest limits. Seventy three sessions, one written version of the rule. Five minute candles hide the order of fills inside a bar, so I counted the loss whenever it was unclear. And this is a count of the past, not a signal, and not a result anyone should size up on.
+
+If you want to watch these gaps form in the ten o'clock hour on your own chart, the free gap indicator is on TradingView, and the link is on Badr... Edge dot com.
+
+I will keep adding sessions to this test. Tell me in the comments if you want the update in three months.
+
+Research, not advice. I will see you on the next chart.
