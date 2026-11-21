@@ -100,8 +100,8 @@
         html += `<button type="button" class="cal-d ${p > 0 ? 'up' : 'dn'}${fw}" style="--a:${(.18 + a * .62).toFixed(2)}" data-k="${k}" title="${d} ${MON[m - 1]}: ${usd(p)}"><i>${d}</i><b>${short(p)}</b></button>`;
       }
       grid.innerHTML = html;
-      root.querySelector('.cal-m').textContent = `${new Date(Date.UTC(y, m - 1, 1)).toLocaleString('en-GB', { month: 'long', timeZone: 'UTC' })} ${y}`;
-      const sum = root.querySelector('.cal-sum'); sum.textContent = `${usd(net)} · ${g} green · ${r} red`; sum.className = 'cal-sum ' + (net > 0 ? 'up' : 'dn');
+      root.querySelector('.cal-m').innerHTML = `${new Date(Date.UTC(y, m - 1, 1)).toLocaleString('en-GB', { month: 'long', timeZone: 'UTC' })} ${y} <span class="cal-tot ${net > 0 ? 'up' : 'dn'}">${usd(net)}</span>`;
+      root.querySelector('.cal-sum').innerHTML = `<span class="up">${g} green</span> · <span class="dn">${r} red</span>`;
       root.querySelector('.cal-prev').disabled = mi === 0; root.querySelector('.cal-next').disabled = mi === months.length - 1;
       tip.textContent = TIP;
       grid.querySelectorAll('.cal-d[data-k]').forEach(b => b.onclick = () => {

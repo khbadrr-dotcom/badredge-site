@@ -140,8 +140,15 @@
     </div>
   </div>
 </footer>
+<button type="button" class="to-top" aria-label="Back to top" title="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
 <script>
 (() => {
+  const t = document.querySelector('.to-top');
+  if (t) {
+    const f = () => t.classList.toggle('show', scrollY > 400);
+    addEventListener('scroll', f, { passive: true }); f();
+    t.addEventListener('click', () => scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+  }
   const b = document.querySelector('.menu-btn'), n = document.getElementById('nav');
   if (b) b.addEventListener('click', () => { const o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
   const els = document.querySelectorAll('.reveal');
