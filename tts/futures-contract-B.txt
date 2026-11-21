@@ -1,0 +1,171 @@
+Every day, thousands of traders buy gold they never plan to own. And they sell gold they do not have.
+
+The gold is real. A hundred ounces of it, sitting in a vault. But almost none of those traders will ever see a bar.
+
+That only makes sense once you know what a futures contract really is. So this is lesson one of Futures, From Zero.
+
+By the end of it, you will know what one contract is, how to read its name, how much one ordinary day moves it, how the money moves every evening, and the two risks every beginner should hear about first.
+
+A futures contract is an agreement with four parts.
+
+A buyer. A seller. A fixed amount of something. And a date in the future.
+
+The two sides agree on the price today, for a trade that settles on that date.
+
+Here is the clever part. The exchange writes everything else. The amount, the quality, the date, the smallest step the price can move.
+
+So the only thing left for the buyer and seller to agree on is the price.
+
+That is why millions of people can trade the same contract with strangers. Every contract is identical, so nobody needs to read the small print twice.
+
+And because every contract is identical, you can close yours by doing the opposite trade with anyone else. You never need the person you started with.
+
+This idea is old. In Osaka, rice merchants traded promises of future rice at the Dojima exchange, officially recognised in seventeen thirty.
+
+In Chicago, farmers brought grain to the city at harvest, all at once, and prices collapsed. So in eighteen forty eight, merchants formed the Chicago Board of Trade.
+
+By eighteen sixty five, the Chicago board had standard contracts. Same amount, same quality, same delivery rules. Those are what we now call futures.
+
+The farmer wanted a price before the harvest. The merchant wanted grain he could count on. The contract gave both of them a date and a number.
+
+Nearly two centuries later, gold and the Nasdaq work on the same idea. Lesson twelve of this series tells that story in full.
+
+Before you trade one, you need to read its name. And futures names look like a code.
+
+Take G C Z six. G C is gold. Z is the month. Six is the year, twenty twenty six.
+
+Every month has a letter. F is January, G is February, H is March, and so on, to Z for December.
+
+Some letters are worth learning first. H, M, U and Z are March, June, September and December. Those are the only months the Nasdaq contract trades in. One contract for each quarter.
+
+The gold contract has more. Its main months are every second month, from February to December.
+
+So right now there is not one gold contract. There is a whole line of them, one for each month, each with its own price.
+
+Your chart usually shows the one most people are trading, and quietly switches to the next one as the date gets close.
+
+Here are two real ones, from the exchange's own pages.
+
+One gold futures contract is a hundred troy ounces. Every ten cent move in the price is ten dollars.
+
+On the nineteenth of November, gold was about three thousand six hundred dollars an ounce. So one contract stood for about three hundred and sixty thousand dollars of gold.
+
+That is why smaller versions exist. Micro gold is ten ounces, one tenth of the size, about thirty six thousand dollars. On the micro, every dollar the price moves is ten dollars to you.
+
+The Nasdaq contract has no metal behind it at all. It is twenty dollars for every point of the Nasdaq one hundred index.
+
+With the index near twenty six thousand five hundred, one contract stood for about five hundred and thirty thousand dollars. The micro is two dollars a point, about fifty three thousand.
+
+So even the small versions are large. Keep that number in mind for the next part.
+
+So how much does one ordinary day move one micro contract? I measured a full year of trading days, up to the nineteenth of November.
+
+On micro gold, the typical distance from the day's high to its low was about nine hundred and fifty dollars. From open to close, about four hundred.
+
+On micro Nasdaq, almost the same. A typical range of about nine hundred and seventy dollars, and about four hundred and sixty from open to close.
+
+About half of all days, the range on one micro was more than a thousand dollars.
+
+And then there are the days you remember. On the thirtieth of January, gold opened above five thousand four hundred dollars and fell about five hundred dollars an ounce by the close. On one micro, that was about five thousand dollars lost in a single day.
+
+On the fifth of November, the Nasdaq fell about two thousand points. On one micro, about four thousand one hundred dollars.
+
+That is the smallest contract, one of it, on one day. Day one of futures is learning that number.
+
+Now, how does the money actually move? Not at the end. Every evening.
+
+At the end of each trading day, the exchange sets a settlement price. Every open contract is marked to that price, and the difference is paid that evening.
+
+Say you buy one micro gold at three thousand six hundred. It settles at three thousand six hundred and twelve. Twelve dollars an ounce, ten ounces. One hundred and twenty dollars goes into your account tonight.
+
+The next day it settles at three thousand five hundred and ninety five. That is seventeen dollars down from last night. One hundred and seventy dollars comes out.
+
+The day after, it settles at three thousand six hundred and eight. One hundred and thirty comes back.
+
+Add it up and you are eighty dollars ahead. Exactly eight dollars an ounce, times ten.
+
+This is the reason futures markets rarely leave unpaid debts behind. Nobody gets to hide a loss until the end. Every evening, the winners are paid by the losers.
+
+So what happens on the date itself?
+
+For gold, the contract can end in real delivery. Bars of gold in an approved vault, and the full price paid. That is the truck from the start of this video.
+
+For the Nasdaq, it settles in cash. There is nothing to deliver, so the last difference is simply paid in money.
+
+Day traders want neither. They want the price move, not the gold. So they close the trade long before the date, often the same day they opened it.
+
+Traders who want to stay in for longer do something called rolling. They close the old month and open the next one, like passing a baton.
+
+This is the time of year when many gold traders pass that baton, from December to February. Lesson ten covers rolling step by step.
+
+Now the part that confuses most beginners. You can sell a contract you do not own.
+
+Remember, a contract is a promise about the future. Selling first means you promise to deliver at today's price.
+
+If the price falls, you buy the contract back cheaper and keep the difference. No gold ever moves.
+
+If the price rises, you lose. And a price has no ceiling. In theory, a loss on a sold contract has no limit.
+
+Futures treat both directions the same. On one micro gold, every dollar is ten dollars, for you or against you, buying or selling.
+
+That is one reason futures are popular with day traders. You can act on a fall just as easily as on a rise.
+
+Here is the second risk, and it is the one that matters most.
+
+To open a trade, you do not pay the contract's full value. The exchange asks for a deposit, called margin. It is a small slice of the value.
+
+I will not put a number on screen, because it changes and depends on where you trade. What matters is that the slice is small.
+
+So your account sees the tip of the iceberg. But the money moves on the whole thing.
+
+On the worst gold day of the year, one micro lost about five thousand dollars. If the deposit was much smaller than that, the loss was larger than the deposit.
+
+A loss can be bigger than the money you put down. Learn that sentence before you learn any setup.
+
+This is why every lesson in this series ends the same way. Practise on a simulator first, where the iceberg cannot sink anything.
+
+So who is on the other side of your trade?
+
+Picture a gold miner. Her gold comes out of the ground next year, and she fears the price will fall. She sells futures now, to lock in today's price.
+
+Across the table is a jeweller. He needs gold next year, and fears the price will rise. He buys futures to lock in his cost.
+
+These are hedgers. They use futures to make the future less surprising. Exactly like the farmer and the merchant in Chicago.
+
+Then there are traders like us. Speculators. We hold no gold and need none. We take the price risk the hedgers want to hand away.
+
+Without speculators, the miner might wait days for a jeweller who wants the same month. With them, there is nearly always someone ready to trade.
+
+Lesson nine looks at who these people are, and what their positions tell us.
+
+So, the flashcards.
+
+A futures contract is four parts. Buyer, seller, amount and date. Only the price is agreed.
+
+The name is a code. Product, month letter, year.
+
+One gold contract is a hundred ounces, Nasdaq is twenty dollars a point, and the micros are a tenth of that.
+
+One micro moved about nine hundred and fifty dollars on a typical day, and about five thousand on its worst.
+
+Profit and loss are paid every evening. Most traders close or roll long before the date.
+
+You can sell first. And a loss can be bigger than your deposit.
+
+A few honest limits.
+
+The contract facts here are from the exchange's own pages, read on the twenty first of November. Exchanges change details, so always check the page on the day you trade.
+
+The daily moves are one year of real prices, on continuous charts. Another year could be calmer, or wilder.
+
+The settlement example used round numbers, to show how the money moves. Your own account will have fees on top.
+
+And there is no margin number, no broker and no strategy in this video, on purpose. This lesson is about how the contract works.
+
+That is a futures contract. Four parts, one price, paid every evening, and a date most traders never reach.
+
+If you want to see what this means on a real account, watch the fifty thousand dollar account video next. It shows one normal day of gold, priced on one contract.
+
+Every lesson in this series, and the free tools, are on Badr... Edge dot com.
+
+Research, not advice. I will see you on the next chart.
