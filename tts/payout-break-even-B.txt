@@ -1,0 +1,171 @@
+Your first payout feels like profit. Before you celebrate, ask one question.
+
+How many payouts does it take just to pay back what it cost to get here?
+
+Most people never add it up. So in this video, we will. The bill, the simple math, what really moves the answer, and what a whole year looks like for traders with different numbers.
+
+Every scenario number on screen is an example. Use your own. The prices are real types, read from the firms' own pages this week, with no firm named.
+
+I read the published prices of several firms. No names, because the bill matters more than the brand.
+
+A fifty thousand dollar evaluation costs somewhere between about fifty and two hundred dollars a month. Some firms charge again when you pass, to activate the funded account. And a reset costs extra.
+
+A reset is the quiet one. You break a rule, and instead of starting a new month, you pay to wipe the account and keep going. It feels cheaper. But it is still a fee for an attempt that did not work, and it is the easiest one to buy on a bad day.
+
+Then the split. Most firms let you keep eighty to ninety percent of a payout.
+
+None of that is a problem on its own. The problem is that nobody counts the attempts that did not work.
+
+A pass gets a screenshot. A failed month just disappears from memory, but not from the card statement.
+
+I know that bill well. Many evaluations passed, many accounts lost, long before the payouts started.
+
+That is not a confession. It is the normal shape of this business, and it is why I wanted to do the math in the open.
+
+Here is the simple version. The numbers on screen are examples. Use your own.
+
+Say one attempt costs a hundred and fifty dollars, and passing costs another hundred to activate.
+
+Say you pass one challenge in three, and half of your funded accounts reach a first payout.
+
+Then on average you need six attempts and two passes for every first payout.
+
+Here is why. If one attempt in three passes, every pass costs three attempts on average. And if only half of the passes reach a payout, every payout needs two passes. Three times two is six.
+
+Six times a hundred and fifty is nine hundred. Two activations is two hundred more. That is eleven hundred dollars in fees.
+
+Now the payout. A thousand dollars, and the firm keeps ten percent. Nine hundred in your hand.
+
+So in this example, the first payout does not even cover the bill. You are still two hundred dollars behind.
+
+And that is the average. Half the time, it takes longer than that.
+
+Now change one thing. Pass one in two, and reach a payout two times in three. Three attempts instead of six. You are three hundred dollars ahead after the first payout.
+
+Here is the whole map. Pass chance across the bottom, payout chance up the side. The coastline is where the first payout exactly pays the bill.
+
+At a pass chance of one in five, you are under water almost everywhere. Even if four out of five funded accounts reach a payout, the first one still does not cover the fees.
+
+At one in four, you only reach the coast if almost every funded account gets paid.
+
+At one in two, you are on dry land as soon as half your funded accounts reach a payout.
+
+Most of the map is water. That is the part nobody shows.
+
+So let us answer the question in the title.
+
+In example A, the bill for one first payout is eleven hundred dollars, and a payout puts nine hundred in your hand. So you need about one and a quarter payouts just to get back to zero.
+
+In example B, less than one. The first payout already pays for itself, with three hundred to spare.
+
+In example C, with two months per attempt, about two and a quarter payouts before you have made a single dollar.
+
+So the honest answer is not one number. It is somewhere between less than one and more than two, and your own pass rate decides where you sit.
+
+Everyone argues about the split. Eighty or ninety percent. So let us race them.
+
+In example A, moving the split from eighty to ninety percent saves you a hundred dollars on the first payout. Even a full hundred percent split still leaves you a hundred behind.
+
+Now leave the split alone and move the pass rate from one in three to one in two. You go from two hundred behind to a hundred ahead.
+
+The pass rate moved the answer three times as far as the whole split debate.
+
+And the pass rate is the one thing you control. Not by buying more attempts, but by trading in a way that does not break the rule book.
+
+There is one more pricing detail that changes this a lot.
+
+Some evaluations are priced by the month. Others charge one fee up front, with no monthly charge, and sometimes a bigger fee at activation.
+
+If you trade fast, monthly pricing is often cheaper. If you trade slowly and carefully, a one time fee can cost far less, because the meter does not run.
+
+So the cheapest evaluation is not the one with the lowest price on the page. It is the one whose pricing matches how long you really take.
+
+Change it the other way. Take two months for every attempt instead of one.
+
+Monthly pricing means the meter runs while you wait. A slow, careful attempt costs twice as much as a fast one.
+
+In that example, the fees for one first payout jump to two thousand dollars. Now you need more than two first payouts just to get back to zero.
+
+That is the hidden trade off. Trading small and slow protects the account, but the meter keeps running.
+
+The pass rate and the time per attempt move the answer far more than the split everyone argues about.
+
+That is why I would rather pass slowly than reset often. A reset buys you the same lesson twice.
+
+An average hides a lot. So I ran a year of it.
+
+Twenty thousand example traders, each with the numbers from example A. One attempt at a time. A funded account pays its first payout a month after the pass, and after that has a one in two chance of another payout each month.
+
+After three months, about three in ten were ahead.
+
+After six months, a bit under half.
+
+After a full year, a bit more than half. And the typical trader was ahead by about a hundred dollars. A year of work, for about a hundred dollars.
+
+Repeat payouts are what save the year. The first payout rarely pays the bill. The second and third are where the money actually is.
+
+And here is what surprised me. Every one of those traders had exactly the same skill.
+
+The bottom tenth finished the year about nineteen hundred dollars down or worse.
+
+The top tenth finished about three thousand two hundred and fifty dollars up or better.
+
+Same pass chance, same payout chance. The only difference was the order the luck came in.
+
+So when you see someone online with a great year at a prop firm, and someone else who lost thousands, they might be the same trader. In two different years.
+
+That is also why one good month proves very little, in either direction. A trader can do everything right and still sit in the bottom tenth for a year.
+
+One more number from that year.
+
+In example A, about one trader in seven never got a single payout in twelve months.
+
+In example C, with two months per attempt, about four in ten never got one at all.
+
+Those are traders who paid every month for a year, and got nothing back. Not because they were worse. Because with these odds, a whole year is still a small sample.
+
+And in example B, with a pass rate of one in two, almost everyone got paid at least once, and about eighty five percent were ahead after the year. The typical trader there finished about twenty one hundred dollars up.
+
+Example C is the opposite. After a year, only about a third were ahead, and the typical trader was about nine hundred and fifty dollars down.
+
+Same market, same payout size. The difference was the pass rate, and how long each attempt took.
+
+So how do you find your own numbers?
+
+Take your last ten attempts. All of them, including the ones you would rather forget.
+
+Count the passes. Say two out of ten. That is a pass chance of one in five.
+
+Then count how many of your funded accounts reached a first payout. Say one of two. That is one in two.
+
+Now look back at the map. One in five, and one in two, is deep water. About eight hundred dollars behind after the first payout, in these example prices.
+
+That is not a reason to quit. It is a reason to fix the pass rate before buying the next attempt, because every new attempt at those odds adds to the bill.
+
+So what actually helps? Five things, all from this math.
+
+One. Know your own pass rate. Count every attempt, not just the passes. Most traders have never written it down.
+
+Two. Size for the rule book. The fastest way to lift your pass rate is to stop taking the size that breaks the floor.
+
+Three. Fewer, slower attempts beat many fast ones, as long as you watch the monthly meter.
+
+Four. No impulse resets. A reset bought on the same angry afternoon is a second fee for the same mistake.
+
+Five. Read the payout rules before you buy. The first payout pays the bill. The rules for the second and third decide whether this is worth it.
+
+And one more, the simplest. Keep a list of every fee you pay, next to every payout you receive. The traders who do that make better decisions, because the bill stops being invisible.
+
+Three honest limits.
+
+One. These are example numbers. Your own pass rate is the only one that matters, and most traders do not know it.
+
+Two. Prices and rules change. Read your firm's page today.
+
+Three. Fees are only part of it. Your time and data costs are not in this math, and I am not giving tax advice.
+
+The payout simulator on Badr... Edge dot com runs your own numbers through thousands of possible paths, the same way you just saw. It is free, there is no sign up, and nothing you type leaves your browser.
+
+Put in your real pass rate, not the one you hope for. That is the whole trick.
+
+Research, not advice. I will see you on the next chart.

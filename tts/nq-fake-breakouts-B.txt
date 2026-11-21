@@ -1,0 +1,171 @@
+Nasdaq breaks yesterday's high. Everyone buys the breakout. Then it falls straight back through.
+
+Everyone has a story about a fake breakout. Most of us remember them better than the ones that worked, because they hurt more.
+
+So I counted them, for a whole year. Every break of yesterday's high, what happened next, and what separated the real ones from the fakes.
+
+And then I checked it from every side I could. Two halves of the year, month by month, the retest, the next day, and gold as a second market.
+
+Nasdaq futures, thirty minute candles. A trading day runs from six in the evening to five the next afternoon, New York time.
+
+A breakout is any trade above the previous day's high. It held if the day closed above that high. It was fake if the day closed back below it.
+
+I also measured how far above the high price went before the day was done, when the break started, and what the next day did.
+
+Two hundred and forty seven days. No indicators, no filters, nothing tuned after looking.
+
+Nasdaq took out yesterday's high on a little over half of all days. A hundred and thirty six times.
+
+About six in ten of those breakouts held to the close. About four in ten were fake.
+
+So a fake breakout is not rare. It is close to a normal day. But it is not the most likely outcome either.
+
+If you buy every break of yesterday's high, you are making more than two decisions a week on one idea. And four out of ten of them will turn against you by the close.
+
+Now compare that with gold sweeping its low, from the last study in this series. There, the snap back held a bit less than half the time. On Nasdaq, the breakout held a bit more than half. Neither is a sure thing. Both are close to the middle.
+
+The thing that separated them was distance. How far above the high price got.
+
+So here is the version you can watch live. Once price had climbed a certain distance above yesterday's high, how often did the breakout hold to the close?
+
+Just above the line, about fifty eight percent.
+
+Fifty points above, about sixty nine.
+
+A hundred points above, about three in four.
+
+Two hundred points above, more than nine in ten.
+
+And the breaks that never got even a hundred points of room failed about eight times in ten.
+
+On one mini contract, a hundred points is two thousand dollars. That is a lot of room to give a breakout before it proves anything.
+
+For scale, the whole range of the day before was typically about four hundred and seventy points. A hundred points is about a fifth of a normal day.
+
+Here is the part that catches people. Most breakouts look fake at some point.
+
+On more than eight in ten, at least one thirty minute candle closed back below yesterday's high.
+
+On almost half, the breakout candle itself closed back below.
+
+And yet about fifty eight percent held at the close.
+
+So one close back under the line is not proof of a fake. Many of the breakouts that held went through exactly that.
+
+The breakouts whose first candle closed back below still held about four times in ten.
+
+Traders love the retest. Price breaks out, comes back to touch the line, and then goes.
+
+So I checked it. Of the breakouts that ran at least fifty points above, about nine in ten came back down to yesterday's high later that day.
+
+A retest was not a rare gift. It was the normal path.
+
+And those retested breakouts still held about two times in three.
+
+The few that ran and never came back all held. But you only know that a retest is not coming once the day is over.
+
+So a retest is not a warning, and it is not a signal. It is just what most breakouts do.
+
+Two real days from October.
+
+On the twenty first, Nasdaq broke yesterday's high right at the evening open. It ran about two hundred and ten points above the line, pulled back, and still closed above it.
+
+On the twelfth, it broke the high in the Asian evening too. But it only got about twenty three points above.
+
+Then it slid, and it closed almost four hundred points below the line.
+
+Same session, same kind of break. One went far enough to matter. The other never got a hundred points of room.
+
+When in the day did the breaks start?
+
+The tallest tower is the very first hour, at six in the evening, New York time. Twenty nine breaks began right at the open.
+
+And here Nasdaq does something different from gold. Those opening breaks were strong. They held about three times in four, and they ran far, about two hundred points on a typical one.
+
+Breaks that started at any other hour held only about half the time.
+
+The New York morning, from eight to eleven, held a little under two in three.
+
+London had only eighteen breaks all year, and they held less than four in ten. Too few to trust.
+
+So on Nasdaq, a break that happens at the open, with a gap above yesterday's high, was a different animal from a slow creep above it in the middle of the night.
+
+And the clearest case was the true gap. On eleven days, Nasdaq opened the evening session already above yesterday's high. Ten of those eleven held. Eleven days is a tiny sample, so treat it as a question for next year, not a rule.
+
+I also tested a few things traders often say matter. Most of them did not.
+
+The size of the day before. After a narrow day, a medium day or a wide day, the breakouts held between about fifty six and sixty two percent. Close to the same.
+
+The direction of the day before. After an up day, about fifty nine percent held. After a down day, about fifty six. Again, close.
+
+So the story that a tight range coils up for a real breakout did not show up here. And neither did the idea that a breakout after a down day is a trap.
+
+That is worth knowing too. A filter that sounds smart, but changes nothing, only makes you skip trades for no reason.
+
+And the fake ones were small. A typical fake breakout went only about seventy four points above the high.
+
+Then it dropped about three hundred and fifty points from its top.
+
+Most of them closed below the day's own open.
+
+And about one in four went on to take yesterday's low as well. A full trip from one side of the range to the other.
+
+So a fake is usually not a near miss. It is a small poke, followed by a big move the other way.
+
+That matters for where a stop goes. A stop just under yesterday's high sits right where a fake turns into a fall. In this year, a typical fake gave back several times more than it ever showed.
+
+Does the breakout day say anything about tomorrow?
+
+After a breakout that held, the next day took out that day's high about seven times in ten.
+
+After a fake, the next day took out that day's low a bit more than half the time.
+
+But the next close was close to a coin flip either way. A strong day tends to see one more push. It does not mean the next day is a strong day.
+
+It is the same pattern I found on gold after a sweep. One more push in the same direction is common. A whole new trend is not.
+
+One year can fool you, so I broke it apart.
+
+Month by month, the picture changed a lot. In May, about eight in ten breakouts held. In March, only about one in three.
+
+Most months had ten or so breaks. With numbers that small, one month is weather, not climate.
+
+Split into two halves, about sixty one percent held in the first six months, and about fifty five in the last six. A little lower, but the same shape.
+
+So if a friend tells you breakouts have stopped working lately, they may be looking at one cloudy month. And if someone shows you a month where every breakout ran, they may be looking at May.
+
+Then I ran the exact same rule on gold futures.
+
+Gold broke yesterday's high on about half of all days, and held about forty eight percent of the time. More fakes than Nasdaq.
+
+But the distance story repeated. Once gold was thirty dollars above the high, it held about three times in four. And when it never got even twenty dollars above, it held less than one time in ten.
+
+And the mirror image. When Nasdaq broke under yesterday's low instead, it got back above by the close about forty seven percent of the time.
+
+Two markets, two halves, both sides of the range. The break alone tells you little. The distance tells you more.
+
+That is the thread that runs through this whole series. The event itself is close to a coin flip. What happens after it, how far and how fast, is where the information is.
+
+So what do you do with this? Not a rule. Three questions.
+
+First. How far above the high are we? Under about a hundred points, most breakouts in this year did not hold. Past two hundred, almost all did.
+
+Second. When did it start? On Nasdaq, breaks at the evening open held far more often than slow breaks later in the night.
+
+Third. Did one candle close back below? That alone did not decide anything. It happened on most of the breakouts that held, and so did the retest.
+
+None of these is an entry. They are a way to stop calling every pullback a fake breakout.
+
+Three honest limits.
+
+One. One year of Nasdaq, and the index rose over that year. Another year can look different.
+
+Two. Thirty minute candles. The exact minute of the break is not in this study.
+
+Three. This counts closes. It is a map of the past, not a signal, and none of it is a trade with a stop and a target, so there are no costs in it either.
+
+What it gives you is a better question. When the high breaks tomorrow, how far above it are we, really?
+
+If you want to see the break and the retest of key levels on your own chart, the free key level indicator is on TradingView, and the link is on Badr... Edge dot com.
+
+Research, not advice. I will see you on the next chart.
