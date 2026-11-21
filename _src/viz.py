@@ -48,7 +48,7 @@ def split_bar(win, label="Win rate"):
 def stepper(stage):
     """Research path with the current stage highlighted. stage: 1..4"""
     steps = [("Idea", "Rule written down"), ("Backtested", "Run after costs"),
-             ("Last-year pick", "Settings picked in-sample"), ("Forward testing", "Logged on new data, rules frozen")]
+             ("Last-year pick", "Settings picked in-sample"), ("Forward testing", "Logged on new data, rules unchanged")]
     out = []
     for i, (h, s) in enumerate(steps, 1):
         st = "done" if i < stage else ("now" if i == stage else "next")

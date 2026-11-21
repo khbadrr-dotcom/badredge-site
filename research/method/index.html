@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t;try{t=localStorage.getItem('be-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('js')})();</script>
 <title>Research method · Badr Edge</title>
-<meta name="description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, freeze, validate. Costs, nulls, Holm correction and acceptance rules.">
+<meta name="description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, test, validate. Costs, nulls, Holm correction and acceptance rules.">
 <meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://badredge.com/research/method/">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="Badr Edge">
 <meta property="og:url" content="https://badredge.com/research/method/">
 <meta property="og:title" content="Research method · Badr Edge">
-<meta property="og:description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, freeze, validate. Costs, nulls, Holm correction and acceptance rules.">
+<meta property="og:description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, test, validate. Costs, nulls, Holm correction and acceptance rules.">
 <meta property="og:image" content="https://badredge.com/assets/og/research-method.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Badr Edge: a gold moon with orbiting tickers and candles">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Research method · Badr Edge">
-<meta name="twitter:description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, freeze, validate. Costs, nulls, Holm correction and acceptance rules.">
+<meta name="twitter:description" content="How the Badr Edge research desk tests futures strategies: explore, pre-register, test, validate. Costs, nulls, Holm correction and acceptance rules.">
 <meta name="twitter:image" content="https://badredge.com/assets/og/research-method.jpg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,8 +47,8 @@
 </div></header>
 <article class="prose rs">
   <h2>The path every idea takes</h2>
-  <ol class="pipeline"><li><span class="pl-n">01</span><b>Explore</b><small>Last 12 months. Grid searches allowed. Labelled in-sample.</small></li><li><span class="pl-n">02</span><b>Three cheap checks</b><small>Gross both ways, random-direction null, walk-forward.</small></li><li><span class="pl-n">03</span><b>Pre-register</b><small>Rules written, hashed and committed before the test.</small></li><li><span class="pl-n">04</span><b>Frozen test</b><small>Run once on four earlier years it was never tuned on.</small></li><li><span class="pl-n">05</span><b>Validator gate</b><small>A separate reviewer decides the status.</small></li><li><span class="pl-n">06</span><b>Forward test</b><small>Logged on new data with the rules unchanged.</small></li></ol>
-  <figure class="viz tl"><figcaption><b>Which data each step uses</b><span>Windows never overlap, so a test never sees the data an idea was tuned on.</span></figcaption><div class="tl-body"><div class="tl-lane"><span class="tl-span frozen" style="left:0.00%;width:72.73%" title="Frozen test window · 4 years"><em>Frozen test window · 4 years</em></span><span class="tl-span explore" style="left:72.73%;width:18.18%" title="Explore · 12 months"><em>Explore · 12 months</em></span><span class="tl-span forward" style="left:90.91%;width:9.09%" title="Forward"><em>Forward</em></span><span class="tl-mark" style="left:72.73%"><em>22 Oct 2025</em></span><span class="tl-mark" style="left:90.91%"><em>22 Oct 2026</em></span></div><div class="tl-axis"><span class="tl-tick" style="left:4.55%">2022</span><span class="tl-tick" style="left:22.73%">2023</span><span class="tl-tick" style="left:40.91%">2024</span><span class="tl-tick" style="left:59.09%">2025</span><span class="tl-tick" style="left:77.27%">2026</span><span class="tl-tick" style="left:95.45%">2027</span></div></div></figure>
+  <ol class="pipeline"><li><span class="pl-n">01</span><b>Explore</b><small>Last 12 months. Grid searches allowed. Labelled in-sample.</small></li><li><span class="pl-n">02</span><b>Three cheap checks</b><small>Gross both ways, random-direction null, walk-forward.</small></li><li><span class="pl-n">03</span><b>Pre-register</b><small>Rules written, hashed and committed before the test.</small></li><li><span class="pl-n">04</span><b>Out-of-sample test</b><small>Run once on four earlier years it was never tuned on.</small></li><li><span class="pl-n">05</span><b>Validator gate</b><small>A separate reviewer decides the status.</small></li><li><span class="pl-n">06</span><b>Forward test</b><small>Logged on new data with the rules unchanged.</small></li></ol>
+  <figure class="viz tl"><figcaption><b>Which data each step uses</b><span>Windows never overlap, so a test never sees the data an idea was tuned on.</span></figcaption><div class="tl-body"><div class="tl-lane"><span class="tl-span frozen" style="left:0.00%;width:72.73%" title="Out-of-sample window · 4 years"><em>Out-of-sample window · 4 years</em></span><span class="tl-span explore" style="left:72.73%;width:18.18%" title="Explore · 12 months"><em>Explore · 12 months</em></span><span class="tl-span forward" style="left:90.91%;width:9.09%" title="Forward"><em>Forward</em></span><span class="tl-mark" style="left:72.73%"><em>22 Oct 2025</em></span><span class="tl-mark" style="left:90.91%"><em>22 Oct 2026</em></span></div><div class="tl-axis"><span class="tl-tick" style="left:4.55%">2022</span><span class="tl-tick" style="left:22.73%">2023</span><span class="tl-tick" style="left:40.91%">2024</span><span class="tl-tick" style="left:59.09%">2025</span><span class="tl-tick" style="left:77.27%">2026</span><span class="tl-tick" style="left:95.45%">2027</span></div></div></figure>
   <h2>Track 1: explore</h2>
   <p>New ideas are explored on the most recent 12 months (22 Oct 2025 to 21 Oct 2026). Grid searches are allowed here, and anything found here is labelled <strong>in-sample</strong>. An in-sample result is a hypothesis, never evidence, because the best of thousands of settings will always look good on the data it was picked from.</p>
   <p>Before an idea moves on, it has to pass three cheap checks:</p>
@@ -58,7 +58,7 @@
     <li><strong>Walk-forward.</strong> Pick the best setting on the first half of the window, then trade it unchanged on the second half.</li>
   </ul>
 
-  <h2>Track 2: confirm on frozen data</h2>
+  <h2>Track 2: confirm on unseen data</h2>
   <p>The rules are written down, hashed and committed before the test (pre-registration). They are then run <strong>once</strong> on four earlier years, 22 Oct 2021 to 21 Oct 2025, that the idea was never tuned on. Nothing is changed after the result. If it fails, that window is spent for that idea.</p>
 
   <h2>The Validator gate</h2>

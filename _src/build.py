@@ -681,7 +681,7 @@ def research_art(kind):
     pts = lambda P: ' '.join(f'{x:.1f},{y:.1f}' for x, y in P)
     if kind == 'method':
         # The pipeline: explore, cheap checks, freeze, frozen test, gate
-        steps = ('explore', 'checks', 'freeze', 'test', 'gate')
+        steps = ('explore', 'checks', 'lock', 'test', 'gate')
         xs = [34 + i * 63 for i in range(5)]
         body = f'<line class="da-rail" x1="{xs[0]}" y1="52" x2="{xs[-1]}" y2="52"/>'
         body += f'<line class="da-rail-on" x1="{xs[0]}" y1="52" x2="{xs[2]}" y2="52"/>'
@@ -833,7 +833,7 @@ def home():
     <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
       <p class="lede">A public log of a futures research desk: the method, every strategy family tested and last year's results after costs. All of it is research and requires forward testing.</p></div>
     <div class="grid-3">
-      <a class="card reveal" href="/research/method/">{research_art('method')}<h3>Method</h3><p>Explore, freeze, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
+      <a class="card reveal" href="/research/method/">{research_art('method')}<h3>Method</h3><p>Explore, lock, validate. Random-direction nulls, unseen years and real costs.</p><span class="go">Read the method</span></a>
       <a class="card reveal" href="/research/backtested/">{research_art('backtested')}<h3>Strategy Lab</h3><p>Opening ranges, Initial Balance and more, with last year's results after costs.</p><span class="go">See the backtests</span></a>
       <a class="card reveal" href="/research/under-observation/">{research_art('forward')}<h3>In forward testing</h3><p>Noise-area momentum on MNQ, logged on new data with no changes.</p><span class="go">Read the note</span></a>
     </div>
