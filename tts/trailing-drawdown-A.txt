@@ -1,0 +1,175 @@
+Your balance is up on the day. And yet the room you have left before losing the account is smaller than it was this morning.
+
+That is not a bug. It is how a trailing drawdown works. A line that follows you up, and never follows you back down.
+
+Most traders read that rule once, nod, and only understand it the day it takes an account.
+
+So in this video I measured it. One real year of Nasdaq and gold, priced on one micro contract, and ten thousand runs of an example trader under three kinds of line.
+
+Every funded or evaluation account has a line under it. Touch that line, and the account is gone.
+
+On a fifty thousand dollar account, that line usually starts about two thousand dollars below the starting balance. So you begin with two thousand dollars of room.
+
+The question is what that line does after you start winning.
+
+Some lines never move. Some move up when your account makes new highs. And the type of line decides how much of your profit becomes new room, and how much just moves the line.
+
+Think of the leash. It reels in every time you run ahead. It never gives you the slack back.
+
+There are three common types, and they are worth knowing by name.
+
+A static line is fixed where it starts. Win ten thousand dollars, and the line is still two thousand below the start.
+
+An end of day trailing line moves once a day. It follows your highest closing balance. Whatever happens during the day, the line only looks at the close.
+
+An intraday trailing line moves while you trade. It follows the highest your account has been, including profit on trades that are still open.
+
+That last part is the one that hurts. Profit you never banked can still move the line up.
+
+The same rule page might call these different names. Read what the line follows, not what it is called.
+
+Here is one real day, the twenty third of June, twenty twenty six.
+
+Say you buy one micro Nasdaq at the half past nine open. By ten o'clock, price is about three hundred and thirty points higher. You are up about six hundred and sixty dollars.
+
+You hold, and the day fades. At the close, you are down about a hundred and forty dollars.
+
+With a static line, your room is now about eighteen hundred and sixty dollars. You lost a little, so you have a little less room.
+
+With an end of day line, the same. The close was not a new high, so the line did not move.
+
+But with an intraday line, the line followed that six hundred and sixty dollar peak. It moved up, and stayed there. Your room is now about twelve hundred dollars.
+
+Same trade, same close. One rule leaves you about eighteen hundred dollars of room. The other leaves you about twelve hundred. You lost about forty percent of your room on a small red day.
+
+Was that day unusual? I checked every New York session for a year. Both sides, buying at the open and selling at the open, held to the close, on one micro.
+
+On Nasdaq, the typical best open profit during the session was about three hundred and twenty dollars. The typical close was about zero.
+
+On a typical day, about a hundred and sixty dollars of open profit was given back before the close.
+
+On gold, the typical best was about two hundred and forty dollars, and about a hundred and thirty was given back.
+
+Now the sharp part. On Nasdaq, when a trade was at least three hundred dollars ahead at some point, about one in five still closed red.
+
+Even at five hundred dollars ahead, about one in thirteen closed red.
+
+And when did those peaks come? Of the Nasdaq days that were three hundred dollars ahead and still closed red, about half peaked in the first hour. More than eight in ten peaked before noon.
+
+So the danger is mostly early. A strong first hour, then a slow fade for the rest of the day.
+
+Under an intraday line, every one of those days moved your line up by the full peak, and then charged you a loss on top.
+
+Look at it from the other side. Take every day that closed red.
+
+On Nasdaq, about sixty five percent of them had been at least a hundred dollars green first. On gold, about sixty one percent.
+
+So most losing days were not straight down. Most of them were winning days first.
+
+Under a static line, that does not matter. You lost what you lost.
+
+Under an intraday line, it matters a lot. The green part pulled the line up, and the red part came out of what was left.
+
+This is why traders on intraday lines say the rule punishes them twice. Once for the peak they gave back, and once for the loss.
+
+There is one detail in many rule pages that changes everything. The lock.
+
+On many accounts, the trailing line stops rising once it reaches the starting balance. On a fifty thousand dollar account, that means once your peak reaches about fifty two thousand.
+
+Some versions stop a hundred dollars above the start instead. Read the exact number on your own page.
+
+After the lock, a trailing line becomes a static line. Your room can only grow from there.
+
+So the real goal on a trailing account is not to make money as fast as possible. It is to reach the lock without the line catching you first.
+
+Before the lock, every peak costs you room. After the lock, every win is yours to keep as room.
+
+To see what this does over weeks, not one day, I built an example trader. This is not me, and not a strategy. It is a test dummy.
+
+Every day, the trader takes one real Nasdaq New York session, picked at random from that year.
+
+He trades one micro from the open to the close, with a three hundred dollar daily stop.
+
+And he is on the right side of the day fifty two times out of a hundred. A small edge, which is what most careful traders hope for.
+
+Fifty thousand dollar account, two thousand dollar line, sixty trading days, ten thousand runs. The only thing I changed was the type of line.
+
+With a static line, about forty two percent of runs touched the line within sixty days.
+
+With an end of day trailing line, about sixty five percent.
+
+With an intraday trailing line, about seventy one percent.
+
+Same trader, same days, same stop. The rule alone added almost thirty points.
+
+And the intraday line struck earlier. Half of its losses came by day seventeen, against day twenty two for the other two.
+
+The reason is simple. On average, the intraday line rose about forty four dollars a day. The end of day line rose about thirty five.
+
+By day twenty, the typical static account had about two thousand six hundred dollars of room. The trailing accounts had about fifteen hundred.
+
+Now take the lock away. The line keeps following you up forever.
+
+The end of day version went from sixty five percent to about eighty one.
+
+The intraday version went to about ninety three percent. Almost every run touched the line within sixty days.
+
+That is why the lock matters more than almost any other line in the rules. A trailing line with a lock is a hurdle. Without one, it is a chase that never ends.
+
+And with a coin flip trader, right only half the time, every number got worse. Static about forty eight percent, intraday about seventy six.
+
+So what can the trader actually control? Two things. How big he trades, and where he stops for the day.
+
+First, size. Same trader, same edge, but two micros instead of one.
+
+The static line went from about forty two percent to fifty four. The intraday line went from about seventy one to about eighty. Half of those intraday losses came by day nine.
+
+Doubling size did reach the lock faster. But it reached the line faster too.
+
+Now the stop. Back to one micro, but the daily stop cut from three hundred dollars to a hundred and fifty.
+
+Static fell to about twenty six percent. End of day to about forty five. Intraday to about fifty six.
+
+The type of line still mattered. But the trader's own size and stop moved the numbers more than any rule did.
+
+A trailing line also changes how people trade. Usually without them noticing.
+
+On an intraday line, letting a winner run has a hidden cost. Every dollar of open profit pulls the line up, even if it comes back.
+
+So traders start taking profit early, cutting winners short, just to stop the line from moving.
+
+That can be sensible near the line. But it also shrinks the average win, and the small edge that made trading worth it can quietly disappear.
+
+On an end of day line, the open profit during the day does not move the line. Only the close does. That gives a trader more freedom inside the day.
+
+None of this is good or bad. It is a rule, and your style either fits it or fights it.
+
+So before you buy any account, read four things on its rule page, and write them down.
+
+One. Is the line static, end of day, or intraday?
+
+Two. What exactly does it follow? Closed balance, or open profit too?
+
+Three. Does it stop rising, and at what number?
+
+Four. How much room do you start with, compared with what one normal day can move your size?
+
+Remember the earlier lesson. One micro Nasdaq moved about nine hundred and seventy dollars on a typical full day. Two thousand dollars of room is about two normal days of range.
+
+If you cannot answer those four, you do not know your risk yet.
+
+A few honest limits.
+
+The real-day numbers are one year of Nasdaq and gold, on thirty minute candles. Inside each candle, I do not know whether the high or the low came first, so very fast swings are smoothed.
+
+The example trader is an assumption, with a fixed edge and a fixed stop. Real traders change size, skip days and trade more than once.
+
+And rule pages change. Every number in this video is about the type of rule, not any firm. Always read the current page of the account you are looking at.
+
+So, the line that follows you. It moves up with your highs, it never moves back, and on an intraday version it can follow profit you never banked.
+
+The fix is not a trick. Know which line you have, know where it locks, and size so that one normal day cannot reach it.
+
+The free sizing and payout simulators on Badr... Edge dot com let you test that before you pay for anything.
+
+Research, not advice. I will see you on the next chart.

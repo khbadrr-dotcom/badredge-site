@@ -1,0 +1,181 @@
+Somewhere on your chart right now, there is an indicator you trust. A line, an arrow, a coloured dot that tells you when to act.
+
+Someone wrote that indicator. One person, with one opinion about the market, and their own choices about every setting.
+
+Some indicators even redraw their own past, so they look perfect when you scroll back and late when you trade live.
+
+I have tried a lot of indicators over the years. Trying them is part of the process, and worth doing. But I never let one make the decision.
+
+So today I put that belief to the test. One year of gold and Nasdaq, five of the most common indicators, and a few questions about how they behave.
+
+Here is the way I think about indicators. Each one is a lens.
+
+A moving average shows you trend. An oscillator shows you how stretched price is. A volatility band shows you how wide the day has been.
+
+None of them adds information that is not already in the price. They take the same candles and point your eye at one part of them.
+
+That is useful. A good lens helps you see something you would have missed.
+
+But a lens is not a decision. Change the lens, and the same chart tells a different story. So the real question is, how often do the lenses tell the same story?
+
+I took five very common ones. A twenty period moving average. The MACD. The RSI. Supertrend. And a simple range middle line.
+
+Each one gets a vote on every thirty minute candle for a full year. Up or down.
+
+On gold, all five agreed on about fifty one percent of candles. On Nasdaq, about fifty one and a half.
+
+So about half the time, the five gave a clear, unanimous answer. And about one candle in seven, they split three to two.
+
+That means if you pick one indicator at random, on many candles it will tell you something the others do not.
+
+This is the first reason not to trust one. The answer often depends on which one you happened to open.
+
+And the more indicators you stack, the more often at least one of them disagrees. More lines on a chart do not mean more certainty.
+
+Fine, you might say. Then only trade when all five agree.
+
+So I checked that too. On every gold candle where all five said up, was price higher two hours later?
+
+About forty eight percent of the time. When all five said down, price was lower two hours later about half the time.
+
+On Nasdaq, all five up was followed by a higher price about fifty three percent of the time. All five down, about forty seven.
+
+In other words, agreement on its own was close to a coin flip over the next two hours.
+
+That does not mean indicators are useless. It means agreement tells you what already happened. It does not, by itself, tell you what happens next.
+
+An indicator describes the past candles. Your trade lives in the next ones.
+
+Here is the part most traders never check. Two indicators can share a name and still disagree.
+
+The RSI is a good example. The classic version uses a special kind of smoothing. Many coders use a plain average instead, and still call it RSI fourteen.
+
+I ran both on the same gold candles. Typically, they were about six points apart. At times, almost forty points apart.
+
+Now look at the famous seventy line. The plain average version was above seventy on about sixteen hundred candles. The classic version, only about seven hundred and fifty.
+
+Twice as many "overbought" warnings, from an indicator with the same name and the same setting.
+
+On Nasdaq it was the same story. About nineteen hundred candles against about eight hundred and fifty.
+
+So when someone tells you the RSI is above seventy, the honest question is, whose RSI?
+
+Even the same code gives different answers with a different setting.
+
+On gold, an RSI with a length of seven crossed below thirty about four hundred and sixty five times in the year.
+
+With fourteen, about a hundred and eighty times.
+
+With twenty one, about ninety.
+
+Same market, same year, same idea. Five times more signals at one setting than another.
+
+So a signal is not a fact about the market. It is a fact about the market and a setting someone chose.
+
+Moving average crossovers have the same problem.
+
+On gold, a nine and twenty one crossover flipped about five hundred times in a year. A twenty and fifty crossover, about two hundred and twenty.
+
+And for about one candle in five, the two pairs pointed in opposite directions. One said up, the other said down.
+
+Neither of them was wrong. They are answering different questions. One asks about the last few hours, the other about the last day or two.
+
+The mistake is reading one as the market's answer, when it is only the answer to the question you set it.
+
+There is one more way the same indicator can argue with itself. The timeframe.
+
+I put the same twenty period moving average on thirty minute candles, and on four hour candles, and asked a simple question. Is price above it or below it?
+
+On gold, the two answers disagreed on about one candle in three. On Nasdaq, the same, about thirty four percent.
+
+So a trader on the thirty minute chart sees a downtrend, while a trader on the four hour chart sees an uptrend. Same market, same minute, same indicator.
+
+Both are right about their own chart. This is why many traders look at a higher timeframe first, and only then zoom in.
+
+But it also means that a screenshot of one indicator on one timeframe is never the whole picture. Always ask which chart it came from.
+
+Now the most dangerous kind. Indicators that repaint.
+
+A repainting indicator changes signals that were already on the chart. An arrow appears, then moves, or disappears, after the candles have closed.
+
+Some do it by accident, through a coding mistake that peeks at data from later candles. Some do it by design, because the method only knows the answer later.
+
+Either way, the history you see when you scroll back is not the history you would have seen live.
+
+And that is exactly how a weak tool can look brilliant in a screenshot.
+
+Here is a clean example, and one you can test yourself. A swing high marker.
+
+A common version draws a marker on a candle that is higher than the five candles before it and the five after it.
+
+It is drawn on the top candle. But it cannot know it is the top until five more candles have closed. On thirty minute candles, that is two and a half hours later.
+
+I counted every one on gold for the year. About seven hundred.
+
+By the time each marker could actually appear, price had typically already fallen about two hundred and thirteen dollars from the top, on one micro gold.
+
+More than half the time, it was already more than two hundred dollars below.
+
+On Nasdaq, the typical drop before the marker appeared was about a hundred and ninety dollars on one micro.
+
+So when you scroll back, every marker sits exactly on a top. It looks like the indicator called every turn.
+
+Live, it arrived two and a half hours later, after a big part of the move was gone.
+
+This is not a scam. It is a normal tool used the wrong way. The problem starts when someone sells the rear-view mirror as a windscreen.
+
+There is a simple test. Put the indicator on a chart, and watch it live, candle by candle, for a few days. Take a screenshot each hour.
+
+If an old signal moves or vanishes, you have your answer. Some platforms also have a replay mode that shows the same thing faster.
+
+And be careful with backtests built on these tools. A test that uses the marker where it is drawn, instead of where it appeared, is testing the rear-view mirror. The results will look far better than anything you could have traded.
+
+So how do I actually use indicators? Like a pilot uses gauges.
+
+I check a few, each for one job. One for trend, one for how stretched price is, one for where the key levels are.
+
+But the decision comes from a plan written before the session. The level, the risk, the size, and what would prove me wrong.
+
+The indicators help me see the plan. They do not write it.
+
+On a normal morning, that means maybe three things on my chart, not fifteen. Every extra line is one more voice that can talk me out of my plan, or into a trade I never planned.
+
+And when two of my gauges disagree, that is information too. It usually means the market has not made up its mind, and neither should I.
+
+Before you trust any indicator, put it through five questions.
+
+One. Does it repaint? Watch it live before you believe its history.
+
+Two. What exactly does it calculate? If the code is closed, you are trusting someone else's math.
+
+Three. How sensitive is it to its settings? Move each setting a little. If the signals change a lot, the tool is fragile.
+
+Four. Was it tested on data it was not built on? A tool tuned on last year can look perfect on last year.
+
+Five. What would you do without it? If the answer is nothing, the indicator is making your decision.
+
+I publish free indicators too. Fourteen of them on TradingView, and more on the way.
+
+So the same warning applies to every one of mine.
+
+They are lenses. They show you levels, sessions and ranges that I find useful to look at.
+
+They do not tell you what to do, and none of them should make a decision for you.
+
+Put them through the same five questions. Watch them live, change their settings, and see if they still help you.
+
+A few honest limits.
+
+This is one year of gold and Nasdaq, on thirty minute candles. Other markets, timeframes and years will give other numbers.
+
+I tested five common indicators with their usual settings. There are thousands of others, and some are built for other jobs.
+
+And the two hour check is one simple question. It is not a full test of any strategy.
+
+So, never trust one indicator. Use several as lenses, test the ones you rely on, and keep the decision in your own plan.
+
+If you want to see what testing one idea properly looks like, watch the fair value gap video next. A full year, every gap, counted.
+
+My free indicators, and the research behind them, are on Badr... Edge dot com.
+
+Research, not advice. I will see you on the next chart.
