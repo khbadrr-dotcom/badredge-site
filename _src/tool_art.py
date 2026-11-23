@@ -143,25 +143,25 @@ BY_HREF = {}  # filled at the end of the file
 # ---- Set B (chosen by Khaled, Nov 23), refined: gold carries the idea, teal marks progress, red only as a hairline ----
 
 def pass_b():
-    """100 simulated attempts: gold dots passed, hollow rings hit the max loss, faint dots ran out of days."""
+    """100 simulated attempts as a sorted waffle: passed (gold), hit the max loss (hollow), ran out of days (faint)."""
     W, H = 320, 120
-    rnd = random.Random(3)
-    kinds = ["up"] * 46 + ["dn"] * 38 + ["ti"] * 16
-    rnd.shuffle(kinds)
+    kinds = ["up"] * 45 + ["dn"] * 40 + ["ti"] * 15
     s = []
     for i, k in enumerate(kinds):
-        c, r = i % 20, i // 20
-        x, y = 26 + c * 14, 18 + r * 15
+        c, r = i // 5, i % 5            # fill column by column so each outcome forms one clean band
+        x, y = 24 + c * 14.4, 20 + r * 14
         if k == "up":
-            s.append(f'<circle class="tb-pass" cx="{x}" cy="{y}" r="3.6"/>')
+            s.append(f'<circle class="tb-pass" cx="{x:.1f}" cy="{y}" r="4"/>')
         elif k == "dn":
-            s.append(f'<circle class="tb-fail" cx="{x}" cy="{y}" r="3.1"/>')
+            s.append(f'<circle class="tb-fail" cx="{x:.1f}" cy="{y}" r="3.4"/>')
         else:
-            s.append(f'<circle class="tb-time" cx="{x}" cy="{y}" r="1.6"/>')
-    s += ['<line class="tb-rule" x1="26" y1="96" x2="292" y2="96"/>',
-          '<circle class="tb-pass" cx="28" cy="108" r="3"/><text class="da-lbl" x="36" y="111">passed</text>',
-          '<circle class="tb-fail" cx="98" cy="108" r="2.7"/><text class="da-lbl" x="106" y="111">max loss</text>',
-          '<circle class="tb-time" cx="176" cy="108" r="1.6"/><text class="da-lbl" x="184" y="111">out of days</text>']
+            s.append(f'<circle class="tb-time" cx="{x:.1f}" cy="{y}" r="2"/>')
+    # band brackets
+    X = lambda c: 24 + c * 14.4
+    for c0, c1, lbl, cls, anc in ((0, 8, "passed", "code", "middle"), (9, 16, "max loss", "", "middle"), (17, 19, "time out", "", "end")):
+        s.append(f'<path class="tb-brk" d="M{X(c0) - 4:.1f},90 v4 H{X(c1) + 4:.1f} v-4"/>')
+        tx = (X(c0) + X(c1)) / 2 if anc == "middle" else X(c1) + 4
+        s.append(f'<text class="da-lbl {cls}" x="{tx:.1f}" y="108" text-anchor="{anc}">{lbl}</text>')
     return _wrap("".join(s), W, H, "tb")
 
 

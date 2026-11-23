@@ -1502,8 +1502,9 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 /* Set B refined (Nov 23): quieter palette */
 .tool-art.tb { background: linear-gradient(180deg, color-mix(in srgb, var(--text) 2.5%, transparent), transparent); border-color: var(--line); }
 .tb .tb-pass { fill: var(--accent); stroke: none; }
-.tb .tb-fail { fill: none; stroke: color-mix(in srgb, var(--down) 65%, var(--dim)); stroke-width: 1.1; }
-.tb .tb-time { fill: var(--dim); opacity: .5; stroke: none; }
+.tb .tb-fail { fill: none; stroke: color-mix(in srgb, var(--down) 45%, var(--dim)); stroke-width: 1.2; }
+.tb .tb-brk { fill: none; stroke: var(--line-3); stroke-width: 1; }
+.tb .tb-time { fill: var(--dim); opacity: .45; stroke: none; }
 .tb .tb-rule { stroke: var(--line); stroke-width: 1; }
 .tb .tb-day { fill: color-mix(in srgb, var(--text) 4%, transparent); stroke: var(--line); stroke-width: 1; }
 .tb .tb-day.win { fill: color-mix(in srgb, var(--live) 14%, transparent); stroke: color-mix(in srgb, var(--live) 55%, transparent); }
