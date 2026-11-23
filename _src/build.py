@@ -803,7 +803,7 @@ def home():
   </div>
 </section>
 
-{tracker.two_ways(INDICATORS, len(research.FAMILIES))}
+{tracker.two_ways(INDICATORS, door_art('tools'))}
 <section class="band" id="desk">
   <div class="wrap">
     <div class="sec-head">
