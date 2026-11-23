@@ -1519,3 +1519,10 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .tb .tb-notch { fill: var(--live); stroke: var(--bg); stroke-width: 1.5; }
 .tb .tb-buffer { fill: none; stroke: var(--live); stroke-width: 1.2; stroke-dasharray: 3 3; opacity: .85; }
 .tb .tb-ct { fill: var(--accent); stroke: none; }
+/* Home Tools card console, site palette (Nov 23) */
+.tb .th-track { fill: none; stroke: color-mix(in srgb, var(--text) 8%, transparent); stroke-width: 5; stroke-linecap: round; }
+.tb .th-arc { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; }
+.tb .th-tick { stroke: var(--line-3); stroke-width: 1; }
+.tb .th-notch { fill: var(--live); stroke: var(--bg); stroke-width: 1.5; }
+.tb .th-needle { stroke: var(--text-2, var(--text)); stroke-width: 1.6; stroke-linecap: round; }
+.tb .th-hub { fill: var(--accent); stroke: none; }

@@ -14,50 +14,54 @@ def _pts(P):
 
 
 def home():
-    """Pre-open risk console: pass-odds gauge, payout-day tracker and a contract ladder, one per tool."""
+    """Pre-open risk console, one panel per tool, in the site palette: gold carries the idea, teal marks progress."""
     W, H = 330, 150
     s = []
-    # panel frames
     for x0 in (6, 116, 226):
         s.append(f'<rect class="ta-panel" x="{x0}" y="8" width="98" height="134" rx="10"/>')
-    # 1. gauge
-    cx, cy, r = 55, 92, 36
+    # 1. pass-odds gauge: faint track, gold arc up to the needle, teal target notch
+    cx, cy, r = 55, 90, 34
+    pt = lambda a, rr=r: (cx + rr * math.cos(math.radians(a)), cy - rr * math.sin(math.radians(a)))
     def arc(a0, a1, cls):
-        x0, y0 = cx + r * math.cos(math.radians(a0)), cy - r * math.sin(math.radians(a0))
-        x1, y1 = cx + r * math.cos(math.radians(a1)), cy - r * math.sin(math.radians(a1))
+        (x0, y0), (x1, y1) = pt(a0), pt(a1)
         return f'<path class="{cls}" d="M{x0:.1f},{y0:.1f} A{r},{r} 0 0 1 {x1:.1f},{y1:.1f}"/>'
-    s.append(arc(180, 128, "ta-arc dn"))
-    s.append(arc(124, 64, "ta-arc gd"))
-    s.append(arc(60, 0, "ta-arc up"))
-    for a in range(0, 181, 15):
-        ri, ro = r - 9, r - 6
-        s.append(f'<line class="da-faint" x1="{cx + ri * math.cos(math.radians(a)):.1f}" y1="{cy - ri * math.sin(math.radians(a)):.1f}" '
-                 f'x2="{cx + ro * math.cos(math.radians(a)):.1f}" y2="{cy - ro * math.sin(math.radians(a)):.1f}"/>')
-    na = 48
-    s.append(f'<line class="ta-needle" x1="{cx}" y1="{cy}" x2="{cx + (r - 4) * math.cos(math.radians(na)):.1f}" y2="{cy - (r - 4) * math.sin(math.radians(na)):.1f}"/>')
-    s.append(f'<circle class="da-dot-gold" cx="{cx}" cy="{cy}" r="3.5"/>')
+    s.append(arc(180, 0, "th-track"))
+    na = 52
+    s.append(arc(180, na, "th-arc"))
+    for a in range(0, 181, 30):
+        (x0, y0), (x1, y1) = pt(a, r - 9), pt(a, r - 6)
+        s.append(f'<line class="th-tick" x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}"/>')
+    tx, ty = pt(40, r)
+    s.append(f'<circle class="th-notch" cx="{tx:.1f}" cy="{ty:.1f}" r="2.6"/>')
+    (nx, ny) = pt(na, r - 5)
+    s.append(f'<line class="th-needle" x1="{cx}" y1="{cy}" x2="{nx:.1f}" y2="{ny:.1f}"/>')
+    s.append(f'<circle class="th-hub" cx="{cx}" cy="{cy}" r="3.2"/>')
     s.append(f'<text class="da-lbl" x="{cx}" y="122" text-anchor="middle">pass odds</text>')
-    s.append(f'<text class="da-lbl" x="20" y="28">01</text>')
-    # 2. payout-day tracker: winning days fill toward a payout coin
-    x0, y0, g = 134, 50, 14
+    s.append('<text class="da-lbl" x="20" y="28">01</text>')
+    # 2. payout: winning-day tiles (teal, ticked) filling toward a gold coin
+    x0, y0, g = 133, 46, 14
     for i in range(10):
         col, row = i % 5, i // 5
-        cls = "ta-day on" if i < 7 else "ta-day"
-        s.append(f'<rect class="{cls}" x="{x0 + col * g:.1f}" y="{y0 + row * g:.1f}" width="10" height="10" rx="2.5"/>')
-    s.append(f'<circle class="ta-coin" cx="165" cy="98" r="13"/><circle class="ta-coin-in" cx="165" cy="98" r="8.5"/>')
-    s.append('<text class="ta-coin-t" x="165" y="101.5" text-anchor="middle">$</text>')
-    s.append(f'<text class="da-lbl" x="165" y="132" text-anchor="middle">payout</text>')
-    s.append(f'<text class="da-lbl" x="130" y="28">02</text>')
-    # 3. contract ladder against the max loss
-    lim = 300
-    for i, w in enumerate((18, 30, 42, 54, 70)):
-        y = 108 - i * 15
-        cls = "ta-bar over" if 238 + w > lim else "ta-bar"
-        s.append(f'<rect class="{cls}" x="238" y="{y}" width="{w}" height="10" rx="3"/>')
-    s.append(f'<line class="da-floor" x1="{lim}" y1="40" x2="{lim}" y2="122"/>')
-    s.append(f'<text class="da-lbl" x="275" y="132" text-anchor="middle">size</text>')
-    s.append(f'<text class="da-lbl" x="240" y="28">03</text>')
-    return _wrap("".join(s), W, H, "ta-home")
+        x, y = x0 + col * g, y0 + row * g
+        if i < 7:
+            s.append(f'<rect class="tb-day win" x="{x}" y="{y}" width="11" height="11" rx="3"/>')
+        else:
+            s.append(f'<rect class="tb-day empty" x="{x}" y="{y}" width="11" height="11" rx="3"/>')
+    s.append('<circle class="tb-ring" cx="165" cy="96" r="13"/><circle class="tb-ring on" cx="165" cy="96" r="13"/>')
+    s.append('<text class="tb-cur" x="165" y="100" text-anchor="middle">$</text>')
+    s.append('<text class="da-lbl" x="165" y="132" text-anchor="middle">payout</text>')
+    s.append('<text class="da-lbl" x="130" y="28">02</text>')
+    # 3. size: contract stacks step up under the buffer line (same idea as the Contract Sizing card)
+    P = [(236, 98), (254, 98), (258, 84), (276, 84), (280, 70), (298, 70), (302, 56), (314, 56)]
+    s.append(f'<polyline class="tb-buffer" points="{_pts(P)}"/>')
+    for i in range(4):
+        x = 238 + i * 18
+        for k in range(i + 1):
+            s.append(f'<rect class="tb-ct" style="opacity:{0.45 + 0.18 * i:.2f}" x="{x}" y="{106 - k * 11}" width="13" height="8" rx="2"/>')
+    s.append('<line class="tb-rule" x1="234" y1="116" x2="318" y2="116"/>')
+    s.append('<text class="da-lbl" x="275" y="132" text-anchor="middle">size</text>')
+    s.append('<text class="da-lbl" x="240" y="28">03</text>')
+    return _wrap("".join(s), W, H, "tb ta-home")
 
 
 def pass_():
