@@ -1458,3 +1458,32 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .to-top svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 @media (max-width: 600px) { .to-top { right: 16px; bottom: 16px; width: 42px; height: 42px; } }
 @media print { .to-top { display: none; } }
+
+/* Tool illustrations (_src/tool_art.py): home Tools card and the /tools/ cards */
+.tool-art .ta-panel { fill: color-mix(in srgb, var(--text) 3%, transparent); stroke: var(--line); stroke-width: 1; }
+.tool-art .ta-arc { stroke-width: 7; stroke-linecap: round; fill: none; }
+.tool-art .ta-arc.dn { stroke: color-mix(in srgb, var(--down) 70%, transparent); }
+.tool-art .ta-arc.gd { stroke: var(--accent); opacity: .85; }
+.tool-art .ta-arc.up { stroke: var(--live); }
+.tool-art .ta-needle { stroke: var(--text); stroke-width: 2.2; }
+.tool-art .ta-day { fill: color-mix(in srgb, var(--text) 7%, transparent); stroke: none; }
+.tool-art .ta-day.on { fill: var(--live); opacity: .85; }
+.tool-art .ta-coin { fill: color-mix(in srgb, var(--accent) 22%, transparent); stroke: var(--accent); stroke-width: 1.6; }
+.tool-art .ta-coin-in { fill: none; stroke: var(--accent); stroke-width: 1; opacity: .6; }
+.tool-art .ta-coin-t { font: 700 11px var(--sans); fill: var(--accent); stroke: none; }
+.tool-art .ta-coin-t.big { font-size: 15px; }
+.tool-art .ta-bar { fill: var(--accent); opacity: .8; stroke: none; }
+.tool-art .ta-bar.over, .tool-art .ta-ct.over { fill: var(--down); opacity: .8; }
+.tool-art .ta-trail { stroke: var(--down); stroke-width: 1.4; stroke-dasharray: 4 3; fill: none; opacity: .85; }
+.tool-art .ta-pole { stroke: var(--dim); stroke-width: 1.2; }
+.tool-art .ta-flag { fill: var(--live); stroke: none; }
+.tool-art .ta-pnl.up { fill: var(--live); opacity: .75; stroke: none; }
+.tool-art .ta-pnl.dn { fill: var(--dim); opacity: .6; stroke: none; }
+.tool-art .ta-wick { stroke: var(--dim); stroke-width: 1.4; }
+.tool-art .ta-candle { fill: var(--live); opacity: .75; stroke: none; }
+.tool-art .ta-bracket, .tool-art .ta-arrow { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+.tool-art .ta-cushion { fill: color-mix(in srgb, var(--accent) 6%, transparent); stroke: var(--accent-line); stroke-width: 1; stroke-dasharray: 3 3; }
+.tool-art .ta-ct { fill: var(--accent); opacity: .85; stroke: none; }
+.tool-art .da-lbl.dn { fill: var(--down); opacity: .9; }
+.grid-3 > .card > .tool-art { margin: -6px -8px 14px; height: 132px; }
+.grid-3 > .card:has(> .tool-art) .tagline { position: static; align-self: flex-start; margin: 0 0 -4px; }

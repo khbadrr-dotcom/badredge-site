@@ -12,6 +12,7 @@ import tracker
 import guide_viz
 import lessons
 import lesson_art
+import tool_art
 from html import escape as esc
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -439,7 +440,7 @@ def tool_cards():
     for href, icon, name, desc, bullets in TOOLS:
         lis = "".join(f"<li>{b}</li>" for b in bullets)
         out.append(f"""<a class="card reveal" href="{href}">
-        <div class="icon">{ICONS[icon]}</div>
+        {tool_art.BY_HREF[href]()}
         <span class="tagline">Free</span>
         <h3>{name}</h3>
         <p>{desc}</p>
@@ -803,7 +804,7 @@ def home():
   </div>
 </section>
 
-{tracker.two_ways(INDICATORS, door_art('tools'))}
+{tracker.two_ways(INDICATORS, tool_art.home())}
 <section class="band">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
