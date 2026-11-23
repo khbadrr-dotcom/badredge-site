@@ -1567,3 +1567,12 @@ html[data-theme="light"] .tb .tb-day.pay + .tb-cur { fill: #fff; }
 .ta-home .hf-seg.time { fill: color-mix(in srgb, var(--text) 14%, transparent); }
 .ta-home .hf-seg.fail { fill: none; stroke: var(--line-3); stroke-width: 1; }
 .ta-home .hf-k.pass { fill: var(--accent); }
+/* Home Tools card: risk fan (Nov 24, replaces the runs) */
+.ta-home .hf-band.outer { fill: url(#tb-gold); opacity: .10; }
+.ta-home .hf-band.inner { fill: url(#tb-gold); opacity: .20; }
+.ta-home .hf-med { fill: none; stroke: url(#tb-goldh); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.ta-home .hf-end { fill: var(--accent); stroke: var(--bg); stroke-width: 1.5; }
+.ta-home .hf-floor { stroke: var(--line-3); stroke-dasharray: 2 3; }
+html[data-theme="light"] .ta-home .hf-band.outer { opacity: .14; }
+html[data-theme="light"] .ta-home .hf-band.inner { opacity: .26; }
+.ta-home .hf-seg.fail { fill: var(--line-3); stroke: none; }

@@ -22,54 +22,59 @@ def _pts(P):
 
 
 def home():
-    """What the simulators actually output: many simulated evaluation runs between the
-    profit target and the max loss, with the share that passes, fails or runs out of time."""
+    """What the simulators output, drawn as a risk fan: the spread of simulated balances
+    over an evaluation (inner band = middle half of runs, outer = most runs), the median
+    run, the profit target and the max loss, with the outcome split beside it. Illustration only."""
     W, H = 316, 172
-    L, R, T, B = 14, 232, 28, 144            # plot box
-    start_y = 104
-    rnd = random.Random(6)
-    days, n = 16, 14
-    dx = (R - L) / days
-    passed, failed, timed = [], [], []
-    for k in range(n):
-        y, P = start_y, [(L, start_y)]
-        for d in range(1, days + 1):
-            y += rnd.gauss(-4.4, 13.5)
-            x = L + d * dx
-            if y <= T:
-                P.append((x, T)); passed.append(P); break
-            if y >= B:
-                P.append((x, B)); failed.append(P); break
-            P.append((x, y))
-        else:
-            timed.append(P)
-    s = []
-    for P in failed:
-        s.append(f'<polyline class="hf-run fail" points="{_pts(P)}"/>')
-    for P in timed:
-        s.append(f'<polyline class="hf-run time" points="{_pts(P)}"/>')
-    for P in passed:
-        s.append(f'<polyline class="hf-run pass" points="{_pts(P)}"/>')
-    # one highlighted run, drawn on top with a soft area, like the Strategy Lab curve
-    hero = max(passed, key=len)
-    s.append(f'<polygon class="hf-area" points="{_pts(hero)} {hero[-1][0]:.1f},{B} {L},{B}"/>')
-    s.append(f'<polyline class="hf-hero" points="{_pts(hero)}"/>')
-    s.append(f'<line class="hf-target" x1="{L}" y1="{T}" x2="{R}" y2="{T}"/>')
-    s.append(f'<line class="hf-floor" x1="{L}" y1="{B}" x2="{R}" y2="{B}"/>')
-    s.append(f'<circle class="hf-start" cx="{L}" cy="{start_y}" r="3"/>')
-    s.append(f'<text class="da-lbl live" x="{L}" y="{T - 9}">profit target</text>')
-    s.append(f'<text class="da-lbl" x="{L}" y="{B + 15}">max loss</text>')
-    s.append(f'<text class="da-lbl" x="{R}" y="{B + 15}" text-anchor="end">day 30</text>')
-    # outcome split: one bar, three segments, no figures
-    bx, bw = 252, 8
-    tot = len(passed) + len(failed) + len(timed)
-    y0 = T
-    for cls, cnt, lbl in (("pass", len(passed), "pass"), ("time", len(timed), "time out"), ("fail", len(failed), "fail")):
-        h = (B - T) * cnt / tot
-        s.append(f'<rect class="hf-seg {cls}" x="{bx}" y="{y0 + 1:.1f}" width="{bw}" height="{max(h - 2, 1):.1f}" rx="2.5"/>')
-        s.append(f'<text class="da-lbl hf-k {cls}" x="{bx + bw + 6}" y="{y0 + h / 2 + 3:.1f}">{lbl}</text>')
-        y0 += h
-    s.append(f'<text class="da-lbl" x="{bx}" y="{T - 9}">outcomes</text>')
+    L, R, T, B = 14, 232, 30, 142
+    y0, days, n = 108, 30, 3000
+    rnd = random.Random(4)
+    runs = []
+    for _ in range(n):
+        y, P = y0, [y0]
+        for _d in range(days):
+            y += rnd.gauss(-2.2, 8.2)
+            P.append(y)
+        runs.append(P)
+    X = lambda d: L + d * (R - L) / days
+    cols = [sorted(r[d] for r in runs) for d in range(days + 1)]
+    def q(d, f):
+        # quantile, lightly averaged with neighbouring days so the band edge reads as one clean line
+        ds = [k for k in (d - 1, d, d + 1) if 0 <= k <= days] if d else [0]
+        return sum(cols[k][int(f * (n - 1))] for k in ds) / len(ds)
+    def band(f0, f1):
+        top = [(X(d), max(q(d, f0), T - 30)) for d in range(days + 1)]
+        bot = [(X(d), min(q(d, f1), B + 30)) for d in range(days + 1)]
+        return _pts(top) + " " + _pts(bot[::-1])
+    med = [(X(d), q(d, .5)) for d in range(days + 1)]
+    cid = "hf-clip"
+    s = [f'<clipPath id="{cid}"><rect x="{L}" y="{T}" width="{R - L}" height="{B - T}"/></clipPath>',
+         f'<g clip-path="url(#{cid})">',
+         f'<polygon class="hf-band outer" points="{band(.1, .9)}"/>',
+         f'<polygon class="hf-band inner" points="{band(.25, .75)}"/>',
+         f'<polyline class="hf-med" points="{_pts(med)}"/>',
+         '</g>',
+         f'<line class="hf-target" x1="{L}" y1="{T}" x2="{R}" y2="{T}"/>',
+         f'<line class="hf-floor" x1="{L}" y1="{B}" x2="{R}" y2="{B}"/>',
+         f'<circle class="hf-start" cx="{L}" cy="{y0}" r="3"/>',
+         f'<circle class="hf-end" cx="{med[-1][0]:.1f}" cy="{med[-1][1]:.1f}" r="3"/>',
+         f'<text class="da-lbl live" x="{L}" y="{T - 10}">profit target</text>',
+         f'<text class="da-lbl" x="{L}" y="{B + 16}">max loss</text>',
+         f'<text class="da-lbl" x="{R}" y="{B + 16}" text-anchor="end">day 30</text>']
+    # outcome split from the same runs: first touch of the target or the max loss
+    pas = fail = 0
+    for r in runs:
+        for v in r[1:]:
+            if v <= T: pas += 1; break
+            if v >= B: fail += 1; break
+    tim = n - pas - fail
+    bx, bw, yy = 254, 6, T
+    for cls, cnt, lbl in (("pass", pas, "pass"), ("time", tim, "time out"), ("fail", fail, "fail")):
+        h = (B - T) * cnt / n
+        s.append(f'<rect class="hf-seg {cls}" x="{bx}" y="{yy + 1.5:.1f}" width="{bw}" height="{max(h - 3, 4):.1f}" rx="3"/>')
+        s.append(f'<text class="da-lbl hf-k {cls}" x="{bx + bw + 7}" y="{yy + h / 2 + 3:.1f}">{lbl}</text>')
+        yy += h
+    s.append(f'<text class="da-lbl" x="{bx}" y="{T - 10}">outcomes</text>')
     return _wrap("".join(s), W, H, "tb ta-home")
 
 
