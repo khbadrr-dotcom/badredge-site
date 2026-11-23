@@ -61,13 +61,15 @@
 
   <div class="pk-wrap">
   <div class="pk-top"><span class="pk-cap">Last year, in-sample &middot; 1 micro &middot; after fees and slippage</span>
-    <div class="pk-sort" role="group" aria-label="Rank by"><span>Rank by</span><button type="button" class="on" data-k="net" aria-pressed="true">Net</button><button type="button" data-k="wr" aria-pressed="false">Win rate</button></div></div>
-  <div class="pk-head" aria-hidden="true"><span>Strategy</span><span>Equity</span><span>Win rate</span><span>PF</span><span>Net</span><span></span></div>
-  <div class="pk-rows"><details class="pk" data-net="20343" data-wr="90.2">
+    <div class="pk-sort" role="group" aria-label="Rank by"><span>Rank by</span><button type="button" class="on" data-k="net" aria-pressed="true">Net</button><button type="button" data-k="wr" aria-pressed="false">Win rate</button><button type="button" data-k="sh" aria-pressed="false">Sharpe</button></div></div>
+  <div class="pk-head" aria-hidden="true"><span>Strategy</span><span>Equity</span><span>Win rate</span><span title="Annualised, daily net">Sharpe</span><span title="Annualised, downside days only">Sortino</span><span>PF</span><span>Net</span><span></span></div>
+  <div class="pk-rows"><details class="pk" data-net="20343" data-wr="90.2" data-sh="5.6">
   <summary>
     <span class="pk-name"><b>SIL ORB v4</b><small>Micro Silver &middot; 1m<span class="pk-mwr">90.2% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,30.0L1.0,29.8L2.0,29.6L3.0,29.5L4.0,29.3L5.0,29.1L6.0,29.5L6.9,29.9L7.9,29.8L8.9,29.6L9.9,29.5L10.9,29.3L11.9,29.6L12.9,29.4L13.9,29.3L14.9,29.1L15.9,29.0L16.9,29.4L17.9,29.3L18.8,28.9L19.8,28.7L20.8,28.5L21.8,28.1L22.8,27.6L23.8,27.4L24.8,27.0L25.8,26.6L26.8,25.9L27.8,25.5L28.8,24.8L29.8,24.6L30.7,24.2L31.7,23.5L32.7,23.0L33.7,21.1L34.7,19.1L35.7,20.1L36.7,19.1L37.7,18.9L38.7,18.6L39.7,18.2L40.7,17.4L41.7,18.3L42.6,18.1L43.6,17.7L44.6,17.4L45.6,16.5L46.6,16.0L47.6,13.8L48.6,13.5L49.6,13.1L50.6,14.3L51.6,14.0L52.6,13.6L53.6,13.4L54.5,13.2L55.5,12.8L56.5,12.6L57.5,13.1L58.5,12.9L59.5,12.5L60.5,12.1L61.5,11.9L62.5,11.7L63.5,11.5L64.5,11.0L65.5,10.7L66.4,10.3L67.4,10.1L68.4,9.7L69.4,10.0L70.4,10.6L71.4,10.5L72.4,10.3L73.4,10.1L74.4,9.9L75.4,9.7L76.4,9.4L77.4,9.1L78.3,8.7L79.3,8.5L80.3,8.3L81.3,8.1L82.3,7.9L83.3,7.7L84.3,7.5L85.3,7.4L86.3,7.1L87.3,6.9L88.3,6.7L89.3,6.5L90.2,6.3L91.2,6.8L92.2,6.7L93.2,6.6L94.2,6.5L95.2,6.4L96.2,6.0L97.2,6.2L98.2,6.0L99.2,5.8L100.2,5.6L101.2,5.5L102.1,5.3L103.1,4.8L104.1,4.5L105.1,4.3L106.1,4.2L107.1,3.9L108.1,3.8L109.1,3.6L110.1,3.4L111.1,3.3L112.1,3.0L113.1,2.9L114.0,2.7L115.0,2.3L116.0,2.7L117.0,2.6L118.0,2.3L119.0,2.1L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:90.2%"></i><em>90.2%</em></span>
+    <span class="pk-r">5.60</span>
+    <span class="pk-r">12.86</span>
     <span class="pk-pf">4.59</span>
     <span class="pk-net" style="--n:1.00">+$20,343</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -78,18 +80,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$20,343</dd></div>
       <div><dt>Win rate</dt><dd>90.2%</dd></div>
       <div><dt>Profit factor</dt><dd>4.59</dd></div>
+      <div><dt>Sharpe</dt><dd>5.60</dd></div>
+      <div><dt>Sortino</dt><dd>12.86</dd></div>
       <div><dt>Max drawdown</dt><dd>$883</dd></div>
       <div><dt>Trades</dt><dd>133</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>13 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-v4/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="12564" data-wr="85.3">
+</details><details class="pk" data-net="12564" data-wr="85.3" data-sh="5.81">
   <summary>
     <span class="pk-name"><b>PL ORB v4</b><small>Platinum &middot; 1m<span class="pk-mwr">85.3% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,30.0L1.3,29.6L2.5,29.4L3.8,29.2L5.1,28.7L6.3,28.1L7.6,27.7L8.8,27.4L10.1,27.4L11.4,27.8L12.6,28.2L13.9,28.8L15.2,28.4L16.4,27.4L17.7,27.3L18.9,26.8L20.2,26.3L21.5,26.3L22.7,25.8L24.0,25.6L25.3,27.8L26.5,27.6L27.8,27.9L29.1,27.6L30.3,27.0L31.6,26.4L32.8,25.4L34.1,25.0L35.4,24.3L36.6,23.8L37.9,23.1L39.2,22.5L40.4,22.0L41.7,22.5L42.9,22.2L44.2,21.5L45.5,21.5L46.7,20.3L48.0,19.8L49.3,19.2L50.5,19.0L51.8,19.5L53.1,19.0L54.3,18.5L55.6,17.5L56.8,17.1L58.1,16.5L59.4,16.3L60.6,16.6L61.9,16.6L63.2,16.0L64.4,15.6L65.7,15.2L66.9,15.8L68.2,15.4L69.5,15.0L70.7,14.7L72.0,14.4L73.3,14.0L74.5,13.6L75.8,13.2L77.1,12.7L78.3,12.2L79.6,11.7L80.8,11.4L82.1,11.1L83.4,11.0L84.6,10.4L85.9,10.6L87.2,10.5L88.4,10.1L89.7,9.7L90.9,9.3L92.2,9.5L93.5,9.4L94.7,9.1L96.0,9.6L97.3,9.2L98.5,8.5L99.8,8.1L101.1,7.5L102.3,7.5L103.6,7.1L104.8,6.8L106.1,5.8L107.4,5.8L108.6,5.2L109.9,5.1L111.2,4.8L112.4,4.3L113.7,4.0L114.9,3.5L116.2,3.2L117.5,2.6L118.7,2.2L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:85.3%"></i><em>85.3%</em></span>
+    <span class="pk-r">5.81</span>
+    <span class="pk-r">10.56</span>
     <span class="pk-pf">4.31</span>
     <span class="pk-net" style="--n:0.62">+$12,564</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -100,18 +105,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$12,564</dd></div>
       <div><dt>Win rate</dt><dd>85.3%</dd></div>
       <div><dt>Profit factor</dt><dd>4.31</dd></div>
+      <div><dt>Sharpe</dt><dd>5.81</dd></div>
+      <div><dt>Sortino</dt><dd>10.56</dd></div>
       <div><dt>Max drawdown</dt><dd>$1,028</dd></div>
       <div><dt>Trades</dt><dd>109</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>6 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-v4/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="9524" data-wr="81.4">
+</details><details class="pk" data-net="9524" data-wr="81.4" data-sh="4.93">
   <summary>
     <span class="pk-name"><b>MGC ORB v4</b><small>Micro Gold &middot; 1m<span class="pk-mwr">81.4% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,27.6L1.0,28.0L1.9,28.5L2.9,28.7L3.8,28.5L4.8,28.4L5.7,28.7L6.7,28.9L7.6,28.8L8.6,28.6L9.5,28.5L10.5,28.3L11.4,28.3L12.4,28.1L13.3,27.9L14.3,27.7L15.2,27.5L16.2,27.4L17.1,27.8L18.1,28.6L19.0,29.0L20.0,29.3L21.0,29.5L21.9,29.3L22.9,30.0L23.8,29.7L24.8,28.6L25.7,26.6L26.7,25.9L27.6,25.2L28.6,24.9L29.5,25.1L30.5,24.8L31.4,24.3L32.4,23.9L33.3,23.1L34.3,22.6L35.2,22.2L36.2,22.6L37.1,22.4L38.1,22.0L39.0,20.9L40.0,19.2L41.0,17.8L41.9,18.9L42.9,18.5L43.8,18.1L44.8,17.6L45.7,17.1L46.7,16.8L47.6,16.5L48.6,16.3L49.5,16.0L50.5,15.8L51.4,16.3L52.4,16.0L53.3,15.8L54.3,15.6L55.2,15.4L56.2,14.7L57.1,14.4L58.1,14.2L59.0,14.6L60.0,13.9L61.0,13.7L61.9,13.5L62.9,13.9L63.8,13.6L64.8,13.4L65.7,13.1L66.7,12.9L67.6,12.6L68.6,12.2L69.5,12.6L70.5,12.2L71.4,11.8L72.4,11.4L73.3,11.8L74.3,11.6L75.2,11.4L76.2,10.5L77.1,10.3L78.1,10.1L79.0,9.8L80.0,9.7L81.0,9.5L81.9,9.1L82.9,8.9L83.8,8.8L84.8,8.6L85.7,8.3L86.7,7.9L87.6,7.6L88.6,7.2L89.5,7.5L90.5,7.2L91.4,7.7L92.4,7.7L93.3,8.0L94.3,6.9L95.2,6.6L96.2,6.3L97.1,6.0L98.1,5.8L99.0,5.0L100.0,6.0L101.0,5.4L101.9,5.2L102.9,5.0L103.8,4.8L104.8,4.6L105.7,4.4L106.7,4.2L107.6,4.4L108.6,3.9L109.5,3.7L110.5,3.5L111.4,3.2L112.4,3.1L113.3,2.7L114.3,3.2L115.2,2.9L116.2,2.7L117.1,2.6L118.1,2.4L119.0,2.2L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:81.4%"></i><em>81.4%</em></span>
+    <span class="pk-r">4.93</span>
+    <span class="pk-r">10.60</span>
     <span class="pk-pf">3.17</span>
     <span class="pk-net" style="--n:0.47">+$9,524</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -122,18 +130,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$9,524</dd></div>
       <div><dt>Win rate</dt><dd>81.4%</dd></div>
       <div><dt>Profit factor</dt><dd>3.17</dd></div>
+      <div><dt>Sharpe</dt><dd>4.93</dd></div>
+      <div><dt>Sortino</dt><dd>10.60</dd></div>
       <div><dt>Max drawdown</dt><dd>$953</dd></div>
       <div><dt>Trades</dt><dd>145</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>1 Dec 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-v4/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="8396" data-wr="80.8">
+</details><details class="pk" data-net="8396" data-wr="80.8" data-sh="6.42">
   <summary>
     <span class="pk-name"><b>MNQ IB Multi-Session</b><small>Micro Nasdaq &middot; 1m<span class="pk-mwr">80.8% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,29.9L0.5,30.0L1.0,29.5L1.5,29.3L2.0,29.2L2.4,29.3L2.9,29.0L3.4,28.5L3.9,28.7L4.4,28.3L4.9,27.9L5.4,28.4L5.9,28.6L6.3,28.3L6.8,28.2L7.3,28.2L7.8,28.1L8.3,27.9L8.8,27.6L9.3,27.5L9.8,27.3L10.2,27.1L10.7,27.0L11.2,26.8L11.7,26.7L12.2,26.5L12.7,26.5L13.2,26.3L13.7,26.1L14.1,25.7L14.6,25.4L15.1,25.4L15.6,25.3L16.1,25.6L16.6,25.5L17.1,25.4L17.6,25.6L18.0,25.7L18.5,25.6L19.0,25.7L19.5,26.1L20.0,25.9L20.5,25.7L21.0,25.5L21.5,25.4L22.0,25.2L22.4,25.2L22.9,24.9L23.4,25.1L23.9,24.9L24.4,25.1L24.9,25.0L25.4,24.6L25.9,24.4L26.3,24.2L26.8,24.0L27.3,24.2L27.8,24.0L28.3,23.7L28.8,23.4L29.3,22.9L29.8,22.6L30.2,22.3L30.7,21.9L31.2,22.3L31.7,22.1L32.2,22.0L32.7,21.8L33.2,21.5L33.7,21.2L34.1,21.3L34.6,21.2L35.1,20.9L35.6,20.9L36.1,20.5L36.6,20.2L37.1,20.1L37.6,20.3L38.0,20.4L38.5,20.3L39.0,20.0L39.5,20.4L40.0,20.0L40.5,19.8L41.0,20.4L41.5,20.5L42.0,21.6L42.4,21.5L42.9,21.6L43.4,21.3L43.9,21.2L44.4,21.1L44.9,21.0L45.4,20.8L45.9,20.5L46.3,20.4L46.8,20.1L47.3,20.5L47.8,20.1L48.3,19.9L48.8,19.5L49.3,18.7L49.8,18.6L50.2,18.2L50.7,18.1L51.2,18.0L51.7,18.2L52.2,17.6L52.7,17.6L53.2,17.5L53.7,17.3L54.1,17.3L54.6,17.4L55.1,17.2L55.6,17.1L56.1,16.9L56.6,16.8L57.1,16.7L57.6,16.3L58.0,16.5L58.5,16.6L59.0,16.8L59.5,16.7L60.0,15.9L60.5,15.6L61.0,15.5L61.5,15.3L62.0,15.2L62.4,15.1L62.9,14.9L63.4,15.1L63.9,14.8L64.4,14.7L64.9,15.0L65.4,14.7L65.9,15.1L66.3,14.7L66.8,14.9L67.3,14.5L67.8,14.4L68.3,14.3L68.8,14.1L69.3,14.3L69.8,14.1L70.2,14.3L70.7,14.0L71.2,14.9L71.7,15.1L72.2,15.2L72.7,14.9L73.2,14.3L73.7,14.1L74.1,13.6L74.6,13.5L75.1,13.1L75.6,13.2L76.1,12.8L76.6,13.2L77.1,12.9L77.6,13.0L78.0,12.6L78.5,12.4L79.0,12.0L79.5,12.8L80.0,12.0L80.5,12.2L81.0,12.0L81.5,11.4L82.0,11.2L82.4,10.8L82.9,10.2L83.4,10.0L83.9,9.6L84.4,9.4L84.9,10.0L85.4,9.7L85.9,9.3L86.3,9.5L86.8,9.6L87.3,9.3L87.8,8.8L88.3,8.4L88.8,8.8L89.3,8.4L89.8,8.1L90.2,7.5L90.7,7.7L91.2,7.3L91.7,6.7L92.2,6.7L92.7,6.8L93.2,6.6L93.7,6.4L94.1,6.2L94.6,6.4L95.1,6.4L95.6,6.4L96.1,6.2L96.6,6.3L97.1,6.2L97.6,6.0L98.0,5.8L98.5,5.6L99.0,5.7L99.5,5.3L100.0,5.2L100.5,5.4L101.0,5.2L101.5,5.0L102.0,5.1L102.4,5.0L102.9,5.2L103.4,5.3L103.9,5.2L104.4,5.4L104.9,5.3L105.4,5.4L105.9,5.3L106.3,5.0L106.8,4.8L107.3,4.7L107.8,4.9L108.3,4.9L108.8,4.7L109.3,4.4L109.8,4.1L110.2,3.8L110.7,3.9L111.2,3.8L111.7,3.4L112.2,3.2L112.7,3.5L113.2,3.0L113.7,2.9L114.1,2.5L114.6,2.7L115.1,2.7L115.6,2.3L116.1,2.1L116.6,2.6L117.1,3.0L117.6,3.1L118.0,2.7L118.5,3.1L119.0,2.9L119.5,2.5L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:80.8%"></i><em>80.8%</em></span>
+    <span class="pk-r">6.42</span>
+    <span class="pk-r">10.82</span>
     <span class="pk-pf">2.16</span>
     <span class="pk-net" style="--n:0.41">+$8,396</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -144,18 +155,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$8,396</dd></div>
       <div><dt>Win rate</dt><dd>80.8%</dd></div>
       <div><dt>Profit factor</dt><dd>2.16</dd></div>
+      <div><dt>Sharpe</dt><dd>6.42</dd></div>
+      <div><dt>Sortino</dt><dd>10.82</dd></div>
       <div><dt>Max drawdown</dt><dd>$542</dd></div>
       <div><dt>Trades</dt><dd>407</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>6 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/initial-balance/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="7114" data-wr="70.2">
+</details><details class="pk" data-net="7114" data-wr="70.2" data-sh="4.86">
   <summary>
     <span class="pk-name"><b>MGC ORB Pro Max</b><small>Micro Gold &middot; 5m<span class="pk-mwr">70.2% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,29.7L0.7,29.9L1.4,30.0L2.0,29.9L2.7,29.7L3.4,29.3L4.1,29.8L4.7,29.7L5.4,30.0L6.1,29.8L6.8,29.4L7.5,29.2L8.1,29.4L8.8,29.4L9.5,29.0L10.2,28.8L10.8,29.1L11.5,29.0L12.2,29.2L12.9,29.3L13.6,29.3L14.2,29.2L14.9,29.0L15.6,29.1L16.3,29.3L16.9,29.6L17.6,29.3L18.3,28.6L19.0,28.7L19.7,28.4L20.3,28.7L21.0,28.5L21.7,28.4L22.4,28.2L23.1,28.0L23.7,27.8L24.4,27.9L25.1,27.5L25.8,26.7L26.4,26.8L27.1,26.5L27.8,24.4L28.5,24.5L29.2,24.0L29.8,22.2L30.5,22.1L31.2,21.9L31.9,21.7L32.5,21.1L33.2,21.0L33.9,20.7L34.6,20.9L35.3,20.7L35.9,21.1L36.6,20.6L37.3,19.0L38.0,18.7L38.6,18.3L39.3,18.4L40.0,18.3L40.7,18.7L41.4,18.0L42.0,17.4L42.7,17.6L43.4,17.7L44.1,17.9L44.7,17.6L45.4,16.7L46.1,15.3L46.8,15.0L47.5,14.6L48.1,14.4L48.8,16.0L49.5,16.5L50.2,15.8L50.8,16.8L51.5,16.9L52.2,17.1L52.9,16.9L53.6,15.9L54.2,16.0L54.9,15.9L55.6,15.9L56.3,15.5L56.9,15.2L57.6,14.9L58.3,14.7L59.0,14.9L59.7,14.8L60.3,14.6L61.0,14.1L61.7,13.5L62.4,13.8L63.1,13.5L63.7,13.6L64.4,13.3L65.1,13.3L65.8,13.8L66.4,13.7L67.1,13.8L67.8,13.8L68.5,13.5L69.2,13.2L69.8,12.4L70.5,12.2L71.2,12.8L71.9,12.4L72.5,11.3L73.2,10.7L73.9,9.8L74.6,9.6L75.3,9.6L75.9,9.8L76.6,9.6L77.3,9.2L78.0,8.9L78.6,9.1L79.3,8.8L80.0,9.0L80.7,8.8L81.4,8.7L82.0,9.0L82.7,8.9L83.4,8.7L84.1,8.2L84.7,7.9L85.4,7.9L86.1,7.9L86.8,7.5L87.5,7.3L88.1,7.2L88.8,7.5L89.5,7.3L90.2,7.2L90.8,7.1L91.5,6.7L92.2,6.6L92.9,6.8L93.6,7.0L94.2,6.8L94.9,6.6L95.6,6.5L96.3,6.4L96.9,6.0L97.6,5.6L98.3,5.5L99.0,5.8L99.7,5.7L100.3,5.4L101.0,5.5L101.7,5.9L102.4,5.8L103.1,5.5L103.7,6.1L104.4,5.8L105.1,5.8L105.8,5.7L106.4,5.2L107.1,5.1L107.8,4.9L108.5,5.1L109.2,4.9L109.8,4.6L110.5,4.4L111.2,3.9L111.9,3.7L112.5,3.4L113.2,3.2L113.9,3.1L114.6,3.2L115.3,3.0L115.9,3.0L116.6,2.7L117.3,2.5L118.0,2.4L118.6,2.3L119.3,2.0L120.0,2.2"/><circle class="pk-tip" cx="120.0" cy="2.2" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:70.2%"></i><em>70.2%</em></span>
+    <span class="pk-r">4.86</span>
+    <span class="pk-r">10.15</span>
     <span class="pk-pf">2.15</span>
     <span class="pk-net" style="--n:0.35">+$7,114</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -166,18 +180,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$7,114</dd></div>
       <div><dt>Win rate</dt><dd>70.2%</dd></div>
       <div><dt>Profit factor</dt><dd>2.15</dd></div>
+      <div><dt>Sharpe</dt><dd>4.86</dd></div>
+      <div><dt>Sortino</dt><dd>10.15</dd></div>
       <div><dt>Max drawdown</dt><dd>$713</dd></div>
       <div><dt>Trades</dt><dd>322</dd></div>
       <div><dt>Chart</dt><dd>5m</dd></div>
       <div><dt>First trade</dt><dd>6 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-pro-max/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="6354" data-wr="85.0">
+</details><details class="pk" data-net="6354" data-wr="85.0" data-sh="6.3">
   <summary>
     <span class="pk-name"><b>MNQ ORB v4</b><small>Micro Nasdaq &middot; 1m<span class="pk-mwr">85.0% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,29.2L0.6,30.0L1.2,29.7L1.9,29.6L2.5,29.4L3.1,29.4L3.7,29.2L4.4,29.1L5.0,29.0L5.6,28.9L6.2,28.8L6.8,28.9L7.5,28.8L8.1,28.6L8.7,29.0L9.3,28.7L9.9,28.5L10.6,28.2L11.2,27.9L11.8,27.8L12.4,27.7L13.1,28.7L13.7,28.6L14.3,28.5L14.9,28.9L15.5,28.8L16.2,28.6L16.8,28.5L17.4,28.4L18.0,28.2L18.7,28.1L19.3,28.2L19.9,28.1L20.5,27.7L21.1,27.5L21.8,27.3L22.4,27.3L23.0,28.1L23.6,27.9L24.2,28.4L24.9,28.2L25.5,28.2L26.1,28.3L26.7,28.2L27.4,29.2L28.0,29.1L28.6,28.9L29.2,29.7L29.8,29.2L30.5,29.0L31.1,28.9L31.7,28.6L32.3,28.5L33.0,28.1L33.6,28.0L34.2,27.7L34.8,27.5L35.4,27.3L36.1,27.0L36.7,26.8L37.3,26.6L37.9,26.9L38.5,26.8L39.2,26.7L39.8,26.1L40.4,25.8L41.0,26.2L41.7,28.2L42.3,28.0L42.9,27.5L43.5,27.1L44.1,26.8L44.8,26.5L45.4,26.8L46.0,26.6L46.6,26.4L47.3,26.1L47.9,25.8L48.5,25.6L49.1,25.5L49.7,25.3L50.4,25.0L51.0,24.8L51.6,24.6L52.2,24.5L52.8,24.3L53.5,24.1L54.1,24.0L54.7,23.7L55.3,23.6L56.0,23.4L56.6,23.3L57.2,23.2L57.8,23.3L58.4,23.1L59.1,23.0L59.7,22.7L60.3,22.5L60.9,22.3L61.6,22.2L62.2,22.1L62.8,22.0L63.4,21.8L64.0,21.6L64.7,21.8L65.3,21.6L65.9,21.1L66.5,20.7L67.2,20.3L67.8,20.2L68.4,20.0L69.0,20.3L69.6,20.6L70.3,20.4L70.9,20.2L71.5,20.0L72.1,19.7L72.7,19.2L73.4,18.7L74.0,18.2L74.6,17.9L75.2,17.6L75.9,17.5L76.5,17.2L77.1,16.7L77.7,16.2L78.3,15.8L79.0,15.5L79.6,15.1L80.2,14.6L80.8,14.2L81.5,14.0L82.1,13.5L82.7,13.2L83.3,12.9L83.9,12.7L84.6,12.4L85.2,12.8L85.8,12.5L86.4,12.3L87.0,12.1L87.7,11.7L88.3,11.5L88.9,11.0L89.5,10.4L90.2,10.0L90.8,9.6L91.4,9.1L92.0,8.8L92.6,8.5L93.3,8.1L93.9,8.0L94.5,7.8L95.1,8.1L95.8,8.0L96.4,7.9L97.0,7.6L97.6,7.3L98.2,7.1L98.9,7.0L99.5,6.7L100.1,6.5L100.7,6.3L101.3,6.1L102.0,6.0L102.6,6.2L103.2,6.0L103.8,5.9L104.5,6.4L105.1,6.9L105.7,6.6L106.3,6.4L106.9,6.2L107.6,5.9L108.2,5.7L108.8,5.5L109.4,5.2L110.1,5.1L110.7,4.9L111.3,4.7L111.9,4.5L112.5,4.2L113.2,4.0L113.8,3.4L114.4,3.3L115.0,3.1L115.6,3.0L116.3,2.9L116.9,2.7L117.5,2.5L118.1,2.3L118.8,2.5L119.4,2.2L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:85.0%"></i><em>85.0%</em></span>
+    <span class="pk-r">6.30</span>
+    <span class="pk-r">8.68</span>
     <span class="pk-pf">2.49</span>
     <span class="pk-net" style="--n:0.31">+$6,354</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -188,18 +205,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$6,354</dd></div>
       <div><dt>Win rate</dt><dd>85.0%</dd></div>
       <div><dt>Profit factor</dt><dd>2.49</dd></div>
+      <div><dt>Sharpe</dt><dd>6.30</dd></div>
+      <div><dt>Sortino</dt><dd>8.68</dd></div>
       <div><dt>Max drawdown</dt><dd>$570</dd></div>
       <div><dt>Trades</dt><dd>226</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>21 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-v4/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="6095" data-wr="81.3">
+</details><details class="pk" data-net="6095" data-wr="81.3" data-sh="3.36">
   <summary>
     <span class="pk-name"><b>MGC IB Multi-Session</b><small>Micro Gold &middot; 1m<span class="pk-mwr">81.3% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,29.5L0.7,29.0L1.5,28.7L2.2,28.3L3.0,28.6L3.7,28.3L4.4,29.5L5.2,29.1L5.9,29.0L6.7,28.8L7.4,29.3L8.1,29.2L8.9,28.8L9.6,29.1L10.4,29.3L11.1,29.7L11.9,29.6L12.6,30.0L13.3,29.9L14.1,29.5L14.8,29.1L15.6,28.9L16.3,28.3L17.0,28.2L17.8,27.6L18.5,27.3L19.3,27.6L20.0,28.2L20.7,29.1L21.5,29.8L22.2,29.6L23.0,29.6L23.7,29.4L24.4,26.8L25.2,24.3L25.9,26.5L26.7,25.0L27.4,24.7L28.1,23.8L28.9,23.5L29.6,23.1L30.4,22.1L31.1,22.6L31.9,22.2L32.6,22.7L33.3,22.5L34.1,23.0L34.8,22.4L35.6,22.3L36.3,22.7L37.0,22.3L37.8,21.8L38.5,21.7L39.3,21.9L40.0,21.3L40.7,21.1L41.5,20.6L42.2,23.9L43.0,24.2L43.7,23.9L44.4,22.9L45.2,21.1L45.9,20.9L46.7,21.6L47.4,22.3L48.1,21.9L48.9,22.2L49.6,21.6L50.4,22.1L51.1,21.8L51.9,21.3L52.6,20.8L53.3,20.9L54.1,20.5L54.8,20.0L55.6,19.7L56.3,20.1L57.0,20.0L57.8,19.8L58.5,19.7L59.3,19.3L60.0,18.9L60.7,18.7L61.5,18.3L62.2,17.7L63.0,18.2L63.7,17.9L64.4,17.4L65.2,17.0L65.9,16.9L66.7,16.6L67.4,16.2L68.1,15.7L68.9,15.2L69.6,14.3L70.4,14.0L71.1,14.5L71.9,14.3L72.6,13.8L73.3,13.5L74.1,13.4L74.8,12.9L75.6,12.4L76.3,11.8L77.0,11.3L77.8,11.2L78.5,11.0L79.3,10.6L80.0,10.5L80.7,10.3L81.5,10.1L82.2,9.7L83.0,10.1L83.7,9.7L84.4,9.4L85.2,9.8L85.9,9.2L86.7,8.9L87.4,8.7L88.1,8.3L88.9,8.8L89.6,8.5L90.4,8.1L91.1,7.9L91.9,7.8L92.6,8.4L93.3,8.3L94.1,9.0L94.8,8.6L95.6,8.5L96.3,7.9L97.0,7.6L97.8,7.3L98.5,7.0L99.3,6.6L100.0,6.1L100.7,5.6L101.5,5.2L102.2,5.1L103.0,5.0L103.7,4.7L104.4,5.0L105.2,4.7L105.9,5.4L106.7,5.1L107.4,4.7L108.1,4.2L108.9,3.8L109.6,3.5L110.4,3.3L111.1,2.7L111.9,3.2L112.6,3.0L113.3,2.6L114.1,2.4L114.8,2.3L115.6,2.0L116.3,2.5L117.0,2.9L117.8,3.3L118.5,3.6L119.3,3.6L120.0,3.5"/><circle class="pk-tip" cx="120.0" cy="3.5" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:81.3%"></i><em>81.3%</em></span>
+    <span class="pk-r">3.36</span>
+    <span class="pk-r">5.13</span>
     <span class="pk-pf">2.00</span>
     <span class="pk-net" style="--n:0.30">+$6,095</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -210,18 +230,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$6,095</dd></div>
       <div><dt>Win rate</dt><dd>81.3%</dd></div>
       <div><dt>Profit factor</dt><dd>2.00</dd></div>
+      <div><dt>Sharpe</dt><dd>3.36</dd></div>
+      <div><dt>Sortino</dt><dd>5.13</dd></div>
       <div><dt>Max drawdown</dt><dd>$846</dd></div>
       <div><dt>Trades</dt><dd>225</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>14 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/initial-balance/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="6009" data-wr="49.6">
+</details><details class="pk" data-net="6009" data-wr="49.6" data-sh="3.19">
   <summary>
     <span class="pk-name"><b>MHG IB Multi-Session</b><small>Micro Copper &middot; 1m<span class="pk-mwr">49.6% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,27.1L0.5,26.8L1.0,27.1L1.5,26.8L2.0,26.9L2.5,26.8L3.0,27.1L3.5,26.8L4.0,26.5L4.5,26.6L5.0,27.2L5.5,27.6L6.1,28.0L6.6,27.6L7.1,28.0L7.6,27.9L8.1,27.7L8.6,27.9L9.1,28.2L9.6,27.8L10.1,27.6L10.6,27.3L11.1,27.6L11.6,27.7L12.1,28.1L12.6,28.5L13.1,28.1L13.6,27.8L14.1,28.4L14.6,28.8L15.1,28.5L15.6,28.9L16.1,28.6L16.6,29.1L17.1,29.7L17.6,28.4L18.2,28.9L18.7,29.2L19.2,29.4L19.7,30.0L20.2,29.6L20.7,28.9L21.2,29.4L21.7,29.0L22.2,29.6L22.7,29.0L23.2,28.5L23.7,27.8L24.2,28.2L24.7,27.6L25.2,27.2L25.7,26.4L26.2,26.8L26.7,25.8L27.2,25.4L27.7,25.9L28.2,24.9L28.7,26.1L29.2,25.2L29.7,24.6L30.3,24.9L30.8,25.5L31.3,26.0L31.8,26.3L32.3,26.3L32.8,25.9L33.3,26.2L33.8,25.9L34.3,26.2L34.8,26.4L35.3,26.4L35.8,26.4L36.3,25.4L36.8,25.1L37.3,25.4L37.8,25.7L38.3,25.9L38.8,26.3L39.3,25.5L39.8,24.8L40.3,25.3L40.8,24.7L41.3,25.1L41.8,25.6L42.4,26.2L42.9,26.6L43.4,26.8L43.9,27.1L44.4,27.6L44.9,27.6L45.4,26.4L45.9,25.2L46.4,25.7L46.9,25.1L47.4,24.9L47.9,24.4L48.4,24.8L48.9,24.0L49.4,24.2L49.9,23.2L50.4,23.6L50.9,23.9L51.4,24.4L51.9,24.0L52.4,24.0L52.9,24.4L53.4,23.6L53.9,23.2L54.5,23.2L55.0,22.7L55.5,22.9L56.0,23.2L56.5,23.8L57.0,23.5L57.5,23.4L58.0,23.7L58.5,23.3L59.0,22.8L59.5,23.5L60.0,23.2L60.5,23.5L61.0,22.9L61.5,22.5L62.0,21.1L62.5,20.6L63.0,20.6L63.5,20.2L64.0,19.5L64.5,18.9L65.0,19.0L65.5,18.2L66.1,18.6L66.6,18.2L67.1,17.8L67.6,18.5L68.1,19.1L68.6,19.4L69.1,18.9L69.6,17.6L70.1,17.5L70.6,16.7L71.1,17.0L71.6,17.0L72.1,16.5L72.6,16.6L73.1,16.0L73.6,15.6L74.1,15.0L74.6,15.0L75.1,14.2L75.6,14.1L76.1,13.9L76.6,13.2L77.1,13.5L77.6,14.9L78.2,14.3L78.7,14.7L79.2,14.0L79.7,13.6L80.2,13.3L80.7,13.4L81.2,13.8L81.7,13.3L82.2,13.0L82.7,12.7L83.2,12.3L83.7,11.6L84.2,11.3L84.7,10.9L85.2,10.4L85.7,10.6L86.2,10.5L86.7,10.9L87.2,11.4L87.7,11.4L88.2,10.8L88.7,11.3L89.2,10.0L89.7,10.1L90.3,9.8L90.8,9.7L91.3,9.4L91.8,9.0L92.3,9.2L92.8,8.3L93.3,8.3L93.8,8.7L94.3,7.9L94.8,7.3L95.3,7.6L95.8,7.8L96.3,7.6L96.8,8.0L97.3,7.8L97.8,7.0L98.3,6.4L98.8,6.9L99.3,7.2L99.8,6.9L100.3,7.0L100.8,6.7L101.3,6.2L101.8,6.5L102.4,6.9L102.9,7.1L103.4,6.7L103.9,6.5L104.4,6.0L104.9,6.3L105.4,5.8L105.9,5.2L106.4,4.3L106.9,4.7L107.4,4.0L107.9,3.9L108.4,4.3L108.9,3.8L109.4,3.2L109.9,3.5L110.4,2.8L110.9,3.4L111.4,3.2L111.9,3.2L112.4,4.0L112.9,3.9L113.4,4.4L113.9,3.9L114.5,3.9L115.0,3.9L115.5,2.9L116.0,2.6L116.5,2.5L117.0,2.0L117.5,2.5L118.0,2.9L118.5,2.5L119.0,2.7L119.5,3.0L120.0,2.6"/><circle class="pk-tip" cx="120.0" cy="2.6" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:49.6%"></i><em>49.6%</em></span>
+    <span class="pk-r">3.19</span>
+    <span class="pk-r">5.59</span>
     <span class="pk-pf">1.48</span>
     <span class="pk-net" style="--n:0.30">+$6,009</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -232,18 +255,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$6,009</dd></div>
       <div><dt>Win rate</dt><dd>49.6%</dd></div>
       <div><dt>Profit factor</dt><dd>1.48</dd></div>
+      <div><dt>Sharpe</dt><dd>3.19</dd></div>
+      <div><dt>Sortino</dt><dd>5.59</dd></div>
       <div><dt>Max drawdown</dt><dd>$849</dd></div>
       <div><dt>Trades</dt><dd>371</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>6 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/initial-balance/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="3705" data-wr="76.3">
+</details><details class="pk" data-net="3705" data-wr="76.3" data-sh="6.63">
   <summary>
     <span class="pk-name"><b>MCL ORB v4</b><small>Micro WTI Crude &middot; 1m<span class="pk-mwr">76.3% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,28.4L0.6,28.4L1.2,28.5L1.9,28.5L2.5,28.4L3.1,28.5L3.7,28.5L4.3,28.6L4.9,28.5L5.6,28.7L6.2,28.8L6.8,29.0L7.4,29.4L8.0,29.4L8.7,29.4L9.3,29.7L9.9,29.7L10.5,29.9L11.1,29.8L11.8,30.0L12.4,30.0L13.0,29.9L13.6,29.9L14.2,29.7L14.8,29.7L15.5,29.5L16.1,29.6L16.7,29.5L17.3,29.4L17.9,29.3L18.6,29.2L19.2,29.2L19.8,29.1L20.4,29.0L21.0,28.8L21.6,28.7L22.3,28.6L22.9,28.5L23.5,29.0L24.1,28.9L24.7,28.5L25.4,28.5L26.0,28.8L26.6,28.7L27.2,28.6L27.8,28.5L28.5,28.6L29.1,28.6L29.7,28.7L30.3,28.7L30.9,28.5L31.5,28.5L32.2,28.5L32.8,28.4L33.4,28.3L34.0,27.9L34.6,27.6L35.3,26.6L35.9,26.3L36.5,25.9L37.1,26.0L37.7,25.6L38.4,25.1L39.0,24.9L39.6,24.8L40.2,24.4L40.8,24.3L41.4,23.4L42.1,23.1L42.7,22.7L43.3,22.9L43.9,22.3L44.5,21.4L45.2,21.6L45.8,21.0L46.4,20.7L47.0,20.5L47.6,20.4L48.2,20.1L48.9,20.6L49.5,19.8L50.1,18.9L50.7,18.6L51.3,18.3L52.0,18.7L52.6,17.3L53.2,16.7L53.8,17.3L54.4,16.8L55.1,16.5L55.7,16.2L56.3,15.7L56.9,15.7L57.5,15.4L58.1,15.0L58.8,14.8L59.4,14.3L60.0,14.0L60.6,14.1L61.2,13.9L61.9,13.8L62.5,13.4L63.1,12.9L63.7,12.6L64.3,12.9L64.9,13.0L65.6,13.0L66.2,12.9L66.8,12.6L67.4,12.7L68.0,12.0L68.7,11.7L69.3,12.0L69.9,11.8L70.5,11.6L71.1,11.5L71.8,11.8L72.4,11.7L73.0,11.6L73.6,11.6L74.2,11.5L74.8,11.6L75.5,11.5L76.1,11.3L76.7,11.1L77.3,11.0L77.9,10.9L78.6,11.2L79.2,11.0L79.8,10.9L80.4,10.7L81.0,10.8L81.6,10.5L82.3,10.3L82.9,10.4L83.5,10.0L84.1,10.3L84.7,9.8L85.4,9.5L86.0,9.1L86.6,9.1L87.2,8.9L87.8,8.5L88.5,8.3L89.1,8.6L89.7,8.4L90.3,8.1L90.9,8.2L91.5,7.9L92.2,7.7L92.8,7.4L93.4,7.6L94.0,7.5L94.6,7.4L95.3,7.3L95.9,7.2L96.5,7.1L97.1,7.0L97.7,6.7L98.4,6.4L99.0,6.5L99.6,6.4L100.2,6.2L100.8,5.7L101.4,5.6L102.1,5.2L102.7,4.8L103.3,5.0L103.9,4.8L104.5,4.8L105.2,4.4L105.8,4.2L106.4,4.0L107.0,3.9L107.6,3.9L108.2,3.7L108.9,3.9L109.5,3.7L110.1,3.3L110.7,3.0L111.3,2.8L112.0,2.6L112.6,2.4L113.2,2.1L113.8,2.6L114.4,2.5L115.1,2.3L115.7,2.0L116.3,2.3L116.9,2.5L117.5,2.4L118.1,2.3L118.8,2.5L119.4,2.5L120.0,2.4"/><circle class="pk-tip" cx="120.0" cy="2.4" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:76.3%"></i><em>76.3%</em></span>
+    <span class="pk-r">6.63</span>
+    <span class="pk-r">15.77</span>
     <span class="pk-pf">2.94</span>
     <span class="pk-net" style="--n:0.18">+$3,705</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -254,18 +280,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$3,705</dd></div>
       <div><dt>Win rate</dt><dd>76.3%</dd></div>
       <div><dt>Profit factor</dt><dd>2.94</dd></div>
+      <div><dt>Sharpe</dt><dd>6.63</dd></div>
+      <div><dt>Sortino</dt><dd>15.77</dd></div>
       <div><dt>Max drawdown</dt><dd>$230</dd></div>
       <div><dt>Trades</dt><dd>266</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>6 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-v4/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="2587" data-wr="71.0">
+</details><details class="pk" data-net="2587" data-wr="71.0" data-sh="4.16">
   <summary>
     <span class="pk-name"><b>MYM ORB Break &amp; Hold</b><small>Micro Dow &middot; 5m<span class="pk-mwr">71.0% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,26.1L0.6,26.4L1.2,27.0L1.9,26.6L2.5,26.3L3.1,26.8L3.7,27.3L4.3,27.4L4.9,28.3L5.6,28.1L6.2,28.6L6.8,28.3L7.4,28.9L8.0,28.5L8.7,28.9L9.3,29.2L9.9,29.1L10.5,28.8L11.1,28.6L11.8,28.4L12.4,28.2L13.0,28.1L13.6,28.6L14.2,28.4L14.8,28.8L15.5,28.5L16.1,28.0L16.7,27.7L17.3,27.6L17.9,27.8L18.6,28.1L19.2,28.4L19.8,28.2L20.4,28.5L21.0,28.2L21.6,28.6L22.3,28.5L22.9,28.8L23.5,28.4L24.1,28.8L24.7,28.6L25.4,29.0L26.0,29.3L26.6,28.9L27.2,29.3L27.8,29.7L28.5,29.2L29.1,29.3L29.7,29.7L30.3,30.0L30.9,29.3L31.5,29.2L32.2,29.6L32.8,29.7L33.4,29.4L34.0,29.8L34.6,29.5L35.3,29.2L35.9,28.9L36.5,28.6L37.1,28.9L37.7,28.4L38.4,28.7L39.0,28.4L39.6,28.0L40.2,26.8L40.8,28.2L41.4,27.8L42.1,26.1L42.7,26.5L43.3,26.9L43.9,26.6L44.5,26.3L45.2,25.8L45.8,26.0L46.4,25.6L47.0,26.2L47.6,26.3L48.2,26.8L48.9,26.4L49.5,26.0L50.1,25.8L50.7,25.5L51.3,25.8L52.0,25.1L52.6,24.6L53.2,24.2L53.8,24.2L54.4,24.6L55.1,24.4L55.7,24.6L56.3,24.3L56.9,24.0L57.5,23.4L58.1,22.9L58.8,23.2L59.4,23.1L60.0,23.0L60.6,23.4L61.2,23.7L61.9,23.4L62.5,23.1L63.1,22.8L63.7,22.5L64.3,22.8L64.9,22.6L65.6,22.2L66.2,21.5L66.8,21.2L67.4,20.9L68.0,20.3L68.7,20.0L69.3,20.2L69.9,20.0L70.5,20.7L71.1,20.5L71.8,20.8L72.4,20.8L73.0,20.1L73.6,19.6L74.2,18.7L74.8,18.2L75.5,17.8L76.1,17.5L76.7,18.0L77.3,17.4L77.9,17.2L78.6,17.9L79.2,17.4L79.8,17.5L80.4,17.0L81.0,16.7L81.6,16.3L82.3,16.0L82.9,15.5L83.5,15.4L84.1,15.9L84.7,15.6L85.4,15.0L86.0,15.4L86.6,15.0L87.2,15.3L87.8,14.8L88.5,14.1L89.1,13.7L89.7,13.2L90.3,12.6L90.9,12.0L91.5,11.7L92.2,11.6L92.8,11.9L93.4,11.7L94.0,11.2L94.6,11.0L95.3,11.3L95.9,11.0L96.5,10.8L97.1,10.6L97.7,10.4L98.4,10.2L99.0,10.0L99.6,9.7L100.2,9.6L100.8,9.2L101.4,9.6L102.1,9.4L102.7,9.0L103.3,9.3L103.9,9.2L104.5,9.0L105.2,8.8L105.8,8.5L106.4,7.8L107.0,7.5L107.6,8.0L108.2,7.1L108.9,6.9L109.5,7.4L110.1,7.0L110.7,7.6L111.3,7.0L112.0,6.6L112.6,6.0L113.2,5.4L113.8,5.7L114.4,5.5L115.1,5.1L115.7,4.9L116.3,4.4L116.9,4.3L117.5,4.0L118.1,3.3L118.8,2.9L119.4,2.4L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:71.0%"></i><em>71.0%</em></span>
+    <span class="pk-r">4.16</span>
+    <span class="pk-r">7.03</span>
     <span class="pk-pf">1.78</span>
     <span class="pk-net" style="--n:0.13">+$2,587</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -276,18 +305,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$2,587</dd></div>
       <div><dt>Win rate</dt><dd>71.0%</dd></div>
       <div><dt>Profit factor</dt><dd>1.78</dd></div>
+      <div><dt>Sharpe</dt><dd>4.16</dd></div>
+      <div><dt>Sortino</dt><dd>7.03</dd></div>
       <div><dt>Max drawdown</dt><dd>$420</dd></div>
       <div><dt>Trades</dt><dd>248</dd></div>
       <div><dt>Chart</dt><dd>5m</dd></div>
       <div><dt>First trade</dt><dd>6 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-break-and-hold/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="1575" data-wr="77.5">
+</details><details class="pk" data-net="1575" data-wr="77.5" data-sh="4.71">
   <summary>
     <span class="pk-name"><b>MYM ORB Pro Max</b><small>Micro Dow &middot; 15m<span class="pk-mwr">77.5% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,29.5L1.0,29.0L2.0,29.9L3.0,29.4L4.0,28.9L5.0,28.5L6.0,28.8L7.0,28.3L8.0,28.4L9.0,29.2L10.0,28.7L11.0,29.2L12.0,29.6L13.0,30.0L14.0,29.5L15.0,29.1L16.0,29.2L17.0,28.8L18.0,28.3L19.0,27.8L20.0,27.3L21.0,26.8L22.0,27.6L23.0,28.4L24.0,27.9L25.0,28.6L26.0,28.7L27.0,29.8L28.0,29.3L29.0,28.9L30.0,28.4L31.0,27.9L32.0,27.5L33.0,27.0L34.0,26.5L35.0,26.1L36.0,25.6L37.0,25.2L38.0,24.7L39.0,24.3L40.0,23.8L41.0,25.1L42.0,24.6L43.0,24.1L44.0,23.6L45.0,23.2L46.0,22.7L47.0,22.2L48.0,21.7L49.0,21.3L50.0,21.6L51.0,21.0L52.0,20.6L53.0,20.1L54.0,19.6L55.0,19.1L56.0,18.7L57.0,19.5L58.0,19.0L59.0,18.6L60.0,18.1L61.0,17.6L62.0,17.1L63.0,16.6L64.0,16.2L65.0,17.2L66.0,16.7L67.0,17.4L68.0,17.0L69.0,16.5L70.0,16.8L71.0,16.4L72.0,16.9L73.0,16.4L74.0,17.2L75.0,16.7L76.0,16.3L77.0,15.8L78.0,16.4L79.0,15.9L80.0,15.4L81.0,14.9L82.0,14.4L83.0,14.0L84.0,13.5L85.0,13.0L86.0,12.5L87.0,12.0L88.0,11.6L89.0,12.2L90.0,11.7L91.0,11.2L92.0,10.8L93.0,10.3L94.0,9.8L95.0,9.3L96.0,8.8L97.0,9.6L98.0,9.1L99.0,8.6L100.0,8.2L101.0,7.7L102.0,7.3L103.0,6.8L104.0,6.3L105.0,5.9L106.0,5.4L107.0,6.5L108.0,6.0L109.0,5.5L110.0,5.0L111.0,4.6L112.0,4.1L113.0,3.6L114.0,4.4L115.0,3.9L116.0,3.4L117.0,2.9L118.0,2.5L119.0,2.0L120.0,2.9"/><circle class="pk-tip" cx="120.0" cy="2.9" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:77.5%"></i><em>77.5%</em></span>
+    <span class="pk-r">4.71</span>
+    <span class="pk-r">7.19</span>
     <span class="pk-pf">2.53</span>
     <span class="pk-net" style="--n:0.08">+$1,575</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -298,18 +330,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$1,575</dd></div>
       <div><dt>Win rate</dt><dd>77.5%</dd></div>
       <div><dt>Profit factor</dt><dd>2.53</dd></div>
+      <div><dt>Sharpe</dt><dd>4.71</dd></div>
+      <div><dt>Sortino</dt><dd>7.19</dd></div>
       <div><dt>Max drawdown</dt><dd>$175</dd></div>
       <div><dt>Trades</dt><dd>120</dd></div>
       <div><dt>Chart</dt><dd>15m</dd></div>
       <div><dt>First trade</dt><dd>4 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-pro-max/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="1066" data-wr="74.1">
+</details><details class="pk" data-net="1066" data-wr="74.1" data-sh="3.73">
   <summary>
     <span class="pk-name"><b>M6E IB Multi-Session</b><small>Micro EUR/USD &middot; 1m<span class="pk-mwr">74.1% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,30.0L0.9,29.6L1.9,29.1L2.8,28.7L3.8,27.5L4.7,27.1L5.7,26.6L6.6,26.3L7.6,27.3L8.5,26.5L9.4,26.8L10.4,26.7L11.3,26.2L12.3,26.4L13.2,26.8L14.2,26.5L15.1,26.0L16.1,25.7L17.0,26.0L18.0,25.7L18.9,24.2L19.8,24.2L20.8,24.0L21.7,23.7L22.7,23.4L23.6,24.4L24.6,22.3L25.5,20.4L26.5,19.7L27.4,19.1L28.3,18.1L29.3,17.8L30.2,17.0L31.2,16.3L32.1,15.8L33.1,15.1L34.0,14.6L35.0,14.4L35.9,13.9L36.9,14.6L37.8,13.6L38.7,14.6L39.7,16.0L40.6,17.0L41.6,16.3L42.5,16.8L43.5,15.4L44.4,14.8L45.4,14.7L46.3,15.7L47.2,15.2L48.2,15.2L49.1,16.2L50.1,15.5L51.0,15.1L52.0,14.5L52.9,13.8L53.9,13.4L54.8,14.1L55.7,13.6L56.7,12.9L57.6,13.1L58.6,14.0L59.5,13.5L60.5,12.7L61.4,12.2L62.4,11.7L63.3,11.5L64.3,12.8L65.2,13.3L66.1,13.5L67.1,14.4L68.0,14.1L69.0,13.7L69.9,13.3L70.9,13.2L71.8,12.5L72.8,11.5L73.7,12.5L74.6,11.5L75.6,10.7L76.5,10.5L77.5,9.9L78.4,9.2L79.4,8.7L80.3,9.7L81.3,10.6L82.2,10.8L83.1,10.5L84.1,10.0L85.0,9.5L86.0,9.1L86.9,8.7L87.9,8.3L88.8,7.5L89.8,8.5L90.7,9.4L91.7,10.2L92.6,10.1L93.5,9.8L94.5,9.3L95.4,8.9L96.4,9.1L97.3,8.7L98.3,8.5L99.2,8.2L100.2,8.2L101.1,9.0L102.0,8.5L103.0,8.1L103.9,8.8L104.9,8.7L105.8,8.1L106.8,7.5L107.7,7.8L108.7,7.8L109.6,7.3L110.6,7.1L111.5,6.8L112.4,5.7L113.4,4.8L114.3,4.5L115.3,4.2L116.2,3.7L117.2,2.7L118.1,2.4L119.1,2.0L120.0,2.3"/><circle class="pk-tip" cx="120.0" cy="2.3" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:74.1%"></i><em>74.1%</em></span>
+    <span class="pk-r">3.73</span>
+    <span class="pk-r">6.27</span>
     <span class="pk-pf">2.10</span>
     <span class="pk-net" style="--n:0.05">+$1,066</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -320,18 +355,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$1,066</dd></div>
       <div><dt>Win rate</dt><dd>74.1%</dd></div>
       <div><dt>Profit factor</dt><dd>2.10</dd></div>
+      <div><dt>Sharpe</dt><dd>3.73</dd></div>
+      <div><dt>Sortino</dt><dd>6.27</dd></div>
       <div><dt>Max drawdown</dt><dd>$130</dd></div>
       <div><dt>Trades</dt><dd>135</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>12 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/initial-balance/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="912" data-wr="94.3">
+</details><details class="pk" data-net="912" data-wr="94.3" data-sh="5.67">
   <summary>
     <span class="pk-name"><b>M2K ORB v4</b><small>Micro Russell 2000 &middot; 1m<span class="pk-mwr">94.3% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,30.0L1.8,29.8L3.5,29.4L5.3,29.1L7.1,29.0L8.8,28.8L10.6,27.8L12.4,29.0L14.1,28.6L15.9,28.2L17.6,27.6L19.4,26.7L21.2,26.3L22.9,24.6L24.7,25.8L26.5,25.4L28.2,24.7L30.0,24.2L31.8,23.4L33.5,22.7L35.3,21.9L37.1,21.4L38.8,21.0L40.6,20.2L42.4,19.9L44.1,19.3L45.9,18.5L47.6,17.8L49.4,16.8L51.2,16.6L52.9,16.3L54.7,15.5L56.5,14.9L58.2,14.5L60.0,13.7L61.8,13.5L63.5,12.4L65.3,11.3L67.1,11.0L68.8,10.6L70.6,10.3L72.4,9.9L74.1,9.3L75.9,9.0L77.6,8.8L79.4,8.2L81.2,7.7L82.9,7.0L84.7,8.2L86.5,7.7L88.2,8.6L90.0,8.5L91.8,8.3L93.5,7.9L95.3,7.1L97.1,6.8L98.8,6.6L100.6,6.2L102.4,5.7L104.1,5.2L105.9,4.8L107.6,4.7L109.4,4.4L111.2,4.1L112.9,3.9L114.7,3.8L116.5,3.0L118.2,2.4L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:94.3%"></i><em>94.3%</em></span>
+    <span class="pk-r">5.67</span>
+    <span class="pk-r">12.17</span>
     <span class="pk-pf">7.11</span>
     <span class="pk-net" style="--n:0.04">+$912</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -342,18 +380,21 @@
       <div><dt>Net after costs</dt><dd class="g">+$912</dd></div>
       <div><dt>Win rate</dt><dd>94.3%</dd></div>
       <div><dt>Profit factor</dt><dd>7.11</dd></div>
+      <div><dt>Sharpe</dt><dd>5.67</dd></div>
+      <div><dt>Sortino</dt><dd>12.17</dd></div>
       <div><dt>Max drawdown</dt><dd>$54</dd></div>
       <div><dt>Trades</dt><dd>70</dd></div>
       <div><dt>Chart</dt><dd>1m</dd></div>
       <div><dt>First trade</dt><dd>16 Dec 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-v4/">Full results and how it works &rarr;</a>
   </div>
-</details><details class="pk" data-net="812" data-wr="72.4">
+</details><details class="pk" data-net="812" data-wr="72.4" data-sh="2.71">
   <summary>
     <span class="pk-name"><b>MES ORB Pro Max</b><small>Micro S&amp;P 500 &middot; 5m<span class="pk-mwr">72.4% win rate</span></small></span>
     <svg class="pk-sp" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="pk-ln" d="M0.0,24.9L1.6,24.8L3.2,25.8L4.7,25.2L6.3,25.8L7.9,25.1L9.5,25.1L11.1,27.0L12.6,29.4L14.2,30.0L15.8,29.6L17.4,29.1L18.9,29.0L20.5,28.7L22.1,26.4L23.7,25.9L25.3,25.8L26.8,25.6L28.4,25.2L30.0,25.2L31.6,23.6L33.2,26.0L34.7,26.0L36.3,23.4L37.9,23.1L39.5,23.9L41.1,23.5L42.6,22.3L44.2,23.3L45.8,22.2L47.4,23.0L48.9,22.1L50.5,21.8L52.1,20.9L53.7,20.5L55.3,19.3L56.8,18.3L58.4,18.9L60.0,18.4L61.6,17.4L63.2,17.4L64.7,16.3L66.3,15.0L67.9,15.1L69.5,15.1L71.1,15.3L72.6,15.8L74.2,14.5L75.8,13.9L77.4,14.4L78.9,14.2L80.5,13.3L82.1,11.9L83.7,11.2L85.3,10.3L86.8,9.5L88.4,9.5L90.0,9.1L91.6,8.3L93.2,8.7L94.7,8.6L96.3,10.2L97.9,9.3L99.5,8.6L101.1,9.1L102.6,9.1L104.2,9.1L105.8,8.8L107.4,8.4L108.9,8.6L110.5,9.1L112.1,8.8L113.7,7.0L115.3,6.3L116.8,5.9L118.4,3.5L120.0,2.0"/><circle class="pk-tip" cx="120.0" cy="2.0" r="2.5"/></svg>
     <span class="pk-wr"><i style="--w:72.4%"></i><em>72.4%</em></span>
+    <span class="pk-r">2.71</span>
+    <span class="pk-r">4.69</span>
     <span class="pk-pf">2.35</span>
     <span class="pk-net" style="--n:0.04">+$812</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -364,17 +405,18 @@
       <div><dt>Net after costs</dt><dd class="g">+$812</dd></div>
       <div><dt>Win rate</dt><dd>72.4%</dd></div>
       <div><dt>Profit factor</dt><dd>2.35</dd></div>
+      <div><dt>Sharpe</dt><dd>2.71</dd></div>
+      <div><dt>Sortino</dt><dd>4.69</dd></div>
       <div><dt>Max drawdown</dt><dd>$184</dd></div>
       <div><dt>Trades</dt><dd>76</dd></div>
       <div><dt>Chart</dt><dd>5m</dd></div>
       <div><dt>First trade</dt><dd>10 Nov 2025</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/orb-pro-max/">Full results and how it works &rarr;</a>
   </div>
 </details></div>
-  <div class="pk-tot"><span class="pk-name"><b>All 14 together</b><small>2,853 trades &middot; max DD $1,249<span class="pk-mwr">74.9% win rate</span></small></span><span></span><span class="pk-wr"><i style="--w:74.9%"></i><em>74.9%</em></span><span class="pk-pf">2.49</span><span class="pk-net">+$87,058</span><span></span></div>
+  <div class="pk-tot"><span class="pk-name"><b>All 14 together</b><small>2,853 trades &middot; max DD $1,249<span class="pk-mwr">74.9% win rate</span></small></span><span></span><span class="pk-wr"><i style="--w:74.9%"></i><em>74.9%</em></span><span class="pk-r">&ndash;</span><span class="pk-r">&ndash;</span><span class="pk-pf">2.49</span><span class="pk-net">+$87,058</span><span></span></div>
 </div>
-<p class="note">Last year means 4 Nov 2025 to 21 Oct 2026, the range the trade files cover. It sits inside the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. Drawdown is measured on daily closes. None of these strategies is validated. Each one requires forward testing before any real-money use.</p>
+<p class="note">Last year means 4 Nov 2025 to 21 Oct 2026, the range the trade files cover. It sits inside the 12 months these settings were picked on. That makes every number here in-sample: the best of a very large search, flattered by that search. Drawdown is measured on daily closes. None of these strategies is validated. Each one requires forward testing before any real-money use. Sharpe and Sortino are annualised from daily net after costs over every weekday of the same year (days without a trade count as zero), with no risk-free rate. They are in-sample too, so expect them to be lower on new data. They are left out of the combined row, where stacking 14 selected strategies would inflate them further.</p>
 <script>(()=>{const w=document.querySelector('.pk-wrap');if(!w)return;const r=w.querySelector('.pk-rows');w.querySelectorAll('.pk-sort button').forEach(b=>b.onclick=()=>{w.querySelectorAll('.pk-sort button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});const k=b.dataset.k;[...r.children].sort((a,c)=>c.dataset[k]-a.dataset[k]).forEach(e=>r.appendChild(e))})})();</script>
   
 <section class="trk" data-family="">
@@ -432,7 +474,6 @@
         <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Private Pine Scripts</a></li>
         <li><a href="https://www.tradingview.com/u/kh_badrr/" target="_blank" rel="noopener">TradingView profile</a></li>
-        <li><a href="/changelog/">Changelog</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
         <li><a href="/legal/privacy/">Privacy</a></li>
       </ul></div>

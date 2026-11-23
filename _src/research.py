@@ -86,6 +86,26 @@ PICKS_NOTE = (f"Last year means {LAST_YEAR}, the range the trade files cover. It
               "None of these strategies is validated. Each one requires forward testing before any real-money use.")
 
 
+def _ratios(strats):
+    """Annualised Sharpe and Sortino from in-sample daily net, every weekday counted (no-trade days = 0), no risk-free rate."""
+    import datetime as _dt, math
+    a = _dt.date.fromisoformat(tracker.DATA["from"]); b = _dt.date.fromisoformat(tracker.DATA["freeze"])
+    days = [(a + _dt.timedelta(i)).isoformat() for i in range((b - a).days) if (a + _dt.timedelta(i)).weekday() < 5]
+    pnl = dict.fromkeys(days, 0.0)
+    for st in strats:
+        for d in st["days"]:
+            if d[0] in pnl:
+                pnl[d[0]] += d[1]
+    r = list(pnl.values()); n = len(r); m = sum(r) / n
+    sd = math.sqrt(sum((x - m) ** 2 for x in r) / (n - 1))
+    dn = math.sqrt(sum(min(x, 0) ** 2 for x in r) / n)
+    k = math.sqrt(252)
+    return round(m / sd * k, 2) if sd else 0.0, round(m / dn * k, 2) if dn else 0.0
+
+RATIO_NOTE = ("Sharpe and Sortino are annualised from daily net after costs over every weekday of the same year (days without a trade count as zero), with no risk-free rate. "
+              "They are in-sample too, so expect them to be lower on new data. They are left out of the combined row, where stacking 14 selected strategies would inflate them further.")
+
+
 def _usd(v):
     return ("+" if v >= 0 else "&minus;") + f"${abs(v):,}"
 
@@ -140,11 +160,14 @@ def picks_list():
     rows = []
     for n, mk, ch, sl, t, w, pf, net, dd, *_ in sorted(PICKS, key=lambda p: -p[7]):
         eq = _curve(n)
-        rows.append(f'''<details class="pk" data-net="{net}" data-wr="{w}">
+        sh, so = _ratios([_BY_NAME[n.replace("&amp;", "&")]])
+        rows.append(f'''<details class="pk" data-net="{net}" data-wr="{w}" data-sh="{sh}">
   <summary>
     <span class="pk-name"><b>{n}</b><small>{mk} &middot; {ch}<span class="pk-mwr">{w:.1f}% win rate</span></small></span>
     {_spark(eq, 120, 32, "pk-sp")}
     <span class="pk-wr"><i style="--w:{w}%"></i><em>{w:.1f}%</em></span>
+    <span class="pk-r">{sh:.2f}</span>
+    <span class="pk-r">{so:.2f}</span>
     <span class="pk-pf">{pf:.2f}</span>
     <span class="pk-net" style="--n:{net / top_net:.2f}">{_usd(net)}</span>
     <span class="pk-chev" aria-hidden="true"></span>
@@ -155,23 +178,24 @@ def picks_list():
       <div><dt>Net after costs</dt><dd class="g">{_usd(net)}</dd></div>
       <div><dt>Win rate</dt><dd>{w:.1f}%</dd></div>
       <div><dt>Profit factor</dt><dd>{pf:.2f}</dd></div>
+      <div><dt>Sharpe</dt><dd>{sh:.2f}</dd></div>
+      <div><dt>Sortino</dt><dd>{so:.2f}</dd></div>
       <div><dt>Max drawdown</dt><dd>${dd:,}</dd></div>
       <div><dt>Trades</dt><dd>{t:,}</dd></div>
       <div><dt>Chart</dt><dd>{ch}</dd></div>
       <div><dt>First trade</dt><dd>{tracker._d(_BY_NAME[n.replace("&amp;", "&")]["days"][0][0])}</dd></div>
     </dl>
-    <a class="pk-go" href="/research/backtested/{sl}/">Full results and how it works &rarr;</a>
   </div>
 </details>''')
     t, w, pf, net, dd, *_ = PICKS_TOTAL
     return f'''<div class="pk-wrap">
   <div class="pk-top"><span class="pk-cap">Last year, in-sample &middot; 1 micro &middot; after fees and slippage</span>
-    <div class="pk-sort" role="group" aria-label="Rank by"><span>Rank by</span><button type="button" class="on" data-k="net" aria-pressed="true">Net</button><button type="button" data-k="wr" aria-pressed="false">Win rate</button></div></div>
-  <div class="pk-head" aria-hidden="true"><span>Strategy</span><span>Equity</span><span>Win rate</span><span>PF</span><span>Net</span><span></span></div>
+    <div class="pk-sort" role="group" aria-label="Rank by"><span>Rank by</span><button type="button" class="on" data-k="net" aria-pressed="true">Net</button><button type="button" data-k="wr" aria-pressed="false">Win rate</button><button type="button" data-k="sh" aria-pressed="false">Sharpe</button></div></div>
+  <div class="pk-head" aria-hidden="true"><span>Strategy</span><span>Equity</span><span>Win rate</span><span title="Annualised, daily net">Sharpe</span><span title="Annualised, downside days only">Sortino</span><span>PF</span><span>Net</span><span></span></div>
   <div class="pk-rows">{"".join(rows)}</div>
-  <div class="pk-tot"><span class="pk-name"><b>All 14 together</b><small>{t:,} trades &middot; max DD ${dd:,}<span class="pk-mwr">{w:.1f}% win rate</span></small></span><span></span><span class="pk-wr"><i style="--w:{w}%"></i><em>{w:.1f}%</em></span><span class="pk-pf">{pf:.2f}</span><span class="pk-net">{_usd(net)}</span><span></span></div>
+  <div class="pk-tot"><span class="pk-name"><b>All 14 together</b><small>{t:,} trades &middot; max DD ${dd:,}<span class="pk-mwr">{w:.1f}% win rate</span></small></span><span></span><span class="pk-wr"><i style="--w:{w}%"></i><em>{w:.1f}%</em></span><span class="pk-r">&ndash;</span><span class="pk-r">&ndash;</span><span class="pk-pf">{pf:.2f}</span><span class="pk-net">{_usd(net)}</span><span></span></div>
 </div>
-<p class="note">{PICKS_NOTE}</p>
+<p class="note">{PICKS_NOTE} {RATIO_NOTE}</p>
 {PK_JS}'''
 
 

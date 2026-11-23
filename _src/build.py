@@ -146,7 +146,6 @@ def og_cards():
         "/pine/": ("Private", "Pine Scripts", "Opening soon", "LAUNCH LIST OPEN"),
         "/about/": ("Who is behind", "Badr Edge", "The desk behind the tools", free),
         "/about/videos/": ("How these videos", "are made", "One question, one count", edu),
-        "/changelog/": ("What", "changed.", "Changelog", free),
     }
     for f in research.FAMILIES:
         name = re.sub(r"\s*\(.*?\)", "", f["name"])
@@ -269,7 +268,6 @@ def footer():
         <li><a href="/research/">Research</a></li>
         <li><a href="/pine/">Private Pine Scripts</a></li>
         <li><a href="{TV_PROFILE}" target="_blank" rel="noopener">TradingView profile</a></li>
-        <li><a href="/changelog/">Changelog</a></li>
         <li><a href="/legal/disclaimer/">Disclaimer</a></li>
         <li><a href="/legal/privacy/">Privacy</a></li>
       </ul></div>
@@ -805,7 +803,7 @@ def home():
   </div>
 </section>
 
-{tracker.two_ways()}
+{tracker.two_ways(INDICATORS, len(research.FAMILIES))}
 <section class="band" id="desk">
   <div class="wrap">
     <div class="sec-head">
@@ -925,28 +923,6 @@ def indicators():
 {launch_list()}
 """
     return page("/tools/indicators/", "Free TradingView indicators", "Free, open-source Pine Script v6 indicators for futures traders on TradingView: opening ranges, Initial Balance, key levels and more.", "/tools/", body)
-
-
-def changelog():
-    rows = [
-        ("23 Nov 2026", "How the videos are made", "A short page on how each channel video goes from question to count."),
-        ("19 Nov 2026", "Clips, replays and share cards", "Each simulator has a 27-second clip, and every page has its own share card."),
-        ("18 Nov 2026", "Free indicators page", "The first five open-source TradingView indicators are live, inside Tools."),
-        ("17 Nov 2026", "Strategy Lab labels", "Forward data is labelled in forward testing, and market chips show full names."),
-        ("15 Nov 2026", "Strategy tracker", "Full-year trade files for 14 strategies, a monthly calendar and a weekly update every Saturday."),
-        ("13 Nov 2026", "Research and redesign", "Research section opened with the method and every strategy family. New design in dark and light."),
-        ("12 Nov 2026", "Launch", "Three free simulators: Prop Pass, Payout and Contract Sizing."),
-    ]
-    items = "".join(f'<div><time>{d}</time><b>{t}</b><span>{x}</span></div>' for d, t, x in rows)
-    body = f"""
-<section class="page-head"><div class="wrap">
-  <span class="eyebrow">Changelog</span>
-  <h1>What <span class="gold">changed.</span></h1>
-  <p class="lede">Dated updates to the tools, indicators and research.</p>
-</div></section>
-<section><div class="wrap" style="max-width:820px"><div class="clog">{items}</div></div></section>
-"""
-    return page("/changelog/", "Changelog", "Dated updates to Badr Edge tools, indicators and research.", "", body)
 
 
 def tools_index():
@@ -1442,7 +1418,7 @@ if __name__ == "__main__":
                 cta='The range height is your risk. The <a href="/tools/sizing/">Contract Sizing tool</a> turns a stop in points into a contract size your cushion can carry.'),
         article("/guides/initial-balance/", GUIDES[4][1], GUIDES[4][2], GUIDES[4][3], ARTICLE_IB, "/tools/sizing/", "Contract Sizing tool",
                 cta='A wide IB means a wide stop. The <a href="/tools/sizing/">Contract Sizing tool</a> shows how many contracts that stop allows under your max loss.'),
-        pine(), about(), about_videos(), indicators(), changelog(), legal_disclaimer(), legal_privacy(),
+        pine(), about(), about_videos(), indicators(), legal_disclaimer(), legal_privacy(),
     ] + research.build_all(page, ICONS)
     not_found()
     statics(built)
