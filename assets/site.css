@@ -1499,3 +1499,22 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .tool-art .ta-ring.on { stroke: var(--live); stroke-linecap: round; }
 .tool-art .ta-buffer { stroke: var(--live); stroke-width: 1.6; fill: none; stroke-dasharray: 4 3; opacity: .8; }
 .tool-art .ta-step { fill: var(--accent); opacity: .5; stroke: none; }
+/* Set B refined (Nov 23): quieter palette */
+.tool-art.tb { background: linear-gradient(180deg, color-mix(in srgb, var(--text) 2.5%, transparent), transparent); border-color: var(--line); }
+.tb .tb-pass { fill: var(--accent); stroke: none; }
+.tb .tb-fail { fill: none; stroke: color-mix(in srgb, var(--down) 65%, var(--dim)); stroke-width: 1.1; }
+.tb .tb-time { fill: var(--dim); opacity: .5; stroke: none; }
+.tb .tb-rule { stroke: var(--line); stroke-width: 1; }
+.tb .tb-day { fill: color-mix(in srgb, var(--text) 4%, transparent); stroke: var(--line); stroke-width: 1; }
+.tb .tb-day.win { fill: color-mix(in srgb, var(--live) 14%, transparent); stroke: color-mix(in srgb, var(--live) 55%, transparent); }
+.tb .tb-day.loss { fill: none; stroke: color-mix(in srgb, var(--down) 35%, var(--line)); }
+.tb .tb-day.empty { fill: none; stroke-dasharray: 2 3; }
+.tb .tb-day.pay { fill: color-mix(in srgb, var(--accent) 16%, transparent); stroke: var(--accent); stroke-width: 1.2; }
+.tb .tb-tick { fill: none; stroke: var(--live); stroke-width: 1.5; }
+.tb .tb-cur { font: 600 11px var(--sans); fill: var(--accent); stroke: none; }
+.tb .tb-cur.big { font-size: 17px; }
+.tb .tb-ring { fill: none; stroke: color-mix(in srgb, var(--text) 7%, transparent); stroke-width: 2; }
+.tb .tb-ring.on { stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
+.tb .tb-notch { fill: var(--live); stroke: var(--bg); stroke-width: 1.5; }
+.tb .tb-buffer { fill: none; stroke: var(--live); stroke-width: 1.2; stroke-dasharray: 3 3; opacity: .85; }
+.tb .tb-ct { fill: var(--accent); stroke: none; }

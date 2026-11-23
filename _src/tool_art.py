@@ -140,10 +140,10 @@ def sizing():
 BY_HREF = {}  # filled at the end of the file
 
 
-# ---- Alternative set B (ideas shown to Khaled, Nov 23) ----
+# ---- Set B (chosen by Khaled, Nov 23), refined: gold carries the idea, teal marks progress, red only as a hairline ----
 
 def pass_b():
-    """100 simulated attempts as a dot grid: each dot one evaluation, teal passed, red hit max loss, grey ran out of days."""
+    """100 simulated attempts: gold dots passed, hollow rings hit the max loss, faint dots ran out of days."""
     W, H = 320, 120
     rnd = random.Random(3)
     kinds = ["up"] * 46 + ["dn"] * 38 + ["ti"] * 16
@@ -151,49 +151,64 @@ def pass_b():
     s = []
     for i, k in enumerate(kinds):
         c, r = i % 20, i // 20
-        s.append(f'<circle class="ta-att {k}" cx="{22 + c * 14}" cy="{20 + r * 15}" r="4.6"/>')
-    s += ['<circle class="ta-att up" cx="24" cy="106" r="4"/><text class="da-lbl" x="33" y="109">passed</text>',
-          '<circle class="ta-att dn" cx="96" cy="106" r="4"/><text class="da-lbl" x="105" y="109">max loss</text>',
-          '<circle class="ta-att ti" cx="176" cy="106" r="4"/><text class="da-lbl" x="185" y="109">out of days</text>']
-    return _wrap("".join(s), W, H)
+        x, y = 26 + c * 14, 18 + r * 15
+        if k == "up":
+            s.append(f'<circle class="tb-pass" cx="{x}" cy="{y}" r="3.6"/>')
+        elif k == "dn":
+            s.append(f'<circle class="tb-fail" cx="{x}" cy="{y}" r="3.1"/>')
+        else:
+            s.append(f'<circle class="tb-time" cx="{x}" cy="{y}" r="1.6"/>')
+    s += ['<line class="tb-rule" x1="26" y1="96" x2="292" y2="96"/>',
+          '<circle class="tb-pass" cx="28" cy="108" r="3"/><text class="da-lbl" x="36" y="111">passed</text>',
+          '<circle class="tb-fail" cx="98" cy="108" r="2.7"/><text class="da-lbl" x="106" y="111">max loss</text>',
+          '<circle class="tb-time" cx="176" cy="108" r="1.6"/><text class="da-lbl" x="184" y="111">out of days</text>']
+    return _wrap("".join(s), W, H, "tb")
 
 
 def payout_b():
-    """A funded month as a calendar: winning days tick off until the payout day."""
+    """A funded month as a calendar: qualifying days tick off toward the payout day."""
     W, H = 320, 120
-    days = ["w", "l", "w", "s", "w", "l", "s", "w", "w", "l", "s", "w", "p", "", "", ""]
-    s = ['<text class="da-lbl" x="20" y="16">M</text><text class="da-lbl" x="58" y="16">T</text><text class="da-lbl" x="96" y="16">W</text><text class="da-lbl" x="134" y="16">T</text><text class="da-lbl" x="172" y="16">F</text>']
-    for i, d in enumerate(days[:15]):
+    days = ["w", "l", "w", "s", "w", "l", "s", "w", "w", "l", "s", "w", "p", "", ""]
+    s = []
+    for j, d in enumerate("MTWTF"):
+        s.append(f'<text class="da-lbl" x="{30 + j * 36}" y="14" text-anchor="middle">{d}</text>')
+    for i, d in enumerate(days):
         c, r = i % 5, i // 5
-        x, y = 14 + c * 38, 24 + r * 30
+        x, y = 16 + c * 36, 22 + r * 28
         if d == "p":
-            s.append(f'<rect class="ta-cal pay" x="{x}" y="{y}" width="32" height="24" rx="6"/><text class="ta-coin-t" x="{x + 16}" y="{y + 16}" text-anchor="middle">$</text>')
+            s.append(f'<rect class="tb-day pay" x="{x}" y="{y}" width="28" height="22" rx="6"/>'
+                     f'<text class="tb-cur" x="{x + 14}" y="{y + 15}" text-anchor="middle">$</text>')
         else:
-            cls = {"w": "ta-cal win", "l": "ta-cal loss", "s": "ta-cal", "": "ta-cal empty"}[d]
-            s.append(f'<rect class="{cls}" x="{x}" y="{y}" width="32" height="24" rx="6"/>')
-    # progress ring of winning days
-    cx, cy, R = 262, 60, 30
-    n, need = 6, 6
+            cls = {"w": "tb-day win", "l": "tb-day loss", "s": "tb-day", "": "tb-day empty"}[d]
+            s.append(f'<rect class="{cls}" x="{x}" y="{y}" width="28" height="22" rx="6"/>')
+            if d == "w":
+                s.append(f'<path class="tb-tick" d="M{x + 9},{y + 11} l3.5,3.5 l6.5,-7"/>')
+    cx, cy, R = 262, 54, 28
     circ = 2 * math.pi * R
-    s.append(f'<circle class="ta-ring" cx="{cx}" cy="{cy}" r="{R}"/>')
-    s.append(f'<circle class="ta-ring on" cx="{cx}" cy="{cy}" r="{R}" stroke-dasharray="{circ * n / need:.1f} {circ:.1f}" transform="rotate(-90 {cx} {cy})"/>')
-    s.append(f'<text class="ta-coin-t big" x="{cx}" y="{cy + 5}" text-anchor="middle">$</text>')
-    s.append(f'<text class="da-lbl live" x="{cx}" y="110" text-anchor="middle">winning days</text>')
-    return _wrap("".join(s), W, H)
+    s.append(f'<circle class="tb-ring" cx="{cx}" cy="{cy}" r="{R}"/>')
+    s.append(f'<circle class="tb-ring on" cx="{cx}" cy="{cy}" r="{R}" stroke-dasharray="{circ * 0.999:.1f} {circ:.1f}" transform="rotate(-90 {cx} {cy})"/>')
+    for k in range(6):
+        a = math.radians(-90 + k * 60)
+        s.append(f'<circle class="tb-notch" cx="{cx + R * math.cos(a):.1f}" cy="{cy + R * math.sin(a):.1f}" r="2.2"/>')
+    s.append(f'<text class="tb-cur big" x="{cx}" y="{cy + 6}" text-anchor="middle">$</text>')
+    s.append(f'<text class="da-lbl" x="{cx}" y="106" text-anchor="middle">winning days</text>')
+    return _wrap("".join(s), W, H, "tb")
 
 
 def sizing_b():
-    """Size scales as the buffer grows: a staircase of contracts climbing under the cushion line."""
+    """Size scales as the buffer grows: stacks of contracts step up under the cushion line."""
     W, H = 320, 120
-    s = ['<g class="da-grid"><line x1="0" y1="100" x2="320" y2="100"/></g>']
-    P = [(14, 78), (70, 72), (84, 58), (140, 52), (154, 38), (210, 32), (224, 18), (306, 12)]
-    s.append(f'<polyline class="ta-buffer" points="{_pts(P)}"/>')
+    s = ['<line class="tb-rule" x1="14" y1="98" x2="306" y2="98"/>']
+    P = [(14, 80), (74, 80), (86, 64), (146, 64), (158, 48), (218, 48), (230, 32), (306, 32)]
+    s.append(f'<polyline class="tb-buffer" points="{_pts(P)}"/>')
     for i in range(4):
-        x = 22 + i * 70
+        x = 26 + i * 72
         for k in range(i + 1):
             for j in range(3):
-                s.append(f'<rect class="ta-ct" x="{x + j * 16}" y="{88 - k * 14}" width="13" height="11" rx="2.5"/>')
-        s.append(f'<text class="da-lbl code" x="{x}" y="114">{i + 1}x size</text>')
-    s.append('<text class="da-lbl live" x="306" y="28" text-anchor="end">buffer</text>')
-    return _wrap("".join(s), W, H)
+                s.append(f'<rect class="tb-ct" style="opacity:{0.45 + 0.18 * i:.2f}" x="{x + j * 14}" y="{86 - k * 12}" width="11" height="9" rx="2"/>')
+        s.append(f'<text class="da-lbl" x="{x + 20}" y="112" text-anchor="middle">{i + 1}x</text>')
+    s.append('<text class="da-lbl live" x="306" y="24" text-anchor="end">buffer</text>')
+    return _wrap("".join(s), W, H, "tb")
+
+
 BY_HREF.update({"/tools/pass/": pass_b, "/tools/payout/": payout_b, "/tools/sizing/": sizing_b})  # Set B, chosen by Khaled Nov 23
