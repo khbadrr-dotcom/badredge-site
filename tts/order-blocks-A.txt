@@ -1,0 +1,175 @@
+The idea is simple. When big money buys, it leaves a footprint on the chart. The last candle before a strong move up.
+
+Traders call it an order block. And they say that when price comes back to it, the big money defends it again.
+
+It is one of the most drawn zones in trading. You will find it on gold charts, Nasdaq charts, every timeframe.
+
+So I did what this series always does. I wrote one rule, fixed it before I looked at any result, and ran it on a full year of gold and Nasdaq.
+
+Then I asked three questions. How often does price come back? How often does the block hold? And which blocks hold better than the rest?
+
+Here is the rule, in plain words.
+
+First, price breaks structure. A thirty minute candle closes above the last swing high.
+
+Second, the order block is the last down candle before that break.
+
+Third, the move away from it has to be strong. At least twice the normal candle range, so weak moves do not count.
+
+Fourth, the zone is that candle, from its low to its high.
+
+And fifth, the block held if price came back, touched the zone, and returned to the top of the move before any candle closed below the zone. If a candle closed below it first, the block broke.
+
+Selling blocks are the same rule, upside down. If you have seen the Fair Value Gap video, this is the same idea of testing a zone, with a different zone.
+
+A year of thirty minute candles gave me five hundred and thirty six order blocks on gold.
+
+On Nasdaq, five hundred and sixty three.
+
+That is about two a day on each market. So this is not a rare setup. If you trade order blocks, you see them every day.
+
+And because the rule is fixed, every one of them counts. The beautiful ones and the ugly ones, the ones you would have drawn and the ones you would have skipped.
+
+The first question. Does price even come back to the block?
+
+On gold, about seventy six percent of blocks were touched again within twenty hours.
+
+On Nasdaq, about seventy four percent.
+
+So about three in four come back. That part of the idea is real. Price very often returns to the area it left.
+
+But coming back is not the same as holding. A floor you walk on is only a floor if it does not give way.
+
+One note on the clock. I stopped waiting after forty candles, so a block that price returns to a week later does not count here.
+
+So, of the blocks that price came back to, how many held?
+
+On gold, about forty eight percent. On Nasdaq, about fifty one.
+
+Close to half. Roughly one block holds for every one that breaks.
+
+Buying blocks did a little better than selling blocks on both markets. About fifty one percent against forty five on gold, fifty four against forty eight on Nasdaq. A year in which both markets mostly rose helped the buyers.
+
+So the honest first answer is this. An order block is not a wall. On this rule, it is closer to a coin that lands on its edge and then picks a side.
+
+Now let us trade it exactly as drawn. Buy at the top of the zone when price comes back, stop one tick below the zone, target the top of the move.
+
+The typical target was about one and a half times the risk. So you only need to win about four times in ten to break even.
+
+On gold, the trade won about thirty six percent of the time. After costs, the average was about minus a tenth of a risk unit per trade.
+
+On Nasdaq, it won about forty percent, and averaged about minus nine hundredths.
+
+On gold, that is a little short of the break even line. Nasdaq sat almost on the line, and the costs tipped it below.
+
+Small leaks, but leaks. Over a year of trades, the bucket drains.
+
+Here is a detail that surprised me.
+
+About one in five blocks that held, on both markets, still stopped the trade out first.
+
+A wick dipped below the zone, took the stop, and only then did price close back inside and run to the target.
+
+On a chart afterwards, that block looks perfect. It held. But the trader with a tight stop was already out.
+
+So when someone shows you an order block that held, ask a second question. Where was the stop, and did the wick reach it?
+
+That is why the two numbers sit so far apart. About forty eight percent of gold blocks held, but only about thirty six percent of the trades won.
+
+So which blocks held better? I split them three ways, and the biggest difference was the width of the block itself.
+
+Wide blocks, the ones bigger than a normal candle, held about sixty six percent of the time on gold, and about sixty five on Nasdaq.
+
+Narrow blocks held only about forty one on gold and thirty seven on Nasdaq.
+
+That is a big gap. But it has a simple reason. A wide zone gives price more room to dip and still close inside. The rule is easier to pass.
+
+On screen this is labelled clearly. Found after looking. It needs forward testing before anyone trusts it.
+
+So you might think, only trade the wide ones.
+
+Here is the catch. A wide block also means a wide stop. You risk more to hold it.
+
+On gold, the wide blocks still averaged about minus nine hundredths of a risk unit after costs. On Nasdaq, about zero.
+
+And the narrow gold blocks, the ones that held least often, actually came out slightly positive, because their targets were far away compared with their tiny stops.
+
+On Nasdaq, it was the other way round. The narrow blocks were the worst trade of all, about minus two tenths of a risk unit. The same split pointed in two directions on two markets, which is exactly why it needs forward testing.
+
+That is the trap with zones. Holding more often and paying more are two different things. You have to measure both.
+
+The second split was the strength of the move away from the block. You would expect the strongest moves to leave the strongest blocks.
+
+The data said the opposite, at least on this rule.
+
+On Nasdaq, blocks behind the smallest third of moves held about fifty seven percent of the time. Behind the biggest third, about forty one.
+
+On gold, the same direction, but smaller. About fifty percent against forty five.
+
+One reason is the target. A huge move puts the top far away, so price has further to travel before the block counts as held.
+
+Third split. How long did price take to come back?
+
+When it came back within about an hour, Nasdaq blocks held about fifty nine percent of the time. When it took more than three hours, about forty one.
+
+On gold, the same shape. About fifty one percent fresh, forty two stale.
+
+So a block that price returns to quickly behaves better than one that sits on the chart all day.
+
+That fits the idea itself. If a footprint is real, it should matter most while it is fresh.
+
+And the sessions? Less than you would think.
+
+On gold, blocks formed in the Asian session held about fifty percent of the time, London about forty eight, New York about forty five.
+
+On Nasdaq, it leaned the other way. New York about fifty three, London about fifty one, Asia about forty seven.
+
+Each session had only about one hundred and twenty to one hundred and fifty gold blocks, so gaps this small could easily be noise.
+
+So the session did not change the story much. The width and the freshness of the block mattered more than the time of day.
+
+Put the two markets side by side, and they are close to twins.
+
+About three in four blocks come back on both. About half of those hold. The trade loses a little after costs on both.
+
+Nasdaq held slightly more often, and its fresh blocks did a bit better. But no market turned a simple order block rule into a clear winner.
+
+Here are two real gold days, so you can see both endings.
+
+On the evening of the third of November, a down candle became a block between about three thousand nine hundred and twenty eight and three thousand nine hundred and forty three.
+
+The move away broke structure. Price came back two hours later, touched the zone, and ran to the top of the move. Held. Almost one point eight times the risk.
+
+On the evening of the twelfth of November, another block, much narrower, about six dollars wide.
+
+Price did not come back for twelve hours. When it did, a candle closed straight through the zone. Broke. A full loss.
+
+Narrow and stale, against wide and fresh. One real example of what the numbers showed.
+
+So what do you do with this?
+
+An order block is a place to look, not a reason to act. About three in four come back, and about half of those hold.
+
+If you trade them, measure your own. Note the width, how long price took to return, where your stop was, and whether a wick took it.
+
+A simple sheet with five columns is enough. The date, the width, the minutes until price came back, held or broke, and the result after costs.
+
+After fifty of your own, you will know more about your blocks than any video can tell you.
+
+And never judge a zone by the screenshot of a winner. Judge it by the list of every one.
+
+A few honest limits.
+
+This is one written rule. There are many ways to draw an order block, and a different rule could give different numbers.
+
+It is one year of gold and Nasdaq on thirty minute candles. Inside a candle, I do not know the exact order of the high and the low, so I always counted the stop first.
+
+And every split, by width, strength, freshness or session, was found after looking. None of it is ready to trade until it is tested forward.
+
+So, which order blocks hold? About half of the ones price comes back to. Wide and fresh ones more often, but holding more often did not make the trade pay.
+
+If you want to see the same kind of test on a different zone, watch the Fair Value Gap video next.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
