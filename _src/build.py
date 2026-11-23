@@ -803,37 +803,7 @@ def home():
   </div>
 </section>
 
-{tracker.two_ways(INDICATORS, len(research.FAMILIES))}
-<section class="band" id="desk">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Day trader toolkit</span>
-      <h2>Built for the <span class="gold">trading day.</span></h2>
-      <p class="lede">Tools to plan risk before the open, research to check an idea after costs, and private Pine Scripts for TradingView. Free, and it runs in your browser.</p>
-    </div>
-    <div class="grid-3 doors">
-      <a class="card reveal" href="/tools/">
-        {door_art('tools')}<span class="tagline">Live</span>
-        <h3>Tools</h3>
-        <p>Free simulators for risk, position size and account planning. Put in your own numbers or a TradingView trade list and see the range of outcomes.</p>
-        <span class="go">Explore the tools &rarr;</span>
-      </a>
-      <a class="card reveal" href="/research/">
-        {door_art('research')}<span class="tagline">Live</span>
-        <h3>Research</h3>
-        <p>A public log of how trading ideas are built and stress-tested, with last year's results after costs.</p>
-        <span class="go">Open the research &rarr;</span>
-      </a>
-      <a class="card reveal" href="/pine/">
-        {door_art('pine')}<span class="tagline">Soon</span>
-        <h3>Private Pine Scripts</h3>
-        <p>Invite-only TradingView strategies in Pine Script v6. Opening soon.</p>
-        <span class="go">Join the waitlist &rarr;</span>
-      </a>
-    </div>
-  </div>
-</section>
-
+{tracker.two_ways(INDICATORS, door_art('tools'))}
 <section class="band">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Research</span><h2>Research, tested <span class="gold">in the open.</span></h2>
