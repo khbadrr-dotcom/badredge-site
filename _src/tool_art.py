@@ -137,7 +137,7 @@ def sizing():
     return _wrap("".join(s), W, H)
 
 
-BY_HREF = {"/tools/pass/": pass_, "/tools/payout/": payout, "/tools/sizing/": sizing}
+BY_HREF = {}  # filled at the end of the file
 
 
 # ---- Alternative set B (ideas shown to Khaled, Nov 23) ----
@@ -196,3 +196,4 @@ def sizing_b():
         s.append(f'<text class="da-lbl code" x="{x}" y="114">{i + 1}x size</text>')
     s.append('<text class="da-lbl live" x="306" y="28" text-anchor="end">buffer</text>')
     return _wrap("".join(s), W, H)
+BY_HREF.update({"/tools/pass/": pass_b, "/tools/payout/": payout_b, "/tools/sizing/": sizing_b})  # Set B, chosen by Khaled Nov 23
