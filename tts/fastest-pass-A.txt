@@ -1,0 +1,185 @@
+Passed in three days. You have seen the screenshots. Some traders pass an evaluation faster than most people finish reading the rules.
+
+It looks like the best possible result. Pay the fee, pass in a week, get funded, get paid.
+
+But passing is only the start. The money comes from the funded account, and from the payouts after it.
+
+So I wanted to know something simple. Who is still trading thirty and sixty days after the pass? The fast passers, or the steady ones?
+
+I used a year of real Nasdaq and gold sessions, and the rule types most evaluations share. No firm names, just the rules.
+
+Here are the rules I used. They are rule types you will find in many fifty thousand dollar evaluations.
+
+The target is three thousand dollars of profit.
+
+There is a two thousand dollar trailing line that follows your best end of day balance. The trailing drawdown video explains exactly how that line moves, so I will not repeat it here.
+
+Once funded, the account starts again at fifty thousand with the same line. And a first payout needs the balance to reach fifty one thousand, with at least five days of one hundred and fifty dollars or more.
+
+And some firms add a consistency rule. Your best day cannot be more than half of your total profit.
+
+Those four rules are all this test uses. Real accounts have more, and I will come back to that at the end.
+
+First, the plain maths. Three thousand dollars in three days is about a thousand dollars a day.
+
+On a typical Nasdaq New York session this year, price moved about three hundred dollars from the open to the close, for one micro contract.
+
+On gold, about two hundred and twenty five dollars for one micro.
+
+So even if you were on the right side all session, a typical day needs about three micros on Nasdaq, or four to five on gold, to make a thousand dollars.
+
+And that is on the days you are right. On the days you are wrong, that same size works against you just as hard.
+
+Could you just wait for a big day instead, and stay small?
+
+On one Nasdaq micro, only about seven percent of sessions moved a thousand dollars from open to close.
+
+On gold, about four percent.
+
+Over the whole year, that is about eighteen Nasdaq sessions and about ten gold sessions.
+
+So with one micro, three big days in a row almost never happen. A three day pass almost always means trading bigger. That is where the story really starts.
+
+To test this fairly, I built one example trader. The numbers here are a model, not a real person.
+
+Every day, the trader takes one real Nasdaq session from this year, picked at random, and holds a position from the open to the close.
+
+They are on the right side fifty two percent of the time. A small edge, nothing magic.
+
+The stop is one hundred and fifty dollars per micro.
+
+The only thing I changed was size. One, two, three, five, eight or ten micros. Twenty thousand runs at each size.
+
+Same trader, same skill, same days. Only the size is different.
+
+First result. How many passed within sixty trading days?
+
+At one micro, about thirty two percent. At two, about thirty five. At three, about thirty four.
+
+At five, eight and ten micros, between about thirty and thirty three percent.
+
+Almost the same at every size. Trading bigger did not make passing more likely.
+
+It just changed how quickly you found out.
+
+The reason is simple. With a small edge, the target is three thousand dollars away and the line is two thousand dollars away. Bigger size reaches both of them faster, in about the same proportion.
+
+And the speed changed a lot.
+
+At one micro, the typical pass took about thirty two trading days. More than six weeks.
+
+At two micros, about twelve days. At three, about six.
+
+At five micros, about three days. At eight or ten, just two.
+
+Thirty two days sounds slow. But keep that number in mind for the next scene.
+
+So the three day pass is real. In this model, it is mostly what five micros or more looks like when the first few days go your way.
+
+Now the part the screenshots never show. The funded account, with the same habits.
+
+Thirty days after funding, at one micro, about eighty percent of accounts were still alive.
+
+At two micros, about twenty one percent. At three, about four.
+
+At five micros, one funded account out of more than six thousand made it to thirty days. At eight and ten micros, not one.
+
+After sixty days, about half of the one micro accounts were still trading. At three micros, almost none.
+
+And remember, this is the same trader in every row, with the same fifty two percent. Nothing about skill changed. Only the number of contracts.
+
+Now let us group every pass by how fast it happened.
+
+Passes in one to three days. The typical size behind them was eight micros. Fewer than two in a hundred were still alive thirty days into funding. About seven in a hundred reached a first payout.
+
+Passes that took ten days or more. The typical size was two micros. Almost half were still alive after thirty days. And about half reached a first payout.
+
+The middle group, passes in four to nine days, sat in between. Typical size three micros, about one in ten still alive after thirty days, and about a quarter paid.
+
+So the fast passers had a pass to show you. The steady passers had a payout.
+
+You might think speed itself is the problem. That passing fast makes people careless.
+
+So I held size fixed at three micros, and compared fast, medium and slow passes.
+
+First payout rate. About twenty five percent, twenty six, and twenty six.
+
+Nearly identical. At the same size, how fast you passed changed nothing.
+
+So speed is not the cause. It is the symptom. A fast pass is mostly a sign of the size underneath it.
+
+That matters, because it means speed is not luck you either have or do not. It is a setting you choose every morning, when you pick your size.
+
+Now add the consistency rule. Best day no more than half of the profit.
+
+Of the passes in one to three days, about ninety nine percent broke that rule at the moment they hit the target.
+
+Of the steady passes, about fifty three percent.
+
+Even at one micro, about a third of passes had one day bigger than half the profit. At two micros, about two in three. At three, about nine in ten.
+
+It makes sense. If you pass in two days, one of those days is usually most of the profit.
+
+So under a consistency rule, a fast pass often is not a pass at all. You have to keep trading, at the same big size, until the other days catch up.
+
+Here is why size does so much damage. It is simple arithmetic.
+
+At five micros, one stopped day costs seven hundred and fifty dollars.
+
+Three of those close together, and the two thousand dollar line is gone.
+
+At one micro, the same three days cost four hundred and fifty. You are still well inside the line, and the next good week can repair it.
+
+The target is fixed. The line is fixed. Size decides how many bad days you can survive before you are out.
+
+And a wider stop does not fix it. At the same size, a wider stop only means fewer losing days before the line.
+
+And the payouts follow the same line.
+
+At one micro, about sixty three percent of funded accounts reached a first payout.
+
+At two micros, about forty one. At three, about twenty six.
+
+At five micros, about eight percent. At eight or ten, about two.
+
+So in this model, the slowest traders were paid most often. The fastest passers were almost never paid at all.
+
+A steady pass looks boring on a screenshot.
+
+Twelve days, twenty days, sometimes thirty. Small green days, a few losing days, and a balance that keeps a big distance from the line.
+
+Nobody posts that. But it is the version that still exists a month later.
+
+It helps to think of the evaluation as the first month of the funded account. The habits you pass with are the habits you will trade with.
+
+And if you have five accounts running the same trade, the Five Accounts video shows how one bad day can hit all of them at once. Size matters even more there.
+
+So what do you do with this?
+
+Pick your size from the trailing line, not from the target. Ask how many full losing days the line can take at that size. In this test, the size that left room for about thirteen of them was the one that got paid most often.
+
+Then let the target take as long as it takes.
+
+If you passed fast, look honestly at the size you used. If you keep it in the funded account, the numbers say the account rarely lasts.
+
+If you have a strong first week, keep the size. A good week is a reason to protect the distance from the line, not to raise the size.
+
+And when you see a three day pass, remember what it usually means. Big size, and a few good days in a row.
+
+A few honest limits.
+
+The trader is a model. Real traders change size, skip days and take more than one trade. Fifty two percent right is an assumption, not a measurement of anyone.
+
+The sessions are one year of real Nasdaq days. A different year, or gold instead, would change the exact numbers.
+
+I also did not count the evaluation fee, or the cost of buying a new one after a blown account. Both would make the big size results look worse, not better.
+
+And real firms have more rules than these four. Daily loss limits, news rules, minimum days. Those would change the details, but not the direction. More size means fewer bad days you can survive.
+
+So, is the fastest pass the best? In this test, it was the worst. The same pass rate as everyone else, and almost never a payout.
+
+If you want to understand the line that ends most of these accounts, watch the trailing drawdown video next.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

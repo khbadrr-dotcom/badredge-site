@@ -1,0 +1,189 @@
+Nine wins, one loss. Most traders would be happy with that. Ninety percent winners sounds like the hardest part of trading is already solved.
+
+But you can win nine trades in ten and still lose money. Not in theory. On real trades, over a real year.
+
+I took one simple entry on Nasdaq and gold, ran it every day for a year, and only changed how the trades were closed.
+
+The win rate went from below half to about ninety percent. And on Nasdaq, the account got worse.
+
+Here is how that happens, and how to spot it in your own journal.
+
+Everything here is real trades, after costs, on one full contract. No made-up numbers.
+
+Win rate is the number everyone looks at first. It is easy to count, and it feels like skill.
+
+But on its own, it is a speedometer without a fuel gauge.
+
+It tells you how often you were right. It says nothing about how much each win paid, or how much each loss cost.
+
+You need both numbers to know whether you are moving forward or running out of fuel.
+
+Think of two traders. One wins ninety percent of the time. The other wins forty. Without the sizes of their wins and losses, you cannot say which one is making money.
+
+Here is the test. Every New York day for a year, on Nasdaq and on gold.
+
+At ten o'clock, enter in the direction of the first thirty minute candle of the session.
+
+The entry never changes. Only the exit does.
+
+The plain version uses a target and a stop of the same size, one average candle each way.
+
+Every result is after costs, on one full contract, so the dollar figures are real sizes.
+
+The average candle is the average range of the last fourteen thirty minute candles. So the target and the stop grow on busy days and shrink on quiet ones.
+
+First, the plain version.
+
+On Nasdaq, it won about forty six percent of the time. The average win was about fourteen hundred dollars. The average loss, about the same.
+
+On gold, about forty seven percent, with wins and losses again about the same size.
+
+So with equal wins and losses, you need to win about half your trades. This entry won a little less than half, and both markets ended the year down after costs.
+
+That is not a good result. But it is an honest one. The win rate and the money agree.
+
+Now I added two habits that many traders have, often without noticing.
+
+First, take profits early. The target drops to a quarter of an average candle. Small, quick wins.
+
+Second, give losing trades more room. The stop moves out to three average candles. The kind of stop you get when you keep moving it because the trade will surely come back.
+
+Same entry, same days. Just a small target and a far stop.
+
+Neither habit sounds crazy on its own. Taking profits feels safe, and giving a trade room sounds patient. The problem is what they do together.
+
+The win rate jumped.
+
+On Nasdaq, about ninety percent. Eighty nine point nine, to be exact.
+
+On gold, about ninety percent too.
+
+From below half to nine in ten, with the same entry. If you only looked at the win rate, you would say the trader just got twice as good.
+
+On a stats page, this is the version that gets shared. Nine green trades out of ten.
+
+But look at the account.
+
+On Nasdaq, the plain version lost about twenty seven thousand dollars over the year, per contract.
+
+The ninety percent version lost about thirty eight thousand.
+
+More wins, more money lost. The habits did not fix the trading. They hid it.
+
+Nine sunny days, and then one storm that floods the room.
+
+On gold, the plain version lost about twenty nine thousand. I will come back to gold in a moment, because it ended differently.
+
+Here is why. On Nasdaq, the average win was about three hundred and thirty five dollars.
+
+The average loss was about four thousand five hundred.
+
+One average loss wiped out about thirteen average wins.
+
+And the biggest single loss was about seven thousand seven hundred dollars. More than twenty average wins in one day.
+
+So a ninety percent win rate was not enough. To break even with wins and losses that size, you needed to win about ninety three percent.
+
+On gold, the average win was about three hundred and eighty dollars, and the average loss about three thousand four hundred. One loss, about nine wins.
+
+This is the line most people never calculate. The break even win rate.
+
+It comes only from the size of your average win and your average loss.
+
+With wins and losses of equal size, it sits around fifty percent.
+
+With a quarter candle target and a three candle stop, it rises above ninety.
+
+So the question is never just how often you win. It is how often you win, compared with the line your own exits set.
+
+On Nasdaq, the jumper cleared ninety. The bar was at ninety three.
+
+On gold, the bar sat at about ninety, and the jumper cleared it by a hair.
+
+Here is what that feels like from inside, on real days.
+
+On Nasdaq, this version once won forty one trades in a row. About two months of nothing but wins.
+
+Those forty one wins added about twelve thousand nine hundred dollars, per contract.
+
+Then, on the fifteenth of May, one loss of about six thousand five hundred dollars.
+
+Two months of perfect days, and half of it gone in one session. That is the pattern. Long runs of small wins, and a short, sharp reminder of where the risk was.
+
+Notice the order. The wins come first, and they come for weeks. By the time the loss arrives, the habit already feels proven.
+
+To be fair, gold came out differently.
+
+With the same two habits, gold won about ninety percent, and needed about ninety percent to break even.
+
+So it ended the year about flat. Up about seventeen hundred dollars per contract, after a full year of trades.
+
+Compared with the plain version, the habits did help on gold, from about minus twenty nine thousand to about flat. But about two hundred and twenty winning trades, and a great looking win rate, bought a year with almost nothing to show for it.
+
+On gold, there was a long run too. Thirty five wins in a row, then a loss of about four thousand one hundred dollars in a single day in April.
+
+So even in the best case here, a ninety percent win rate only got this entry back to zero.
+
+Now look at it month by month, the way most traders review their trading.
+
+On Nasdaq, twelve of the thirteen months had a win rate above eighty percent.
+
+Eight of those thirteen months still ended down.
+
+And seven of those eight losing months had a win rate above eighty percent.
+
+So in most losing months, the journal still looked great. If you only checked the win rate at the end of the month, you would have kept going.
+
+On gold, twelve months were above eighty percent too, and five of them still ended down.
+
+There is a reason this pattern is so common. It feels good.
+
+Nine times out of ten, you close the day green. You feel right. The habit gets rewarded almost every day.
+
+The one bad day feels like bad luck, not like part of the plan. So the stop moves again next time.
+
+The trailing drawdown video shows why moving stops near the line is so tempting. Here you can see what it costs over a whole year.
+
+A high win rate is also easy to sell. A ninety percent screenshot gets more attention than an honest average loss. So be careful with any strategy that shows you only one of those numbers.
+
+So how do you check your own trading? Three numbers.
+
+First, your average win against your average loss. If one loss wipes out several wins, a high win rate is hiding something.
+
+Second, your break even win rate. Divide your average loss by your average win plus your average loss. Compare it with the win rate you actually have.
+
+Third, your biggest loss against your average win. On Nasdaq here, it was more than twenty to one.
+
+If those three numbers look like this video, the win rate is not your strength. It is the cover story.
+
+You can check this in a spreadsheet in ten minutes. Most journals already have the numbers. They just put the win rate at the top.
+
+What do you do about it?
+
+Decide your exit before the trade, and write it down. Where the stop is, and where the target is.
+
+Then measure, after fifty or a hundred trades, whether you actually kept them. Not the win rate first. The size of the average loss.
+
+If you find yourself moving stops, the problem is not the entry. It is the exit you did not keep.
+
+And if you trade a prop firm account, a far stop on a big size is exactly how a trailing line gets hit. The Fastest Pass video shows how quickly that adds up.
+
+A lower win rate with losses you control is often the healthier version. In this test, the plain version won less often and still lost less money on Nasdaq.
+
+A few honest limits.
+
+This is one simple entry, and one year of Nasdaq and gold. It is a test of exit habits, not a strategy to trade.
+
+The candles are thirty minutes long. When the stop and the target were both inside one candle, I counted the stop first. That only happened a handful of times with the far stop.
+
+And a different entry would give different numbers. But the arithmetic behind it, small wins against a far stop, works the same way on any entry.
+
+I also did not test scaling out, or moving the stop to break even. Those change the numbers again, and they deserve their own test.
+
+So, nine wins and one loss. On Nasdaq, about ninety percent winners, and still down about thirty eight thousand dollars a contract over the year. On gold, about flat.
+
+A win rate only means something next to the size of the wins and the losses.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
