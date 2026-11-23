@@ -145,6 +145,7 @@ def og_cards():
         "/research/under-observation/": ("Noise-area momentum", "on MNQ", "In forward testing", edu),
         "/pine/": ("Private", "Pine Scripts", "Opening soon", "LAUNCH LIST OPEN"),
         "/about/": ("Who is behind", "Badr Edge", "The desk behind the tools", free),
+        "/about/videos/": ("How these videos", "are made", "One question, one count", edu),
         "/changelog/": ("What", "changed.", "Changelog", free),
     }
     for f in research.FAMILIES:
@@ -928,6 +929,7 @@ def indicators():
 
 def changelog():
     rows = [
+        ("23 Nov 2026", "How the videos are made", "A short page on how each channel video goes from question to count."),
         ("19 Nov 2026", "Clips, replays and share cards", "Each simulator has a 27-second clip, and every page has its own share card."),
         ("18 Nov 2026", "Free indicators page", "The first five open-source TradingView indicators are live, inside Tools."),
         ("17 Nov 2026", "Strategy Lab labels", "Forward data is labelled in forward testing, and market chips show full names."),
@@ -1291,6 +1293,7 @@ def about():
   <h2>Why it exists</h2>
   <p>The prop-firm world is loud: screenshots of wins, promises of fast funding, strategies sold on perfect backtests. Little of it answers the questions that decide whether an account survives. How big is my real cushion today? How many losses in a row can this size take? Does my edge still look like the one I planned with?</p>
   <p>Every tool here started as something built for real accounts. The research is published in the open, and all of it requires forward testing.</p>
+  <p>The channel follows the same rule. See <a href="/about/videos/">how the videos are made</a>.</p>
 
   <h2>The name</h2>
   <p>Badr is Arabic for the full moon: the night you can see the whole picture. The edge is the process, not a promise of results.</p>
@@ -1302,6 +1305,36 @@ def about():
 </article>
 """
     return page("/about/", "Who is behind Badr Edge", "Who is behind Badr Edge: the independent futures research desk behind Badr Edge, built on more than three years of live trading and $250K+ in documented prop-firm payouts.", "/about/", body)
+
+
+
+def about_videos():
+    steps = [
+        ("The question", "I pick one claim I hear repeated, or one you sent me."),
+        ("The test", "I write the rules down first, then run them on market data. Costs are included. Losing results stay in."),
+        ("The script", "Every number in the script is checked against the test before it is recorded."),
+        ("The voice", "It is my own voice, cloned with my consent, so I can publish while I trade."),
+        ("The pictures", "Charts are drawn from the same data the test used. Nothing is stock footage."),
+        ("The limits", "One year of data is a map of the past. It is research and education, never a signal or advice."),
+    ]
+    cells = "".join(f'<div><b data-n="{i:02d}">{t}</b><span>{x}</span></div>' for i, (t, x) in enumerate(steps, 1))
+    body = f"""
+<section class="page-head"><div class="wrap">
+  <span class="eyebrow">The channel</span>
+  <h1>How these videos <span class="gold">are made.</span></h1>
+  <p class="lede">Every Badr Edge video starts with a question traders argue about and ends with a count.</p>
+</div></section>
+<section style="padding:20px 0 0"><div class="wrap" style="max-width:820px">
+  <div class="focus">{cells}</div>
+</div></section>
+<article class="prose" style="max-width:820px;padding-top:32px">
+  <h2>Who makes them</h2>
+  <p>I'm Badr. I choose the questions, run the tests and stand behind every number. I trade during the day, so I don't film. The voice you hear is my own, and the charts come from my own data. More on <a href="/about/">who is behind Badr Edge</a>.</p>
+  <p class="sign">{MARK}<span><b>Badr</b>Badr Edge</span></p>
+  <p class="note">Badr Edge does not manage money, offer signals or give investment advice. See the <a href="/legal/disclaimer/">disclaimer</a>.</p>
+</article>
+"""
+    return page("/about/videos/", "How these videos are made", "How Badr Edge videos are made: one question, a written test on market data, numbers checked before recording, narrated in Badr's own cloned voice.", "/about/", body)
 
 
 def legal_disclaimer():
@@ -1409,7 +1442,7 @@ if __name__ == "__main__":
                 cta='The range height is your risk. The <a href="/tools/sizing/">Contract Sizing tool</a> turns a stop in points into a contract size your cushion can carry.'),
         article("/guides/initial-balance/", GUIDES[4][1], GUIDES[4][2], GUIDES[4][3], ARTICLE_IB, "/tools/sizing/", "Contract Sizing tool",
                 cta='A wide IB means a wide stop. The <a href="/tools/sizing/">Contract Sizing tool</a> shows how many contracts that stop allows under your max loss.'),
-        pine(), about(), indicators(), changelog(), legal_disclaimer(), legal_privacy(),
+        pine(), about(), about_videos(), indicators(), changelog(), legal_disclaimer(), legal_privacy(),
     ] + research.build_all(page, ICONS)
     not_found()
     statics(built)
