@@ -4,7 +4,15 @@ import math
 import random
 
 
+GOLD_DEFS = ('<defs><linearGradient id="tb-gold" x1="0" y1="0" x2="0" y2="1">'
+             '<stop offset="0" class="tb-g0"/><stop offset="1" class="tb-g1"/></linearGradient>'
+             '<linearGradient id="tb-goldh" x1="0" y1="0" x2="1" y2="0">'
+             '<stop offset="0" class="tb-g1"/><stop offset="1" class="tb-g0"/></linearGradient></defs>')
+
+
 def _wrap(svg, W, H, cls=""):
+    if "tb" in cls.split():
+        svg = GOLD_DEFS + svg
     return (f'<div class="door-art tool-art{(" " + cls) if cls else ""}" aria-hidden="true">'
             f'<svg viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid meet">{svg}</svg></div>')
 
@@ -14,50 +22,60 @@ def _pts(P):
 
 
 def home():
-    """Pre-open risk console: pass-odds gauge, payout-day tracker and a contract ladder, one per tool."""
-    W, H = 330, 150
-    s = []
-    # panel frames
-    for x0 in (6, 116, 226):
-        s.append(f'<rect class="ta-panel" x="{x0}" y="8" width="98" height="134" rx="10"/>')
-    # 1. gauge
-    cx, cy, r = 55, 92, 36
-    def arc(a0, a1, cls):
-        x0, y0 = cx + r * math.cos(math.radians(a0)), cy - r * math.sin(math.radians(a0))
-        x1, y1 = cx + r * math.cos(math.radians(a1)), cy - r * math.sin(math.radians(a1))
-        return f'<path class="{cls}" d="M{x0:.1f},{y0:.1f} A{r},{r} 0 0 1 {x1:.1f},{y1:.1f}"/>'
-    s.append(arc(180, 128, "ta-arc dn"))
-    s.append(arc(124, 64, "ta-arc gd"))
-    s.append(arc(60, 0, "ta-arc up"))
-    for a in range(0, 181, 15):
-        ri, ro = r - 9, r - 6
-        s.append(f'<line class="da-faint" x1="{cx + ri * math.cos(math.radians(a)):.1f}" y1="{cy - ri * math.sin(math.radians(a)):.1f}" '
-                 f'x2="{cx + ro * math.cos(math.radians(a)):.1f}" y2="{cy - ro * math.sin(math.radians(a)):.1f}"/>')
-    na = 48
-    s.append(f'<line class="ta-needle" x1="{cx}" y1="{cy}" x2="{cx + (r - 4) * math.cos(math.radians(na)):.1f}" y2="{cy - (r - 4) * math.sin(math.radians(na)):.1f}"/>')
-    s.append(f'<circle class="da-dot-gold" cx="{cx}" cy="{cy}" r="3.5"/>')
-    s.append(f'<text class="da-lbl" x="{cx}" y="122" text-anchor="middle">pass odds</text>')
-    s.append(f'<text class="da-lbl" x="20" y="28">01</text>')
-    # 2. payout-day tracker: winning days fill toward a payout coin
-    x0, y0, g = 134, 50, 14
-    for i in range(10):
-        col, row = i % 5, i // 5
-        cls = "ta-day on" if i < 7 else "ta-day"
-        s.append(f'<rect class="{cls}" x="{x0 + col * g:.1f}" y="{y0 + row * g:.1f}" width="10" height="10" rx="2.5"/>')
-    s.append(f'<circle class="ta-coin" cx="165" cy="98" r="13"/><circle class="ta-coin-in" cx="165" cy="98" r="8.5"/>')
-    s.append('<text class="ta-coin-t" x="165" y="101.5" text-anchor="middle">$</text>')
-    s.append(f'<text class="da-lbl" x="165" y="132" text-anchor="middle">payout</text>')
-    s.append(f'<text class="da-lbl" x="130" y="28">02</text>')
-    # 3. contract ladder against the max loss
-    lim = 300
-    for i, w in enumerate((18, 30, 42, 54, 70)):
-        y = 108 - i * 15
-        cls = "ta-bar over" if 238 + w > lim else "ta-bar"
-        s.append(f'<rect class="{cls}" x="238" y="{y}" width="{w}" height="10" rx="3"/>')
-    s.append(f'<line class="da-floor" x1="{lim}" y1="40" x2="{lim}" y2="122"/>')
-    s.append(f'<text class="da-lbl" x="275" y="132" text-anchor="middle">size</text>')
-    s.append(f'<text class="da-lbl" x="240" y="28">03</text>')
-    return _wrap("".join(s), W, H, "ta-home")
+    """What the simulators output, drawn as a risk fan: the spread of simulated balances
+    over an evaluation (inner band = middle half of runs, outer = most runs), the median
+    run, the profit target and the max loss, with the outcome split beside it. Illustration only."""
+    W, H = 316, 172
+    L, R, T, B = 14, 232, 30, 142
+    y0, days, n = 108, 30, 3000
+    rnd = random.Random(4)
+    runs = []
+    for _ in range(n):
+        y, P = y0, [y0]
+        for _d in range(days):
+            y += rnd.gauss(-2.2, 8.2)
+            P.append(y)
+        runs.append(P)
+    X = lambda d: L + d * (R - L) / days
+    cols = [sorted(r[d] for r in runs) for d in range(days + 1)]
+    def q(d, f):
+        # quantile, lightly averaged with neighbouring days so the band edge reads as one clean line
+        ds = [k for k in (d - 1, d, d + 1) if 0 <= k <= days] if d else [0]
+        return sum(cols[k][int(f * (n - 1))] for k in ds) / len(ds)
+    def band(f0, f1):
+        top = [(X(d), max(q(d, f0), T - 30)) for d in range(days + 1)]
+        bot = [(X(d), min(q(d, f1), B + 30)) for d in range(days + 1)]
+        return _pts(top) + " " + _pts(bot[::-1])
+    med = [(X(d), q(d, .5)) for d in range(days + 1)]
+    cid = "hf-clip"
+    s = [f'<clipPath id="{cid}"><rect x="{L}" y="{T}" width="{R - L}" height="{B - T}"/></clipPath>',
+         f'<g clip-path="url(#{cid})">',
+         f'<polygon class="hf-band outer" points="{band(.1, .9)}"/>',
+         f'<polygon class="hf-band inner" points="{band(.25, .75)}"/>',
+         f'<polyline class="hf-med" points="{_pts(med)}"/>',
+         '</g>',
+         f'<line class="hf-target" x1="{L}" y1="{T}" x2="{R}" y2="{T}"/>',
+         f'<line class="hf-floor" x1="{L}" y1="{B}" x2="{R}" y2="{B}"/>',
+         f'<circle class="hf-start" cx="{L}" cy="{y0}" r="3"/>',
+         f'<circle class="hf-end" cx="{med[-1][0]:.1f}" cy="{med[-1][1]:.1f}" r="3"/>',
+         f'<text class="da-lbl live" x="{L}" y="{T - 10}">profit target</text>',
+         f'<text class="da-lbl" x="{L}" y="{B + 16}">max loss</text>',
+         f'<text class="da-lbl" x="{R}" y="{B + 16}" text-anchor="end">day 30</text>']
+    # outcome split from the same runs: first touch of the target or the max loss
+    pas = fail = 0
+    for r in runs:
+        for v in r[1:]:
+            if v <= T: pas += 1; break
+            if v >= B: fail += 1; break
+    tim = n - pas - fail
+    bx, bw, yy = 254, 6, T
+    for cls, cnt, lbl in (("pass", pas, "pass"), ("time", tim, "time out"), ("fail", fail, "fail")):
+        h = (B - T) * cnt / n
+        s.append(f'<rect class="hf-seg {cls}" x="{bx}" y="{yy + 1.5:.1f}" width="{bw}" height="{max(h - 3, 4):.1f}" rx="3"/>')
+        s.append(f'<text class="da-lbl hf-k {cls}" x="{bx + bw + 7}" y="{yy + h / 2 + 3:.1f}">{lbl}</text>')
+        yy += h
+    s.append(f'<text class="da-lbl" x="{bx}" y="{T - 10}">outcomes</text>')
+    return _wrap("".join(s), W, H, "tb ta-home")
 
 
 def pass_():
@@ -143,25 +161,23 @@ BY_HREF = {}  # filled at the end of the file
 # ---- Set B (chosen by Khaled, Nov 23), refined: gold carries the idea, teal marks progress, red only as a hairline ----
 
 def pass_b():
-    """100 simulated attempts as a sorted waffle: passed (gold), hit the max loss (hollow), ran out of days (faint)."""
+    """An evaluation: progress to the profit target, with each firm rule checked off along the way."""
     W, H = 320, 120
-    kinds = ["up"] * 45 + ["dn"] * 40 + ["ti"] * 15
-    s = []
-    for i, k in enumerate(kinds):
-        c, r = i // 5, i % 5            # fill column by column so each outcome forms one clean band
-        x, y = 24 + c * 14.4, 20 + r * 14
-        if k == "up":
-            s.append(f'<circle class="tb-pass" cx="{x:.1f}" cy="{y}" r="4"/>')
-        elif k == "dn":
-            s.append(f'<circle class="tb-fail" cx="{x:.1f}" cy="{y}" r="3.4"/>')
-        else:
-            s.append(f'<circle class="tb-time" cx="{x:.1f}" cy="{y}" r="2"/>')
-    # band brackets
-    X = lambda c: 24 + c * 14.4
-    for c0, c1, lbl, cls, anc in ((0, 8, "passed", "code", "middle"), (9, 16, "max loss", "", "middle"), (17, 19, "time out", "", "end")):
-        s.append(f'<path class="tb-brk" d="M{X(c0) - 4:.1f},90 v4 H{X(c1) + 4:.1f} v-4"/>')
-        tx = (X(c0) + X(c1)) / 2 if anc == "middle" else X(c1) + 4
-        s.append(f'<text class="da-lbl {cls}" x="{tx:.1f}" y="108" text-anchor="{anc}">{lbl}</text>')
+    x0, x1, y = 22, 298, 34
+    fill = x0 + (x1 - x0) * 0.78
+    s = ['<text class="da-lbl" x="22" y="18">start</text>',
+         '<text class="da-lbl code" x="298" y="18" text-anchor="end">profit target</text>',
+         f'<rect class="tb-track" x="{x0}" y="{y - 4}" width="{x1 - x0}" height="8" rx="4"/>',
+         f'<rect fill="url(#tb-goldh)" x="{x0}" y="{y - 4}" width="{fill - x0:.1f}" height="8" rx="4"/>',
+         f'<circle class="tb-knob" cx="{fill:.1f}" cy="{y}" r="6"/>',
+         f'<line class="tb-flag-pole" x1="{x1}" y1="{y - 12}" x2="{x1}" y2="{y + 8}"/>']
+    rules = ["daily limit", "max loss", "consistency", "min days"]
+    for i, r in enumerate(rules):
+        cx = 22 + i * 70
+        s.append(f'<rect class="tb-rulebox" x="{cx}" y="58" width="64" height="44" rx="9"/>')
+        s.append(f'<circle class="tb-ok" cx="{cx + 32}" cy="74" r="7"/>')
+        s.append(f'<path class="tb-okt" d="M{cx + 28.5},{74} l2.5,2.6 l4.6,-5"/>')
+        s.append(f'<text class="da-lbl sm" x="{cx + 32}" y="95" text-anchor="middle">{r}</text>')
     return _wrap("".join(s), W, H, "tb")
 
 
@@ -205,7 +221,7 @@ def sizing_b():
         x = 26 + i * 72
         for k in range(i + 1):
             for j in range(3):
-                s.append(f'<rect class="tb-ct" style="opacity:{0.45 + 0.18 * i:.2f}" x="{x + j * 14}" y="{86 - k * 12}" width="11" height="9" rx="2"/>')
+                s.append(f'<rect class="tb-ct" x="{x + j * 14}" y="{86 - k * 12}" width="11" height="9" rx="2"/>')
         s.append(f'<text class="da-lbl" x="{x + 20}" y="112" text-anchor="middle">{i + 1}x</text>')
     s.append('<text class="da-lbl live" x="306" y="24" text-anchor="end">buffer</text>')
     return _wrap("".join(s), W, H, "tb")

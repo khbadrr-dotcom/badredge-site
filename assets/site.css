@@ -1519,3 +1519,60 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .tb .tb-notch { fill: var(--live); stroke: var(--bg); stroke-width: 1.5; }
 .tb .tb-buffer { fill: none; stroke: var(--live); stroke-width: 1.2; stroke-dasharray: 3 3; opacity: .85; }
 .tb .tb-ct { fill: var(--accent); stroke: none; }
+/* Home Tools card console, site palette (Nov 23) */
+.tb .th-track { fill: none; stroke: color-mix(in srgb, var(--text) 8%, transparent); stroke-width: 5; stroke-linecap: round; }
+.tb .th-arc { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; }
+.tb .th-tick { stroke: var(--line-3); stroke-width: 1; }
+.tb .th-notch { fill: var(--live); stroke: var(--bg); stroke-width: 1.5; }
+.tb .th-needle { stroke: var(--text-2, var(--text)); stroke-width: 1.6; stroke-linecap: round; }
+.tb .th-hub { fill: var(--accent); stroke: none; }
+/* Site palette pass (Nov 24): brand gold gradient + teal only, no red, no dimmed browns */
+.tb .tb-g0 { stop-color: color-mix(in srgb, var(--accent) 55%, #fff4dc); }
+.tb .tb-g1 { stop-color: var(--accent); }
+html[data-theme="light"] .tb .tb-g0 { stop-color: color-mix(in srgb, var(--accent) 70%, #e8c983); }
+.tb .tb-ct, .tb .tb-day.pay { fill: url(#tb-gold); }
+.tb .tb-day.pay { stroke: none; }
+.tb .tb-day.pay + .tb-cur { fill: #17120a; }
+html[data-theme="light"] .tb .tb-day.pay + .tb-cur { fill: #fff; }
+.tb .tb-day.win { fill: color-mix(in srgb, var(--live) 18%, transparent); stroke: var(--live); }
+.tb .tb-day.loss { fill: none; stroke: var(--line-3); }
+.tb .tb-day { stroke: var(--line); }
+.tb .tb-ring.on { stroke: var(--accent); }
+.tb .tb-notch { fill: var(--live); }
+.tb .tb-buffer { stroke: var(--live); opacity: 1; }
+.tb .tb-track { fill: color-mix(in srgb, var(--text) 8%, transparent); stroke: none; }
+.tb .tb-knob { fill: var(--bg); stroke: var(--accent); stroke-width: 2; }
+.tb .tb-flag-pole { stroke: var(--live); stroke-width: 1.6; stroke-linecap: round; }
+.tb .tb-rulebox { fill: color-mix(in srgb, var(--text) 3%, transparent); stroke: var(--line); stroke-width: 1; }
+.tb .tb-ok { fill: color-mix(in srgb, var(--live) 16%, transparent); stroke: var(--live); stroke-width: 1.2; }
+.tb .tb-okt { fill: none; stroke: var(--live); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tb .th-arc { stroke: url(#tb-goldh); }
+.tb .th-hub { fill: var(--accent); }
+.tool-art .da-lbl.sm { font-size: 8.4px; letter-spacing: 0; }
+
+/* Home Tools card: simulated runs fan (Nov 24) */
+.ta-home { background: color-mix(in srgb, var(--text) 3%, transparent) !important; border: 0 !important; }
+.ta-home .hf-grid line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 4; opacity: .7; }
+.ta-home .hf-run { fill: none; stroke-width: 1.1; stroke-linejoin: round; stroke-linecap: round; }
+.ta-home .hf-run.pass { stroke: var(--accent); opacity: .3; }
+.ta-home .hf-run.time { stroke: var(--dim); opacity: .28; }
+.ta-home .hf-run.fail { stroke: var(--dim); opacity: .35; stroke-dasharray: 2 2; }
+.ta-home .hf-hero { fill: none; stroke: url(#tb-goldh); stroke-width: 2; stroke-linejoin: round; }
+.ta-home .hf-area { fill: url(#tb-gold); opacity: .07; }
+.ta-home .hf-hit { fill: var(--accent); }
+.ta-home .hf-target { stroke: var(--live); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.ta-home .hf-floor { stroke: var(--line-3); stroke-width: 1; }
+.ta-home .hf-start { fill: var(--bg); stroke: var(--accent); stroke-width: 1.6; }
+.ta-home .hf-seg.pass { fill: url(#tb-gold); }
+.ta-home .hf-seg.time { fill: color-mix(in srgb, var(--text) 14%, transparent); }
+.ta-home .hf-seg.fail { fill: none; stroke: var(--line-3); stroke-width: 1; }
+.ta-home .hf-k.pass { fill: var(--accent); }
+/* Home Tools card: risk fan (Nov 24, replaces the runs) */
+.ta-home .hf-band.outer { fill: url(#tb-gold); opacity: .10; }
+.ta-home .hf-band.inner { fill: url(#tb-gold); opacity: .20; }
+.ta-home .hf-med { fill: none; stroke: url(#tb-goldh); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.ta-home .hf-end { fill: var(--accent); stroke: var(--bg); stroke-width: 1.5; }
+.ta-home .hf-floor { stroke: var(--line-3); stroke-dasharray: 2 3; }
+html[data-theme="light"] .ta-home .hf-band.outer { opacity: .14; }
+html[data-theme="light"] .ta-home .hf-band.inner { opacity: .26; }
+.ta-home .hf-seg.fail { fill: var(--line-3); stroke: none; }
