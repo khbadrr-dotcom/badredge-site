@@ -22,53 +22,57 @@ def _pts(P):
 
 
 def home():
-    """Pre-open risk console, one panel per tool, in the site palette: gold carries the idea, teal marks progress."""
-    W, H = 330, 150
-    s = []
-    for x0 in (6, 116, 226):
-        s.append(f'<rect class="ta-panel" x="{x0}" y="8" width="98" height="134" rx="10"/>')
-    # 1. pass-odds gauge: faint track, gold arc up to the needle, teal target notch
-    cx, cy, r = 55, 90, 34
-    pt = lambda a, rr=r: (cx + rr * math.cos(math.radians(a)), cy - rr * math.sin(math.radians(a)))
-    def arc(a0, a1, cls):
-        (x0, y0), (x1, y1) = pt(a0), pt(a1)
-        return f'<path class="{cls}" d="M{x0:.1f},{y0:.1f} A{r},{r} 0 0 1 {x1:.1f},{y1:.1f}"/>'
-    s.append(arc(180, 0, "th-track"))
-    na = 52
-    s.append(arc(180, na, "th-arc"))
-    for a in range(0, 181, 30):
-        (x0, y0), (x1, y1) = pt(a, r - 9), pt(a, r - 6)
-        s.append(f'<line class="th-tick" x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}"/>')
-    tx, ty = pt(40, r)
-    s.append(f'<circle class="th-notch" cx="{tx:.1f}" cy="{ty:.1f}" r="2.6"/>')
-    (nx, ny) = pt(na, r - 5)
-    s.append(f'<line class="th-needle" x1="{cx}" y1="{cy}" x2="{nx:.1f}" y2="{ny:.1f}"/>')
-    s.append(f'<circle class="th-hub" cx="{cx}" cy="{cy}" r="3.2"/>')
-    s.append(f'<text class="da-lbl" x="{cx}" y="122" text-anchor="middle">pass odds</text>')
-    s.append('<text class="da-lbl" x="20" y="28">01</text>')
-    # 2. payout: winning-day tiles (teal, ticked) filling toward a gold coin
-    x0, y0, g = 133, 46, 14
-    for i in range(10):
-        col, row = i % 5, i // 5
-        x, y = x0 + col * g, y0 + row * g
-        if i < 7:
-            s.append(f'<rect class="tb-day win" x="{x}" y="{y}" width="11" height="11" rx="3"/>')
+    """What the simulators actually output: many simulated evaluation runs between the
+    profit target and the max loss, with the share that passes, fails or runs out of time."""
+    W, H = 316, 172
+    L, R, T, B = 14, 232, 28, 144            # plot box
+    start_y = 104
+    rnd = random.Random(21)
+    days, n = 30, 40
+    dx = (R - L) / days
+    passed, failed, timed = [], [], []
+    for k in range(n):
+        y, P = start_y, [(L, start_y)]
+        for d in range(1, days + 1):
+            y += rnd.gauss(-2.3, 9.0)
+            x = L + d * dx
+            if y <= T:
+                P.append((x, T)); passed.append(P); break
+            if y >= B:
+                P.append((x, B)); failed.append(P); break
+            P.append((x, y))
         else:
-            s.append(f'<rect class="tb-day empty" x="{x}" y="{y}" width="11" height="11" rx="3"/>')
-    s.append('<circle class="tb-ring" cx="165" cy="96" r="13"/><circle class="tb-ring on" cx="165" cy="96" r="13"/>')
-    s.append('<text class="tb-cur" x="165" y="100" text-anchor="middle">$</text>')
-    s.append('<text class="da-lbl" x="165" y="132" text-anchor="middle">payout</text>')
-    s.append('<text class="da-lbl" x="130" y="28">02</text>')
-    # 3. size: contract stacks step up under the buffer line (same idea as the Contract Sizing card)
-    P = [(236, 98), (254, 98), (258, 84), (276, 84), (280, 70), (298, 70), (302, 56), (314, 56)]
-    s.append(f'<polyline class="tb-buffer" points="{_pts(P)}"/>')
-    for i in range(4):
-        x = 238 + i * 18
-        for k in range(i + 1):
-            s.append(f'<rect class="tb-ct" x="{x}" y="{106 - k * 11}" width="13" height="8" rx="2"/>')
-    s.append('<line class="tb-rule" x1="234" y1="116" x2="318" y2="116"/>')
-    s.append('<text class="da-lbl" x="275" y="132" text-anchor="middle">size</text>')
-    s.append('<text class="da-lbl" x="240" y="28">03</text>')
+            timed.append(P)
+    s = ['<g class="hf-grid">' + "".join(f'<line x1="{L}" y1="{y:.1f}" x2="{R}" y2="{y:.1f}"/>'
+                                          for y in (T + (B - T) * f for f in (.25, .5, .75))) + '</g>']
+    for P in failed:
+        s.append(f'<polyline class="hf-run fail" points="{_pts(P)}"/>')
+    for P in timed:
+        s.append(f'<polyline class="hf-run time" points="{_pts(P)}"/>')
+    for P in passed:
+        s.append(f'<polyline class="hf-run pass" points="{_pts(P)}"/>')
+    # one highlighted run, drawn on top with a soft area, like the Strategy Lab curve
+    hero = max(passed, key=len)
+    s.append(f'<polygon class="hf-area" points="{_pts(hero)} {hero[-1][0]:.1f},{B} {L},{B}"/>')
+    s.append(f'<polyline class="hf-hero" points="{_pts(hero)}"/>')
+    for P in passed:
+        s.append(f'<circle class="hf-hit" cx="{P[-1][0]:.1f}" cy="{T}" r="1.5"/>')
+    s.append(f'<line class="hf-target" x1="{L}" y1="{T}" x2="{R}" y2="{T}"/>')
+    s.append(f'<line class="hf-floor" x1="{L}" y1="{B}" x2="{R}" y2="{B}"/>')
+    s.append(f'<circle class="hf-start" cx="{L}" cy="{start_y}" r="3"/>')
+    s.append(f'<text class="da-lbl live" x="{L}" y="{T - 9}">profit target</text>')
+    s.append(f'<text class="da-lbl" x="{L}" y="{B + 15}">max loss</text>')
+    s.append(f'<text class="da-lbl" x="{R}" y="{B + 15}" text-anchor="end">day {days}</text>')
+    # outcome split: one bar, three segments, no figures
+    bx, bw = 252, 8
+    tot = len(passed) + len(failed) + len(timed)
+    y0 = T
+    for cls, cnt, lbl in (("pass", len(passed), "pass"), ("time", len(timed), "time out"), ("fail", len(failed), "fail")):
+        h = (B - T) * cnt / tot
+        s.append(f'<rect class="hf-seg {cls}" x="{bx}" y="{y0 + 1:.1f}" width="{bw}" height="{max(h - 2, 1):.1f}" rx="2.5"/>')
+        s.append(f'<text class="da-lbl hf-k {cls}" x="{bx + bw + 6}" y="{y0 + h / 2 + 3:.1f}">{lbl}</text>')
+        y0 += h
+    s.append(f'<text class="da-lbl" x="{bx}" y="{T - 9}">outcomes</text>')
     return _wrap("".join(s), W, H, "tb ta-home")
 
 
