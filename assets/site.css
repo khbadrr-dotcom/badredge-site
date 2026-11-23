@@ -1526,3 +1526,26 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .tb .th-notch { fill: var(--live); stroke: var(--bg); stroke-width: 1.5; }
 .tb .th-needle { stroke: var(--text-2, var(--text)); stroke-width: 1.6; stroke-linecap: round; }
 .tb .th-hub { fill: var(--accent); stroke: none; }
+/* Site palette pass (Nov 24): brand gold gradient + teal only, no red, no dimmed browns */
+.tb .tb-g0 { stop-color: color-mix(in srgb, var(--accent) 55%, #fff4dc); }
+.tb .tb-g1 { stop-color: var(--accent); }
+html[data-theme="light"] .tb .tb-g0 { stop-color: color-mix(in srgb, var(--accent) 70%, #e8c983); }
+.tb .tb-ct, .tb .tb-day.pay { fill: url(#tb-gold); }
+.tb .tb-day.pay { stroke: none; }
+.tb .tb-day.pay + .tb-cur { fill: #17120a; }
+html[data-theme="light"] .tb .tb-day.pay + .tb-cur { fill: #fff; }
+.tb .tb-day.win { fill: color-mix(in srgb, var(--live) 18%, transparent); stroke: var(--live); }
+.tb .tb-day.loss { fill: none; stroke: var(--line-3); }
+.tb .tb-day { stroke: var(--line); }
+.tb .tb-ring.on { stroke: var(--accent); }
+.tb .tb-notch { fill: var(--live); }
+.tb .tb-buffer { stroke: var(--live); opacity: 1; }
+.tb .tb-track { fill: color-mix(in srgb, var(--text) 8%, transparent); stroke: none; }
+.tb .tb-knob { fill: var(--bg); stroke: var(--accent); stroke-width: 2; }
+.tb .tb-flag-pole { stroke: var(--live); stroke-width: 1.6; stroke-linecap: round; }
+.tb .tb-rulebox { fill: color-mix(in srgb, var(--text) 3%, transparent); stroke: var(--line); stroke-width: 1; }
+.tb .tb-ok { fill: color-mix(in srgb, var(--live) 16%, transparent); stroke: var(--live); stroke-width: 1.2; }
+.tb .tb-okt { fill: none; stroke: var(--live); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tb .th-arc { stroke: url(#tb-goldh); }
+.tb .th-hub { fill: var(--accent); }
+.tool-art .da-lbl.sm { font-size: 8.4px; letter-spacing: 0; }

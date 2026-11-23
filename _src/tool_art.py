@@ -4,7 +4,15 @@ import math
 import random
 
 
+GOLD_DEFS = ('<defs><linearGradient id="tb-gold" x1="0" y1="0" x2="0" y2="1">'
+             '<stop offset="0" class="tb-g0"/><stop offset="1" class="tb-g1"/></linearGradient>'
+             '<linearGradient id="tb-goldh" x1="0" y1="0" x2="1" y2="0">'
+             '<stop offset="0" class="tb-g1"/><stop offset="1" class="tb-g0"/></linearGradient></defs>')
+
+
 def _wrap(svg, W, H, cls=""):
+    if "tb" in cls.split():
+        svg = GOLD_DEFS + svg
     return (f'<div class="door-art tool-art{(" " + cls) if cls else ""}" aria-hidden="true">'
             f'<svg viewBox="0 0 {W} {H}" preserveAspectRatio="xMidYMid meet">{svg}</svg></div>')
 
@@ -57,7 +65,7 @@ def home():
     for i in range(4):
         x = 238 + i * 18
         for k in range(i + 1):
-            s.append(f'<rect class="tb-ct" style="opacity:{0.45 + 0.18 * i:.2f}" x="{x}" y="{106 - k * 11}" width="13" height="8" rx="2"/>')
+            s.append(f'<rect class="tb-ct" x="{x}" y="{106 - k * 11}" width="13" height="8" rx="2"/>')
     s.append('<line class="tb-rule" x1="234" y1="116" x2="318" y2="116"/>')
     s.append('<text class="da-lbl" x="275" y="132" text-anchor="middle">size</text>')
     s.append('<text class="da-lbl" x="240" y="28">03</text>')
@@ -147,25 +155,23 @@ BY_HREF = {}  # filled at the end of the file
 # ---- Set B (chosen by Khaled, Nov 23), refined: gold carries the idea, teal marks progress, red only as a hairline ----
 
 def pass_b():
-    """100 simulated attempts as a sorted waffle: passed (gold), hit the max loss (hollow), ran out of days (faint)."""
+    """An evaluation: progress to the profit target, with each firm rule checked off along the way."""
     W, H = 320, 120
-    kinds = ["up"] * 45 + ["dn"] * 40 + ["ti"] * 15
-    s = []
-    for i, k in enumerate(kinds):
-        c, r = i // 5, i % 5            # fill column by column so each outcome forms one clean band
-        x, y = 24 + c * 14.4, 20 + r * 14
-        if k == "up":
-            s.append(f'<circle class="tb-pass" cx="{x:.1f}" cy="{y}" r="4"/>')
-        elif k == "dn":
-            s.append(f'<circle class="tb-fail" cx="{x:.1f}" cy="{y}" r="3.4"/>')
-        else:
-            s.append(f'<circle class="tb-time" cx="{x:.1f}" cy="{y}" r="2"/>')
-    # band brackets
-    X = lambda c: 24 + c * 14.4
-    for c0, c1, lbl, cls, anc in ((0, 8, "passed", "code", "middle"), (9, 16, "max loss", "", "middle"), (17, 19, "time out", "", "end")):
-        s.append(f'<path class="tb-brk" d="M{X(c0) - 4:.1f},90 v4 H{X(c1) + 4:.1f} v-4"/>')
-        tx = (X(c0) + X(c1)) / 2 if anc == "middle" else X(c1) + 4
-        s.append(f'<text class="da-lbl {cls}" x="{tx:.1f}" y="108" text-anchor="{anc}">{lbl}</text>')
+    x0, x1, y = 22, 298, 34
+    fill = x0 + (x1 - x0) * 0.78
+    s = ['<text class="da-lbl" x="22" y="18">start</text>',
+         '<text class="da-lbl code" x="298" y="18" text-anchor="end">profit target</text>',
+         f'<rect class="tb-track" x="{x0}" y="{y - 4}" width="{x1 - x0}" height="8" rx="4"/>',
+         f'<rect fill="url(#tb-goldh)" x="{x0}" y="{y - 4}" width="{fill - x0:.1f}" height="8" rx="4"/>',
+         f'<circle class="tb-knob" cx="{fill:.1f}" cy="{y}" r="6"/>',
+         f'<line class="tb-flag-pole" x1="{x1}" y1="{y - 12}" x2="{x1}" y2="{y + 8}"/>']
+    rules = ["daily limit", "max loss", "consistency", "min days"]
+    for i, r in enumerate(rules):
+        cx = 22 + i * 70
+        s.append(f'<rect class="tb-rulebox" x="{cx}" y="58" width="64" height="44" rx="9"/>')
+        s.append(f'<circle class="tb-ok" cx="{cx + 32}" cy="74" r="7"/>')
+        s.append(f'<path class="tb-okt" d="M{cx + 28.5},{74} l2.5,2.6 l4.6,-5"/>')
+        s.append(f'<text class="da-lbl sm" x="{cx + 32}" y="95" text-anchor="middle">{r}</text>')
     return _wrap("".join(s), W, H, "tb")
 
 
@@ -209,7 +215,7 @@ def sizing_b():
         x = 26 + i * 72
         for k in range(i + 1):
             for j in range(3):
-                s.append(f'<rect class="tb-ct" style="opacity:{0.45 + 0.18 * i:.2f}" x="{x + j * 14}" y="{86 - k * 12}" width="11" height="9" rx="2"/>')
+                s.append(f'<rect class="tb-ct" x="{x + j * 14}" y="{86 - k * 12}" width="11" height="9" rx="2"/>')
         s.append(f'<text class="da-lbl" x="{x + 20}" y="112" text-anchor="middle">{i + 1}x</text>')
     s.append('<text class="da-lbl live" x="306" y="24" text-anchor="end">buffer</text>')
     return _wrap("".join(s), W, H, "tb")
