@@ -74,7 +74,7 @@ def data_tag():
             '<script src="/assets/tracker.js" defer></script>')
 
 
-def two_ways():
+def two_ways(indicators=None, families=0):
     """Homepage section: the toolkit and the strategies, side by side."""
     from collections import defaultdict
     D = DATA
@@ -94,27 +94,47 @@ def two_ways():
     <rect x="{X(nIn):.1f}" y="2" width="{W - X(nIn):.1f}" height="{H - 4}" rx="6" class="tw-fz"/>
     <path d="{pin}L{X(nIn):.1f},{H}L0,{H}Z" fill="url(#twg)"/><path d="{pin}" class="tw-eq"/><path d="{pout}" class="tw-fw"/>
     <circle cx="{W}" cy="{Y(eq[-1]):.1f}" r="3.5" class="tw-tip"/></svg>'''
-    tools = [("Prop Pass Simulator", "Odds of passing an evaluation"), ("Payout Simulator", "What a funded account can pay"), ("Contract Sizing", "Size against your drawdown")]
-    tl = "".join(f'<li><b>{a}</b><span>{b}</span><i>&rarr;</i></li>' for a, b in tools)
+    tools = [("Prop Pass Simulator", "Odds of passing an evaluation", "/tools/pass/"), ("Payout Simulator", "What a funded account can pay", "/tools/payout/"), ("Contract Sizing", "Size against your drawdown", "/tools/sizing/")]
+    tl = "".join(f'<li><a href="{h}"><b>{a}</b><span>{b}</span><i>&rarr;</i></a></li>' for a, b, h in tools)
+    ind = [x for x in (indicators or []) if x[3]]
+    il = "".join(f'<li><a href="https://www.tradingview.com/script/{tv}/" target="_blank" rel="noopener"><b>{n}</b><span>Pine Script v6 &middot; open source</span><i>&#8599;</i></a></li>' for _, n, _l, tv in ind[:3])
+    research = [("Method", "Explore, lock, validate", "/research/method/"), ("Strategy families", f"{families} written up", "/research/#families"), ("In forward testing", "New data, rules unchanged", "/research/under-observation/")]
+    rl = "".join(f'<li><a href="{h}"><b>{a}</b><span>{b}</span><i>&rarr;</i></a></li>' for a, b, h in research)
     return f'''
     <section class="tw" id="two-ways"><div class="wrap">
-      <div class="tw-head"><span class="eyebrow">Two ways in</span><h2>Use the tools. <span class="gold">Study the strategies.</span></h2></div>
-      <div class="tw-grid">
-        <a class="tw-card" href="/tools/">
-          <div class="tw-top"><span class="tw-live">Free</span><span class="tw-kind">The toolkit</span></div>
-          <h3>Plan the risk before the open.</h3>
-          <p>Browser tools built around prop-firm rules. Free, no sign-up.</p>
-          <ul class="tw-list">{tl}</ul>
-          <span class="tw-cta gold-btn">Open the tools <i>&rarr;</i></span>
-        </a>
+      <div class="tw-head"><span class="eyebrow">Start here</span><h2>Pick your <span class="gold">starting point.</span></h2></div>
+      <div class="tw-grid tw-3">
+        <div class="tw-card tw-tabs">
+          <input type="radio" name="tw-tab" id="tw-t1" checked><input type="radio" name="tw-tab" id="tw-t2">
+          <div class="tw-top"><div class="tw-tabbar" role="presentation"><label for="tw-t1">Tools</label><label for="tw-t2">Indicators</label></div><span class="tw-live">Free</span></div>
+          <div class="tw-pane tw-p1">
+            <h3>Plan the risk before the open.</h3>
+            <p>Browser simulators built around prop-firm rules. No sign-up.</p>
+            <ul class="tw-list">{tl}</ul>
+            <a class="tw-cta" href="/tools/">Explore the tools <i>&rarr;</i></a>
+          </div>
+          <div class="tw-pane tw-p2">
+            <h3>{len(ind)} indicators on TradingView.</h3>
+            <p>Open-source Pine Script v6, built from the research families.</p>
+            <ul class="tw-list">{il}</ul>
+            <a class="tw-cta" href="/tools/indicators/">See all indicators <i>&rarr;</i></a>
+          </div>
+        </div>
         <a class="tw-card" href="/research/backtested/">
-          <div class="tw-top"><span class="tw-live">Updated weekly</span><span class="tw-kind">The strategies</span></div>
+          <div class="tw-top"><span class="tw-live">Updated weekly</span><span class="tw-kind">Strategy Lab</span></div>
           <h3>14 strategies, tested after costs.</h3>
-          <p>Every rule, every result, one ledger. Gold is in-sample; teal is forward data, updated weekly.</p>
+          <p>Gold is last year, in-sample. Teal is forward data, updated weekly.</p>
           <div class="tw-chart">{spark}<div class="tw-axis"><span>Nov 2025</span><span>Nov 2026</span></div></div>
           <dl class="tw-k"><div><dt>Strategies</dt><dd>14</dd></div><div><dt>Markets</dt><dd>10</dd></div><div><dt>Status</dt><dd class="tw-st">Exploratory</dd></div></dl>
           <span class="tw-cta">See the Strategy Lab <i>&rarr;</i></span>
         </a>
+        <div class="tw-card">
+          <div class="tw-top"><span class="tw-live">Public log</span><span class="tw-kind">Research</span></div>
+          <h3>How every idea gets tested.</h3>
+          <p>The method, every strategy family and what is in forward testing now.</p>
+          <ul class="tw-list">{rl}</ul>
+          <a class="tw-cta" href="/research/">Open the research <i>&rarr;</i></a>
+        </div>
       </div>
       <p class="tw-note">Research only. Every strategy requires forward testing before any real-money use.</p>
     </div></section>'''
