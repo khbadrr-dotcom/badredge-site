@@ -1553,9 +1553,9 @@ html[data-theme="light"] .tb .tb-day.pay + .tb-cur { fill: #fff; }
 /* Home Tools card: simulated runs fan (Nov 24) */
 .ta-home { background: color-mix(in srgb, var(--text) 3%, transparent) !important; border: 0 !important; }
 .ta-home .hf-grid line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 4; opacity: .7; }
-.ta-home .hf-run { fill: none; stroke-width: 1; stroke-linejoin: round; }
-.ta-home .hf-run.pass { stroke: var(--accent); opacity: .24; }
-.ta-home .hf-run.time { stroke: var(--dim); opacity: .22; }
+.ta-home .hf-run { fill: none; stroke-width: 1.1; stroke-linejoin: round; stroke-linecap: round; }
+.ta-home .hf-run.pass { stroke: var(--accent); opacity: .3; }
+.ta-home .hf-run.time { stroke: var(--dim); opacity: .28; }
 .ta-home .hf-run.fail { stroke: var(--dim); opacity: .35; stroke-dasharray: 2 2; }
 .ta-home .hf-hero { fill: none; stroke: url(#tb-goldh); stroke-width: 2; stroke-linejoin: round; }
 .ta-home .hf-area { fill: url(#tb-gold); opacity: .07; }

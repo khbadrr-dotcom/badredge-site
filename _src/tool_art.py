@@ -27,14 +27,14 @@ def home():
     W, H = 316, 172
     L, R, T, B = 14, 232, 28, 144            # plot box
     start_y = 104
-    rnd = random.Random(21)
-    days, n = 30, 40
+    rnd = random.Random(6)
+    days, n = 16, 14
     dx = (R - L) / days
     passed, failed, timed = [], [], []
     for k in range(n):
         y, P = start_y, [(L, start_y)]
         for d in range(1, days + 1):
-            y += rnd.gauss(-2.3, 9.0)
+            y += rnd.gauss(-4.4, 13.5)
             x = L + d * dx
             if y <= T:
                 P.append((x, T)); passed.append(P); break
@@ -43,8 +43,7 @@ def home():
             P.append((x, y))
         else:
             timed.append(P)
-    s = ['<g class="hf-grid">' + "".join(f'<line x1="{L}" y1="{y:.1f}" x2="{R}" y2="{y:.1f}"/>'
-                                          for y in (T + (B - T) * f for f in (.25, .5, .75))) + '</g>']
+    s = []
     for P in failed:
         s.append(f'<polyline class="hf-run fail" points="{_pts(P)}"/>')
     for P in timed:
@@ -55,14 +54,12 @@ def home():
     hero = max(passed, key=len)
     s.append(f'<polygon class="hf-area" points="{_pts(hero)} {hero[-1][0]:.1f},{B} {L},{B}"/>')
     s.append(f'<polyline class="hf-hero" points="{_pts(hero)}"/>')
-    for P in passed:
-        s.append(f'<circle class="hf-hit" cx="{P[-1][0]:.1f}" cy="{T}" r="1.5"/>')
     s.append(f'<line class="hf-target" x1="{L}" y1="{T}" x2="{R}" y2="{T}"/>')
     s.append(f'<line class="hf-floor" x1="{L}" y1="{B}" x2="{R}" y2="{B}"/>')
     s.append(f'<circle class="hf-start" cx="{L}" cy="{start_y}" r="3"/>')
     s.append(f'<text class="da-lbl live" x="{L}" y="{T - 9}">profit target</text>')
     s.append(f'<text class="da-lbl" x="{L}" y="{B + 15}">max loss</text>')
-    s.append(f'<text class="da-lbl" x="{R}" y="{B + 15}" text-anchor="end">day {days}</text>')
+    s.append(f'<text class="da-lbl" x="{R}" y="{B + 15}" text-anchor="end">day 30</text>')
     # outcome split: one bar, three segments, no figures
     bx, bw = 252, 8
     tot = len(passed) + len(failed) + len(timed)
