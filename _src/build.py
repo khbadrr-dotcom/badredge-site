@@ -440,10 +440,10 @@ def tool_cards():
     for href, icon, name, desc, bullets in TOOLS:
         lis = "".join(f"<li>{b}</li>" for b in bullets)
         out.append(f"""<a class="card reveal" href="{href}">
-        {tool_art.BY_HREF[href]()}
         <span class="tagline">Free</span>
         <h3>{name}</h3>
         <p>{desc}</p>
+        {tool_art.BY_HREF[href]()}
         <ul>{lis}</ul>
         <span class="go">Open tool &rarr;</span>
       </a>""")

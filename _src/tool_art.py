@@ -138,3 +138,61 @@ def sizing():
 
 
 BY_HREF = {"/tools/pass/": pass_, "/tools/payout/": payout, "/tools/sizing/": sizing}
+
+
+# ---- Alternative set B (ideas shown to Khaled, Nov 23) ----
+
+def pass_b():
+    """100 simulated attempts as a dot grid: each dot one evaluation, teal passed, red hit max loss, grey ran out of days."""
+    W, H = 320, 120
+    rnd = random.Random(3)
+    kinds = ["up"] * 46 + ["dn"] * 38 + ["ti"] * 16
+    rnd.shuffle(kinds)
+    s = []
+    for i, k in enumerate(kinds):
+        c, r = i % 20, i // 20
+        s.append(f'<circle class="ta-att {k}" cx="{22 + c * 14}" cy="{20 + r * 15}" r="4.6"/>')
+    s += ['<circle class="ta-att up" cx="24" cy="106" r="4"/><text class="da-lbl" x="33" y="109">passed</text>',
+          '<circle class="ta-att dn" cx="96" cy="106" r="4"/><text class="da-lbl" x="105" y="109">max loss</text>',
+          '<circle class="ta-att ti" cx="176" cy="106" r="4"/><text class="da-lbl" x="185" y="109">out of days</text>']
+    return _wrap("".join(s), W, H)
+
+
+def payout_b():
+    """A funded month as a calendar: winning days tick off until the payout day."""
+    W, H = 320, 120
+    days = ["w", "l", "w", "s", "w", "l", "s", "w", "w", "l", "s", "w", "p", "", "", ""]
+    s = ['<text class="da-lbl" x="20" y="16">M</text><text class="da-lbl" x="58" y="16">T</text><text class="da-lbl" x="96" y="16">W</text><text class="da-lbl" x="134" y="16">T</text><text class="da-lbl" x="172" y="16">F</text>']
+    for i, d in enumerate(days[:15]):
+        c, r = i % 5, i // 5
+        x, y = 14 + c * 38, 24 + r * 30
+        if d == "p":
+            s.append(f'<rect class="ta-cal pay" x="{x}" y="{y}" width="32" height="24" rx="6"/><text class="ta-coin-t" x="{x + 16}" y="{y + 16}" text-anchor="middle">$</text>')
+        else:
+            cls = {"w": "ta-cal win", "l": "ta-cal loss", "s": "ta-cal", "": "ta-cal empty"}[d]
+            s.append(f'<rect class="{cls}" x="{x}" y="{y}" width="32" height="24" rx="6"/>')
+    # progress ring of winning days
+    cx, cy, R = 262, 60, 30
+    n, need = 6, 6
+    circ = 2 * math.pi * R
+    s.append(f'<circle class="ta-ring" cx="{cx}" cy="{cy}" r="{R}"/>')
+    s.append(f'<circle class="ta-ring on" cx="{cx}" cy="{cy}" r="{R}" stroke-dasharray="{circ * n / need:.1f} {circ:.1f}" transform="rotate(-90 {cx} {cy})"/>')
+    s.append(f'<text class="ta-coin-t big" x="{cx}" y="{cy + 5}" text-anchor="middle">$</text>')
+    s.append(f'<text class="da-lbl live" x="{cx}" y="110" text-anchor="middle">winning days</text>')
+    return _wrap("".join(s), W, H)
+
+
+def sizing_b():
+    """Size scales as the buffer grows: a staircase of contracts climbing under the cushion line."""
+    W, H = 320, 120
+    s = ['<g class="da-grid"><line x1="0" y1="100" x2="320" y2="100"/></g>']
+    P = [(14, 78), (70, 72), (84, 58), (140, 52), (154, 38), (210, 32), (224, 18), (306, 12)]
+    s.append(f'<polyline class="ta-buffer" points="{_pts(P)}"/>')
+    for i in range(4):
+        x = 22 + i * 70
+        for k in range(i + 1):
+            for j in range(3):
+                s.append(f'<rect class="ta-ct" x="{x + j * 16}" y="{88 - k * 14}" width="13" height="11" rx="2.5"/>')
+        s.append(f'<text class="da-lbl code" x="{x}" y="114">{i + 1}x size</text>')
+    s.append('<text class="da-lbl live" x="306" y="28" text-anchor="end">buffer</text>')
+    return _wrap("".join(s), W, H)

@@ -1485,5 +1485,17 @@ a.ind-card:hover { box-shadow: 0 0 0 1px var(--accent-line); }
 .tool-art .ta-cushion { fill: color-mix(in srgb, var(--accent) 6%, transparent); stroke: var(--accent-line); stroke-width: 1; stroke-dasharray: 3 3; }
 .tool-art .ta-ct { fill: var(--accent); opacity: .85; stroke: none; }
 .tool-art .da-lbl.dn { fill: var(--down); opacity: .9; }
-.grid-3 > .card > .tool-art { margin: -6px -8px 14px; height: 132px; }
-.grid-3 > .card:has(> .tool-art) .tagline { position: static; align-self: flex-start; margin: 0 0 -4px; }
+.grid-3 > .card > .tool-art { margin: 6px 0 14px; height: 132px; }
+.tool-art .ta-att { stroke: none; }
+.tool-art .ta-att.up { fill: var(--live); opacity: .85; }
+.tool-art .ta-att.dn { fill: var(--down); opacity: .75; }
+.tool-art .ta-att.ti { fill: var(--dim); opacity: .55; }
+.tool-art .ta-cal { fill: color-mix(in srgb, var(--text) 6%, transparent); stroke: none; }
+.tool-art .ta-cal.win { fill: var(--live); opacity: .8; }
+.tool-art .ta-cal.loss { fill: var(--down); opacity: .45; }
+.tool-art .ta-cal.empty { fill: none; stroke: var(--line); stroke-dasharray: 2 3; }
+.tool-art .ta-cal.pay { fill: color-mix(in srgb, var(--accent) 25%, transparent); stroke: var(--accent); stroke-width: 1.4; }
+.tool-art .ta-ring { fill: none; stroke: color-mix(in srgb, var(--text) 8%, transparent); stroke-width: 7; }
+.tool-art .ta-ring.on { stroke: var(--live); stroke-linecap: round; }
+.tool-art .ta-buffer { stroke: var(--live); stroke-width: 1.6; fill: none; stroke-dasharray: 4 3; opacity: .8; }
+.tool-art .ta-step { fill: var(--accent); opacity: .5; stroke: none; }
