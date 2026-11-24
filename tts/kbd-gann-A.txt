@@ -1,0 +1,159 @@
+There is a hundred-year-old number spiral that traders still draw on gold charts every single day.
+
+It promises the price levels where the market will turn. Not roughly. To the dollar.
+
+It is called Gann's Square of Nine, and it has a huge following on trading forums and video sites.
+
+So we tested it the hard way. More than thirty-seven thousand level events on gold alone, three more markets as checks, a sealed test the rules had never seen, and fifty-six sets of fake levels, to see whether the famous levels beat chance.
+
+This is Killed by Data, a series about strategies that failed their test. And this one did not survive.
+
+The man behind it was W. D. Gann, a trader and writer from the early twentieth century.
+
+The stories about him are big. Perfect calls, impossible win streaks, a fortune made from geometry and old texts.
+
+Most of those stories come from his own books and from people selling his methods. As far as I can find, his record was never checked by anyone independent.
+
+That does not make the tool wrong. It just means the legend cannot be the proof. The data has to be.
+
+And Gann himself wrote in a way that is hard to pin down. Angles, cycles, squares, dates. Different followers read the same pages and draw very different levels. That is one reason a fair test has to fix one clear version before looking at any results.
+
+The Square of Nine is simple to picture. Write the number one in the middle of a grid.
+
+Then spiral outwards. Two, three, four, around and around, each lap a little bigger than the last.
+
+Numbers that land on the same straight line through the centre are said to be related. Followers treat them as natural turning points.
+
+To use it on a chart, you put today's price into the spiral and read off the numbers that sit on its lines.
+
+On a gold chart, that gives you a set of prices above and below the market that are supposed to matter more than any other prices nearby.
+
+In practice, nobody draws the grid by hand any more. There is a shortcut.
+
+Take the square root of the price. Add or subtract a small step, then square it again. In the common convention, adding a half is one quarter turn of the spiral.
+
+With micro gold near four thousand dollars, one quarter turn lands about sixty-four dollars away. A full turn, about two hundred and sixty.
+
+So from one opening price you get a ladder of levels, above and below, spaced evenly in this odd square-root way.
+
+The claim is that price respects these levels. It stops at them, bounces off them, or breaks through them with force.
+
+The test we ran started from real swing highs and lows, on every chart from five minutes up to daily. From each one it drew levels at a quarter turn, a half, three quarters and a full turn, both above and below.
+
+Then it traded the reaction at each level, long and short. That is a lot of levels. And that turns out to matter.
+
+Here is why Gann levels look so convincing on a chart.
+
+Draw evenly spaced lines across any market, and price will touch some of them. When it pauses near one, that touch gets circled and shared.
+
+The lines it sliced straight through are quietly forgotten.
+
+Hindsight does the rest. Every touch looks like proof, because you already know where price went next.
+
+One widely shared example shows gold falling from about four thousand two hundred and fifty to a Gann level near four thousand one hundred and twenty. It looks perfect. When we checked it, it could not have been traded without knowing what came next.
+
+I covered why a single tool can fool you this way in the Never Trust One Indicator video, so I will not repeat that here. What matters today is the fix: a control.
+
+First, a simple count, from my own illustration on last year's micro gold. It is not the formal test, and it is labelled that way on screen.
+
+Using the common textbook build, with the ladder set from each day's opening price.
+
+On about fifty-six percent of full trading days, price reached at least one Gann level. That is a little more than half the days.
+
+And that is the first point. A touch is not a rare event that needs a special explanation. It is what happens when gold's normal day covers about ninety dollars and the levels sit about sixty apart.
+
+So how do you know whether a level is special? You compare it with levels that are not special at all.
+
+The idea is called a placebo, the same way medicine tests a new pill against a sugar pill.
+
+The formal test used fifty-six placebo sets. Some were drawn at the wrong angles, some at random, some from normal daily movement, some from plain swing points. Same days, same candles, same trade rules.
+
+If the Gann levels really mean something, they should beat the random ones clearly. Not by a little. Clearly.
+
+In my own illustration on last year's gold, I made two hundred random sets, so we can see the full spread of what pure chance looks like.
+
+The trade in my illustration was the simplest one. Price touches a level for the first time that day, you bet on the bounce.
+
+The stop and the target sit the same distance away, half a level-gap, so a win and a loss are the same size. That size is one R, meaning one unit of the amount you risked.
+
+Costs are taken off every trade. About two dollars forty-five per micro contract, for commission and two ticks of slippage.
+
+The Gann levels gave two hundred and forty-two trades over the year, and lost about seven hundredths of an R per trade after costs.
+
+Now the random levels. Their middle result lost about nine hundredths of an R.
+
+Ninety percent of the random sets landed somewhere between a loss of fifteen hundredths and a loss of two hundredths. The Gann levels sat right inside that range, slightly better than the middle, nowhere near the top.
+
+An illustration on one year is just that. The real verdict comes from the formal test.
+
+First came a full year of exploration, with one thousand four hundred and eight settings tried. Even the best of them ranked no higher than the middle of the placebo sets, and they lost in six of eight walk-forward windows.
+
+Then the rules were frozen and run on four years of micro gold, from late 2021 to late 2025, data that had been kept sealed away from any tuning.
+
+Walk-forward, by the way, means tuning on one stretch of data and then trading the next stretch untouched, again and again. A rule that only shines on the stretch it was tuned on falls apart here.
+
+Micro gold was the main market. Micro S&P, micro Nasdaq and micro Dow were checks, to see whether the levels worked anywhere at all.
+
+This step is what most chart videos skip. A rule that only works on the data it was built on has not been tested. It has just been described.
+
+The result was clear.
+
+Thirty-seven thousand six hundred and forty-five level events on micro gold. They lost about seventeen hundredths of an R per event.
+
+And that is a tight number. Even the best end of the likely range was a loss of thirteen hundredths.
+
+Eleven versions were tested. After correcting for testing that many, none of them passed. Against the fifty-six placebo sets, Gann ranked below the middle.
+
+The micro S&P, Nasdaq and Dow showed no edge either.
+
+With that many events, this is not bad luck. The test had enough data to spot even a small real edge, and it found a steady loss instead.
+
+The idea was formally rejected. Verdict: killed.
+
+It helps to be precise about what this says.
+
+It does not say price never turns at a Gann level. It does, sometimes, exactly like it turns at random lines.
+
+It says the levels carry no extra information. Knowing where they sit did not help you trade any better than levels drawn with no meaning at all.
+
+And a rule with no information, once you pay to trade it, slowly drains an account, one small loss at a time.
+
+A level event here simply means price reached one of the levels and the rule had a chance to act. Results are counted in R, the amount risked on each event, so gold's price changes over four years do not distort the numbers.
+
+So what killed it? The control.
+
+The levels were not special. There were simply a lot of them.
+
+Every swing on every timeframe, four angles each, both sides. When lines sit that close, price touches them all the time, and some of those touches end in a turn by chance alone.
+
+The random lines get exactly the same touches and exactly the same bounces. Remove the special name, and the results do not change.
+
+And after that, the direction did not help either. Knowing which way to trade at the level added nothing.
+
+None of this is about mocking Gann or the people who use his work. Plenty of traders like the structure his levels give them.
+
+But structure is not an edge. A level only earns its place on your chart if it beats a level placed at random.
+
+Gann's square had a hundred years of reputation. Under a fair test, it scored no better than chance.
+
+And if a hundred years of fame can fail a fair test, so can the indicator a friend swears by, or the setup that went viral last week.
+
+So here is what you can take from this, whatever levels you use.
+
+Before you trust a level, test it against random ones. Same days, same trades, same costs.
+
+If it cannot clearly beat the random set, it is decoration. Nice to look at, but it is not doing the work.
+
+And always test on data the rule has never seen. That one step separates a strategy from a story.
+
+This is the first episode of Killed by Data. Every Wednesday, one popular strategy, one fair test, and the reason it failed.
+
+Next week, a trend setup you have almost certainly seen shared online: the Parabolic SAR with the two hundred EMA, on four years of gold.
+
+If you have a strategy you want tested, leave it in the comments. It might end up on this channel.
+
+So, does Gann's Square of Nine work on gold? Under a fair test, no better than placebo levels, and the sealed four years lost.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

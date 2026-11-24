@@ -1,0 +1,187 @@
+This is one of the most shared trend setups online. Two indicators, one rule.
+
+The dots are the Parabolic SAR. When they jump from above price to below it, the trend has turned up. The line is the two hundred period moving average.
+
+Buy when the dots flip up above the line. Sell when they flip down below it. Ride the trend until the dots flip again.
+
+We tested it on four years of gold that the rules had never seen.
+
+This is Killed by Data. And this one did not survive.
+
+It is easy to see why it spreads.
+
+It is visual. You do not need to calculate anything. The dots tell you the direction, and the line tells you which side to be on.
+
+It promises to keep you with the trend. No guessing tops or bottoms. Just follow.
+
+And it fits on one screenshot. Which is exactly the problem.
+
+In a strong trend, every flip looks like a perfect entry. The dots sit neatly under price, the line points the same way, and the trade runs.
+
+But markets do not trend all the time. In a sideways stretch, the dots flip, flip back, and flip again. Each flip is a new trade, and most of them lose a little.
+
+Screenshots show the trend. They crop out the chop.
+
+So the only honest question is what happens across all of it, the trends and the chop together.
+
+The version the desk tested was the stronger one, with the filters people add to make it better.
+
+The dots flip on a fifteen minute chart, in the direction of the two hundred average.
+
+Volume has to be above its recent normal. A measure of buying against selling pressure has to agree. And the trade has to come inside a set window of the day.
+
+Then the same idea was checked from five minute charts up to one hour, and on five markets. Micro gold first, plus silver, platinum, copper, and small cap stocks.
+
+If any version had a real edge, this was the setup most likely to find it.
+
+It helps to know how the dots behave.
+
+The SAR starts a distance away from price and creeps toward it. Every time price makes a new extreme, it creeps faster.
+
+So in a long run, the dots close in, and the stop tightens behind the move. That is the appeal.
+
+But it also means the dots are built to flip. Sooner or later, price touches them. In a quiet market, that happens fast.
+
+Before the formal test, I ran a plain version myself on last year's gold, so you can see how it behaves. This is an illustration, not the formal test, and it is labelled on screen.
+
+Over the year, the dots flipped nine hundred and ninety two times. About three times a day.
+
+About half of those flips went the same way as the two hundred average. Those are the trades. Five hundred and six of them.
+
+That is a lot of trades for a trend system. Many of them are the chop from a moment ago.
+
+The plain version won only about thirty seven percent of its trades.
+
+But the winners were bigger than the losers. About one point two times the risk on a winner, about two thirds of the risk on a loser.
+
+After costs, it came out a little positive. About two hundredths of a risk unit per trade.
+
+On a chart of last year, that looks like a trend system doing its job. And last year gold made some very big moves.
+
+So the next question is the one that matters. Was that the setup, or was it just the year?
+
+In the first episode I showed how a random control works, so I will keep this short.
+
+Here the control keeps every trade exactly where it was, the same entries and the same exits, but flips the direction of each trade at random, two hundred times.
+
+If the dots and the line really know the direction, the real rule should beat almost all of those coin flips.
+
+It did not. It landed at about the seventy sixth percentile. Better than the middle, but well inside what random direction produced.
+
+On last year's gold, the timing of the trades mattered. The direction calls did not add much.
+
+This is what the screenshots are made of. The ninth of June, half past nine in the morning.
+
+The dots flipped down, below the falling average. The short trade ran for hours, the dots trailing price lower the whole way.
+
+About seven times the risk, from one trade.
+
+A few trades like this carry the whole year. And a few trades like this are also exactly what a lucky stretch looks like.
+
+Here is the part the screenshot never shows.
+
+Over the whole year, the plain version made about eleven and a half risk units in total.
+
+The ten best trades alone made about fifty four. Ten trades out of five hundred and six.
+
+Take those ten away, and the other four hundred and ninety six trades lost money on average, about eight hundredths of a risk unit each.
+
+So the result does not come from the dots being right most of the time. It comes from a handful of long runs paying for hundreds of small losses.
+
+Miss two or three of those runs, through a late entry, a skipped day or a nervous early exit, and the whole year turns negative.
+
+Now look at the path to that small gain.
+
+At its worst, the running total sat about forty risk units below its peak. That is almost four times what the whole year made.
+
+At one point, ten trades lost in a row.
+
+And look at how the trades ended. About one in five was over within two hours, and those lost almost a full risk unit each, usually a stop or a quick flip back.
+
+The trades held six hours or more made about three quarters of a risk unit each.
+
+So the setup asks you to take the quick losses again and again, and still be there, fully sized, for the rare long run.
+
+Split the year by month and the pattern gets clearer.
+
+January and March, the two months when gold's range was widest, made about thirty risk units between them.
+
+September and October, when gold drifted in a much narrower range, gave back about twenty five.
+
+Seven months out of thirteen finished positive. Nearly half did not.
+
+Even inside one good year, the setup lived or died on how far gold travelled.
+
+Now the formal test, with all the filters on.
+
+First a full year of exploration on the five markets and every timeframe from five minutes to an hour.
+
+Then the best version was frozen and run once on four years of micro gold, from late 2021 to late 2025. Data the rules had never seen.
+
+At every step, it was compared with the same trades taken in a random direction.
+
+In the exploration year, the best picks still sat inside the random range.
+
+On micro gold, the best version beat about eighty eight percent of its random versions. Close, but not past the line. On silver, it sat right in the middle.
+
+Eighty eight percent sounds high. But about one random version in nine did better, with no idea at all about direction.
+
+Trying every timeframe did not help either. Looked at together, the scan was what you would expect from chance alone.
+
+Then the walk-forward check. Tune on one stretch, then trade the next stretch untouched.
+
+Fifteen windows. In nine of them, the untouched half either lost money or fell more than two thousand dollars from its peak.
+
+A setup with a real edge should survive most of those handoffs. This one failed most of them.
+
+Even so, the best version went into the sealed test. Thirty minute candles on micro gold, four years, run once.
+
+This is the step that separates a strategy from a story. No tuning, no second chances.
+
+The settings were frozen before the first sealed candle.
+
+Five hundred and forty three trades.
+
+Net result, a loss of about eight thousand dollars on micro gold.
+
+At its worst point, the account was about ten thousand five hundred dollars below its peak.
+
+Averaged across every trade, that is about fifteen dollars lost per trade, for four years.
+
+The idea was formally rejected. Verdict: killed.
+
+The profit factor tells the same story in one number. Zero point seven five.
+
+For every dollar the losing trades took, the winning trades brought back about seventy five cents.
+
+Not a near miss. A steady leak, trade after trade, for four years.
+
+For a strategy to be worth anything, that number needs to sit clearly above one, after every cost. Zero point seven five is a long way below.
+
+So what killed it? Two things.
+
+First, the control. The dots and the line did not call direction better than a coin flip. In the exploration tests, the picks sat inside the random range.
+
+Second, the regime. A trend system only pays when the market moves far. Last year gold climbed more than a thousand dollars into January, then fell hard in March and in June. Big moves like those made even a plain version look fine.
+
+For about the first two of the four sealed years, gold mostly moved sideways, between about sixteen hundred and twenty and about two thousand and eighty dollars. That is where the dots flip back and forth, and the small losses pile up.
+
+A setup that only works in one kind of market is not an edge. It is a bet on that market continuing.
+
+So here is what you can take from this, whatever trend setup you use.
+
+Check whether its direction calls beat random direction on the same trades. If they do not, the setup is not telling you anything.
+
+Test it across years that trend and years that do not. One strong year can make almost any trend rule look smart.
+
+And always finish with data the rule has never seen. That is where most popular setups quietly fall apart.
+
+And look at the losing stretch before you look at the gain. In last year's illustration, the deepest drop was about four times the whole year's result.
+
+Next week, the newest idea in the series. An AI forecasting model, given gold's chart. Can it call the next move?
+
+If you have a strategy you want tested, leave it in the comments.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

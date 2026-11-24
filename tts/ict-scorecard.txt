@@ -1,0 +1,175 @@
+On this channel I have already tested three famous ICT ideas, one video each. Fair value gaps, order blocks and the Silver Bullet.
+
+But ICT has many more ideas than that. Kill zones, liquidity sweeps, breaker blocks, the Judas swing, power of three, and more.
+
+Testing each one in its own video would take months. So this is the finale. Twelve ideas, one fair test, one scorecard.
+
+Every idea becomes one written rule. Every rule runs on a full year of gold and Nasdaq futures, after costs, against a random baseline.
+
+Twenty four results. Let us see how many beat chance.
+
+To compare ideas fairly, they all get the same trade.
+
+When an idea gives a signal, I enter at the next thirty minute candle. The stop and the target are both one average candle range away. If neither is hit within four hours, I close it.
+
+That way the only thing that changes from row to row is the idea itself. Not the exit, not the size, not the costs.
+
+Every result is after costs, four dollars fifty a round turn and two ticks of slippage, on one full contract.
+
+And every rule was written down before I looked at a single result.
+
+Now the important part. How do you know whether a result is good?
+
+For every idea, I also made two hundred fake versions. Same number of trades, same direction, same time of day, but the entry candles picked at random.
+
+That gives a spread of what pure luck looks like for that exact idea.
+
+To count as beating chance, a rule has to do better than ninety five percent of its random versions, and still make money after costs.
+
+One more thing to keep in mind. With twenty four tests, about one should cross that line by luck alone. So one winner on its own proves very little.
+
+First, kill zones. The idea is that the big moves start in two windows: the London open and the New York morning.
+
+My rule: mark the Asian range overnight. In the London window or the New York window, trade the first candle that closes outside it.
+
+On gold, two hundred and eighty six trades. About fifty percent won, and after costs it lost about two hundredths of a risk unit per trade.
+
+On Nasdaq, three hundred and seventy two trades, about forty eight percent wins, minus seven hundredths.
+
+Both sat in the middle of their random versions. The time of day alone did not add an edge here.
+
+Next, the Judas swing. The idea is that the New York open often makes a false move first, against the real direction of the day.
+
+My rule: if the nine thirty candle moves against the overnight direction, trade the overnight direction at ten.
+
+On gold, one hundred and twenty four trades, about forty six percent wins, minus nine hundredths after costs.
+
+On Nasdaq, it did better than ninety six percent of its random versions. But it still lost, about four hundredths per trade.
+
+Better than luck at losing is still losing. It does not pass the line.
+
+Power of three says each day has three parts. A quiet build, a fake move to grab orders, then the real move.
+
+My rule: if London takes out the Asian low and price is back above the middle of the Asian range by eight thirty, buy. And the mirror for highs.
+
+On gold, this setup appeared only twenty one times in a year. Far too few to judge.
+
+On Nasdaq, fifty one trades. Only about thirty five percent won, minus thirty one hundredths after costs.
+
+So the cleanest version of the story was either rare, or it lost.
+
+Now liquidity. The idea is that price runs above an obvious high, or below an obvious low, to trigger stops, then turns.
+
+My rule: if a candle trades past yesterday's high or low and closes back inside, fade it.
+
+On gold, two hundred and nine trades. About fifty four percent won, and after costs it made about seven hundredths of a risk unit per trade.
+
+That was better than ninety five percent of its random versions. It is the only result in this video that crossed the line.
+
+On Nasdaq, the same rule won about forty nine percent and lost about two hundredths. Middle of the random pack.
+
+Hold that thought. I will come back to it.
+
+Equal highs and lows are a special case. Two highs at almost the same price are said to hold a pool of stops above them.
+
+My rule: when price trades above two equal highs and closes back below, sell. And the mirror for lows.
+
+On gold, one hundred and fifty trades, about forty six percent wins, minus ten hundredths after costs.
+
+On Nasdaq, one hundred and fifty seven trades, minus seven hundredths.
+
+So the more specific liquidity story did worse than the simple one with yesterday's high and low.
+
+The optimal trade entry is a pullback rule. After a strong move breaks structure, wait for price to retrace into a deep zone, around sixty two to seventy nine percent of the move.
+
+My rule: after a break of two average ranges or more, enter at the first pullback to seventy point five percent, with the break.
+
+On gold, four hundred and forty two trades. About forty six percent won, minus eleven hundredths after costs. That is worse than ninety five percent of its random versions.
+
+On Nasdaq, about forty nine percent wins, minus three hundredths.
+
+A deep pullback was not a better place to join the move. On gold, it was a worse one.
+
+Two structure ideas next.
+
+A market structure shift: after a new higher high, the first close below the last swing low says the trend has turned. Sell. And the mirror.
+
+It gave the most trades in the test, about six hundred and eighty on gold. Both markets landed close to zero after costs, inside the random range.
+
+A breaker block is an order block that failed. Price closes through it, and the old zone is meant to flip. I covered order blocks in their own video, so I will not explain them again here.
+
+On gold, the breaker was flat, about zero after costs. On Nasdaq, it lost about ten hundredths, worse than most of its random versions.
+
+Premium and discount says buy cheap and sell expensive, measured against the previous day's range.
+
+My rule: at nine thirty, if price opens below yesterday's midpoint, buy. Above it, sell.
+
+On gold, two hundred and fifty six trades, about forty seven percent wins, minus ten hundredths.
+
+On Nasdaq, this was the worst row in the test. Only about thirty two percent won, and it lost about thirty eight hundredths per trade. Worse than every one of its random versions.
+
+On this year of data, Nasdaq tended to keep going the way it opened. Buying the cheap side meant standing in front of that move.
+
+The inverse fair value gap is a gap that price closes straight through. The idea is that it flips, and now pushes the other way. Fair value gaps have their own video, so I will keep this short.
+
+It was the busiest rule of all, about fourteen hundred trades on each market. On gold it lost about two hundredths per trade after costs, on Nasdaq about five. Both in the middle of the random range.
+
+Opening gaps are the small jump between the five o'clock close and the six o'clock reopen. The idea is that price comes back to fill them.
+
+On gold, ninety two trades, about forty four percent wins, minus seventeen hundredths. On Nasdaq, minus seven hundredths.
+
+Neither gap idea beat its random versions.
+
+The last idea is daily bias. Decide the direction of the day before it starts.
+
+My rule: if yesterday closed in the top half of its range, the bias is up, so buy at nine thirty. In the bottom half, sell.
+
+On gold, about fifty percent wins, minus three hundredths after costs.
+
+On Nasdaq, about forty percent wins, minus twenty one hundredths.
+
+A simple bias from yesterday's close did not tell you which way today would go.
+
+So here is the full scorecard. Twelve ideas, two markets, twenty four results.
+
+Twenty three of them did not beat chance after costs.
+
+One did. Liquidity sweeps on gold.
+
+And remember the warning from the start. With twenty four tests, about one should cross the line by luck alone.
+
+So the scorecard is almost exactly what you would expect if none of these rules had an edge at all.
+
+Does that mean the gold sweep is real? Maybe. But not yet.
+
+It passed by the smallest possible margin, right at the ninety five percent line.
+
+The same rule on Nasdaq did nothing. A real effect would usually show up on more than one market.
+
+And it is exactly the kind of result you get when you test many ideas and keep the best one.
+
+So it goes on the list for a forward test. New data, the rule frozen, no changes. Until then, it is a lead, not an edge.
+
+A few rows were not just flat. They were clearly worse than random. Premium and discount on Nasdaq, daily bias on Nasdaq, and the deep pullback on gold.
+
+It is tempting to say, then do the opposite. Please do not.
+
+Flipping a rule after you have seen the result is still a rule found after looking. It needs its own fair test on new data before it means anything.
+
+So what should you take from this?
+
+ICT gives traders a rich vocabulary for describing charts. That has real value. It helps you look at price with a plan.
+
+But a description is not an edge. Once each idea became one clear rule, almost every one of them landed where random entries landed.
+
+If you use any of these ideas, write your version down as a rule, test it on a year of your market after costs, and compare it with random entries at the same time of day.
+
+If it cannot beat that, it is a way of reading the chart, not a reason to trade.
+
+That closes the ICT Tested series. Fifteen ideas in total, and the playlist has the three full videos if you want the details.
+
+If there is an idea I missed, tell me in the comments, and I will put it through the same test.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

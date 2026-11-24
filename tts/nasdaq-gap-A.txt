@@ -1,0 +1,171 @@
+Gaps always fill. If you have traded index futures for more than a week, someone has told you that.
+
+Nasdaq closes at four in the afternoon, trades through the night, and opens the next morning somewhere else. That space between yesterday's close and today's open is the gap.
+
+The idea is that price is pulled back to close it. So some traders fade every morning gap, and wait for the fill.
+
+I counted every gap in a full year of Nasdaq futures. How often it filled, how fast, and whether trading it paid after costs.
+
+One rule, fixed before I looked. Here it is.
+
+The gap is the distance between yesterday's four o'clock close and today's nine thirty open, New York time.
+
+Anything smaller than a tenth of a percent counts as no gap at all.
+
+A gap is filled if price trades back to yesterday's close at any point during the regular session, between nine thirty and four.
+
+I split the gaps by size. Under a quarter of a percent, a quarter to a half, a half to one percent, and more than one percent.
+
+And for the trade, I faded the gap at the open, aiming for yesterday's close, with a stop the same distance on the other side.
+
+In two hundred and forty eight sessions, only twenty four opened with no real gap.
+
+The other two hundred and twenty four all opened at least a tenth of a percent away from the close.
+
+The typical gap was about six tenths of a percent. On one full Nasdaq contract, that is about three thousand three hundred dollars of distance.
+
+So almost every morning starts with a gap. If they really always fill, this would be the easiest trade in futures.
+
+Before we look at the answer, one note on what this video is not. It is not about the overnight session itself, or about stocks. It is the Nasdaq 100 futures contract, the regular session only, measured candle by candle.
+
+So, did the gap fill the same day?
+
+About forty five percent of the time. One hundred and two of the two hundred and twenty four.
+
+So more than half the gaps did not fill before the close. Gaps always fill was wrong more often than it was right, at least within the same day.
+
+That alone should change how you hear that phrase.
+
+But the overall number hides the real story. Size.
+
+Gaps under a quarter of a percent filled about seventy nine percent of the time.
+
+A quarter to a half, about sixty seven percent.
+
+A half to one percent, about thirty six.
+
+And gaps bigger than one percent filled only about fifteen percent of the time the same day.
+
+Small gaps fill most of the time. Big gaps mostly do not. The saying comes from the small ones, and people apply it to all of them.
+
+And when a gap did fill, it was usually quick.
+
+About fifty eight percent of the fills happened in the very first thirty minutes.
+
+About seventy three percent within the first hour.
+
+So if a gap had not filled by about half past ten, the chance it would fill later that day dropped a lot.
+
+I checked exactly how much. One hundred and fifty gaps were still open after the first hour. Only twenty eight of them filled later that day. About nineteen percent.
+
+So by half past ten, the question had mostly flipped. Before the open, a gap had a little under a fifty percent chance of filling. After an hour without a fill, it was closer to one in five.
+
+The first hour carried most of the answer.
+
+So where does gaps always fill come from? I checked the ones that did not fill the same day.
+
+Of those one hundred and twenty two, about fifty seven percent reached the old close within the next five sessions.
+
+Add those to the same day fills, and about seventy six percent of all gaps were filled within about a week.
+
+So the saying is closer to true over days. But a gap that fills on Thursday does nothing for a trade you opened on Monday morning with a stop.
+
+Over a week, price wanders across a lot of levels. Filling the gap is one of many things it touches.
+
+Did it matter whether Nasdaq gapped up or down?
+
+Almost not at all. Gaps up filled about forty five percent of the time. Gaps down, about forty six.
+
+There were more gaps up, one hundred and twenty eight against ninety six. But once they happened, they behaved the same.
+
+Mondays are special, because the gap covers a whole weekend of news.
+
+Forty two Monday gaps. Half of them filled the same day.
+
+A little higher than other days. But forty two is a small sample, and fifty percent is still a coin flip.
+
+Found after looking. Needs forward testing.
+
+Now the trade. At nine thirty, trade toward yesterday's close. Target the close. Stop the same distance away on the other side.
+
+Sixteen trades hit both the stop and the target inside one thirty minute candle, so I cannot tell which came first. I left those out instead of guessing.
+
+On the rest, two hundred and eight trades, the fade won fifty percent of the time.
+
+After costs, about minus two hundredths of a risk unit per trade. A coin flip, minus the fees.
+
+So a fill rate of forty five percent, with a one to one trade, gave exactly what you would expect. Nothing.
+
+That is worth saying clearly, because it surprises people. A pattern can be real, and the trade built on it can still be worthless. The fill rate tells you where price goes. It does not tell you what happens to your stop on the way.
+
+What about only the small gaps, the ones that filled eighty percent of the time?
+
+Their trades won about fifty three percent, on the trades with a clear ending. After costs, slightly positive, about five hundredths of a risk unit.
+
+But look at why it is not eighty percent. A small gap means a small target, and a small stop the same size. Nasdaq often moves that far against you in the first few minutes, before it fills.
+
+And eleven of the forty three small gap trades were too fast to read on thirty minute candles. So this group needs a closer look before anyone trusts it.
+
+Found after looking. Needs forward testing, ideally on one minute data.
+
+Now the other end. The four biggest gaps of the year.
+
+The eighth of April, up about three point four percent. The fifteenth of June, up about three point three. The twenty third of June, down about three. The thirtieth of October, down about two point six.
+
+None of them filled the same day.
+
+The eighth of April opened about eight hundred and thirty points above the previous close. Fading that, with a stop the same size, meant risking more than sixteen thousand dollars on one contract.
+
+Big gaps usually come with big news. The market is moving to a new price, not making a mistake it needs to correct.
+
+Here are two real mornings, both big gaps up.
+
+On the twenty fifth of June, Nasdaq opened about two point two percent higher. Within the first thirty minutes, it was all the way back at the previous close. A full fill, and a winning fade.
+
+On the fifteenth of June, ten days earlier, it opened about three point three percent higher. It never came close to the old close that day.
+
+Same kind of morning, same kind of gap, opposite endings. One good fill is easy to remember. The ones that never came back are easy to forget.
+
+So why is gaps always fill so popular?
+
+Partly because it is half true. Small gaps really do fill most of the time, and many gaps eventually fill within a week.
+
+And partly because a fill is easy to see on a chart afterwards. You scroll back, see an old gap that closed, and the rule feels confirmed.
+
+What you do not see on that chart is the trader who faded it with a stop, and got stopped out before the fill came.
+
+I measured that too. Of the one hundred and two gaps that did fill, fifteen first moved at least the full size of the gap the wrong way. A fade with a matching stop was already closed out, at a loss, before the fill arrived.
+
+Another ten went at least half the gap the wrong way first. So about a quarter of the fills put a fade trader through a painful move before they came good. And this count is generous, because inside the candle where the fill happened I only counted its opening price.
+
+The Nasdaq Fake Breakouts video has the same lesson from another angle. A chart looks different after the fact than it does at nine thirty.
+
+So what do you do with the morning gap?
+
+Check its size first. Under a quarter of a percent, a fill was likely. Over one percent, it was unlikely the same day.
+
+Watch the first hour. Most fills that happened came early. If it has not filled by about ten thirty, the odds drop.
+
+And never fade a big gap on the belief that it has to fill. On this data, the biggest ones almost never did.
+
+Keep your own notes. The gap size, whether it filled, how many minutes it took, and the result after costs. After fifty mornings, you will know your own market.
+
+And if you trade a prop firm account, size the stop for the gap you actually have that morning. A big gap with a matching stop can eat a daily loss limit in one trade.
+
+A few honest limits.
+
+This is one year of Nasdaq futures, using the regular session only. Overnight trading is not counted as a fill.
+
+Thirty minute candles are too slow to read the fastest fills. I left the unclear trades out instead of guessing, and said so.
+
+The size groups, the Monday result and the small gap trade were all found after looking. None of it is ready to trade until it is tested forward.
+
+And a different year, with calmer or wilder mornings, could change the exact numbers.
+
+So, does Nasdaq fill its overnight gap? The same day, a little less than half the time. Small gaps usually do. Big gaps usually do not.
+
+If you want to see why a high fill rate on small gaps still is not a guaranteed edge, the Nine Wins video explains how win rate and payoff work together.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

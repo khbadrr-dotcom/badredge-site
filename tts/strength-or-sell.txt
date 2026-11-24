@@ -1,0 +1,185 @@
+This gold chart just broke above its highest price of the last ten hours.
+
+One trader buys it. Strength tends to bring more strength, they say.
+
+Another trader sells it. Price has stretched too far, they say, and it will snap back.
+
+They cannot both be right on this candle. But over a whole year, maybe neither of them is.
+
+So I put both styles through the same year of gold, with the same entries, the same risk and the same fees. Here is how.
+
+These are two of the oldest camps in trading.
+
+Trend followers buy breakouts. They accept many small losses, waiting for the move that keeps going.
+
+Mean reversion traders do the opposite. They sell stretches, expecting price to come back toward its average.
+
+Each camp has books, courses and famous names behind it. And each one is sure the other is wrong.
+
+The fair test is to give both of them the exact same moments and see who did better.
+
+Here is the rule, fixed before I looked at any result.
+
+A breakout is a thirty minute candle that closes above the highest high, or below the lowest low, of the previous twenty candles. That is the last ten hours.
+
+If another breakout in the same direction came within four hours, I counted it once.
+
+Buy strength means entering at the next candle's open, in the direction of the breakout.
+
+Sell strength means taking the exact opposite trade, at the same price, at the same moment.
+
+Both get the same stop and the same target: one average candle range away. And both close after four hours if neither is hit.
+
+In one year of gold, this rule found four hundred and seventy eight breakouts.
+
+Two hundred and forty eight up, two hundred and thirty down.
+
+That is almost two every trading day. So this is not a rare setup. Anyone watching gold sees it all the time.
+
+The typical stop, one average candle, was about eleven hundred and fifty dollars on one contract.
+
+This is not the big candle study from the chase video. Most of these breakouts are ordinary candles that just poke past a level.
+
+Look at what this setup does. The buyer's stop is the seller's target. The buyer's target is the seller's stop.
+
+So before fees, they are mirror images. When one wins, the other loses the same amount.
+
+That means the only way for both to look good is impossible. And it means fees decide a lot.
+
+Every trade pays about twenty four dollars fifty in fees and slippage on both sides. Only one side of the mirror can win, but both of them pay.
+
+To come out ahead, a style needs a real tilt in the market. Not just luck, but enough tilt to beat the fees.
+
+One small detail. When a single candle touched both the stop and the target, I counted a loss for both. That happened twenty times.
+
+So who won the year?
+
+Buying strength won about forty seven percent of its trades. After costs, it lost about eight hundredths of a risk unit per trade. About thirty eight thousand dollars over the year on one contract.
+
+Selling strength won about forty nine percent. After costs, it lost about five hundredths of a risk unit per trade. About thirty eight and a half thousand dollars.
+
+In dollars, almost a tie. Both lost.
+
+So on this rule, in this year of gold, neither camp had the edge it claims. The breakout was close to a coin flip, and the fees took the rest.
+
+Look at the fee bill on its own.
+
+Four hundred and seventy eight trades at about twenty four dollars fifty each is about eleven thousand seven hundred dollars per side.
+
+The buyers lost about twenty six thousand before fees, so fees were close to a third of their total loss.
+
+This is the hidden part of the argument. Both camps argue about direction. But at almost two trades a day, the fee bill alone is enough to sink a small edge.
+
+If you take this kind of trade often, count your fees first, before you pick a side.
+
+Up and down breakouts were not the same.
+
+On upside breakouts, buying strength won half the time. Selling it won about forty seven percent.
+
+On downside breakouts, it flipped. Selling, which here means buying the drop back, won about fifty one percent. Following the drop won about forty four.
+
+The chase video found something similar from a different angle. Sharp drops in gold tended to bounce.
+
+Found after looking. One year is not enough to call it a rule.
+
+The biggest difference was the time of day.
+
+In the Asian session, buying strength won fifty six percent of the time, and came out slightly ahead after costs.
+
+In London, both styles lost a little. About the same.
+
+In New York, it flipped hard. Buying strength won only about thirty seven percent of the time. Selling strength won about fifty five percent and came out ahead after costs.
+
+So the same breakout rule looked like a trend market overnight, and like a snap back market during New York hours.
+
+Found after looking. It needs forward testing before anyone relies on it.
+
+Here is what that looked like on a quiet evening.
+
+On the fifth of May, at half past seven in the evening New York time, gold closed just above its ten hour high, near four thousand six hundred and five.
+
+Buying at the next open meant about four thousand six hundred and four, with a stop about eleven dollars below.
+
+An hour later, the target was hit. And price kept going, to about four thousand six hundred and forty seven by ten o'clock.
+
+Thin trading, no big news, and the breakout simply kept walking.
+
+Two days later, the New York version.
+
+At half past ten in the morning, gold closed above its ten hour high, near four thousand seven hundred and seventy three.
+
+The next candle dropped to about four thousand seven hundred and forty five. The buyer was stopped out within thirty minutes. The seller hit the target in the same candle.
+
+By one in the afternoon, gold was near four thousand six hundred and ninety seven. About seventy seven dollars below the breakout.
+
+For a reminder of how often new highs trap people on Nasdaq, the Fake Breakouts video counted that in detail. This is the gold version, and it was common in New York hours.
+
+What about calm days against wild days? I split the breakouts into thirds by how big the candles were at the time.
+
+On the calmest third, buying strength roughly broke even after costs. Selling it lost about fourteen hundredths of a risk unit per trade.
+
+In the middle third, it reversed. Selling strength did slightly better.
+
+On the wildest third, both styles lost. And the typical stop was about sixteen hundred dollars, against about nine hundred on calm days.
+
+So the popular idea that trends work best when markets are wild did not show up here. On wild days, both camps paid more and both lost.
+
+Found after looking, like every split in this video.
+
+And the winner changed from month to month.
+
+Buying strength was ahead before fees in six months, including January, the best.
+
+Selling strength was ahead in the other seven, including April, the worst month for the buyers.
+
+So if you judged the two camps on any single month, you could prove either one right.
+
+That is how both camps keep their believers. Each one has recent months to point at.
+
+Real trend followers rarely use a stop as tight as one candle. So I ran a check, after the main test, with wider brackets on the same breakouts.
+
+With the stop and target two candles away, and up to eight hours to work, buying strength lost only about twenty dollars a trade. Selling strength still lost about seventy five.
+
+With three candles and up to twelve hours, buying strength came out ahead, about two hundred and sixty dollars a trade after costs. Selling strength lost about three hundred and twenty six.
+
+So the buyers needed room. The wider the bracket, the better buying strength looked, in a year when gold made some very large moves.
+
+But the typical stop at that size was about three thousand four hundred and fifty dollars on one contract. That is a different trade, for a much bigger account.
+
+And this check came after looking at the main result. It needs forward testing before anyone relies on it.
+
+Why would the same rule behave so differently by session?
+
+One plausible reason is who is trading. Overnight, fewer traders are active, and a move can drift without much pushback.
+
+In New York hours, far more money is active. A break of a ten hour high is visible to everyone, and many are ready to sell into it.
+
+That is an explanation, not a tested fact. I did not test why. I only measured what happened.
+
+But it is a useful habit. Before you pick a camp, ask what kind of hour you are trading in.
+
+So, buy strength or sell it?
+
+On the main rule and this year of gold, neither camp won. Both lost about the same after fees. Only with much wider stops did buying strength pull ahead, and that was found after looking.
+
+If you trade breakouts, count your fees first. At two trades a day, they are a third of the story.
+
+Write down the session of every trade. In this data, the time of day changed the answer more than anything else.
+
+And log your own fifty trades with the same detail. Your own record, with your own fees, is worth more than any camp's promises.
+
+A few honest limits.
+
+This is one year of gold, on thirty minute candles, with one breakout rule and one stop and target size. The wider-stop check was run after the main test.
+
+Inside a candle, I cannot see the order of the high and the low, so when both were touched, both sides took the loss.
+
+And every split, direction, session, calm and wild, and month, was found after looking. None of it is ready to trade until it is tested forward.
+
+So, buy strength or sell it? In this year of gold, the honest answer was neither, unless you know what hour it is.
+
+If you want to see why a winning rate can hide the real cost of a style, watch the Nine Wins video next.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

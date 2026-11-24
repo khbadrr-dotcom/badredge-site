@@ -1,0 +1,187 @@
+A new kind of model now reads price charts the way chatbots read text.
+
+Feed it the last few hundred candles, and it writes the next ones.
+
+So we asked a well-known open model a simple question. Where is gold going next?
+
+The settings were frozen first. Then the answers were scored once, by an independent check.
+
+This is Killed by Data. And this one did not survive.
+
+The idea comes straight from language models.
+
+A chatbot turns words into tokens, then learns which token tends to come next.
+
+This model does the same with candles. Each candle, its open, high, low, close and volume, becomes a token.
+
+Then it learns, from a huge library of past charts, which candles tend to follow which.
+
+Ask it about the future, and it samples possible next candles, one after another, like a sentence.
+
+The model is called Kronos. It is open source, and its paper was accepted at a major research conference.
+
+It was trained on market data from more than forty five exchanges. The small version has about twenty five million settings and reads up to five hundred and twelve candles at a time.
+
+That is a lot more market history than any person will ever look at.
+
+And the pitch makes sense. If a model can learn the grammar of language, maybe it can learn the grammar of price.
+
+That is the claim we tested.
+
+We used the small version, straight out of the box, with no extra training on our gold data. That is called zero-shot.
+
+We asked it two things about micro gold. Which way the next move goes, and how big it will be.
+
+The main charts were five and fifteen minutes, with the one hour chart as a second check.
+
+If a forecast like that has real skill, it should show up as better than chance, after costs, on candles it has never seen.
+
+The rules of the test were written and frozen before any scoring.
+
+Then four runs. The main run, two more with different random seeds, because the model samples its answers and every run is a little different, and one in a rolling mode, stepping forward through time.
+
+The scoring code was pinned, so nobody could adjust it after seeing a result.
+
+And each run was scored once. No second attempts.
+
+That matters, because a model that samples answers can always be run again until one run looks good. Freezing it first takes that option away.
+
+All four runs were completed and scored.
+
+The independent check failed it. No tradable skill under the frozen test.
+
+Testing stopped there. The idea was formally rejected. Verdict: killed.
+
+The main reason it failed was direction. The model could not tell us, better than chance, which way gold would go next.
+
+To show you why that is so hard, I measured it myself on last year's gold.
+
+This is an illustration, not the formal test, and it is labelled on screen. Thirty minute gold candles, the whole of last year.
+
+Out of more than eleven thousand candles, forty nine point eight percent closed up.
+
+Almost exactly half. Before you know anything else, the next candle is a coin flip.
+
+A forecaster is only useful if it can push that number clearly away from half, again and again.
+
+Here is the most important chart in this episode.
+
+I asked one question two ways. Does the last candle tell you anything about the next one?
+
+For direction, the link was zero point zero zero five. Practically nothing. An up candle is followed by an up candle about as often as by a down one.
+
+For size, the link was zero point two eight. Big candles tend to follow big candles, and quiet ones follow quiet ones.
+
+Even a big candle did not help. After the biggest tenth of candles, more than about fifteen dollars, the next candle went the same way only about forty eight percent of the time.
+
+In short, gold remembers how hard it is moving. It does not remember which way.
+
+That is why size is the easy half.
+
+This band is the simplest size forecast there is. The average range of the last ten candles.
+
+No model, no training. And it follows the day surprisingly well. Wide when gold is busy, narrow when it is quiet.
+
+Notice what it does not do. It never says up or down. It only says how far, in either direction.
+
+That is the half of the problem the market gives away.
+
+Across the whole year, that ten candle average had a correlation of about zero point six with the real next range.
+
+It explained more than a third of how big the next candle turned out to be.
+
+So a forecast of size can look impressive almost for free. Any model that learns volatility will seem to understand the market.
+
+The hard question is the other one. Which way.
+
+So I tried the simplest direction rules on the same year.
+
+Guess the same direction as the last candle. That was right forty eight point eight percent of the time. Worse than a coin.
+
+Guess the side of the two hundred average. Fifty point four percent. Inside what pure coin flips produced.
+
+Guess the opposite of the last candle. Fifty one point two percent. Just outside the coin flip range.
+
+But I tried three rules and kept the best one, so treat that as found after looking. It needs forward testing before it means anything.
+
+Now add the cost of actually trading it.
+
+Last year, gold's average thirty minute candle moved about seven dollars thirty five an ounce, open to close.
+
+The commission and two ticks of slippage come to about a quarter of a dollar an ounce on every trade.
+
+That sounds small. But it means a candle by candle forecaster has to be right about fifty one point seven percent of the time just to break even.
+
+The best simple rule, at fifty one point two, was still under the line.
+
+You might think the answer is simply to slow down.
+
+On longer candles, each move is bigger, so the cost takes a smaller bite. On one hour candles, the break-even line drops to about fifty one point two percent. On four hour candles, about fifty point six.
+
+But the direction problem does not go away. At every length I checked, the last candle's direction told you almost nothing about the next one.
+
+And slower candles mean fewer calls. Fewer than fifteen hundred four hour candles in a whole year, so it takes far longer to tell real skill from luck.
+
+Whatever the chart, the job is the same. Beat the coin, by more than the cost, for long enough to prove it.
+
+Here is why every tenth of a percent matters.
+
+At fifty percent, a coin flip, each trade loses about twenty four dollars per full contract, just in costs. In episode two you saw what a steady leak like that does over years.
+
+At fifty two percent, each trade makes about four dollars. Barely above water.
+
+At fifty five percent, it makes about fifty.
+
+So a forecaster does not need to be brilliant. It needs to stay a few points above half, across thousands of candles it has never seen. That is exactly what the formal test asked, and the model could not do it.
+
+There is one more trap, and it explains why forecasts on social media look so good.
+
+This line is the laziest forecast possible. It says the next close will equal this close.
+
+On a chart, it hugs price beautifully. Last year its average miss was about seven dollars, less than two tenths of one percent of the price.
+
+But it never says up or down. It has zero direction skill.
+
+A forecast that stays close to the last price will always look accurate on a chart. Accuracy and direction are two different scores.
+
+So when you see an A.I. forecast line laid over a chart, ask what it called, not how close it looks.
+
+So what killed it? Direction.
+
+Size has structure. Busy markets stay busy for a while, and quiet ones stay quiet. A model can learn that.
+
+Direction is different. Every trade has a buyer and a seller, and both think they are right. Any pattern that clearly predicted the next move would be traded until it disappeared.
+
+Language does not fight back. The next word in a sentence does not change because you predicted it. A market does.
+
+There is also a simpler reason. A model trained on dozens of exchanges learns what candles usually do across all of them. But the next half hour of gold is decided by today's news, today's orders and today's crowd. A general library of past charts does not know any of that.
+
+That does not mean these models are useless. It means a candle model reading gold out of the box did not find a direction edge that survived costs.
+
+You will see more and more of these forecasts. Here is how to judge any of them.
+
+First, does it beat a coin flip on direction, over thousands of calls, not a handful of screenshots?
+
+Second, does it clear the cost line? For thirty minute gold last year, that was close to fifty two percent.
+
+And third, was it frozen and then scored once, on data it had never seen? If the answer to any of these is no, it is a demo, not an edge.
+
+Those are the same three tests this series puts every idea through. The model did not get an easier exam because it was new.
+
+To be clear about the limits.
+
+This tested one open model, used out of the box, on micro gold, under one frozen protocol.
+
+It does not cover every model, every market, or a model trained on our own data.
+
+And it says nothing about volatility forecasts used for risk, sizing or stops. That is a different question, and from what we just saw, a much easier one.
+
+But it answers the question people actually ask. Can you point one of these at gold's chart and trade what it says? On this test, no.
+
+Next week, a strategy straight from a famous research paper. It worked on paper. Four years later, it does not.
+
+If you have a strategy or a model you want tested, leave it in the comments.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

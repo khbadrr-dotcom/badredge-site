@@ -1,0 +1,177 @@
+You know the feeling. A huge gold candle rips across the chart, and every part of you wants to jump in before it is gone.
+
+It looks like the move has started. If you wait, you will miss it.
+
+So I measured it. Every big gold candle in a full year of thirty minute charts, and what happened right after.
+
+Did price keep going? Did it come back? And if you chased it at the next candle, what did that cost you after fees?
+
+The rule was fixed before I looked at a single result. Here it is.
+
+A big candle here means a thirty minute candle at least twice as long as the average of the fourteen candles before it.
+
+And it has to be a real one way candle. The body, from open to close, is at least sixty percent of the whole candle. No long wicks pretending to be moves.
+
+For comparison, I also measured ordinary strong candles, about normal size, with the same body rule.
+
+Then for each candle, three questions. Did the next candle keep going? Did price come back to the middle of the big candle within four hours? And how did a chase trade do?
+
+In one year, gold printed four hundred and twenty two of these candles.
+
+That is more than one every trading day on average. So this is not a once a month event. If you watch gold, you see one almost every day.
+
+And that is exactly why it matters. A habit you repeat four hundred times a year either builds an account or slowly drains it.
+
+Slightly more of them were down candles than up. Two hundred and twenty five against one hundred and ninety seven.
+
+First question. After a big candle closed, did the very next candle keep going in the same direction?
+
+About forty six percent of the time.
+
+For ordinary candles, about fifty percent. A coin flip.
+
+So the big candles were slightly less likely to continue right away than normal ones. The candle that looks the strongest was not followed by more strength. It was followed by a pause, or a step back.
+
+That small gap matters, because the whole idea of chasing is that strength brings more strength. On the very next candle, it did not.
+
+Second question. Did price come back to the middle of the big candle within four hours?
+
+About two times in three. Sixty seven percent.
+
+That middle point matters, because it is where many traders put their stop when they chase.
+
+So in two of every three big candles, a stop at the middle would have been touched within an afternoon.
+
+For ordinary candles the rate was even higher, about eighty three percent, because their middle sits much closer to the close. A big candle's middle is far away, and price still reached it most of the time.
+
+But did it run first? Sometimes a candle comes back only after making a big move further.
+
+The typical run beyond the close, before price came back, was about one average candle.
+
+So the big candle itself was often most of the move. After it closed, there was usually about one more normal candle of room, and then the snap back.
+
+If you entered at the next open, you were buying near the end of the stretch, not the start.
+
+The further price is pulled in one candle, the less room tends to be left in the next.
+
+Now the trade. Enter at the open of the next candle, in the direction of the big one. Stop at the middle of the big candle. Target the same distance as the stop.
+
+It won about forty nine percent of the time. After costs, about minus three hundredths of a risk unit per trade. Close to zero, but below it.
+
+Here is the part that hurts. The typical risk on one gold contract was about eleven hundred dollars.
+
+On an ordinary candle, about four hundred and ninety.
+
+So chasing a big candle did not improve your odds. It just made the same coin flip more than twice as expensive.
+
+Over four hundred and twenty two chases, that small negative number adds up. And every one of them needed a bigger account to survive the stop.
+
+Then I split the candles by size.
+
+Candles two to two and a half times the average kept going about forty nine percent of the time.
+
+Two and a half to three times, about forty four.
+
+Three times or more, about forty two.
+
+The bigger the candle, the less often the next one followed. And the biggest ones carried a typical risk of about sixteen hundred dollars a contract.
+
+On the chase trade, only the smallest group came out slightly positive after costs. The two bigger groups lost about a tenth of a risk unit per trade.
+
+Found after looking. It needs forward testing before anyone relies on it.
+
+Look at the three biggest candles of the whole year.
+
+The twenty ninth of January, the twelfth of February, and the fourth of September. All three were down candles, between about ten and twelve times the normal size.
+
+All three came back to their middle within an hour and a half.
+
+And the chase trade lost on all three.
+
+The most dramatic candles of the year were the worst ones to chase.
+
+Here is the first one, slowed down.
+
+On the twenty ninth of January, at ten in the morning New York time, gold fell from about five thousand five hundred and twenty five to about five thousand one hundred and twenty six in thirty minutes.
+
+It closed near five thousand two hundred and twenty six. The middle of that candle sat near five thousand three hundred and twenty six.
+
+A chase short at the next open, with the stop at the middle, risked almost one hundred dollars of price. On one full contract, close to ten thousand dollars.
+
+The next candle dropped to within about eight dollars of the target. Then price turned. An hour later, it hit the stop.
+
+Almost a winner, and then a loss of nearly ten thousand dollars a contract. That is the shape of a chase.
+
+And this was a real candle on a real day, not a made-up example.
+
+Up candles and down candles behaved differently.
+
+After a big up candle, the next candle kept going about fifty one percent of the time. After a big down candle, about forty two.
+
+And big down candles came back to their middle about seventy two percent of the time, against about sixty percent for up candles.
+
+So on gold this year, sharp drops were followed by bounces more often than sharp rises were followed by drops. Chasing the drops was the worst version of the trade.
+
+Found after looking. One year is not enough to call it a rule.
+
+The session made some difference.
+
+In the Asian session, big candles came back to the middle about sixty percent of the time.
+
+In London, about seventy. In New York, about seventy one.
+
+The New York candles were also the most expensive to chase, and the chase lost the most there, about seven hundredths of a risk unit per trade.
+
+Found after looking, like every split in this video.
+
+What about news? Most US economic data comes out at half past eight in the morning, New York time.
+
+There were thirty big candles that opened right at half past eight.
+
+Seventy seven percent of them came back to their middle within four hours. The highest rate in this study.
+
+The first reaction to a number is often the loudest, and often not the last word. But thirty candles is a small sample, so treat it as a lead, not a fact.
+
+The stop on those news candles was also the largest of any group, about fourteen hundred dollars a contract.
+
+So why does chasing feel so right?
+
+Because the candle is the most visible thing on the screen. Your eye goes to it, and the fear of missing out does the rest.
+
+But by the time a big candle has closed, a lot of the move is already in it. You are paying full price for what is left.
+
+The Order Blocks video showed something similar from the other side. Blocks behind the strongest moves held less often. Big moves tend to give some of it back.
+
+There is a quieter reason too. Every chase that works is memorable. The ones that came back to the middle and took the stop are easy to forget.
+
+So what do you do with a big candle?
+
+First, notice the cost. If your stop goes at the middle, check what that is in dollars before you click. On gold, it was often more than a thousand a contract.
+
+Second, remember the base rate. Two in three came back to the middle within four hours.
+
+If you have a different idea, like waiting for that return, test it the same way. I did not test that here, so I am not going to tell you it works.
+
+And log your own chases. The size of the candle, the time, whether it came back, and the result after costs. Fifty of them will tell you more than this video can.
+
+And if you do chase, size it down. A stop twice as far away means half the size for the same dollar risk.
+
+A few honest limits.
+
+This is one year of gold, on thirty minute candles, with one fixed definition of a big candle. A different size rule could change the numbers.
+
+Inside a candle, I cannot see whether the high or the low came first, so the stop always counted first.
+
+The news count only uses the half past eight time. It does not know which report came out or whether it surprised anyone.
+
+And every split, size, direction, session and news, was found after looking. None of it is ready to trade until it is tested forward.
+
+I also only looked at thirty minute candles. A five minute chart or a daily chart could tell a different story.
+
+So, should you chase the big gold candle? In this year of data, chasing was a coin flip that cost more than twice as much. And the bigger the candle, the worse it got.
+
+If you want to see why a high win rate can still hide this kind of cost, watch the Nine Wins video next.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
