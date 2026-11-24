@@ -112,3 +112,23 @@
   }, { rootMargin: '0px 0px -10% 0px' });
   io.observe(wrap);
 })();
+
+// Visitor measurement (Google Analytics 4). Analytics only: every advertising
+// signal stays denied. In the EEA, UK and Switzerland analytics storage is
+// denied too, so no cookie is set there. Browsers sending Global Privacy
+// Control or Do Not Track are not measured at all.
+(() => {
+  const ID = 'G-LJREG0D4JF';
+  if (navigator.globalPrivacyControl || navigator.doNotTrack === '1') return;
+  if (!/(^|\.)badredge\.com$/.test(location.hostname)) return;
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted' });
+  gtag('consent', 'default', { analytics_storage: 'denied', region: ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB', 'CH'] });
+  gtag('js', new Date());
+  gtag('config', ID, { allow_google_signals: false, allow_ad_personalization_signals: false });
+  const s = document.createElement('script');
+  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+  document.head.appendChild(s);
+})();
