@@ -408,6 +408,10 @@ a.card .go { }
 .foot-about { margin-top: 18px; max-width: 36ch; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .foot-mail { display: inline-block; margin-top: 16px; font: 500 13px/1 var(--mono); color: var(--accent-2) !important; }
 .foot-mail:hover { text-decoration: underline; text-underline-offset: 4px; }
+.foot-social { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.foot-social a { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line-2); border-radius: 50%; color: var(--text); transition: border-color .15s, transform .15s; }
+.foot-social a:hover { border-color: var(--text); transform: translateY(-1px); }
+.foot-social svg { width: 18px; height: 18px; fill: currentColor; }
 .foot-legal { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--dim); font-size: 12px; line-height: 1.7; display: grid; gap: 8px; max-width: 110ch; }
 .foot-legal strong { color: var(--muted); font-weight: 600; }
 .foot-bar { margin-top: 24px; padding: 20px 0 40px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 28px; font-size: 13px; color: var(--dim); }
