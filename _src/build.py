@@ -479,6 +479,39 @@ SESSIONS = [  # key, name, IANA zone, open, close (local exchange time, Mon-Fri)
 ]
 
 
+HOL_LABEL = {"early": "Early close", "closed": "Closed", "short": "Half day", "bank": "Bank holiday", "uk": "UK holiday"}
+
+
+def holiday_row(day, name, kind, tag, halts, reopen, note):
+    """A market or bank holiday in the High impact list. Halt and reopen times are Chicago (CME) time; the page shows them in the visitor's time."""
+    from zoneinfo import ZoneInfo
+    ct, utc = ZoneInfo("America/Chicago"), datetime.timezone.utc
+    d = datetime.date.fromisoformat(day)
+    iso = lambda hm: datetime.datetime.combine(d, datetime.time(*map(int, hm.split(":"))), ct).astimezone(utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    lt = lambda hm: f'<i data-t="{iso(hm)}"></i>'
+    end = datetime.datetime.combine(d + datetime.timedelta(days=1), datetime.time(0), ct).astimezone(utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    label = HOL_LABEL[kind]
+    if halts:
+        start = iso(halts[0][1])
+        if len(halts) > 1 and len({h for _, h in halts}) == 1:
+            halts = [(" and ".join(l if i == 0 else l.lower() for i, (l, _) in enumerate(halts)), halts[0][1])]
+        bits = [f'{l} {"halt " if kind == "early" and i == 0 else ""}{lt(h)}' for i, (l, h) in enumerate(halts)]
+        if reopen:
+            bits.append(f'Reopens {lt(reopen)}')
+        when = '<small class="ev-time"></small>'
+    else:
+        start = f"{day}T12:00:00Z"
+        bits = []
+        when = f'<small class="ev-time" data-fixed>{"All day" if kind != "closed" else "Closed"}</small>'
+    if note:
+        bits.append(esc(note))
+    html = (f'<div class="ev-row ev-hol k-{kind}" data-t="{start}" data-end="{end}" hidden><span class="ev-when"><b class="ev-day"></b>{when}</span>'
+            f'<span class="ev-name"><b>{esc(name)} <em class="ev-tag">{label}</em></b><small>{" · ".join(bits)}</small></span>'
+            f'<span class="ev-src">{tag}</span>'
+            f'<span class="ev-imp ev-hol-ic" aria-label="Market holiday"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="1.5" y="2.5" width="11" height="10" rx="2"/><path d="M1.5 6h11M4.5 1v3M9.5 1v3"/></svg></span></div>')
+    return start, 1, html
+
+
 def market_board():
     import json
     cal = json.load(open(os.path.join(os.path.dirname(__file__), "calendar.json")))
@@ -488,16 +521,18 @@ def market_board():
         f'<div class="fx-track"></div></div>'
         for k, n, tz, o, c in SESSIONS)
     ticks = "".join(f'<span style="left:{h / 24 * 100:.4f}%"{" class=minor" if h % 6 else ""}>{h:02d}</span>' for h in range(0, 25, 3))
-    ev = "".join(
+    rows = [(t, 0,
         f'<div class="ev-row" data-t="{t}" hidden><span class="ev-when"><b class="ev-day"></b><small class="ev-time"></small></span>'
         f'<span class="ev-name"><b>{title}</b><small>USD · {per}</small></span>'
         f'<span class="ev-src">{src}</span>'
-        f'<span class="ev-imp" aria-label="High impact"><i></i><i></i><i></i></span></div>'
-        for t, title, per, src in cal["events"])
+        f'<span class="ev-imp" aria-label="High impact"><i></i><i></i><i></i></span></div>')
+        for t, title, per, src in cal["events"]]
+    rows += [holiday_row(*h) for h in cal.get("holidays", [])]
+    ev = "".join(r for _, _, r in sorted(rows, key=lambda r: (r[0], r[1])))
     return f'''    <div class="term board reveal">
       <div class="term-bar"><div class="mb-tabs" role="tablist"><button role="tab" aria-selected="true" data-tab="mk">Sessions</button><button role="tab" aria-selected="false" data-tab="ev">High impact</button></div><span class="term-tag ss-tz">Your time</span></div>
       <div class="mb-pane" data-pane="mk"><div class="fx-head"><div class="fx-now-time"><b class="fx-clock-main">--:--</b><span class="fx-date">&nbsp;</span></div><div class="fx-status"><i></i><span>&nbsp;</span></div></div><div class="fx-body"><div class="fx-axis"><span class="fx-axis-l">Sessions</span><div class="fx-ticks">{ticks}</div></div>{ses}<div class="fx-row fx-flow-row"><div class="fx-id"><b>Overlap</b><span class="fx-clock">Sessions open</span></div><svg class="fx-flow" viewBox="0 0 960 40" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="fxg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".45"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs><path class="fx-area" d=""/><path class="fx-line" d=""/></svg></div><div class="fx-plot" aria-hidden="true"><i class="fx-now"><em>--:--</em></i></div></div><p class="ev-src-note">Forex session hours in your time zone, detected from your browser. The market trades Sunday 17:00 to Friday 17:00 New York. Holidays are not shown.</p></div>
-      <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}<p class="ev-src-note">US high-impact releases from the official BLS, BEA, Census and Fed schedules. Shown in your time.</p></div>
+      <div class="mb-pane" data-pane="ev" hidden><div class="ev-next"><span class="dot"></span><span class="ev-next-txt">Next release</span></div>{ev}<p class="ev-src-note">US high-impact releases from the official BLS, BEA, Census and Fed schedules, plus US and UK holidays with CME hours for index and gold futures. Shown in your time. Check holiday hours with your prop firm.</p></div>
     </div>
     <script>(function(){{var b=document.querySelector('.board');if(!b)return;
 b.querySelectorAll('[data-tab]').forEach(function(t){{t.onclick=function(){{b.querySelectorAll('[data-tab]').forEach(function(x){{x.setAttribute('aria-selected',x===t)}});b.querySelectorAll('[data-pane]').forEach(function(p){{p.hidden=p.dataset.pane!==t.dataset.tab}})}}}});
@@ -527,10 +562,11 @@ var nw=b.querySelector('.fx-now'),px=(n-d0)/L;nw.style.left=(px*100)+'%';nw.clas
 try{{var tzn=Intl.DateTimeFormat().resolvedOptions().timeZone;b.querySelector('.ss-tz').textContent=tzn.split('/').pop().replace(/_/g,' ')+' time'}}catch(e){{}}
 tick();setInterval(tick,30000);
 var now=Date.now(),rows=[].slice.call(b.querySelectorAll('.ev-row')),past=null,shown=0,next=null;
-rows.forEach(function(r){{var d=new Date(r.dataset.t);
+rows.forEach(function(r){{var d=new Date(r.dataset.t),hol=r.classList.contains('ev-hol'),tm=r.querySelector('.ev-time');
 r.querySelector('.ev-day').textContent=d.toLocaleDateString(undefined,{{weekday:'short',day:'numeric',month:'short'}});
-r.querySelector('.ev-time').textContent=d.toLocaleTimeString([], {{hour:'2-digit',minute:'2-digit'}});
-if(d<now){{past=r;return}}if(shown<6){{r.hidden=false;shown++;if(!next){{next=d;r.classList.add('next')}}}}}});
+if(!tm.hasAttribute('data-fixed'))tm.textContent=hm(+d);
+r.querySelectorAll('.ev-name i[data-t]').forEach(function(x){{x.textContent=hm(+new Date(x.dataset.t))}});
+if(hol?new Date(r.dataset.end)<now:d<now){{if(!hol)past=r;return}}if(shown<8){{r.hidden=false;shown++;if(!hol&&!next){{next=d;r.classList.add('next')}}}}}});
 if(past){{past.hidden=false;past.classList.add('past')}}
 if(next){{var m=Math.round((next-now)/60000),dd=Math.floor(m/1440),h=Math.floor(m%1440/60);b.querySelector('.ev-next-txt').textContent='Next release in '+(dd?dd+'d ':'')+(h?h+'h ':'')+(dd?'':(m%60)+'m')}}
 }})();</script>
@@ -1366,7 +1402,10 @@ def statics(paths):
     # Old /research/graveyard/ URLs: server-side 301s, plus stub pages in case _redirects is not applied.
     open(os.path.join(ROOT, "_redirects"), "w").write(
         "/indicators /tools/indicators/ 301\n/indicators/ /tools/indicators/ 301\n/research/graveyard /research/backtested/ 301\n/research/graveyard/ /research/backtested/ 301\n/research/graveyard/* /research/backtested/:splat 301\n/research/lessons /research/ 301\n/research/lessons/ /research/ 301\n"
-        + "".join(f"/research/backtested/{f['slug']}/ {research.family_url(f['slug'])} 301\n" for f in research.FAMILIES if not research.has_results(f["slug"])))
+        + "".join(f"/research/backtested/{f['slug']}/ {research.family_url(f['slug'])} 301\n" for f in research.FAMILIES if not research.has_results(f["slug"]))
+        # Short profile links (bio links), tagged for analytics
+        + "".join(f"/{k} /?utm_source={v}&utm_medium=social&utm_campaign=profile 302\n" for k, v in
+                  (("yt", "youtube"), ("ig", "instagram"), ("tt", "tiktok"), ("x", "x"), ("th", "threads"), ("tv", "tradingview"))))
     fam_new = lambda sl: f"/research/backtested/{sl}/" if research.has_results(sl) else research.family_url(sl)
     stubs = [("graveyard/", "/research/backtested/")] + [("graveyard/" + f["slug"] + "/", fam_new(f["slug"])) for f in research.FAMILIES]
     # Families without results moved from Backtested to Research
