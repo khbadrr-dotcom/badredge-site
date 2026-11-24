@@ -1,0 +1,185 @@
+Open almost any trading video about gold, and you will see one line drawn through the chart. Vee-wap.
+
+People say it is where the big money trades. That price respects it. That it acts like a magnet in the morning and a wall in the afternoon.
+
+It is one of the most popular indicators on YouTube. Strategy videos about it reach hundreds of thousands of views.
+
+But almost nobody shows you the count. How often does gold actually turn at vee-wap, across a whole year, every touch included?
+
+So I counted. Two hundred and fifty seven trading days of gold futures, with real volume, and one rule fixed before I looked.
+
+First, what the line actually is, in one sentence.
+
+Vee-wap is the average price of the day, where every candle counts by how much was traded in it.
+
+A busy candle with a lot of volume pulls the line hard. A quiet candle barely moves it.
+
+It starts fresh every day. For gold futures, that is six in the evening, New York time.
+
+So by the afternoon, vee-wap is roughly the average price that everyone who traded that day paid. That is why people think it matters. If price is above it, the average buyer of the day is in profit.
+
+Here is the rule, in plain words.
+
+A touch is a thirty minute candle that reaches the line after price has closed on one side of it twice in a row.
+
+A bounce means price then moves one average candle away from the line, in the direction it came from, within four hours.
+
+A cut through means a candle closes half an average candle on the other side first.
+
+I skipped the first hour of each day, because the line is too new to mean anything there.
+
+And I tested two other lines with the exact same rule, so the result has something to be compared with. I will show you those in a moment.
+
+In one year, gold touched vee-wap two thousand two hundred and seventy five times.
+
+It touched it on two hundred and fifty five of the two hundred and fifty seven days. So almost every single day.
+
+About five percent of touches did neither, no bounce and no cut within four hours. I left those out of the percentages.
+
+That leaves about two thousand one hundred and seventy touches with a clear ending. A big enough sample to trust the main number.
+
+And to keep it fair, a new touch only counted after price had closed twice on one side again. So one long chop around the line does not count as twenty touches.
+
+So, when gold touches vee-wap, does it bounce?
+
+Fifty percent of the time.
+
+Not about fifty. Fifty point zero. Half bounced, half cut through.
+
+From above, as support, about fifty one percent. From below, as resistance, about forty nine.
+
+That is the result of a door that swings both ways. On its own, a touch of vee-wap told you nothing about which way price would go next.
+
+But fifty percent on its own is not the full answer. The real question is, fifty percent compared with what?
+
+So I built a decoy. A line with no meaning at all.
+
+It is the same vee-wap, just moved one average candle up or down. No volume behind it, no big money, nothing.
+
+If vee-wap is special, price should respect it more than the decoy.
+
+Think of a medicine trial. A pill only works if it beats the sugar pill, not just if people feel a little better after taking it.
+
+Here are all three, same rule, same year.
+
+Vee-wap, fifty point zero percent bounces.
+
+The decoy line, the one that means nothing, fifty point three.
+
+And a plain twenty candle moving average, with no volume at all, forty eight point seven.
+
+All three within about two points of each other. If I mixed up the labels, you could not tell which line was which.
+
+So on gold, on this rule, vee-wap as a line to fade or to buy from was no better than a line I made up.
+
+Now the part that is more interesting.
+
+The first time each day that price touched vee-wap, it bounced about fifty eight percent of the time.
+
+Every touch after that, about forty nine.
+
+That is a gap of almost ten points, on two hundred and fifty first touches. The first ring gets answered. After that, nobody comes to the door.
+
+But two hundred and fifty is a small sample next to two thousand. A gap this size could shrink in a new year of data.
+
+On screen this is labelled. Found after looking. It needs forward testing.
+
+But before you get excited, check the decoy.
+
+Its first touch of the day bounced about fifty four percent of the time. Better than its later touches too.
+
+So part of the first touch effect is not about vee-wap at all. It may simply be about the first touch of any line, early in the day.
+
+Vee-wap still did about five points better than the decoy on first touches. The moving average did not get the lift at all, about forty nine.
+
+So if there is something special about vee-wap, it is small, and it lives in the first touch only.
+
+The second split is the direction of the line itself.
+
+When price touched vee-wap in the direction the line was already sloping, it bounced about fifty two percent of the time.
+
+Against the slope, only about thirty six. On three hundred and twenty three touches.
+
+In plain words, buying at a falling vee-wap, or selling at a rising one, mostly failed. Price cut straight through about two times in three.
+
+Found after looking. Needs forward testing.
+
+And again, check the decoy.
+
+The decoy line, with its slope, bounced about fifty six percent. Against it, about forty five.
+
+So the slope helps any line. What the slope really tells you is the trend of the day, and trading with the trend of the day is a different idea from respecting vee-wap.
+
+The one place vee-wap stood apart from the decoy was the bad side. Against its slope, vee-wap bounced even less often than the decoy did.
+
+What about the time of day?
+
+Asia, about fifty percent. London, about fifty. New York, about fifty.
+
+Almost perfectly flat.
+
+Many traders say vee-wap matters most in the New York session, when volume is highest. On gold, on this rule, New York looked exactly like the other two.
+
+Now let us trade it plainly. Enter at the line on the touch. Stop half an average candle beyond it. Target one average candle away.
+
+The target is twice the stop, so you need to win about one trade in three just to break even before costs.
+
+The trade won about thirty four percent of the time. Almost exactly the break even line.
+
+After costs, it averaged about minus five hundredths of a risk unit per trade. The decoy line, about minus eight hundredths.
+
+So vee-wap lost a little less than a line with no meaning. But it still lost. And, like the wick problem in the Order Blocks video, about one in three touches that bounced still took the stop first.
+
+Here is one more number that explains a lot.
+
+On a typical day, a thirty minute close crossed from one side of vee-wap to the other about six times.
+
+Only nine days in the whole year never crossed at all.
+
+And across the year, about fifty one percent of closes were above vee-wap, forty nine below. Price spent its day weaving through the line, not leaning on it.
+
+A line that price crosses six times a day is not acting like a wall. That is the plainest way to read this whole study.
+
+Here are two real first touches, so you can see both endings.
+
+On the evening of the seventeenth of November, gold had fallen below vee-wap. At eight o'clock New York time, it rose back up and touched the line at about three thousand eight hundred and thirty two.
+
+The very next candle pushed down a full average candle. Within four hours, price was about fifty dollars lower. A clean bounce. Twice the risk on the trade.
+
+On the evening of the eleventh of November, the same picture. Gold below vee-wap, a first touch at about three thousand nine hundred and eighty seven.
+
+This time the next candle closed about eleven dollars above vee-wap. Cut through. A full loss on the trade.
+
+And by eleven that night, price was back below vee-wap anyway. Same setup, same first touch, opposite endings. That is what fifty eight percent looks like up close.
+
+So what is vee-wap good for?
+
+As a reference, it is honest. It tells you where the average trader of the day stands, and whether price is above or below that.
+
+As a reason to enter on its own, this year of gold says no. A touch was a door that swings both ways.
+
+If you want to use it, the data points to two habits. Pay the most attention to the first touch of the day. And be very careful with touches against the slope of the line.
+
+And if you use it with other tools, test the combination yourself. The indicator video explains why stacking lines that measure the same thing does not add much.
+
+Keep a simple log. The touch, first or later, the slope, bounce or cut, and the result after costs. Fifty of your own will tell you more than any video.
+
+A few honest limits.
+
+This is one written rule. A tighter or looser bounce test could give different numbers.
+
+It is one year of gold futures on thirty minute candles. Inside a candle, I cannot see whether the high or the low came first, so the stop always counted first.
+
+Anchored vee-wap, weekly vee-wap and the bands around it are different tools. I did not test them here.
+
+And every split, first touch, slope and session, was found after looking. None of it is ready to trade until it is tested forward.
+
+So, does gold respect vee-wap? About as much as it respects a line I made up. Half the touches bounced, half cut through.
+
+The first touch of the day is the one place that stood out. And it is worth testing yourself.
+
+If you want another zone tested the same way, watch the Order Blocks video next.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
