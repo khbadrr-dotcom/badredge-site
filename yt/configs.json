@@ -416,7 +416,7 @@
   "tags": "futures contract, what is a futures contract, futures trading for beginners, micro futures, micro gold, micro nasdaq, mark to market, daily settlement, margin, futures explained, futures from zero,"
  },
  "fc-short-A": {
-  "video": "fc-short-A.mp4",
+  "video": "fc-short-A-v2.mp4",
   "fname": "fc-short-A.mp4",
   "title": "A futures contract in four parts #futures #futurestrading #shorts",
   "desc": "A futures contract is an agreement with four parts: a buyer, a seller, a fixed amount of something, and a date in the future.\n\nThe exchange writes everything else, so the only thing left to agree on is the price. That is why millions of people can trade the same contract with strangers.\n\nSource: CME Group contract specifications, read 21 Nov 2026.\n\nFutures, From Zero, lesson 1. Education only, not advice. Practise on a simulator first.\n\nFull lesson on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#futures #futurestrading #tradingforbeginners #learntotrade #daytrading #shorts",
@@ -424,7 +424,7 @@
   "tags": "futures contract, what is a futures contract, futures trading for beginners, micro futures, micro gold, micro nasdaq, mark to market, daily settlement, margin, futures explained, futures from zero,"
  },
  "fc-short-B": {
-  "video": "fc-short-B.mp4",
+  "video": "fc-short-B-v2.mp4",
   "fname": "fc-short-B.mp4",
   "title": "One micro contract, one bad day: about $5,000 #futures #gold #shorts",
   "desc": "On 30 January 2026, gold fell about $500 an ounce from open to close. On one micro contract, that was about $5,000 lost in a single day.\n\nOn 5 November, the Nasdaq fell about 2,000 points. On one micro, about $4,100.\n\nThat is the smallest contract, one of it, on one day. A loss can be bigger than the money you put down.\n\nData: CME Group futures, read 21 Nov 2026.\n\nFutures, From Zero, lesson 1. Education only, not advice. Practise on a simulator first.\n\nFull lesson on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#futures #futurestrading #riskmanagement #tradingforbeginners #gold #shorts",
@@ -432,7 +432,7 @@
   "tags": "futures contract, what is a futures contract, futures trading for beginners, micro futures, micro gold, micro nasdaq, mark to market, daily settlement, margin, futures explained, futures from zero,"
  },
  "fc-short-C": {
-  "video": "fc-short-C.mp4",
+  "video": "fc-short-C-v2.mp4",
   "fname": "fc-short-C.mp4",
   "title": "Futures pay you, or charge you, every evening #futures #shorts",
   "desc": "Futures do not settle at the end. They settle every evening.\n\nExample numbers only: buy one micro gold at $3,600. It settles at $3,612: +$120 tonight. Next day $3,595: -$170. The day after $3,608: +$130. Net +$80, exactly $8 an ounce times ten.\n\nEvery evening, the winners are paid by the losers.\n\nContract size: CME Group, read 21 Nov 2026.\n\nFutures, From Zero, lesson 1. Education only, not advice. Practise on a simulator first.\n\nFull lesson on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#futures #futurestrading #tradingforbeginners #learntotrade #gold #shorts",
@@ -483,7 +483,7 @@
   "note": "Before upload: add a line linking the fair value gap video (video 6, fvg-main) to the description, since the ending points to it."
  },
  "oi-short-A": {
-  "video": "oi-short-A.mp4",
+  "video": "oi-short-A-v2.mp4",
   "fname": "oi-short-A.mp4",
   "title": "Same indicator name. Twice the signals. #rsi #indicators #shorts",
   "desc": "Two indicators can share a name and still disagree.\n\nThe classic RSI 14 uses a special kind of smoothing. Many coders use a plain average and still call it RSI 14. On a year of gold futures, the plain version was above 70 on about 1,600 candles. The classic one, about 750.\n\nTwice the \"overbought\" warnings, same name, same setting. So when someone says the RSI is above 70, ask: whose RSI?\n\nResearch, not advice. No indicator or author is recommended or criticised.\n\nFull video on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#rsi #indicators #technicalanalysis #daytrading #tradingview #shorts",
@@ -491,7 +491,7 @@
   "tags": "trading indicators, best indicator, rsi, repainting indicator, swing high indicator, indicator settings, tradingview indicators, technical analysis, gold futures, nasdaq futures, day trading,"
  },
  "oi-short-B": {
-  "video": "oi-short-B.mp4",
+  "video": "oi-short-B-v2.mp4",
   "fname": "oi-short-B.mp4",
   "title": "This marker looks perfect. Live, it came 2.5 hours late #indicators #shorts",
   "desc": "A common swing-high marker is drawn on the top candle. But it cannot know it is the top until five more candles have closed. On 30-minute candles, that is 2.5 hours later.\n\nOn a year of gold futures, by the time each marker could appear, one micro gold had typically already fallen about $213 from the top.\n\nScroll back and it looks like it called every turn. Live, it was late every time. Watch an indicator live before you believe its history.\n\nResearch, not advice. No indicator or author is recommended or criticised.\n\nFull video on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#indicators #repainting #technicalanalysis #daytrading #tradingview #shorts",
@@ -499,7 +499,7 @@
   "tags": "trading indicators, best indicator, rsi, repainting indicator, swing high indicator, indicator settings, tradingview indicators, technical analysis, gold futures, nasdaq futures, day trading,"
  },
  "oi-short-C": {
-  "video": "oi-short-C.mp4",
+  "video": "oi-short-C-v2.mp4",
   "fname": "oi-short-C.mp4",
   "title": "Five questions before you trust any indicator #indicators #shorts",
   "desc": "Before you trust any indicator, put it through five questions.\n\n1. Does it repaint? Watch it live first.\n2. What exactly does it calculate? Closed code is someone else's math.\n3. How sensitive is it to its settings? Nudge each one.\n4. Was it tested on data it was not built on?\n5. What would you do without it? If nothing, it is making your decision.\n\nResearch, not advice. No indicator or author is recommended or criticised.\n\nFull video on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#indicators #tradingview #technicalanalysis #daytrading #tradingpsychology #shorts",
