@@ -1,0 +1,209 @@
+This backtest made about thirty one thousand dollars in a year of gold.
+
+Then I changed one thing. Every fill got one tick worse. The smallest price step gold can move.
+
+The same trades, on the same days, ended about eighty five thousand dollars down.
+
+One tick turned a nice-looking test into a heavy loss. Nothing about the entries or exits changed, only the price of getting in and out.
+
+Today I want to show you how that happens, which kinds of strategies it breaks, and the fill tricks that make backtests look better than real trading.
+
+The rule is a simple public sample, not one of my private strategies.
+
+If a thirty minute gold candle closes above the previous candle's high, buy at the next open. Sell at the close of that same candle.
+
+If it closes below the previous low, do the opposite.
+
+One full gold contract, market orders, four dollars and fifty cents commission for each round trip.
+
+It trades a lot, and every trade is short. Keep that in mind, because that is the whole story.
+
+I fixed this rule, and every other rule in this video, before running a single number.
+
+Here is one morning, the sixth of October.
+
+The rule took eight trades between half past six and ten o'clock.
+
+Some won close to nine hundred dollars, others lost about six hundred, and the last one lost about eleven hundred.
+
+On that day alone it took twenty seven trades.
+
+Each trade only lasts thirty minutes. That makes each one small, and it makes the fees add up very fast.
+
+And every one of those results is before slippage. Hold on to that.
+
+Over the full year the rule took five thousand eight hundred and forty three trades.
+
+Before any costs, it made about fifty eight thousand dollars.
+
+Commission took about twenty six thousand.
+
+That left about thirty one thousand six hundred, or about five dollars and forty cents per trade.
+
+On a chart, that line climbs. It looks like a result. But look at that per-trade number again. Five dollars and forty cents on a contract worth hundreds of thousands.
+
+That is the kind of number that hides inside a nice looking equity curve.
+
+Slippage is the difference between the price you see and the price you get.
+
+On a market order, you usually pay a little more to buy and receive a little less to sell.
+
+In gold, one tick is ten cents, which is ten dollars on one contract.
+
+Each trade has two fills, one in and one out. So one tick per fill costs twenty dollars a trade.
+
+Over eleven thousand six hundred and eighty six fills, that is about one hundred and seventeen thousand dollars.
+
+Thirty one thousand minus one hundred and seventeen thousand. The year ends about eighty five thousand dollars down.
+
+The trades did not change. Not one entry or exit moved by more than a single tick.
+
+How much slippage could this rule survive?
+
+With a quarter of a tick per fill, it still made about forty cents a trade.
+
+With half a tick, it lost about four dollars and sixty cents.
+
+The break-even point was about a quarter of a tick per fill.
+
+Real orders do not fill in quarter ticks. Either you get your price or you do not. So this rule had no room at all.
+
+If you ever see a fast rule with a tiny average per trade, run this check before anything else.
+
+So I put four public sample rules on the same ladder.
+
+Two are moving average crosses, one slow and one faster. Two are one-candle trades.
+
+The slow cross held up even at three ticks per fill. Its break-even was about forty six ticks.
+
+The faster cross could carry about eleven ticks.
+
+The one-candle rule from the start could carry about a quarter of one tick. And the other one-candle rule lost money before slippage was even added.
+
+Same market, same year, same fees. The only thing that changed was how long each trade lasted.
+
+A test that only reports the zero tick column is hiding the most important number.
+
+Here is the reason.
+
+The slow cross caught about ninety two ticks per trade before costs. The one-candle rule caught about one tick.
+
+The cost does not shrink when the trade gets shorter. Commission and slippage are about the same on a two day trade as on a thirty minute one.
+
+So a rule that holds for minutes is fighting a fixed bill with a tiny move.
+
+That is why the fastest rules are the most fragile. Not because they are wrong, but because there is almost nothing left after the bill.
+
+None of this makes the slow crosses good strategies. They are just less sensitive to this one cost.
+
+This is not only a gold problem.
+
+On Nasdaq futures, a one-candle RSI rule made about thirty six thousand dollars before slippage.
+
+With one tick per fill, about two and a half thousand. With two ticks, about thirty one thousand down.
+
+A Nasdaq tick is worth five dollars, half of gold's, so the rule lasted a little longer.
+
+But the shape is the same. A rule that trades often with tiny moves lives or dies on the fill.
+
+And the slow Nasdaq cross, like the slow gold one, could carry about forty one ticks per fill.
+
+There is a second warning in the same test.
+
+Before slippage, the rule was up in seven months out of fourteen. With one tick, five.
+
+The first half of the year made about eighty five thousand dollars. The second half lost about fifty three thousand, before slippage.
+
+Most of the gain came from January and March, when gold moved violently.
+
+So the clean line I showed you at the start was mostly two wild months, plus a fill assumption that real trading would not give.
+
+Those splits were found after looking, so treat them as warnings, not as findings.
+
+You might say: just use limit orders. A limit order never fills at a worse price.
+
+That is true. But a limit order has its own problem. It does not always fill.
+
+And the trades it misses are not random ones.
+
+So I rebuilt the same rule with a limit order at the signal close, held to the next close, with no slippage at all.
+
+The question was simple. Does avoiding slippage save the rule?
+
+If every touch of the limit counts as a fill, five thousand seven hundred and fifty two trades filled. Ninety one did not.
+
+The filled trades averaged a loss of about thirteen dollars each.
+
+The ninety one missed trades would have averaged a gain of about one thousand four hundred and seventy four dollars.
+
+That makes sense. The trades that never came back to your price were the ones that ran away in your favour.
+
+A limit order quietly keeps the losers and misses the best winners.
+
+Ninety one trades out of almost six thousand sounds tiny. In money, they decided the year.
+
+It gets worse. Price touching your limit does not mean you were filled. There may be a line of orders ahead of you at that price.
+
+The safe test is to count a fill only when price trades at least one tick through your level.
+
+With that rule, one hundred and fifty trades were missed, and they would have averaged about one thousand five hundred and sixty dollars.
+
+The filled trades now lost about thirty one dollars each, about one hundred and seventy six thousand dollars for the year.
+
+So the limit version was not a fix. It was a different way to pay.
+
+If your platform fills limit orders on a touch, its results for limit strategies are probably too kind.
+
+The last trap is the biggest. In my gold runs video, I showed how reading inside a candle fooled one of my tests.
+
+Here it is on a limit scalp: buy a pullback with a limit order, take a small target or a small stop.
+
+If the backtest lets the target count inside the same candle that filled the entry, it shows about one hundred and nine dollars per trade.
+
+But on a thirty minute candle you cannot know if price hit the target before or after your fill.
+
+Count the target only when that candle closes beyond it, and the same rule loses about one hundred and thirteen dollars per trade.
+
+No slippage was changed there. Only an assumption about the order of prices inside one candle.
+
+That is a swing of about two hundred and twenty dollars per trade, from a single line of code.
+
+And one tick per fill is often generous.
+
+At the open, during news releases, in thin overnight hours, and when a stop order fires inside a fast candle, fills can be several ticks away.
+
+I did not have real fill records for this year, so I am not putting a number on that.
+
+But a test that already breaks at one tick has no chance in those moments.
+
+That is why I treat one tick as the minimum cost, never the expected one.
+
+So this is the checklist I use now.
+
+Every test pays commission and at least one tick on every fill.
+
+I find the break-even tick. If a rule cannot survive two ticks, I do not trust it.
+
+Limit orders only fill when price trades through my level, never on a touch.
+
+When I cannot see inside a candle, I assume the order that hurts me.
+
+And I check both halves of the data, because one wild month can carry a whole year.
+
+None of these steps makes a rule better. They only stop a weak one from looking strong.
+
+The limits of this video are real.
+
+It is one year of gold and Nasdaq futures on thirty minute candles, with simulated slippage, not real fills.
+
+The sample rules are public examples chosen to show the effect. None of them is a strategy I trade or recommend.
+
+Real slippage depends on your broker, your size, the hour and the market, so your numbers will differ from mine.
+
+What should not differ is the habit. Test the costs first, and the idea second.
+
+If you want the other side of this, watch How Far Gold Runs Without a Pullback, and Nine Wins, One Loss.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
