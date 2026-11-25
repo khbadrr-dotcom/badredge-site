@@ -1,0 +1,195 @@
+By half past four on this afternoon, gold had climbed more than a hundred dollars without a real pullback.
+
+That looks stretched. Many traders would call it a top, or at least stop buying.
+
+Four hours later, it was about a hundred and sixty dollars higher still.
+
+So how far does a gold move usually run before the first real pullback? And does a move that already looks stretched stop more often?
+
+I measured every run in a year of gold to find out. No prediction. Just the sizes, the times and what happened next.
+
+First, a rule, fixed before I looked at any result.
+
+A run starts at the turning point of the move before it.
+
+It ends at the first thirty minute close that sits twenty dollars back from the best close of the run.
+
+Why twenty dollars? A normal thirty minute gold candle covered about twelve dollars this year. So twenty is more than one ordinary candle of noise, but still a small pullback.
+
+I only used closes. That matters, and I will show you why near the end.
+
+A run can last thirty minutes or two days. The rule only cares about the pullback, not the clock.
+
+From late October last year to the nineteenth of November this year, that rule found one thousand and twenty six runs.
+
+Exactly half went up and half went down. Five hundred and thirteen each.
+
+That even split is close to what you would expect. Each run ends where the next one begins.
+
+So the question is not how many runs there were. It is how long they were.
+
+The middle run was about forty four dollars and fifty cents.
+
+Half of all runs landed between about thirty dollars and about seventy one.
+
+Four hundred and thirty seven runs, the biggest group, stopped somewhere between twenty and forty dollars.
+
+At the other end, one hundred and twenty two runs went past a hundred dollars, and sixteen went past two hundred.
+
+Up runs and down runs were almost the same size. About forty six dollars up, about forty four down.
+
+So a typical gold run this year was worth about two to four normal candles, and then it paused.
+
+That is useful by itself. A hundred dollar target was asking for a move that only about one run in eight reached.
+
+Here is a quiet, ordinary day, the fifteenth of July.
+
+Price rose about forty five dollars before breakfast in New York, then gave back twenty on a close.
+
+It fell about thirty four, rose about forty one, and then started a longer slide of about eighty seven dollars into the next morning.
+
+Three runs close to the typical size, and one that kept going. That mix is what most days look like.
+
+You cannot tell which run will be the long one while it is still small.
+
+Now time. From the start of a run to the close that confirmed the pullback, the middle run took about six and a half hours.
+
+A quarter were done in three and a half hours or less.
+
+About one in ten lasted longer than sixteen and a half hours, usually right across the night.
+
+And once a run had already gone forty dollars, the confirming pullback came after about four more hours, in the middle case.
+
+So if you are holding a gold trade for a whole session, you will usually sit through at least one twenty dollar pullback.
+
+Here is the main question. Once a run has gone a certain distance, how often does it go another twenty dollars before the pullback?
+
+After twenty dollars, it did that about fifty seven percent of the time.
+
+After forty dollars, about fifty five percent. After sixty, about sixty three.
+
+After a hundred dollars, the most stretched group here, about sixty eight percent went another twenty.
+
+So the longer moves did not stop more often. If anything, the stretched ones kept going a little more.
+
+The feeling that a move has gone too far was not a reason, on its own, to expect it to end.
+
+Every one of these runs did end, of course. The question is only whether the stretch itself told you when, and here it did not.
+
+One year can fool you, so I split it.
+
+In the first half of the year, the pattern held at every step.
+
+In the second half, it held up to sixty dollars, then dipped to about forty nine percent after eighty, on only seventy eight runs.
+
+Up runs and down runs told the same story. Neither direction stopped early more often.
+
+So the honest version is this. Stretched moves were not more likely to end. Whether they were more likely to continue is less clear.
+
+Now the giants. Six of the eight biggest runs came in one week, from the twenty seventh of January to the second of February.
+
+The other two came in the second half of March.
+
+The largest moved about three hundred and sixty three dollars before a twenty dollar pullback on a close.
+
+That clustering matters. Long runs did not arrive one by one across the year. They arrived in bunches, when the whole market was moving.
+
+A rule that works in a wild week can look very different in a quiet one.
+
+Outside those two weeks, only eight runs passed two hundred dollars all year, the latest on the third of November.
+
+Here is one from March. The market opened on Sunday evening and dropped about a hundred and sixty nine dollars in two and a half hours.
+
+It bounced about sixty seven dollars. Many traders would have read that as the end.
+
+Then it fell again. By half past one in the morning, the new run was already more than a hundred dollars long.
+
+It kept going to about two hundred and eighty six dollars before a twenty dollar pullback on a close.
+
+Anyone who sold the bounce, or bought the stretch, felt that night very differently.
+
+Twenty dollars is my choice, so I checked two others.
+
+With a ten dollar pullback rule, there were about two thousand one hundred runs, and the middle one was about twenty six dollars.
+
+With a forty dollar rule, there were four hundred and sixteen runs, and the middle one was about eighty two.
+
+The size of a run depends heavily on how big a pullback you are willing to ignore.
+
+But in all three versions, the longer moves were not more likely to stop than the short ones.
+
+If stretched moves kept going, could you just follow them?
+
+I tested it. Enter in the direction of the run once it has gone a set distance. Exit at the close that confirms the twenty dollar pullback. One full gold contract, after costs.
+
+After twenty dollars, about plus forty five dollars per trade. After forty, about plus seven.
+
+After sixty, about plus one hundred and twenty eight. After eighty, about minus seventy one. After a hundred, about minus three hundred and six.
+
+Win rates sat between thirty five and thirty eight percent every time.
+
+No steady result. The sign flips from one distance to the next, which is what noise looks like.
+
+Most trades lost a little and a few won a lot, so a handful of big runs decided each number.
+
+What about the other side, betting against the stretched move?
+
+At twenty, forty and sixty dollars it lost after costs.
+
+After a hundred dollars it shows about plus two hundred and fifty seven per trade, about thirty one thousand dollars over a hundred and twenty two trades.
+
+Take away the two best trades and the total falls to about ten thousand.
+
+That is one slice, found after looking at many. It needs forward testing before it means anything.
+
+And every trade here paid about twenty four dollars and fifty cents in fees and slippage on one contract, on both sides of the test.
+
+Now the reason I used closes only.
+
+My first version read the highs and lows inside each candle. It said following the move after forty dollars made about five hundred and ninety six dollars per trade.
+
+That looked amazing, and it was wrong.
+
+Many gold candles this year were bigger than the twenty dollar rule. Inside one candle, you cannot know whether the high or the low came first, and my first version always assumed the friendlier order and a perfect exit.
+
+With closes only, the same idea made about seven dollars per trade. The measuring choice created the result.
+
+Small details like this can change a backtest completely. That is the subject of tomorrow's video.
+
+One more angle. Do longer streaks of up days in gold end more often?
+
+Over nearly eleven years of daily closes, gold rose on about fifty three percent of days.
+
+After four up days in a row, the next day rose about forty three percent of the time, but that is only eighty eight cases.
+
+After five or more, it went back above fifty five percent, on even fewer.
+
+No clean pattern. Long streaks did not reliably end, and they did not reliably continue.
+
+So how would I use this?
+
+First, as a sense of scale. On this rule, a typical gold run this year was about forty five dollars. A target far beyond that needs a move that is bigger than usual.
+
+Second, I would not sell a move just because it looks stretched. In this year, that feeling did not mark the end more often.
+
+Third, a twenty dollar pullback inside a session is normal. A stop that cannot survive one will be tested often.
+
+If a plan depends on calling the exact top of a run, this year's numbers give no help with that.
+
+This is a picture of how gold moved. It is not a signal to buy or sell.
+
+The limits are real.
+
+This is one year of one market, on thirty minute closes, with a fixed dollar rule.
+
+This year, gold traded between about three thousand six hundred and five thousand six hundred dollars this year, so twenty dollars was a bigger pullback at the low end than at the high end.
+
+And one week in January carried many of the biggest runs. A calmer year could look different.
+
+I would want the same test on another year, and on a rule that grows and shrinks with volatility, before trusting any slice here.
+
+If you want the other side of this, watch The Gold Candle You Should Not Chase, and Buy Strength or Sell It.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
