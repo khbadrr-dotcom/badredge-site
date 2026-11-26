@@ -919,5 +919,47 @@
   "thumb": "thumb-rn-main.jpg",
   "tags": "round numbers, psychological levels, support and resistance, gold futures, xauusd, gold trading, day trading, backtest, stop loss placement, gc futures, 5000 gold,",
   "pinned": "Where do you put your stop near a round number: right at it, or past the overshoot?"
+ },
+ "tw-short-A": {
+  "video": "tw-short-A.mp4",
+  "fname": "short-A-same-entry-two-stops-1080.mp4",
+  "title": "Same gold trade, two stop losses, two results #gold #trading #shorts",
+  "desc": "Two traders, the same gold trade, the same second, the same price.\n\nOne used a $10 stop. The other sized the stop to how much gold was moving that day.\n\nWithin 30 minutes, the first was out with a loss. An hour later, the second hit a target worth about $1,800.\n\nSame entry, same dollar risk. Only the stop was different.\n\nGold 30-min, 9 Feb 2026. One example, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #stoploss #riskmanagement #xauusd #futurestrading",
+  "thumb": "cov/tw-short-A.jpg"
+ },
+ "tw-short-B": {
+  "video": "tw-short-B.mp4",
+  "fname": "short-B-the-wild-day-bill-1080.mp4",
+  "title": "A $10 gold stop on wild days got hit 4 times in 5 #gold #trading #shorts",
+  "desc": "On the wildest third of gold days in one year:\n\nA fixed $10 stop lost about $431 a trade. A stop sized to volatility lost about $110.\nThe fixed trader was stopped about 80% of the time; the volatility trader about 66%.\n\nMost of those stops were not wrong ideas. They were ordinary candles.\n\nFound after looking: needs forward testing. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #stoploss #riskmanagement #volatility #futurestrading",
+  "thumb": "cov/tw-short-B.jpg"
+ },
+ "tw-short-C": {
+  "video": "tw-short-C.mp4",
+  "fname": "short-C-one-day-in-six-1080.mp4",
+  "title": "How often does your stop loss change the result? #gold #trading #shorts",
+  "desc": "Same gold entries for a year, two different stops.\n\nOn 226 of 273 days, both traders got the same outcome.\nOn 21 days the fixed stop was hit and the volatility stop reached the target. On 9 days, the other way.\n\nThe stop changed the result about 1 day in 6. But those days were large enough to decide the year.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #stoploss #riskmanagement #xauusd #tradingresearch",
+  "thumb": "cov/tw-short-C.jpg"
+ },
+ "rd-short-A": {
+  "video": "rd-short-A.mp4",
+  "fname": "short-A-wall-or-not-1080.mp4",
+  "title": "Is 5,000 a wall for gold? A year of round-number touches #gold #trading #shorts",
+  "desc": "3 Feb 2026: gold climbed back to $5,000, poked above by less than $5 and fell back, about $22 lower within an hour. Eight hours later it went straight through.\n\nOver a full year, round $100 levels did not reject more often than ordinary prices. They broke through more often: about 42% vs about 37%.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #roundnumbers #xauusd #supportandresistance #futurestrading",
+  "thumb": "cov/rd-short-A.jpg"
+ },
+ "rd-short-B": {
+  "video": "rd-short-B.mp4",
+  "fname": "short-B-67-of-98-1080.mp4",
+  "title": "Round numbers vs 98 other prices in gold #gold #trading #shorts",
+  "desc": "Same rejection test on every gold price ending, 01 to 99.\n\nRejection rates ranged from about 39% to 50%. The round number sat below the middle: 67 of the 98 other endings were rejected more often.\n\nIf round numbers were walls, they would sit near the top. They do not.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #roundnumbers #xauusd #supportandresistance #tradingresearch",
+  "thumb": "cov/rd-short-B.jpg"
+ },
+ "rd-short-C": {
+  "video": "rd-short-C.mp4",
+  "fname": "short-C-your-stop-is-in-the-way-1080.mp4",
+  "title": "Your gold stop 2 dollars past a round number #gold #trading #shorts",
+  "desc": "When gold touched a round number, how far past did it go in that candle?\n\nMiddle overshoot: about $6.30 (about $5 at other prices). Three in four round touches went less than $14 past.\n\nSo a stop just beyond a round number sits inside the normal overshoot. A stop $2 past 5,000 is likely to be in the way.\n\nPast data, not advice. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #stoploss #roundnumbers #xauusd #riskmanagement",
+  "thumb": "cov/rd-short-C.jpg"
  }
 }
