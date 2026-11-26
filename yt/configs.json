@@ -910,5 +910,14 @@
   "thumb": "thumb-ts-main.jpg",
   "tags": "stop loss, volatility stop, atr stop loss, fixed stop loss, gold futures, xauusd, gold trading, day trading, backtest, risk management, gc futures, mgc micro gold,",
   "pinned": "Do you use a fixed stop or one that changes with volatility? And have you ever tested which one costs you more?"
+ },
+ "rn-main": {
+  "video": "rn-main.mp4",
+  "fname": "do-round-numbers-trap-gold-traders-4k.mp4",
+  "title": "Gold Measured: Do Round Numbers Trap Gold Traders?",
+  "desc": "Do round numbers stop gold? I measured every touch of a $100 level in a full year of gold futures and compared it with ordinary prices that nobody watches.\n\nThe rule, fixed before the test: a touch is a 30-minute candle that trades through the level. Over the next two hours, a close $10 back is a rejection, a close $10 beyond is a break.\n579 touches of round numbers: rejected 42.3% of the time, broke 41.5%. Ordinary control prices were rejected slightly more often (44.6%) and broke less (36.6%).\nAgainst all 98 other price endings, round numbers broke more often than 83 of them. The typical candle went about $6 past the level before anything happened.\nFading every touch lost about $98 per trade after costs. Session and direction splits were found after looking and need forward testing.\n\n0:00 The question\n0:40 Three beliefs\n1:10 The rule\n1:56 The fair comparison\n2:31 The result\n3:25 How far price went past\n4:06 Every other price as a check\n4:52 Breaks instead\n5:29 The day gold sat on five thousand\n6:11 Does the session matter?\n6:47 From above and from below\n7:22 Trading the wall\n8:15 The big thousands\n8:38 Why they feel special\n9:07 How I would use it\n9:36 Limits\n10:03 The next step\n\nRelated: Same Entry, Two Stops https://youtu.be/h4HnU9KffQs\nKilled by Data: Gann https://youtu.be/2s4paejEtcM\n\nFree indicators and tools: https://badredge.com\n\nResearch on CME gold futures (GC, XAUUSD traders follow the same moves), 30-minute candles, 29 Oct 2025 to 19 Nov 2026: 579 round-number touches against control prices and all 98 other price endings, by session and direction, plus a fade test after $24.50 costs per GC trade.\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.\n\n#gold #roundnumbers #daytrading",
+  "thumb": "thumb-rn-main.jpg",
+  "tags": "round numbers, psychological levels, support and resistance, gold futures, xauusd, gold trading, day trading, backtest, stop loss placement, gc futures, 5000 gold,",
+  "pinned": "Where do you put your stop near a round number: right at it, or past the overshoot?"
  }
 }
