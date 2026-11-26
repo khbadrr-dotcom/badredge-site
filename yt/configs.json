@@ -607,5 +607,299 @@
   "title": "Killed by Data: Can AI Predict Gold? I Tested It",
   "desc": "Killed by Data, episode 3: can an AI candle model predict gold? We used the open-source Kronos-small model zero-shot on micro gold (5 and 15 minute charts, 1 hour as a check), under a pre-registered protocol with four runs scored once by an independent check. It failed: no tradable skill, mainly on direction. Plus a labelled illustration on last year's gold: why size is easy to forecast and direction is not, and the hit rate a forecaster needs to clear costs.\n\n0:00 The question\n0:27 How a candle model works\n0:56 Why it looks convincing\n1:27 What we asked it\n1:54 How the test was built\n2:28 The verdict\n2:56 A coin with candles\n3:23 Memory\n4:07 The easy half\n4:36 How good is easy?\n4:59 Simple direction rules\n5:33 The cost line\n6:04 Slower charts, lower bar\n6:48 What a sliver is worth\n7:26 Why a forecast can look accurate\n8:08 Cause of death\n9:07 Three questions for any AI forecast\n9:45 What this does and does not mean\n10:18 Close\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
   "thumb": "thumb-ai-main.jpg"
+ },
+ "ob-short-A": {
+  "video": "ob-short-A.mp4",
+  "fname": "short-A-coin-on-its-edge-1080.mp4",
+  "title": "Order blocks: how many actually hold? #orderblocks #ict #shorts",
+  "desc": "Order blocks: how many actually hold?\n\nOne fixed rule, a year of gold and Nasdaq futures. About three in four blocks were touched again. Of those, close to half held: gold about 48%, Nasdaq about 51%.\n\nNot a wall. Closer to a coin that lands on its edge and then picks a side.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#orderblocks #ict #smartmoneyconcepts #daytrading #futurestrading",
+  "thumb": "cov/ob-short-A.jpg"
+ },
+ "ob-short-B": {
+  "video": "ob-short-B.mp4",
+  "fname": "short-B-the-wick-problem-1080.mp4",
+  "title": "It held. Your stop didn't. #orderblocks #ict #shorts",
+  "desc": "It held. Your stop didn't.\n\nAbout one in five order blocks that held, on both gold and Nasdaq, still stopped the trade out first. A wick dipped below the zone, took the stop, then price ran to the target.\n\nOn the chart afterwards it looks perfect. So ask: where was the stop, and did the wick reach it?\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#orderblocks #ict #smartmoneyconcepts #daytrading #riskmanagement",
+  "thumb": "cov/ob-short-B.jpg"
+ },
+ "ob-short-C": {
+  "video": "ob-short-C.mp4",
+  "fname": "short-C-fresh-or-stale-1080.mp4",
+  "title": "The order block that waits too long #orderblocks #ict #shorts",
+  "desc": "The order block that waits too long.\n\nWhen price came back within about an hour, Nasdaq blocks held about 59% of the time. After more than three hours, about 41%. Gold showed the same shape, about 51% against 42%.\n\nFound after looking: needs forward testing. Past data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#orderblocks #ict #smartmoneyconcepts #daytrading #futurestrading",
+  "thumb": "cov/ob-short-C.jpg"
+ },
+ "vw-short-A": {
+  "video": "vw-short-A.mp4",
+  "fname": "short-A-the-decoy-line-1080.mp4",
+  "title": "I tested VWAP against a fake line #vwap #gold #shorts",
+  "desc": "I tested VWAP against a fake line.\n\nSame rule, one year of gold futures. VWAP bounced 50.0%. A decoy line with no meaning, 50.3%. A plain 20-candle average, 48.7%.\n\nMix up the labels and you could not tell which line was which.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#vwap #goldtrading #daytrading #futurestrading #technicalanalysis",
+  "thumb": "cov/vw-short-A.jpg"
+ },
+ "vw-short-B": {
+  "video": "vw-short-B.mp4",
+  "fname": "short-B-first-touch-only-1080.mp4",
+  "title": "The only VWAP touch that mattered #vwap #gold #shorts",
+  "desc": "The only VWAP touch that mattered.\n\nThe first time each day gold touched VWAP, it bounced about 58% of the time. Every touch after that, about 49%, on 250 first touches.\n\nBut part of it showed up on a fake line too, so it may just be the first touch of any line.\n\nFound after looking: needs forward testing. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#vwap #goldtrading #daytrading #futurestrading #technicalanalysis",
+  "thumb": "cov/vw-short-B.jpg"
+ },
+ "vw-short-C": {
+  "video": "vw-short-C.mp4",
+  "fname": "short-C-six-crosses-a-day-1080.mp4",
+  "title": "Gold crosses VWAP about 6 times a day #vwap #gold #shorts",
+  "desc": "Gold crosses VWAP about 6 times a day.\n\nOn a typical day, a 30-minute close crossed VWAP about six times. Only nine days in the year never crossed. About 51% of closes were above, 49% below.\n\nA line price crosses six times a day is not acting like a wall.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#vwap #goldtrading #daytrading #futurestrading #technicalanalysis",
+  "thumb": "cov/vw-short-C.jpg"
+ },
+ "nw-short-A": {
+  "video": "nw-short-A.mp4",
+  "fname": "short-A-90-percent-and-still-down-1080.mp4",
+  "title": "90% winners. Still down. #winrate #trading #shorts",
+  "desc": "90% winners. Still down.\n\nSame entry on a year of Nasdaq futures. Small profits, far stop: the win rate jumped to 89.9%. The account lost about $38,000 per contract. The plain version lost about $27,000.\n\nMore wins, more money lost. The habits did not fix the trading. They hid it.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#winrate #riskmanagement #daytrading #futurestrading #tradingpsychology",
+  "thumb": "cov/nw-short-A.jpg"
+ },
+ "nw-short-B": {
+  "video": "nw-short-B.mp4",
+  "fname": "short-B-forty-one-in-a-row-1080.mp4",
+  "title": "41 wins in a row. Then one day. #winrate #nasdaq #shorts",
+  "desc": "41 wins in a row. Then one day.\n\nOn Nasdaq, the small-profit version once won 41 trades in a row, about two months and $12,900 per contract. Then on 15 May, one loss of about $6,500.\n\nHalf of it gone in one session. Long runs of small wins, then a sharp reminder of where the risk was.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#winrate #riskmanagement #daytrading #nasdaq #tradingpsychology",
+  "thumb": "cov/nw-short-B.jpg"
+ },
+ "nw-short-C": {
+  "video": "nw-short-C.mp4",
+  "fname": "short-C-three-journal-numbers-1080.mp4",
+  "title": "Check these 3 numbers, not your win rate #winrate #trading #shorts",
+  "desc": "Check these 3 numbers, not your win rate.\n\n1. Average win against average loss.\n2. Break even win rate: average loss divided by (average win + average loss). Compare it with your real win rate.\n3. Biggest loss against average win. In this Nasdaq test it was more than 20 to 1.\n\nResearch, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#winrate #riskmanagement #tradingjournal #daytrading #tradingpsychology",
+  "thumb": "cov/nw-short-C.jpg"
+ },
+ "fp-short-A": {
+  "video": "fp-short-A.mp4",
+  "fname": "short-A-same-pass-rate-1080.mp4",
+  "title": "Bigger size didn't help them pass #propfirm #fundedtrader #shorts",
+  "desc": "Bigger size didn't help them pass.\n\nAn example trader, 20,000 simulated runs on a year of real sessions. Within 60 trading days, about 32% passed at one micro, 35% at two, 34% at three, and 30 to 33% at five, eight and ten.\n\nTrading bigger did not make passing more likely. It just changed how quickly you found out.\n\nExample numbers, not a prediction. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#propfirm #fundedtrader #futurestrading #riskmanagement #daytrading",
+  "thumb": "cov/fp-short-A.jpg"
+ },
+ "fp-short-B": {
+  "video": "fp-short-B.mp4",
+  "fname": "short-B-fast-pass-no-payout-1080.mp4",
+  "title": "Passed in 3 days. Paid? Almost never. #propfirm #fundedtrader #shorts",
+  "desc": "Passed in 3 days. Paid? Almost never.\n\nIn the simulation, passes in 1 to 3 days ran a typical 8 micros. Fewer than 2 in 100 were still alive 30 days into funding, and about 7 in 100 reached a first payout.\n\nPasses that took 10 days or more ran 2 micros. About half reached a first payout.\n\nThe fast passers had a pass to show you. The steady passers had a payout.\n\nExample numbers, not a prediction. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#propfirm #fundedtrader #futurestrading #riskmanagement #daytrading",
+  "thumb": "cov/fp-short-B.jpg"
+ },
+ "fp-short-C": {
+  "video": "fp-short-C.mp4",
+  "fname": "short-C-three-bad-days-1080.mp4",
+  "title": "The maths behind a blown funded account #propfirm #riskmanagement #shorts",
+  "desc": "The maths behind a blown funded account.\n\nAt five micros with a $150 stop per micro, one stopped day costs $750. Three of those close together and a $2,000 line is gone.\n\nAt one micro, the same three days cost $450, and the next good week can repair it.\n\nThe target is fixed. The line is fixed. Size decides how many bad days you survive.\n\nExample numbers. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#propfirm #fundedtrader #riskmanagement #futurestrading #positionsizing",
+  "thumb": "cov/fp-short-C.jpg"
+ },
+ "gann-short-A": {
+  "video": "gann-short-A.mp4",
+  "fname": "short-A-spiral-vs-random-1080.mp4",
+  "title": "Gann's Square of Nine vs random lines #gold #gann #shorts",
+  "desc": "Gann's Square of Nine vs random lines.\n\nA hundred-year-old spiral that promises the levels where gold will turn. We tested it: 37,645 level events on micro gold over four sealed years, against 56 sets of fake levels.\n\nAbout -0.17R per event. 11 versions tested, none passed after correcting for testing that many. Gann ranked below the middle of the fake levels.\n\nResearch, not a signal. Not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#gold #gann #tradingstrategy #futurestrading #backtest",
+  "thumb": "cov/gann-short-A.jpg"
+ },
+ "gann-short-B": {
+  "video": "gann-short-B.mp4",
+  "fname": "short-B-why-every-line-gets-touched-1080.mp4",
+  "title": "Why Gann levels look like they work #gold #gann #shorts",
+  "desc": "Why Gann levels look like they work.\n\nDraw evenly spaced lines across any market and price will touch some of them. The touches get circled and shared. The lines price sliced through are forgotten.\n\nOn last year's micro gold data, price reached at least one Gann level on about 56% of full trading days. Gold's typical day covers about $90, and the levels sit about $60 apart. A touch is not rare.\n\nIllustration on last year's data, not the formal test. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#gold #gann #tradingstrategy #futurestrading #technicalanalysis",
+  "thumb": "cov/gann-short-B.jpg"
+ },
+ "gann-short-C": {
+  "video": "gann-short-C.mp4",
+  "fname": "short-C-test-any-level-1080.mp4",
+  "title": "Before you trust a level, do this #trading #backtest #shorts",
+  "desc": "Before you trust a level, do this.\n\n1. Test it against random levels: same days, same trades, same costs.\n2. If it cannot clearly beat the random set, it is decoration.\n3. Always test on data the rule has never seen.\n\nThat last step separates a strategy from a story.\n\nResearch, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#trading #backtest #gold #tradingstrategy #futurestrading",
+  "thumb": "cov/gann-short-C.jpg"
+ },
+ "gc-short-A": {
+  "video": "gc-short-A.mp4",
+  "fname": "short-A-twice-the-price-1080.mp4",
+  "title": "Chasing a big gold candle costs twice as much #gold #xauusd #shorts",
+  "desc": "Chasing a big gold candle costs twice as much.\n\nA year of gold, 30-minute candles. Chase every big candle: enter at the next open, stop at the middle, same-size target.\n\nIt won about 49% of the time, about -0.03R per trade after costs. Close to zero, but below it.\n\nThe typical risk on one contract: about $1,120. On an ordinary candle: about $490. Same coin flip, more than twice the price.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#gold #xauusd #goldtrading #daytrading #riskmanagement",
+  "thumb": "cov/gc-short-A.jpg"
+ },
+ "gc-short-B": {
+  "video": "gc-short-B.mp4",
+  "fname": "short-B-almost-ten-thousand-1080.mp4",
+  "title": "One gold candle. One chase. $10K. #gold #xauusd #shorts",
+  "desc": "One gold candle. One chase. $10K.\n\n29 January, 10 AM New York: gold fell from about $5,525 to about $5,126 in 30 minutes.\n\nA chase short at the next open, stop at the middle, risked almost $100 of price: close to $10,000 on one full contract. The next candle came within about $8 of the target. Then price turned, and an hour later hit the stop.\n\nOne real day, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#gold #xauusd #goldtrading #daytrading #riskmanagement",
+  "thumb": "cov/gc-short-B.jpg"
+ },
+ "gc-short-C": {
+  "video": "gc-short-C.mp4",
+  "fname": "short-C-two-in-three-come-back-1080.mp4",
+  "title": "Big gold candle? Two in three come back #gold #xauusd #shorts",
+  "desc": "Big gold candle? Two in three come back.\n\nA year of gold, 422 big 30-minute candles. About 2 in 3 came back to their middle within four hours (66.6%).\n\nThat middle is where many traders put their stop when they chase. So in two of every three big candles, that stop would have been touched within an afternoon.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#gold #xauusd #goldtrading #daytrading #stoploss",
+  "thumb": "cov/gc-short-C.jpg"
+ },
+ "ng-short-A": {
+  "video": "ng-short-A.mp4",
+  "fname": "short-A-gaps-always-fill-1080.mp4",
+  "title": "Do Nasdaq gaps always fill? #nasdaq #daytrading #shorts",
+  "desc": "Do Nasdaq gaps always fill?\n\nA year of Nasdaq futures, 224 overnight gaps. About 45% filled the same day: 102 of 224. More than half did not.\n\nSize decided it. Gaps under a quarter of a percent filled about 79% of the time. Gaps over 1%, only about 15%.\n\nThe saying comes from the small ones.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#nasdaq #nq #daytrading #gaptrading #futurestrading",
+  "thumb": "cov/ng-short-A.jpg"
+ },
+ "ng-short-B": {
+  "video": "ng-short-B.mp4",
+  "fname": "short-B-the-first-hour-1080.mp4",
+  "title": "If the Nasdaq gap hasn't filled by 10:30... #nasdaq #daytrading #shorts",
+  "desc": "If the gap hasn't filled by 10:30...\n\nWhen a Nasdaq gap did fill, it was usually quick. About 58% of fills happened in the first 30 minutes, about 73% within the first hour.\n\nSo if a gap had not filled by about 10:30 New York time, the chance it filled later that day dropped a lot.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#nasdaq #nq #daytrading #gaptrading #futurestrading",
+  "thumb": "cov/ng-short-B.jpg"
+ },
+ "ng-short-C": {
+  "video": "ng-short-C.mp4",
+  "fname": "short-C-never-filled-1080.mp4",
+  "title": "The 4 biggest Nasdaq gaps of the year #nasdaq #daytrading #shorts",
+  "desc": "The 4 biggest Nasdaq gaps of the year.\n\n8 April, up about 3.4%. 15 June, up about 3.3%. 23 June, down about 3%. 30 October, down about 2.6%.\n\nNone of them filled the same day. Fading 8 April's 830-point gap with a same-size stop meant risking more than $16,000 on one contract.\n\nBig gaps usually come with big news.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#nasdaq #nq #daytrading #gaptrading #riskmanagement",
+  "thumb": "cov/ng-short-C.jpg"
+ },
+ "gx-short-A": {
+  "video": "gx-short-A.mp4",
+  "fname": "short-A-the-warning-that-wasnt-1080.mp4",
+  "title": "Gold new high, silver didn't confirm. Sell? #gold #silver #shorts",
+  "desc": "Gold makes a new 20-day closing high. Silver doesn't. Many traders read that as a warning.\n\nGold futures, Feb 2016 to Nov 2026, ten trading days later:\nAfter a disagreement: higher about 61% of the time\nAny day: about 56%\nAfter an agreement: about 53%\n\nThe \"warning\" came before slightly more up moves, not fewer.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #silver #xauusd #futurestrading #tradingresearch",
+  "thumb": "cov/gx-short-A.jpg"
+ },
+ "gx-short-B": {
+  "video": "gx-short-B.mp4",
+  "fname": "short-B-missed-by-34-cents-1080.mp4",
+  "title": "A gold silver divergence only 34 cents wide #gold #silver #shorts",
+  "desc": "11 Aug 2026: gold closed at a new 20-day high near $4,441. Silver closed near $64.94, about 34 cents short of its high.\n\nBy the rule, that is a divergence. Ten days later, gold was about $253 higher.\n\nA \"disagreement\" can be a few cents.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #silver #xauusd #futurestrading #tradingresearch",
+  "thumb": "cov/gx-short-B.jpg"
+ },
+ "gx-short-C": {
+  "video": "gx-short-C.mp4",
+  "fname": "short-C-two-trades-carried-it-1080.mp4",
+  "title": "Two trades made this gold short strategy #gold #trading #shorts",
+  "desc": "Short gold when silver is at least 2% below its own high, hold ten days.\n\nAverage: about $1,600 a trade per contract, after costs.\nBut it won only 45% of the time, and the typical trade lost about $65.\nTwo trades (20 Oct 2025 and 2 Mar 2026) made about $69,000.\nWithout them: about -$18,000.\n\nFound after looking: needs forward testing. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #silver #backtesting #futurestrading #tradingresearch",
+  "thumb": "cov/gx-short-C.jpg"
+ },
+ "sos-short-A": {
+  "video": "sos-short-A.mp4",
+  "fname": "short-A-both-lost-1080.mp4",
+  "title": "Gold breakout: buy it or sell it? Both lost #gold #daytrading #shorts",
+  "desc": "Buy a gold breakout, or sell it?\n\nOne year of gold futures, 478 breakouts, the same entries, stops and fees for both sides.\nBuying strength: won 47%, about -$37,900 after costs.\nSelling strength: won 49%, about -$38,500.\n\nAlmost a tie. Both lost. The fees took the rest.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #breakouttrading #daytrading #futurestrading #trendfollowing",
+  "thumb": "cov/sos-short-A.jpg"
+ },
+ "sos-short-B": {
+  "video": "sos-short-B.mp4",
+  "fname": "short-B-night-vs-new-york-1080.mp4",
+  "title": "Gold breakout: overnight vs New York hours #gold #daytrading #shorts",
+  "desc": "The same gold breakout rule, two different markets.\n\nAsian session: buying strength won 56%, slightly ahead after costs.\nNew York hours: buying strength won only 37%. Selling it won 55%, ahead after costs.\n\nFound after looking. It needs forward testing before anyone relies on it.\n\nResearch, not advice. Free tools: https://badredge.com.\n\n#goldtrading #breakouttrading #daytrading #futurestrading #tradingsessions",
+  "thumb": "cov/sos-short-B.jpg"
+ },
+ "sos-short-C": {
+  "video": "sos-short-C.mp4",
+  "fname": "short-C-the-fee-bill-1080.mp4",
+  "title": "Gold breakout trading: the fee bill came first #gold #daytrading #shorts",
+  "desc": "Before you buy or sell a gold breakout, count the fees.\n\n478 trades a year at about $24.50 each (round turn + slippage) is about $11,700 per side.\nThe buyers lost about $26,000 before fees, so fees were close to a third of their total loss.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #breakouttrading #daytrading #futurestrading #tradingcosts",
+  "thumb": "cov/sos-short-C.jpg"
+ },
+ "kp-short-A": {
+  "video": "kp-short-A.mp4",
+  "fname": "short-A-psar-ema-four-years-1080.mp4",
+  "title": "PSAR + 200 EMA tested on 4 years of gold #gold #trading #shorts",
+  "desc": "The Parabolic SAR + 200 EMA setup is everywhere. We ran it on four years of micro gold it had never seen.\n\nFormal test, stronger version with volume and order-flow filters, Oct 2021 to Oct 2025:\n543 trades\nNet: about -$8,000\nAbout -$15 per trade\n\nVerdict: killed.\n\nResearch and education only, not financial advice. Free tools: https://badredge.com.\n\n#goldtrading #parabolicsar #tradingstrategy #futurestrading #backtesting",
+  "thumb": "cov/kp-short-A.jpg"
+ },
+ "kp-short-B": {
+  "video": "kp-short-B.mp4",
+  "fname": "short-B-screenshots-crop-the-chop-1080.mp4",
+  "title": "What trend strategy screenshots hide #gold #trading #shorts",
+  "desc": "Every trend strategy looks perfect in a screenshot.\n\nIn a strong trend, every flip of the dots looks like a clean entry. In a sideways stretch, they flip, flip back and flip again, and most of those trades lose a little.\n\nScreenshots show the trend. They crop out the chop.\n\nGold 30-minute chart, March 2026. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #trendtrading #tradingstrategy #parabolicsar #daytrading",
+  "thumb": "cov/kp-short-B.jpg"
+ },
+ "kp-short-C": {
+  "video": "kp-short-C.mp4",
+  "fname": "short-C-75-cents-on-the-dollar-1080.mp4",
+  "title": "What a 0.75 profit factor really means #trading #gold #shorts",
+  "desc": "Profit factor 0.75, after four sealed years of micro gold.\n\nFor every $1 the losing trades took, the winners brought back about 75 cents. Not a near miss. A steady leak, trade after trade.\n\nA strategy's profit factor has to sit clearly above 1 to be worth anything.\n\nFormal test, PSAR + 200 EMA on micro gold, Oct 2021 to Oct 2025. Research, not advice. Free tools: https://badredge.com.\n\n#profitfactor #goldtrading #tradingstrategy #backtesting #futurestrading",
+  "thumb": "cov/kp-short-C.jpg"
+ },
+ "gr-short-A": {
+  "video": "gr-short-A.mp4",
+  "fname": "short-A-stretched-not-finished-1080.mp4",
+  "title": "A $100 gold rally: top, or not yet? #gold #daytrading #shorts",
+  "desc": "Gold was up more than $100 without a real pullback. Most traders would call it a top.\n\nFour hours later it was about $160 higher.\n\nAcross a year of gold runs (a run ends at a $20 pullback on 30-min closes), runs that had already gone $100 went another $20 about 68% of the time. The stretched ones did not stop more often.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #goldrally #daytrading #futurestrading #technicalanalysis",
+  "thumb": "cov/gr-short-A.jpg"
+ },
+ "gr-short-B": {
+  "video": "gr-short-B.mp4",
+  "fname": "short-B-typical-gold-run-1080.mp4",
+  "title": "How far does a gold run go before a pullback? #gold #daytrading #shorts",
+  "desc": "How far does a gold move run before the first real pullback?\n\n1,026 runs in a year of gold futures (a run ends at a $20 pullback on 30-min closes):\nMiddle run: about $44.50.\nHalf landed between about $30 and $71.\n122 went past $100, 16 past $200.\n\nA $100 target asked for a move only about one run in eight reached.\n\nPast data, not a signal. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #xauusd #daytrading #futurestrading #technicalanalysis",
+  "thumb": "cov/gr-short-B.jpg"
+ },
+ "gr-short-C": {
+  "video": "gr-short-C.mp4",
+  "fname": "short-C-backtest-looked-amazing-1080.mp4",
+  "title": "My gold backtest looked amazing. One detail broke it #backtesting #gold #shorts",
+  "desc": "My first gold backtest said about +$596 per trade.\n\nIt read the highs and lows inside each 30-min candle. Many gold candles were bigger than my $20 rule, so it could not know whether the high or the low came first, and it assumed the friendlier order and a perfect exit.\n\nWith closes only, the same idea made about $7 per trade after costs.\n\nResearch, not advice. Free tools: https://badredge.com.\n\n#backtesting #goldtrading #tradingstrategy #futurestrading #quanttrading",
+  "thumb": "cov/gr-short-C.jpg"
+ },
+ "ot-short-A": {
+  "video": "ot-short-A.mp4",
+  "fname": "short-A-one-tick-1080.mp4",
+  "title": "One tick of slippage broke this backtest #backtesting #trading #shorts",
+  "desc": "One tick of slippage. That is all I changed.\n\nA simple one-candle gold rule, 5,843 trades in a year: about +$31,600 after commission.\nOne tick per fill = $10 in, $10 out = $20 a trade. Over 11,686 fills, about $117,000.\nSame trades, same days: about -$85,000.\n\nA public sample rule, not a strategy I trade. Research, not advice. Free tools: https://badredge.com.\n\n#backtesting #slippage #tradingstrategy #futurestrading #daytrading",
+  "thumb": "cov/ot-short-A.jpg"
+ },
+ "ot-short-B": {
+  "video": "ot-short-B.mp4",
+  "fname": "short-B-limit-orders-keep-the-losers-1080.mp4",
+  "title": "Limit orders fix slippage? Not in this test #trading #backtesting #shorts",
+  "desc": "Limit orders never fill at a worse price. But they do not always fill.\n\nSame gold rule, limit order at the signal close, no slippage:\nFilled trades: about -$13 each.\nThe 91 missed trades would have averaged about +$1,474.\n\nThe ones that never came back to your price ran away in your favour.\n\nResearch, not advice. Free tools: https://badredge.com.\n\n#limitorders #backtesting #tradingstrategy #futurestrading #daytrading",
+  "thumb": "cov/ot-short-B.jpg"
+ },
+ "ot-short-C": {
+  "video": "ot-short-C.mp4",
+  "fname": "short-C-two-months-carried-it-1080.mp4",
+  "title": "Check which months carried your backtest #backtesting #trading #shorts",
+  "desc": "Before you trust a backtest equity curve, check which months carried it.\n\nSame gold rule, before slippage: up in 7 of 14 months (5 with one tick).\nFirst half of the year: about +$85,000. Second half: about -$53,000.\nMost of the gain came from January and March.\n\nFound after looking, so treat it as a warning, not a finding. Research, not advice. Free tools: https://badredge.com.\n\n#backtesting #tradingstrategy #equitycurve #futurestrading #daytrading",
+  "thumb": "cov/ot-short-C.jpg"
+ },
+ "ics-short-A": {
+  "video": "ics-short-A.mp4",
+  "fname": "short-A-12-ideas-one-test-1080.mp4",
+  "title": "I tested 12 ICT ideas. Here's the scorecard #ict #smartmoney #shorts",
+  "desc": "I tested 12 ICT ideas. Here's the scorecard.\n\n12 ideas, 2 markets (gold and Nasdaq futures), 24 results, each against 200 random versions.\n\n23 did not beat chance after costs. One did: liquidity sweeps on gold. That is almost exactly what you would expect if none of these rules had an edge.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#ict #smartmoney #daytrading #gold #nasdaq",
+  "thumb": "cov/ics-short-A.jpg"
+ },
+ "ics-short-B": {
+  "video": "ics-short-B.mp4",
+  "fname": "short-B-the-one-that-passed-1080.mp4",
+  "title": "Only one ICT idea beat chance #ict #gold #shorts",
+  "desc": "Only one ICT idea beat chance.\n\nThe rule: if a candle trades past yesterday's high or low and closes back inside, fade it. On gold, 209 trades, about 54% won, about +0.07R per trade after costs. Better than 95% of its random versions.\n\nBut it passed by the smallest possible margin, and the same rule on Nasdaq did nothing. It goes to a forward test. A lead, not an edge.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#ict #smartmoney #gold #liquidity #daytrading",
+  "thumb": "cov/ics-short-B.jpg"
+ },
+ "ics-short-C": {
+  "video": "ics-short-C.mp4",
+  "fname": "short-C-dont-flip-it-1080.mp4",
+  "title": "This ICT rule was worse than random #ict #nasdaq #shorts",
+  "desc": "This ICT rule was worse than random.\n\nThe rule: at 9:30, if price opens below yesterday's midpoint, buy. Above it, sell. On Nasdaq it was the worst row in the test: only about 32% won, about -0.38R per trade. Worse than every one of its random versions.\n\nTempted to do the opposite? Please do not. A flipped rule is still a rule found after looking. It needs its own fair test on new data.\n\nPast data, not a signal. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#ict #smartmoney #nasdaq #daytrading #backtest",
+  "thumb": "cov/ics-short-C.jpg"
+ },
+ "ai-short-A": {
+  "video": "ai-short-A.mp4",
+  "fname": "short-A-size-not-direction-1080.mp4",
+  "title": "Can you predict gold's next candle? Size yes, direction no #gold #trading #shorts",
+  "desc": "Does the last gold candle tell you where the next one goes?\n\nA year of 30-minute gold candles:\nDirection link from one candle to the next: 0.005. Practically nothing.\nSize link: 0.28. Big candles follow big candles.\n\nGold remembers how hard it is moving, not which way. That is why forecasting direction is so hard.\n\nIllustration on last year's gold data, not the formal test. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #aitrading #xauusd #daytrading #futurestrading",
+  "thumb": "cov/ai-short-A.jpg"
+ },
+ "ai-short-B": {
+  "video": "ai-short-B.mp4",
+  "fname": "short-B-the-cost-line-1080.mp4",
+  "title": "Right 51% of the time on gold and still losing #gold #trading #shorts",
+  "desc": "How often does a gold forecast need to be right just to break even?\n\nAverage 30-min gold candle: about $7.35 an ounce, open to close.\nCommission + 2 ticks: about $0.25 an ounce per trade.\nBreak-even: right about 51.7% of the time.\n\nThe best simple rule, 51.2%, was still under the line.\n\nIllustration on last year's gold data, not the formal test. Research, not advice. Free tools: https://badredge.com.\n\n#goldtrading #tradingcosts #xauusd #daytrading #futurestrading",
+  "thumb": "cov/ai-short-B.jpg"
+ },
+ "ai-short-C": {
+  "video": "ai-short-C.mp4",
+  "fname": "short-C-why-forecasts-look-accurate-1080.mp4",
+  "title": "Why AI gold forecasts look so accurate #gold #ai #shorts",
+  "desc": "Why do AI gold forecasts on social media look so good?\n\nThe laziest forecast possible: next close = this close.\nOn a chart it hugs price beautifully. Its average miss last year: about $7, under 0.2% of the price.\nBut it never says up or down.\n\nAccuracy and direction are two different scores. Ask what a forecast called, not how close it looks.\n\nIllustration on last year's gold data, not the formal test. Research, not advice. Free tools: https://badredge.com.\n\n#aitrading #goldtrading #xauusd #tradingtips #futurestrading",
+  "thumb": "cov/ai-short-C.jpg"
  }
 }
