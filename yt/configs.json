@@ -537,5 +537,75 @@
   "desc": "How fast should you pass a prop firm evaluation? I ran an example trader through a year of real Nasdaq and gold sessions, 20,000 times at every size from 1 to 10 micros.\n\nPass rates barely moved with size: about 30 to 35% at every size. Bigger size only changed how quickly you found out.\nPasses in 1 to 3 days (typical size 8 micros): fewer than 2 in 100 still alive 30 days into funding, about 7 in 100 reached a first payout.\nPasses that took 10 days or more (typical size 2 micros): almost half still alive, about half reached a first payout.\nAt 5 micros, three stopped days cost $2,250, past a $2,000 line. At 1 micro, $450.\n\n0:00 The question\n0:41 The rules in this test\n1:27 What three days takes\n2:03 How often a day is big enough\n2:33 The example trader\n3:14 Who passes\n3:52 How fast\n4:25 After the pass\n5:07 Fast against steady\n5:52 Is it speed or size?\n6:32 The consistency rule\n7:14 Why size breaks the account\n7:52 Where the money is\n8:16 What a steady pass looks like\n8:52 How I would use it\n9:36 Limits\n10:20 The next step\n\nFree indicators and tools: https://badredge.com\n\nA year of real CME Nasdaq (NQ) and gold (GC) New York sessions, 21 Nov 2025 to 19 Nov 2026, and an example trader (an assumption: right 52% of days, $150 stop per micro) run 20,000 times at each size from 1 to 10 micros, under common rule types: $3,000 target, $2,000 end-of-day trailing line, payout and consistency rules. Simulated results are example numbers, not a prediction. No firm named.\nResearch and education only. Not financial advice.\n\n#propfirm #fundedtrader #riskmanagement",
   "thumb": "thumb-fp-main.jpg",
   "tags": "prop firm, funded trader, prop firm challenge, pass prop firm, evaluation, position sizing, risk management, futures trading, nasdaq futures, trailing drawdown"
+ },
+ "gann-main": {
+  "video": "gann-main.mp4",
+  "fname": "i-tested-ganns-square-of-nine-on-gold.mp4",
+  "title": "Killed by Data: Gann's Square of Nine on Gold",
+  "desc": "Killed by Data, episode 1: Gann's Square of Nine on gold. A formal test against 56 placebo level sets on micro gold, with micro S&P, Nasdaq and Dow as checks, and a sealed 2021-2025 test: 37,645 level events, no better than placebo, about -0.17R per event. Includes an illustration on last year's micro gold (labelled).\n\n0:00 The spiral\n0:43 The legend\n1:31 What the square is\n2:06 Turning price into levels\n2:38 The claim\n3:09 Why it looks right\n3:57 How often price touches\n4:32 The random control\n5:13 Side by side\n6:08 The sealed test\n7:09 The verdict\n7:55 Reading the number\n8:38 Cause of death\n9:13 Legend against record\n9:43 The lesson\n10:08 The series\n10:32 Close\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-gann-main.jpg"
+ },
+ "gc-main": {
+  "video": "gc-main.mp4",
+  "fname": "the-gold-candle-you-should-not-chase.mp4",
+  "title": "Gold Measured: The Gold Candle You Should Not Chase",
+  "desc": "Should you chase a big gold candle? Every big 30-minute candle in CME gold futures (GC, XAUUSD traders follow the same moves), 21 Nov 2025 to 19 Nov 2026: 422 candles at least twice the normal size, what came next, and a chase trade after $4.50 round turn + 2 ticks per contract. Splits are exploratory and need forward testing.\n\n0:00 The question\n0:32 The rule\n1:08 How many\n1:37 Did it keep going?\n2:12 Did it come back?\n2:46 How far it ran first\n3:19 The chase trade\n4:06 Bigger was worse\n4:44 The three biggest\n5:09 One real candle\n6:02 Up and down candles\n6:36 Time of day\n7:00 News candles\n7:33 Why it feels right\n8:11 How I would use it\n8:59 Limits\n9:41 The next step\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-gc-main.jpg"
+ },
+ "ng-main": {
+  "video": "ng-main.mp4",
+  "fname": "does-nasdaq-fill-its-overnight-gap.mp4",
+  "title": "Nasdaq Measured: Does Nasdaq Fill Its Overnight Gap?",
+  "desc": "Do Nasdaq gaps fill? Every overnight gap in CME Nasdaq 100 futures (NQ), 21 Nov 2025 to 19 Nov 2026: 224 gaps, how often and how fast they filled by size, and a gap fade trade after $4.50 round turn + 2 ticks per contract. Splits are exploratory and need forward testing.\n\n0:00 The question\n0:38 The rule\n1:14 How many gaps\n1:58 Did it fill?\n2:19 Size changes everything\n2:50 How fast\n3:35 The week view\n4:12 Up or down\n4:30 Monday gaps\n4:49 The fade trade\n5:41 The small gap trap\n6:24 The biggest gaps\n7:03 Two real mornings\n7:37 Why traders believe it\n8:42 How I would use it\n9:30 Limits\n10:01 The next step\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-ng-main.jpg"
+ },
+ "gx-main": {
+  "video": "gx-main.mp4",
+  "fname": "when-gold-and-silver-disagree.mp4",
+  "title": "Gold Measured: When Gold and Silver Disagree",
+  "desc": "When gold makes a new high and silver does not, is it a warning? Every gold-silver disagreement in COMEX gold and silver futures (GC and SI, XAUUSD and XAGUSD traders follow the same moves), daily closes from early 2016 to November 2026: 80 disagreements, 83 agreements, gold 10 trading days later, and a fade trade after $4.50 round turn + 2 ticks per contract. Splits are exploratory and need forward testing.\n\n0:00 The question\n0:34 Where the idea comes from\n1:01 The rule\n1:40 How often\n2:11 Ten days later\n2:43 Five days and twenty days\n3:27 The fade trade\n4:06 Year by year\n4:47 When the warning worked\n5:19 When it did not\n5:54 Just the last year\n6:32 Only the clear ones\n7:25 The other side\n7:54 Does the window matter?\n8:23 Why it feels convincing\n9:05 How I would use it\n9:46 Limits\n10:16 The next step\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-gx-main.jpg"
+ },
+ "sos-main": {
+  "video": "sos-main.mp4",
+  "fname": "buy-strength-or-sell-it.mp4",
+  "title": "Gold Measured: Buy Strength or Sell It?",
+  "desc": "Should you buy a gold breakout or sell it? Every breakout of the prior 10-hour high or low in CME gold futures (GC, XAUUSD traders follow the same moves), 30-minute candles, 21 Nov 2025 to 19 Nov 2026: 478 breakouts, trend following against mean reversion with the same entries, matched stops and targets, after $4.50 round turn + 2 ticks per contract. Splits are exploratory and need forward testing.\n\n0:00 The question\n0:31 Two old camps\n0:59 The rule\n1:38 How often\n2:07 A mirror\n2:55 Who won the year\n3:32 The fee bill\n4:04 Up and down\n4:35 Time of day\n5:11 A quiet evening\n5:44 The New York version\n6:24 Calm days and wild days\n7:07 Month by month\n7:32 Wider brackets\n8:29 Why by session\n9:02 Buy strength or sell it\n9:39 Limits\n10:08 The next step\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-sos-main.jpg"
+ },
+ "kp-main": {
+  "video": "kp-main.mp4",
+  "fname": "the-psar-200-ema-strategy-tested-on-four-years-of-gold.mp4",
+  "title": "Killed by Data: The PSAR + 200 EMA Strategy, Tested on Four Years of Gold",
+  "desc": "Killed by Data, episode 2: the Parabolic SAR + 200 EMA strategy. A formal test with volume and order-flow filters on five markets and five to sixty minute charts, against a random-direction control, then a sealed four-year test on micro gold (Oct 2021 to Oct 2025): 543 trades, profit factor 0.75, net about -$8,012. Includes a labelled illustration on last year's gold.\n\n0:00 The setup everyone shares\n0:35 Why people love it\n0:57 Why it looks right\n1:28 The rules\n2:04 How the dots move\n2:30 How often it flips\n3:01 The illustration result\n3:34 The random direction control\n4:12 One real winner\n4:38 Where the money came from\n5:18 What it feels like to hold\n5:57 Month by month\n6:25 The formal test\n6:52 The exploration year\n7:22 Walk-forward\n7:43 Into the sealed years\n8:01 The verdict\n8:26 Reading the number\n8:54 Cause of death\n9:45 The lesson\n10:21 The series\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-kp-main.jpg"
+ },
+ "gr-main": {
+  "video": "gr-main.mp4",
+  "fname": "how-far-gold-runs-without-a-pullback.mp4",
+  "title": "Gold Measured: How Far Gold Runs Without a Pullback",
+  "desc": "How far does gold run before a real pullback? Every run in CME gold futures (GC, XAUUSD traders follow the same moves), 30-minute closes, 29 Oct 2025 to 19 Nov 2026: 1,026 runs measured to the first $20 pullback on a close, how long they lasted, and whether stretched moves stop more often. Trade checks after $4.50 round turn + 2 ticks per contract. Splits are exploratory and need forward testing.\n\n0:00 The question\n0:36 What counts as a run\n1:14 How many runs\n1:40 The typical run\n2:25 An ordinary day\n2:57 How long a run lasts\n3:30 Does stretched mean finished?\n4:17 Does it hold up?\n4:47 The biggest runs\n5:26 The night it kept going\n5:59 Other pullback sizes\n6:27 Following the move\n7:17 Betting against it\n7:53 My first count was wrong\n8:37 Daily streaks\n9:09 How I would use it\n9:51 Limits\n10:24 The next step\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-gr-main.jpg"
+ },
+ "ot-main": {
+  "video": "ot-main.mp4",
+  "fname": "one-tick-broke-my-backtest.mp4",
+  "title": "Risk and Research: One Tick Broke My Backtest",
+  "desc": "What does one tick of slippage do to a backtest? Public sample rules on CME gold (GC, XAUUSD traders follow the same moves) and Nasdaq futures (NQ), 30-minute candles, 29 Oct 2025 to 19 Nov 2026: a 5,843-trade rule goes from about +$31,600 to about -$85,300 with one tick per fill, a slippage ladder across four rules, limit-order missed fills, and the inside-the-candle trap. Commission $4.50 round turn. Sample rules only, not strategies to trade.\n\n0:00 The question\n0:37 The rule\n1:12 One morning of it\n1:42 The first result\n2:17 One tick per fill\n3:00 How thin the edge was\n3:30 The slippage ladder\n4:12 Why speed matters\n4:49 Nasdaq too\n5:23 Even before slippage\n5:59 Why not use limit orders?\n6:25 The trades you do not get\n7:01 Touch is not a fill\n7:40 Inside the candle\n8:29 Where one tick is too kind\n8:58 How I test now\n9:33 Limits\n10:04 The next step\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-ot-main.jpg"
+ },
+ "ics-main": {
+  "video": "ics-main.mp4",
+  "fname": "ict-tested-the-full-scorecard.mp4",
+  "title": "ICT Tested: The Full Scorecard",
+  "desc": "ICT Tested: The Full Scorecard. Twelve ICT ideas (kill zones, liquidity sweeps, breaker blocks, optimal trade entry, premium/discount, market structure shift, Judas swing, power of three, equal highs and lows, inverse FVG, opening gaps, daily bias), each as one fixed rule on CME gold and Nasdaq 100 futures, 21 Nov 2025 to 19 Nov 2026, after $4.50 round turn + 2 ticks per contract, against 200 random baselines each. 1 of 24 results beat chance, about what luck alone predicts.\n\n0:00 The question\n0:43 One trade for every idea\n1:18 The line to beat\n1:55 Kill zones\n2:34 The Judas swing\n3:10 Power of three\n3:46 Liquidity sweeps\n4:27 Equal highs and lows\n5:00 Optimal trade entry\n5:42 Structure shifts and breakers\n6:24 Premium and discount\n7:05 Inverse gaps and opening gaps\n7:50 Daily bias\n8:21 The scorecard\n8:50 The one that crossed\n9:24 Worse than random\n9:50 What to take from it\n10:27 Close\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-ics-main.jpg"
+ },
+ "ai-main": {
+  "video": "ai-main.mp4",
+  "fname": "can-ai-predict-gold-i-tested-it.mp4",
+  "title": "Killed by Data: Can AI Predict Gold? I Tested It",
+  "desc": "Killed by Data, episode 3: can an AI candle model predict gold? We used the open-source Kronos-small model zero-shot on micro gold (5 and 15 minute charts, 1 hour as a check), under a pre-registered protocol with four runs scored once by an independent check. It failed: no tradable skill, mainly on direction. Plus a labelled illustration on last year's gold: why size is easy to forecast and direction is not, and the hit rate a forecaster needs to clear costs.\n\n0:00 The question\n0:27 How a candle model works\n0:56 Why it looks convincing\n1:27 What we asked it\n1:54 How the test was built\n2:28 The verdict\n2:56 A coin with candles\n3:23 Memory\n4:07 The easy half\n4:36 How good is easy?\n4:59 Simple direction rules\n5:33 The cost line\n6:04 Slower charts, lower bar\n6:48 What a sliver is worth\n7:26 Why a forecast can look accurate\n8:08 Cause of death\n9:07 Three questions for any AI forecast\n9:45 What this does and does not mean\n10:18 Close\n\nFree indicators and tools: https://badredge.com\n\nHow this was made: my own research and data, narrated in my own cloned voice. The method and sample size are shown in the video.\nResearch and education only. Not financial advice.",
+  "thumb": "thumb-ai-main.jpg"
  }
 }
