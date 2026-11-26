@@ -178,8 +178,8 @@
  "nc-short-B": {
   "video": "nc-short-B.mp4",
   "fname": "nc-short-B.mp4",
-  "title": "The trading knowledge is already public #trading #tradingbooks #shorts",
-  "desc": "Here's the part nobody selling a course will say: the knowledge is already public.\n\nBest Loser Wins. Trading in the Zone. Market Wizards. A few dollars each, or a library card. Add thousands of hours of free material and the exchanges' own education pages.\n\nWhat's scarce isn't information. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#trading #tradingbooks #daytrading #futurestrading #tradingeducation",
+  "title": "Everything a trading course sells is already free #trading #tradingbooks #shorts",
+  "desc": "Everything a trading course sells is already free.\n\nBest Loser Wins. Trading in the Zone. Market Wizards. A few dollars each, or a library card. Add thousands of hours of free material and the exchanges' own education pages.\n\nWhat's scarce isn't information. Research, not advice.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#trading #tradingbooks #daytrading #futurestrading #tradingeducation",
   "thumb": "cover-nc-B.png",
   "tags": "trading course, trading education, day trading, futures trading, trading books, best loser wins, trading in the zone, market wizards, backtesting, free trading tools,"
  },
@@ -194,7 +194,7 @@
  "tour-main": {
   "video": "tour-4k.mp4",
   "fname": "website-tour-4k.mp4",
-  "title": "The One Tab I Keep Open All Day",
+  "title": "The Free Trading Dashboard I Keep Open All Day",
   "desc": "Before I place a trade, I check five things. They used to be in five places, so I built one page that holds all of them. It is free, there is no sign up, and nothing you type into it leaves your browser.\n\n0:00 The tab\n0:19 The day\n0:32 The news\n0:49 The size\n1:01 The odds\n1:24 The research\n1:48 Open it\n\nFree tools at https://badredge.com: session clock, high impact board, contract sizing, pass and payout simulators, Strategy Lab, and one trading lesson a day.\n\nThe simulators show a range of possible paths from your own inputs; they do not predict anything. Strategy Lab results are a hypothetical backtest on the year the strategies were built on, after costs, labelled exploratory: every strategy still needs forward testing.\n\nWhich tool is missing? Tell me in the comments.\nResearch and education only. Not financial advice.\n\n#daytrading #futurestrading #tradingtools",
   "thumb": "thumb-tour.jpg",
   "tags": "trading tools, free trading tools, session clock, economic calendar, position sizing, contract sizing, prop firm simulator, day trading, futures trading, trading dashboard,"
@@ -210,8 +210,8 @@
  "tour-short-B": {
   "video": "tour-short-B.mp4",
   "fname": "tour-short-B.mp4",
-  "title": "Your win rate, thousands of possible paths #propfirm #fundedtrader #shorts",
-  "desc": "If you trade prop accounts, there are two more tools.\n\nThe pass simulator takes your own win rate and reward to risk, runs thousands of possible paths, and shows how often they reach the target before the limit. The payout simulator does the same for a funded account.\n\nNeither one predicts anything. They show you the range, so the bad weeks aren't a surprise.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#propfirm #fundedtrader #futurestrading #riskmanagement #daytrading",
+  "title": "Same win rate. Thousands of different years #propfirm #fundedtrader #shorts",
+  "desc": "Same win rate. Thousands of different years.\n\nThe pass simulator takes your own win rate and reward to risk, runs thousands of possible paths, and shows how often they reach the target before the limit. The payout simulator does the same for a funded account.\n\nNeither one predicts anything. They show you the range, so the bad weeks aren't a surprise.\n\nFull video on YouTube. Free tools: https://badredge.com.\n\n#propfirm #fundedtrader #futurestrading #riskmanagement #daytrading",
   "thumb": "cover-tab-B.png",
   "tags": "trading tools, free trading tools, session clock, economic calendar, position sizing, contract sizing, prop firm simulator, day trading, futures trading, trading dashboard,"
  },
@@ -467,8 +467,8 @@
  "td-short-C": {
   "video": "td-short-C.mp4",
   "fname": "td-short-C.mp4",
-  "title": "The one line in the rules that changes everything #propfirm #shorts",
-  "desc": "One detail in many rule pages changes everything: the lock.\n\nOn many accounts, the trailing line stops rising once it reaches the starting balance. On a $50,000 account with a $2,000 line, that is once your peak reaches about $52,000. After that, the trailing line becomes a static line.\n\nThe real goal is not to make money as fast as possible. It is to reach the lock without the line catching you first.\n\nRule types only. Read your own account's rule page. Research, not advice.\n\nFull video on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#propfirm #trailingdrawdown #futurestrading #fundedtrader #riskmanagement #shorts",
+  "title": "The lock: when the drawdown line stops following you #propfirm #shorts",
+  "desc": "The lock: when the drawdown line stops following you.\n\nOn many accounts, the trailing line stops rising once it reaches the starting balance. On a $50,000 account with a $2,000 line, that is once your peak reaches about $52,000. After that, the trailing line becomes a static line.\n\nThe real goal is not to make money as fast as possible. It is to reach the lock without the line catching you first.\n\nRule types only. Read your own account's rule page. Research, not advice.\n\nFull video on YouTube. Free toolkit & indicators: https://badredge.com.\n\n#propfirm #trailingdrawdown #futurestrading #fundedtrader #riskmanagement #shorts",
   "thumb": "covers/td-C.png",
   "tags": "trailing drawdown, prop firm rules, intraday trailing drawdown, end of day drawdown, static drawdown, funded account, futures trading, prop firm files, drawdown lock, risk management,"
  },
