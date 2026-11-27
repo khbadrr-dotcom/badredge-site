@@ -26,7 +26,7 @@ BRAND = f'<a class="brand" href="/" aria-label="Badr Edge home">{MARK}<span clas
 
 # Payout figure on /about/. Off until the lawyer call clears dollar figures on the site.
 SHOW_PAYOUT_FIGURE = False
-PAYOUT_FIGURE = "$250,000+"
+PAYOUT_FIGURE = "$300,000+"
 PAYOUT_PROOF_URL = ""  # link to the payout records page or PDF, once it exists
 
 NAV = [("/research/backtested/", "Strategy Lab"), ("/research/", "Research"), ("/pine/", '<svg class="nav-lock" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5.2a3 3 0 0 1 6 0V7"/><rect x="3.2" y="7" width="9.6" height="7" rx="1.6"/></svg>Pine Scripts<small class="nav-soon">Opening soon</small>')]
@@ -1256,7 +1256,7 @@ def about():
   <h2>The record</h2>
   <p>No P&amp;L screenshots here. The process has been checked by the people with the most reason to doubt it: the firms that pay out on it.</p>
   <div class="record">
-    <div class="record-cell record-hero"><span class="record-k">Documented prop-firm payouts</span><b>$250K+</b><span>Paid out by four firms since 2025, passing $250,000 in November 2026. Firm-issued certificates are on file.</span></div>
+    <div class="record-cell record-hero"><span class="record-k">Documented prop-firm payouts</span><b>$300K+</b><span>Paid out by four firms since 2025, passing $300,000 in November 2026. Firm-issued certificates are on file.</span></div>
     <div class="record-cell"><span class="record-k">Live-funded</span><b>4 firms</b><span>Promoted from evaluation to live funded accounts at four prop firms.</span></div>
     <div class="record-cell"><span class="record-k">Live-capital program</span><b>Selected</b><span>Chosen by a prop firm for its live-capital trading program in 2026.</span></div>
     <div class="record-cell"><span class="record-k">Payouts received</span><b>4 firms</b><span>Paid out by four different prop firms since 2025.</span></div>
@@ -1295,7 +1295,7 @@ def about():
   <p class="note">Past payouts and trading results do not predict future results. Badr Edge does not manage money, offer signals or give investment advice. See the <a href="/legal/disclaimer/">disclaimer</a>.</p>
 </article>
 """
-    return page("/about/", "Who is behind Badr Edge", "Who is behind Badr Edge: the independent futures research desk behind Badr Edge, built on more than three years of live trading and $250K+ in documented prop-firm payouts.", "/about/", body)
+    return page("/about/", "Who is behind Badr Edge", "Who is behind Badr Edge: the independent futures research desk behind Badr Edge, built on more than three years of live trading and $300K+ in prop-firm payouts.", "/about/", body)
 
 
 
