@@ -1,0 +1,187 @@
+The week between Christmas and New Year is supposed to be the quietest week in markets. Desks are empty, and volume dries up.
+
+On the twenty ninth of December last year, gold fell about two hundred and twenty dollars before lunch in New York.
+
+One thirty minute candle alone covered about sixty four dollars.
+
+Measured against its recent normal, that was one of the twelve widest days in about ten years of gold futures.
+
+So is holiday trading quiet, or dangerous? Many traders believe one or the other.
+
+I measured every thin holiday session in gold since twenty sixteen, and every holiday session this year, candle by candle. Both beliefs are partly right.
+
+First, the rule, fixed before I looked at any result.
+
+I counted three kinds of thin sessions. Thanksgiving, when the US holiday and the half day after it share one daily candle in this data.
+
+Christmas Eve, the last session before Christmas Day. And every session from the twenty sixth to the thirty first of December.
+
+That gives sixty one thin sessions over ten holiday seasons.
+
+To judge each one, I compared its range, from high to low, with the average range of the twenty sessions before it.
+
+That matters, because gold was about one thousand dollars an ounce in twenty sixteen and above four thousand by the end of last year. A forty dollar day meant very different things.
+
+So every session is measured against its own recent normal, not in dollars.
+
+Here is the headline.
+
+The middle thin session had a range of about zero point eight two times its recent normal.
+
+The middle ordinary day was about zero point nine one.
+
+Why is an ordinary day under one? Because a few huge days pull the average up, so the typical day sits a bit below it.
+
+Compared like for like, thin sessions were about ten percent quieter than ordinary days.
+
+That is real, but it is smaller than many traders expect. The holidays did not switch the market off.
+
+Think of it this way. If gold usually moves fifty dollars from high to low in a session, a typical thin session moved about forty five.
+
+That is a difference you can feel on a chart, but not one that makes a trading plan on its own.
+
+The difference shows up more clearly at the edges.
+
+About thirty eight percent of thin sessions were quiet, with less than seventy percent of their normal range. On ordinary days, about twenty four percent.
+
+And wild sessions, with more than one and a half times their normal range, were rare. Two out of sixty one.
+
+On ordinary days, about one in eight days was that wild.
+
+So over the decade, thin sessions mostly delivered small, slow days, and very few blowups.
+
+Hold on to that word, mostly. One of those two wild sessions is the chart I opened with.
+
+The three kinds of thin sessions did not behave the same.
+
+Christmas Eve was the quietest. Its middle range was about zero point seven two times normal, and half of them were quiet days. None was wild.
+
+The quietest of all was Christmas Eve twenty twenty four. Price moved about eleven dollars sixty from high to low, about a quarter of its normal range.
+
+The week after Christmas came next, at about zero point seven eight.
+
+Thanksgiving was close to an ordinary day, at about zero point nine five.
+
+Part of that is how the data is built. The holiday and the busy half day after it share one candle, so a quiet Thursday is mixed with a normal Friday morning.
+
+Here is the part I did not expect.
+
+The range was smaller on thin days. But the distance from one close to the next was not.
+
+The middle close to close move was about zero point five one percent on thin days, and about zero point five two on ordinary days. Almost identical.
+
+So thin days did not go nowhere. They went about as far, with less back and forth on the way.
+
+You can see it in the candles. On thin days the body filled a bit more of the candle, about forty seven percent against forty two.
+
+For a trader, that changes the picture. A quiet holiday chart can still end the day at a very different price.
+
+It also means a smaller range is not a reason to tighten a stop. The noise shrank a little. The final move did not.
+
+A trader who cuts the stop in half because the chart looks sleepy is betting on the part that did not change.
+
+The daily candles hide what happens inside a session, so I went to thirty minute candles for the US holidays this year.
+
+This is Presidents Day, in February. Price drifted in a range of about fifty six dollars all day.
+
+Nineteen of the twenty nine candles were less than half their normal size for that time of day.
+
+And trading stopped early, in the early afternoon in New York.
+
+On an ordinary weekday, only about five percent of candles are that small.
+
+If you trade breakouts, a day like this is where they go to die. There is not enough activity to carry price anywhere.
+
+Across seven US holiday sessions this year, the pattern held.
+
+About thirty six percent of thirty minute candles were dead, under half their normal size. On normal weekdays, about five percent.
+
+Spikes, candles more than twice their normal size, almost vanished. About two percent, against about ten on normal days.
+
+Only one holiday had any spikes at all, Juneteenth in June.
+
+So on official US holidays, gold was not dangerous. It was simply slow.
+
+If you hold a trade into a session like this, expect very little, and expect it to end early.
+
+One more holiday deserves its own look, the Friday after Thanksgiving.
+
+Last year's Black Friday was unusual even by holiday standards. Trading stopped overnight and only restarted at eight thirty in the morning New York time, so there were just thirteen thirty minute candles before the early close.
+
+The middle candle was about zero point eight four times its normal size. Quieter, but not dead. Not one candle was under half its normal size.
+
+That fits the daily numbers. Thanksgiving was the most normal of the thin sessions, because this busy half day sits inside it.
+
+It is only one session, so I would not read much into it. But it is a reminder that the day after a holiday is not always a holiday too.
+
+Now back to the twenty ninth of December.
+
+That session's range was about two hundred and sixty five dollars, close to four times its recent normal.
+
+Among all two thousand seven hundred and nineteen days I measured, only eleven were wider, measured that way.
+
+And the days around it were busy too. From Christmas Eve to New Year's Eve, thirty minute candles ran about one point six times their normal size.
+
+About one in five candles was a spike. On normal days, one in ten.
+
+I am not going to guess at the reason. What matters is that it happened in the week everyone calls quiet.
+
+Look at each year's thin sessions on their own.
+
+From twenty sixteen to twenty twenty four, the middle thin session was quieter than normal every single year. Some years, like twenty twenty two, were barely above half.
+
+Twenty twenty five was the only year above normal, at about one point one three.
+
+Nine quiet seasons in a row can teach you to relax. Then the tenth is the one that hurts.
+
+When fewer traders are around, there are fewer orders resting on the chart. Most of the time, nothing pushes on that. But when something does, price can travel further, because less stands in the way.
+
+Thin means less activity. It does not mean less risk.
+
+What about the session after a thin day?
+
+It stayed quiet as well. The middle next session ran about zero point eight three times normal.
+
+I also tested one simple idea, fixed with the rule. Trade against the thin day's direction the next day, from open to close.
+
+It won only about forty four percent of the time. The average looks positive, about two hundred and fifty dollars after costs, but it comes from a few large days among only sixty one.
+
+And the same fade after ordinary days also averaged a gain. So there is nothing special about holidays here.
+
+I would not trade it.
+
+The real change comes when everyone is back.
+
+The first session of January had a middle range of about one point one eight times normal.
+
+None of the ten was quiet, and two were wild.
+
+So after two weeks of slow trading, the first full session of the year tended to wake up.
+
+If you plan to start the new year with a trade, give it room. The first day back was wider than most.
+
+Here is how I would use this.
+
+On official US holidays, I would expect a slow session with an early close. Breakouts have little behind them, and a trade can sit still all day.
+
+For the week between Christmas and New Year, I would not assume anything. Nine seasons were quieter than normal, and the tenth held one of the widest days in the data.
+
+So I would keep the same stop distance I use on a normal day, and smaller size, because thin markets can jump when something happens.
+
+Check the exchange holiday hours before you trade. Many of these sessions stop early.
+
+And on the first session of January, expect more movement, not less.
+
+The limits are real.
+
+Sixty one thin sessions over ten years is a small sample, and the thirty minute part covers only one holiday season.
+
+I measured range, not volume, so I can only say the market moved less, not exactly how many traders were missing.
+
+And one wild week moved the picture for twenty twenty five. Another season could look different again.
+
+If you want to see how much room a gold stop really needs, watch Same Entry, Two Stops. And for where price tends to overshoot, Do Round Numbers Trap Gold Traders.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.

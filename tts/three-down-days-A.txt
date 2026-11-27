@@ -1,0 +1,199 @@
+At the end of August, gold closed lower three days in a row. About two hundred and seventy dollars, gone.
+
+On the fourth day, a lot of traders think the same thing. It is due for a bounce.
+
+And this time, it did bounce. It closed about eighteen dollars higher.
+
+But look at how it got there. It first fell about forty dollars below the low of day three, and only then turned up.
+
+If your stop sat under that low, you were out before the bounce began.
+
+So I counted every three day losing streak in gold for almost eleven years. The bounce is real. Buying it is a different story.
+
+Here is the rule, fixed before I looked at any result.
+
+A down day is a day that closes below the close of the day before. Nothing else. Not the open, not the low.
+
+The signal is the close that makes exactly three down days in a row. If a fourth one follows, that counts as a streak of four, not a second signal.
+
+Then I look at the next day. Did it close higher or lower?
+
+And I test the simplest trade. Buy at the next day's open, sell at its close, one gold futures contract, after twenty four dollars fifty in costs.
+
+The data is CME gold futures, daily candles, from January twenty sixteen to November twenty twenty six. That is about two thousand seven hundred trading days.
+
+On about forty six percent of days, gold closed lower than the day before.
+
+Three in a row, exactly, happened one hundred and thirty eight times.
+
+That is about thirteen times a year, roughly once a month.
+
+So this is not a rare event. Most gold traders have lived through dozens of these streaks.
+
+Each of these marks is one real fourth day, in its place on ten years of gold. Watch where they gather. Some years have ten or more, some only seven.
+
+Twenty eighteen had the most, nineteen streaks in one year. Twenty twenty five had the fewest, only seven.
+
+That matters later, because the years with more streaks were not the years where the bounce worked best.
+
+First, the part the bounce traders get right.
+
+After three down days, the next day closed higher eighty one times out of one hundred and thirty eight. That is about fifty nine percent.
+
+On an ordinary day, gold closed higher about fifty three percent of the time.
+
+So yes, the fourth day was more likely to be up. About six points more likely.
+
+And the mirror test points the same way. After three up days in a row, the next day closed higher only about forty eight percent of the time.
+
+So streaks did tend to pause. If the story ended here, the bounce would look like an edge.
+
+Now the trade. Buy the fourth day at the open, sell at the close.
+
+About fifty five percent of those trades made money.
+
+And the average trade lost about one hundred and twenty three dollars after costs. Over all one hundred and thirty eight, about seventeen thousand dollars.
+
+For comparison, the same trade on every single day lost about twenty one dollars on average.
+
+So buying after three down days did worse than buying on a random day.
+
+More winners, and a bigger loss. That only happens one way.
+
+The size of the days decides it.
+
+When the fourth day closed higher, it gained about twelve dollars on average.
+
+When it closed lower, it lost about twenty two dollars.
+
+On normal days, the two sides are almost equal. About seventeen dollars up, about eighteen down.
+
+So after a three day drop, the bounces got smaller and the drops got bigger.
+
+Count the marks and the bounce wins. Measure them and it loses.
+
+A rising streak tells you something similar in my Gold Runs video. Long runs make the next move feel safe, when the size is what really matters.
+
+Remember the August example? It fell below day three's low before turning up.
+
+That happened a lot. The fourth day traded below day three's low about sixty five percent of the time.
+
+On ordinary days, the next day goes below the previous low about forty five percent of the time.
+
+So after a streak, the next day was far more likely to dig one more hole first.
+
+When it held above day three's low, it closed higher about eighty eight percent of the time.
+
+But you only know that at the close. At the open, you are buying both groups together.
+
+And for anyone with a stop under day three's low, two in three of these days touched it.
+
+One more problem. The gold price was about one thousand and seventy five dollars in twenty sixteen, and it went past five thousand this year.
+
+A forty dollar day meant something very different in each period. So I checked the results in percent too.
+
+From twenty sixteen to twenty nineteen, the fourth day closed higher about sixty six percent of the time, and the trade made money.
+
+From twenty twenty on, that fell to about fifty four percent, and the trade lost about twenty eight thousand dollars.
+
+Twenty twenty six alone had twelve signals. Six closed higher, and the trade lost about twelve thousand dollars.
+
+In percent terms, across the whole period, the average fourth day was close to zero. Slightly negative.
+
+So the old bounce has faded. What is left is close to nothing, after costs.
+
+Some of these streaks were gentle. A few were not.
+
+The five biggest three day drops in this data all happened in twenty twenty six.
+
+The largest was in March. Price fell about four hundred and thirty dollars in three days, close to nine percent.
+
+The fourth day did not bounce. It fell about one hundred and sixty eight dollars more.
+
+Three of those five biggest streaks were followed by another large down day.
+
+So the moments that feel most like a bargain were often the moments when selling had not finished.
+
+That is why the marks below the line are so long. A handful of crash days carry much of the loss.
+
+Is three the magic number? I checked other streak lengths with the same rule.
+
+After one down day, the next day closed higher about fifty six percent of the time. After two, about fifty five.
+
+After four, about fifty three, almost the same as any day.
+
+After five, about fifty six, but that happened only twenty seven times. Too few to trust.
+
+So three was the highest, but the differences are a few points, and they jump around.
+
+I showed how long gold's winning streaks lasted in Gold Runs, so I will not repeat it here. The same lesson holds. Streak length on its own tells you very little.
+
+One split stood out, and I want to be careful with it.
+
+I divided the streaks by how far gold fell over the three days. The middle drop was about twenty eight dollars.
+
+After the bigger drops, the fourth day closed higher about sixty two percent of the time, and the trade made about one hundred and thirty dollars on average.
+
+After the smaller drops, it closed higher about fifty five percent of the time, and the trade lost about three hundred and seventy seven dollars.
+
+It sounds logical. A sharp fall leaves more room to bounce.
+
+But I found this after looking at the results, and it uses only sixty nine trades on each side.
+
+So it needs forward testing before anyone leans on it.
+
+Here is what the bad side looks like. June twenty twenty six.
+
+The price closed lower three sessions in a row, in the third week of June.
+
+The fourth day opened about twenty dollars below the last close, and never looked back.
+
+It fell through day three's low within hours, and closed about one hundred and forty dollars lower.
+
+One contract bought at that open lost about twelve thousand dollars by the close.
+
+One day like this erases many small bounces. That is the whole result in one chart.
+
+Why would a market bounce more often, and still lose more?
+
+One possible reason is who is trading on day four.
+
+After three red candles, many traders buy early, expecting the bounce, and place their stops just under day three's low.
+
+If price dips to that low, those stops turn into sell orders, and the dip gets deeper.
+
+On most days the selling dries up and price recovers. That gives the many small bounces.
+
+On some days the selling keeps going. That gives the few big drops.
+
+I cannot prove this from candles alone. But it fits both numbers: the shakeout below day three's low, and the lopsided size of the days.
+
+Here is how I would use this.
+
+A three day losing streak, on its own, is not a reason to buy gold. The odds of an up day are a little better, and the money is worse.
+
+If you already like a long trade for other reasons, expect the fourth day to test day three's low. That happened about two times in three.
+
+A stop placed just under that low is likely to be hit, even on days that end up green.
+
+And size your risk for a bigger move. After a streak, the down days were nearly twice the size of the up days.
+
+If you trade gold through a broker's spot price instead of futures, the moves are the same, but your costs are different. Check them before you test anything like this.
+
+The point is not to fear the fourth day. It is to stop treating it as a gift.
+
+The limits matter.
+
+This is gold futures on daily candles, with one definition of a down day and one simple trade.
+
+Holding for more than one day, or entering at a different time, could give a different answer.
+
+Recent years carry more weight in dollars, because gold was so much more expensive.
+
+And the splits by era and by drop size are found after looking. They need forward testing.
+
+If you want to see how far gold's runs go before a pullback, watch Gold Runs next. And for where a stop really belongs, Same Entry, Two Stops.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
