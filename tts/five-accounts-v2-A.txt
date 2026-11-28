@@ -1,0 +1,171 @@
+Your five funded accounts can all hit their loss line in the same minute. Watch one stop do it.
+
+A buy at the open. A stop about a hundred and fifty points lower. The first thirty minutes run straight through it.
+
+On one account with one micro, that is a loss of about three hundred dollars. A bad morning, nothing more.
+
+Now copy that trade onto five accounts. Same entry, same stop, same minute. The loss is about fifteen hundred dollars, and all five accounts take it at once.
+
+That is the side of copy trading nobody puts in a payout video. So today, the pack of five. What it pays, what it costs, and what really happens when all five go wrong on the same day. I ran ten thousand simulations to find out.
+
+Here is how a pack works.
+
+One account is the lead. I place the trade there. A copier sends the same order to the other four, at the same moment, at the same size.
+
+So when I buy one micro on the lead, all five buy one micro. When I exit, all five exit.
+
+On screen, it looks like five accounts. In the market, it is one position, five times the size.
+
+That sentence is the whole video. Everything that follows comes from it.
+
+So why do it at all?
+
+Because the work is the same. One plan, one chart, one decision. And when the plan works, it pays five times.
+
+I did not start like this. I started with one fifty thousand dollar account. The pack came later, once the process had shown it could survive the rules.
+
+Today, a single payout on this channel is one of five. When you see one, picture four more behind it.
+
+And that is also the catch. The same key opens all five locks. If the key is wrong, all five stay shut.
+
+You may have seen the last episode. I recorded all five payout requests from this pack, start to finish, and all five were paid, about thirteen thousand three hundred dollars each.
+
+It is linked above, so I will not walk through it again.
+
+This video is about the part that recording cannot show. The day the same pack loses five times.
+
+First, the part that a payout screen never shows.
+
+This is my evaluation wall. Many passed. Many lost.
+
+Every one of those was a fee, a few weeks of work, and a rulebook I had to learn the hard way.
+
+Some ended on one bad day. Some ended on a rule that was easy to miss. And when you trade in packs, a loss can come five at a time.
+
+Every new pack also starts from zero. New fees, new evaluations, new days of waiting, five at a time.
+
+So when you see five payouts land together, they sit on top of a pile of tickets that did not pay.
+
+I am not going to put a count on it. The point is the shape of the road, not the score. Across all of it, my record stands at over three hundred thousand dollars in prop-firm payouts.
+
+Let us slow that opening trade down. One position, five times the size.
+
+When the trade wins, every account wins the same amount. When it loses, every account loses the same amount.
+
+So if I risk three hundred dollars on a trade, the pack risks fifteen hundred.
+
+And the lines under the accounts do not care that I think of it as one small trade. Each account sees its own loss, and each one moves closer to its own line by exactly the same distance.
+
+If one account touches its line, the other four are touching theirs in the same minute. They were built the same way, and they fall the same way.
+
+Here is a second day, in July. The first half hour fell about two hundred and eighty five points.
+
+Five separate traders might have five different bad days, spread across a month. Their losses come one at a time.
+
+A pack has one bad day, five times over. The same news release, the same spike, the same mistake, in every account at once.
+
+That is the hidden cost of copying. Your accounts look like a portfolio, but they behave like a single bet.
+
+So I wanted to measure it. Not guess. Measure.
+
+I built an example pack. Five fifty thousand dollar accounts, each with a fixed two thousand dollar line.
+
+It uses the same example trader as the drawdown video. Real Nasdaq sessions from the last year, one micro per account, a three hundred dollar daily stop, and a small edge.
+
+Then I ran it two ways.
+
+Copied. All five accounts take the same trade on the same day, exactly like my pack.
+
+And spread. Each account takes a different day, as if five unrelated ideas were running side by side.
+
+Sixty trading days, ten thousand runs each. Same trader, same rules, same average edge. The only difference is whether the five accounts move together.
+
+Here is what happened.
+
+In the copied pack, all five accounts were lost together in about forty two percent of runs.
+
+In the spread pack, losing all five happened in about one run in a hundred.
+
+And look at the other end. In the copied pack, all five survived in about fifty eight percent of runs. In the spread pack, only about seven percent of runs kept every account alive.
+
+So copying does not make you lose more accounts on average. It changes how you lose them. Spread accounts fail one at a time. Copied accounts fail all at once, or not at all.
+
+For a pack, there is almost no middle. You either keep the whole pack, or you start again from zero.
+
+Now the part that surprised me.
+
+The average number of accounts lost was almost the same. About two out of five, in both versions.
+
+But the pack as a whole did better when it was spread. After sixty days, the spread pack was ahead in about sixty nine percent of runs. The copied pack, about fifty percent.
+
+The typical result was about three thousand four hundred dollars ahead for the spread pack, and about three hundred for the copied one.
+
+Why? Because a spread pack lets the surviving accounts keep earning after the others fall. A copied pack has nobody left to earn when it falls.
+
+So copying is not a way to spread risk. It is a way to multiply one idea. If the idea is good and the size is right, that is powerful. If not, it is five times the damage, on one day.
+
+There is another risk that has nothing to do with the market. The copier itself.
+
+A follower account can miss an order, fill at a different price, or stay open after the lead has closed. One slow connection is enough.
+
+When that happens, your five identical accounts stop being identical. One is suddenly further from its line than the others, and you might not notice until the close.
+
+And the rules matter here too. Copying between your own accounts is often allowed. But many firms cap how many funded accounts one person can hold. Holding opposite positions across accounts is commonly banned. And copying someone else's trades, or sharing accounts, usually ends all of them.
+
+A simple habit helps. After every trade, look at all five positions, not just the lead. If one account is still open when the others are flat, close it by hand before doing anything else.
+
+And if a copier fails twice in a week, trade one account until you know why. A broken copier turns one plan into five different trades, and nobody planned those.
+
+None of this is the same at every firm. Read the copy trading section of your own rules before you connect anything.
+
+So here is what this test says about running a pack.
+
+Size the pack as one position. If the plan allows a certain loss for the day, that number is for all five together, not for each one.
+
+Check every account after every trade, not just the lead. Five balances, five open positions, five lines.
+
+And keep the pack at a size where one normal bad day cannot touch any of the lines.
+
+That daily limit matters more than anything else in the pack. I reran the copied test with one change. The daily stop cut from three hundred dollars to a hundred and fifty, for each account.
+
+Losing all five together fell from about forty two percent of runs to about twenty six.
+
+Keeping all five rose from about fifty eight percent to about seventy four.
+
+The pack finished ahead in about sixty one percent of runs, instead of about fifty. And the typical result went from about three hundred dollars ahead to about four thousand.
+
+The worst pack day halved too, from about fifteen hundred dollars to about seven hundred and fifty. That is the opening trade again, at half the damage.
+
+Same trader, same edge, same copier. A tighter limit on the whole pack did more than any clever entry could.
+
+These numbers come from one example trader, found after looking, and they need forward testing before anyone leans on them. But the direction is hard to argue with.
+
+And I accept the trade-off. My pack lives and dies together. I would rather know that in advance than learn it on the day.
+
+So what do those five payouts actually mean?
+
+They mean the plan worked on these five accounts, this time. They do not mean it will work on the next five. And they are not all profit, because every lost evaluation came before them.
+
+If you want the full math of fees against payouts, the break-even video does exactly that. I will not repeat it here.
+
+What I want you to take from this one is simpler. When you see five accounts paid at once, you are looking at one decision that went right five times. The same decision can go wrong five times too.
+
+That is not a reason to avoid packs. It is a reason to size them like one big account, because that is what they are.
+
+A few honest limits.
+
+The payouts are one real event in my own record. They show what happened once, not what will happen next.
+
+The pack test uses an example trader on one year of Nasdaq, with a fixed line, a fixed stop and a small fixed edge. Real packs change size and skip days.
+
+And the rule types are general. Firms change their copy trading rules, so always read the current page.
+
+So, five accounts, one trade. It pays five times when you are right, and it costs five times when you are wrong, on the same day.
+
+Size the pack as one position, watch every account, and read the copy trading rules before you connect anything.
+
+And if you are not running a pack yet, there is no rush. Start with one affordable account, find your edge there, and add accounts only once the process has survived the rules. That is how mine started.
+
+My free tools and research are on our website. The link is in the description.
+
+Research, not advice. I will see you on the next chart.
